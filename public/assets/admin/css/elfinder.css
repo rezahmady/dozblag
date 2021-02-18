@@ -1,0 +1,47 @@
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    background: #f3f3f3;
+}
+
+.ui-widget-header {
+    background: #f3f3f3;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: none;
+    background: #efefef !important;
+    font-weight: normal;
+    color: #212121;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    border: 1px solid #aaaaaa;
+    background: #efefef;
+    font-weight: normal;
+    color: #212121;
+}
+
+.ui-selected,
+.ui-widget-content .ui-selected,
+.ui-widget-header .ui-selecte {
+    background: none;
+    border: solid 1px #efefef;
+}
+
+.ui-widget-header {
+    background: #5cc8fb;
+}
+
+.elfinder-cwd-view-icons .elfinder-cwd-icon.elfinder-cwd-bgurl:before {
+    left: -10px;
+    background: #e8ffd0;
+    color: #6faf29;
+}
