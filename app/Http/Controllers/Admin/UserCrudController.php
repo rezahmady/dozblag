@@ -222,36 +222,19 @@ class UserCrudController extends CrudController
                 'tab'   => 'مشخصات فردی',
             ],
             [
-                // two interconnected entities
-                'label'             => trans('backpack::permissionmanager.user_role_permission'),
-                'tab'               => trans('backpack::permissionmanager.user_role_permission'),
-                'field_unique_name' => 'user_role_permission',
-                'type'              => 'checklist_dependency',
-                'name'              => ['roles', 'permissions'],
-                'tab'               => 'دسترسی',
-                'subfields'         => [
-                    'primary' => [
-                        'label'            => trans('backpack::permissionmanager.roles'),
-                        'name'             => 'roles', // the method that defines the relationship in your Model
-                        'entity'           => 'roles', // the method that defines the relationship in your Model
-                        'entity_secondary' => 'permissions', // the method that defines the relationship in your Model
-                        'attribute'        => 'name', // foreign key attribute that is shown to user
-                        'model'            => config('permission.models.role'), // foreign key model
-                        'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
-                        'number_columns'   => 3, //can be 1,2,3,4,6
-                    ],
-                    'secondary' => [
-                        'label'          => ucfirst(trans('backpack::permissionmanager.permission_singular')),
-                        'name'           => 'permissions', // the method that defines the relationship in your Model
-                        'entity'         => 'permissions', // the method that defines the relationship in your Model
-                        'entity_primary' => 'roles', // the method that defines the relationship in your Model
-                        'attribute'      => 'display_name', // foreign key attribute that is shown to user
-                        'model'          => config('permission.models.permission'), // foreign key model
-                        'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
-                        'number_columns' => 3, //can be 1,2,3,4,6
-                    ],
+                'label'        => "تصویر پروفایل",
+                'name'         => 'profile',
+                'fake'  => true,
+                'type' => 'image',
+                'crop' => true, // set to true to allow cropping, false to disable
+                'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+                // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+                'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+                'wrapper'      => [
+                    'class'  => "form-group col-12 ltr"
                 ],
-            ],
+                'tab'   => 'مشخصات فردی',
+            ]
         ]);
 
         $this->useTemplate($template);

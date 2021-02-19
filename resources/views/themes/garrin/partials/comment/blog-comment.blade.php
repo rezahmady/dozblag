@@ -1,11 +1,21 @@
 <li>
     <div class="comment" id="comment_{{$comment->id}}">
         <div class="comment-author">
-            <img class="avatar" alt="" src="{{url('assets/garrin/img/user.svg')}}">
+            @php
+                if($user and $user->profile) {
+                    $profile = url($user->profile);
+                } else {
+                    $profile = url('assets/garrin/img/user.svg');
+                }
+
+                $name = ($user) ? $user->name : $comment->name;
+                
+            @endphp
+            <img class="avatar" alt="" src="{{$profile}}">
         </div>
         <div class="comment-block">
             <span class="comment-by">
-                <span class="blog-author-name">{{ $comment->name }}</span>
+                <span class="blog-author-name">{{ $name }}</span>
             </span>
             <p>{{ $comment->body }}</p>
             <p class="blog-date">6 مهر 1399</p>

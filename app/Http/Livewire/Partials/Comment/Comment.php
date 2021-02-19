@@ -10,9 +10,12 @@ class Comment extends Component
 
     public $comment;
 
+    public $user;
+
     public function mount($comment)
     {
         $this->comment = $comment;
+        $this->user = ($comment->user) ? $comment->user->withFakes() : null;
     }
 
     protected $listeners = [
