@@ -70,7 +70,7 @@ class CreateComment extends Component
             $this->name = auth()->user()->name;
             $this->user_id = auth()->id();
         }
-        $status = (backpack_user()->can('post update')) ? 1 : 0;
+        $status = (auth()->check() and backpack_user()->can('post update')) ? 1 : 0;
         
         Comment::create([
             'name'       => $this->name,
