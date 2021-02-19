@@ -1286,3 +1286,8 @@ input[type="submit"] {
         box-shadow: 0 10px 40px 0 rgba(0, 0, 0, .09);
     }
 }
+
+.service-list ul li::before {
+    content: '\f30a' !important;
+    font-family: "Font Awesome 5 Free";
+}

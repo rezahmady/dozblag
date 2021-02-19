@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\PageRender;
 use App\Http\Livewire\PostRender;
 use App\Http\Livewire\Product\Show;
+use App\Http\Livewire\User\DoctorProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -116,6 +117,8 @@ Route::get('download', function(Request $request)
 });
 Route::get('/product/{product:slug}', Show::class)->name('product.show');
 Route::post('/form/{page:id}', [FormController::class, 'save'])->name('form.save');
+
+Route::get('/doctor/{user:id}', DoctorProfile::class)->name('doctor.show');
 
 Route::get('mag/{article:slug}/{subs?}', PostRender::class)
     ->where(['article' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*'])->name('article');
