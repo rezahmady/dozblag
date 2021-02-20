@@ -127,6 +127,7 @@ return [
         'packages/backpack/base/js/bundle.js',
         'assets/admin/js/admin.js',
         // 'assets/admin/js/app.js',
+        'assets/js/app.js',
         // 'https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js',
 
         // examples (everything inside the bundle, loaded from CDN)

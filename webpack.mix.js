@@ -32,7 +32,7 @@ mix.scripts([
     'resources/views/themes/garrin/assets/js/script.js',
 ], 'public/assets/garrin/js/theme.js');
 
-// mix.js("resources/js/app.js", "public/assets/js")
+mix.js("resources/js/app.js", "public/assets/js");
 //     .postCss("resources/css/app.css", "public/assets/css", [
 
 //         require("tailwindcss"),
