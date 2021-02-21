@@ -52,10 +52,25 @@ class User extends Authenticatable
         'extras'         => 'object',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+
     public function parent() {
         return $this->belongsTo(self::class);
     }
-        /*
+
+    public function rooms() {
+        return $this->hasMany(Room::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Chat::class);
+    }
+
+    /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
