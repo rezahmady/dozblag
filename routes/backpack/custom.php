@@ -32,4 +32,5 @@ Route::group([
     Route::get('article/comment/{comment:id}/approvedComment', 'CommentCrudController@approvedComment');
     Route::get('article/comment/{comment:id}/rejectComment', 'CommentCrudController@rejectComment');
     Route::crud('user/doctor/comment', 'CommentDoctorCrudController');
+    Route::get('chat', 'Chat\Index')->name('chat.index');
 }); // this should be the absolute last line of this file
