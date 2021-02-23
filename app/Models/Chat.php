@@ -19,6 +19,7 @@ class Chat extends Model
         'body',
         'user_id',
         'room_id',
+        'parent_id',
         'extras'
     ];
 
@@ -47,6 +48,11 @@ class Chat extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Self::class, 'parent_id');
     }
 
 }
