@@ -109,3 +109,5 @@
     </ul>
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon la la-envelope-o'></i> صندوق پیام</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('room') }}'><i class='nav-icon la la-question'></i> Rooms</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('chat') }}'><i class='nav-icon la la-question'></i> Chats</a></li>

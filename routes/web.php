@@ -127,7 +127,7 @@ Route::get('mag/{article:slug}/{subs?}', PostRender::class)
 Route::get('{modelPage}/{subs?}', PageRender::class)
     ->where(['modelPage' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*'])->name('page');
 
-
+   
 
 
 

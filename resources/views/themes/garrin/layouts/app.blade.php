@@ -317,7 +317,7 @@
         <!-- Links of JS files -->
         <script src="{{ mix('/assets/garrin/js/theme.js') }}" defer></script>
         <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
-		<script src="{{ mix('/assets/js/app.js') }}" defer></script>
+		<script src="{{ mix('/assets/js/app.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js" defer integrity="sha512-UU0D/t+4/SgJpOeBYkY+lG16MaNF8aqmermRIz8dlmQhOlBnw6iQrnt4Ijty513WB3w+q4JO75IX03lDj6qQNA==" crossorigin="anonymous"></script>
         @livewireScripts
         @stack('custom-script')

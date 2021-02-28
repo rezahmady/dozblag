@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Blade;
+use App\View\Components\RoomListItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Blade::component('room-list-item', RoomListItem::class);
         Paginator::useBootstrap();
 
                 /**
