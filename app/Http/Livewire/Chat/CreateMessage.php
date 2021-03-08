@@ -23,7 +23,16 @@ class CreateMessage extends Component
 
     public $room;
 
+    protected $listeners = [
+        'rerenderCreateMessage',
+    ];
+
     public function mount(Room $room)
+    {
+        $this->room = $room;
+    }
+
+    public function rerenderCreateMessage(Room $room)
     {
         $this->room = $room;
     }

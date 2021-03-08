@@ -1,17 +1,5 @@
-<div class="chat position-relative" >
-    <div class="chat-header">
-        <div class="chat-header-user">
-            <figure class="avatar avatar-md">
-                <img src="{{$audience->profile}}" class="rounded-circle">
-            </figure>
-            <div>
-                <h5>{{$audience->name}}</h5>
-                <small class="text-muted">
-                    <i>آنلاین</i>
-                </small>
-            </div>
-
-        </div>
+    <div class="chat-header" x-data="data()" x-init="hiddenLoader()">
+        <livewire:chat.room-user-status :room="$room" :audience="$audience" :onlineUsers="$onlineUsers" :key="'room-user-status'.$audience->id" />
         <div class="chat-header-action">
             <ul class="list-inline">
                 <li class="list-inline-item">
@@ -39,14 +27,9 @@
             </ul>
         </div>
     </div>
-    <livewire:chat.messages :room="$room" />
+    <x-messages :room="$room" :audience="$audience" />
     
     <livewire:chat.create-message :room="$room" />
 
-    <div x-show="loadingRoom" class="loading-holder">
-        <div class="container p-3 empty-chat-holder" >
-            <div  class="empty-chat-img loader-spiner-01"></div>
-        </div>
-    </div>
-</div>
+
 

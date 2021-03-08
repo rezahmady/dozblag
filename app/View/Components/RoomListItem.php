@@ -36,9 +36,7 @@ class RoomListItem extends Component
 
     public function incrementUnread()
     {
-        dd($this->currentRoom);
         $this->unread++;
-
     }
 
     public function selectRoom()
@@ -47,20 +45,14 @@ class RoomListItem extends Component
         $this->unread = 0;
     }
 
-
-    public function render()
-    {
-        return view('livewire.chat.room-list-item');
-    }
-
-
     /**
      * Get the view / contents that represent the component.
      *
      * @return \Illuminate\Contracts\View\View|string
      */
-    // public function render()
-    // {
-    //     return view('components.room-list-item');
-    // }
+    public function render()
+    {
+        return view('livewire.chat.room-list-item');
+    }
+
 }

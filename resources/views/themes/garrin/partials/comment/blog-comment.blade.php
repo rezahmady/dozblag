@@ -2,16 +2,16 @@
     <div class="comment" id="comment_{{$comment->id}}">
         <div class="comment-author">
             @php
-                // if($user and $user->profile) {
-                //     $profile = url($user->profile);
-                // } else {
-                //     $profile = url('assets/garrin/img/user.svg');
-                // }
+                if($user and $user->profile) {
+                    $profile = url($user->profile);
+                } else {
+                    $profile = url('assets/garrin/img/user.svg');
+                }
 
                 $name = ($user) ? $user->name : $comment->name;
                 
             @endphp
-            <img class="avatar" alt="" src="{{$user->profile}}">
+            <img class="avatar" alt="" src="{{$profile}}">
         </div>
         <div class="comment-block">
             <span class="comment-by">

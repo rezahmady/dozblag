@@ -8,7 +8,7 @@
                 <i class="fa fa-stop voice-btn player-btn-stop"></i>
             </button>
             
-            <div class="wave-holder">
+            <div class="wave-holder" dir="ltr">
                 <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
             </div>
             <button class="btn btn-floating" x-on:click="deleteRecording();open_voic = false" type="button">
@@ -30,24 +30,32 @@
             </button>
         </div>
     </form>
-    <script>
-        // var div = document.querySelector('#ta-frame');
-        // var ta =  document.querySelector('textarea');
-    
-        // ta.addEventListener('keydown', autosize);
-    
-        
-        // document.addEventListener("DOMContentLoaded", () => {
-        //     $(document).ready(function(){
-        //         var $textarea = $('#textarea');
-        //         $textarea.on('keyup', RTLText.onTextChange);
-        //         $textarea.on('keydown', RTLText.onTextChange);
-        //         RTLText.setText($textarea.get(0), $textarea.val());
-        //     });
-        // });
-    </script>
+
 </div>
+<script>
+    // var div = document.querySelector('#ta-frame');
+    // var ta =  document.querySelector('textarea');
 
+    // ta.addEventListener('keydown', autosize);
 
-
-
+    
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     $(document).ready(function(){
+    //         var $textarea = $('#textarea');
+    //         $textarea.on('keyup', RTLText.onTextChange);
+    //         $textarea.on('keydown', RTLText.onTextChange);
+    //         RTLText.setText($textarea.get(0), $textarea.val());
+    //     });
+    // });
+    // Essential_Audio.Reset("player-audio");
+    // var wavesurfer = WaveSurfer.create({
+        //     container: '#waveform',
+        //     scrollParent: true
+        // });
+        // wavesurfer.load('https://essential.audio/audio/Song.mp3');
+    console.log('before event');
+    window.addEventListener('playAudio', event => {
+        console.log('event fire');
+        new GreenAudioPlayer('.wave-holder');
+    })
+</script>

@@ -15,18 +15,25 @@ use Illuminate\Support\Facades\Broadcast;
 
 
 Broadcast::channel('consultation.added', function ($user) {
-    // return (int) $user->id === (int) $id;
-    return auth()->user();
+    return true;
+});
+
+Broadcast::channel('chat', function ($user) {
+    return Arr::only($user->toArray(), [
+        'id', 'name'
+    ]);
 });
 
 Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
-    // return (int) $user->id === (int) $id;
-    return auth()->user();
+    return Arr::only($user->toArray(), [
+        'id', 'name'
+    ]);
 });
 
 Broadcast::channel('chat.{roomId}.user.{sender}', function ($user, $roomId, $sender) {
-    // return (int) $user->id === (int) $sender;
-    return auth()->user();
+    return Arr::only($user->toArray(), [
+        'id', 'name'
+    ]);
 });
 
 // Broadcast::channel('App.Models.User.{id}', function ($user, $id) {

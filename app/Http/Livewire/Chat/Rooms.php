@@ -9,9 +9,14 @@ class Rooms extends Component
 {
     public $rooms;
 
+    public function selectRoom()
+    {
+        $this->unread = 0;
+    }
+
     public function getListeners() {
         return [
-            "echo-private:chat.1,Chat\\MessageAdded" => '$refresh',
+            "refreshRooms" => '$refresh',
         ];
     }
 

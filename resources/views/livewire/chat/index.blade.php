@@ -50,7 +50,7 @@
                 <header>
                     <span>چت ها</span>
                     <ul class="list-inline">
-                        <li class="list-inline-item" data-toggle="tooltip" title="گروه جدید" >
+                        {{-- <li class="list-inline-item" data-toggle="tooltip" title="گروه جدید" >
                             <a class="" href="#" data-toggle="modal" data-target="#newGroup">
                                 <i class="fa fa-users"></i>
                             </a>
@@ -64,13 +64,14 @@
                             <a href="#" class="btn btn-light sidebar-close">
                                 <i class="ti-close"></i>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </header>
                 <form action="#">
                     <input type="text" class="form-control" placeholder="جستجوی چت">
                 </form>
-                <livewire:chat.rooms />
+                {{-- <livewire:chat.rooms /> --}}
+                <x-rooms />
             </div>
             <!-- ./ Chats sidebar -->
 
@@ -196,7 +197,16 @@
         <!-- ./ sidebar group -->
 
         <!-- chat -->
-        <livewire:chat.room :room="$currentRoom" />
+        {{-- <livewire:chat.room :room="$currentRoom" /> --}}
+        <div class="chat position-relative" >
+            <x-room :room="$currentRoom" :audience="$audience" :onlineUsers="$onlineUsers" />
+
+            <div x-show="loadingRoom" class="loading-holder">
+                <div class="container p-3 empty-chat-holder" >
+                    <div  class="empty-chat-img loader-spiner-01"></div>
+                </div>
+            </div>
+        </div>
         <!-- ./ chat -->
 
         <div class="sidebar-group">
@@ -378,14 +388,12 @@
         return {
             loadingRoom: @entangle('loadingRoom'),
             currentRoom: @entangle('currentRoom'),
-            setRoom(id) {
-                this.currentRoom = id;
+            setRoom() {
                 this.loadingRoom = true;
-                Livewire.emit('setRoom', id)
             },
-            open() { this.show = true },
-            close() { this.show = false },
-            isOpen() { return this.show === true },
+            hiddenLoader() {
+                this.loadingRoom = false;
+            },
         }
     }
     
@@ -404,6 +412,27 @@
         location.href = '#'+event.detail.hash;
         document.getElementById("textarea").focus();
     })
+
+    window.addEventListener('scrollToBottom', event => {
+        var element = document.getElementById("messages-holder");
+        element.scrollIntoView({
+            block: "end",
+            behavior: "smooth"
+        });
+        document.getElementById("textarea").focus();
+    })
+
+    // Echo.join('chat')
+    //     .here((users) => {
+    //         console.log(users);
+    //         window.Livewire.emit('setUsersHere', users)
+    //     })
+    //     .joining((user) => {
+    //         window.Livewire.emit('setUserJoining', user)
+    //     })
+    //     .leaving((user) => {
+    //         window.Livewire.emit('setUserLeaving', user)
+    //     });
    
 
 </script>

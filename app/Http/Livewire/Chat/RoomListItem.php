@@ -16,23 +16,22 @@ class RoomListItem extends Component
 
     public $currentRoom;
 
-    public function getListeners() {
-        return [
-            "echo-private:chat.{$this->room->id},Chat\\MessageAdded" => "incrementUnread",
-        ];
+    public $status;
+
+    public function setStatusOnline()
+    {
+        return $this->status = 1;
     }
+
+    // public function getListeners() {
+    //     return [
+    //         "echo-private:chat.{$this->room->id},Chat\\MessageAdded" => "incrementUnread",
+    //     ];
+    // }
 
     public function incrementUnread()
     {
-        dd($this->currentRoom);
         $this->unread++;
-
-    }
-
-    public function selectRoom()
-    {
-        // $this->emit('setRoom', $this->room->id);
-        $this->unread = 0;
     }
 
     public function mount(Room $room)

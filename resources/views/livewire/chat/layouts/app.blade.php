@@ -8,12 +8,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>پلت فرم گفت و گو و بحث</title>
 
+    {{-- <script src="https://unpkg.com/wavesurfer.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.min.js" defer></script>
     <script src="{{asset('packages/chatino/js/vendor/recorder/recorder.js')}}" ></script>
+    {{-- <script src="{{asset('packages/chatino/js/vendor/audioPlayer/essential_audio.js')}}" defer></script> --}}
     <!-- Favicon -->
     {{-- <link rel="icon" href="dist/media/img/favicon.png" type="image/png"> --}}
     @livewireStyles
+    <script src="{{ mix('/assets/js/app.js') }}"></script>
+    
+    
     <!-- Soho css -->
     <link rel="stylesheet" href="/packages/chatino/css/soho.min.css">
+    
+    {{-- <link rel="stylesheet" href="/packages/chatino/js/vendor/audioPlayer/essential_audio.css"></link> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/css/green-audio-player.min.css">
 </head>
 <body class="rtl">
 
@@ -480,6 +489,7 @@
 <!-- JQuery -->
 <script src="/packages/chatino/js/vendor/jquery-3.4.1.min.js" defer></script>
 
+
 <!-- Popper.js -->
 <script src="/packages/chatino/js/vendor/popper.min.js" defer></script>
 
@@ -494,11 +504,11 @@
 
 <!-- Examples -->
 {{-- <script src="/packages/chatino/js/examples.js"></script> --}}
-<script src="{{ mix('/assets/js/app.js') }}"></script>
 {{-- <script src="{{ asset('/packages/chatino/js/vendor/RTLText.module.js') }}" defer></script> --}}
 <script src="{{asset('packages/alpinejs/alpine.min.js')}}" defer></script>
 <script src="{{asset('packages/chatino/js/vendor/recorder/app.js')}}" defer></script>
 @livewireScripts
+@stack('scripts')
 </body>
 
 </html>

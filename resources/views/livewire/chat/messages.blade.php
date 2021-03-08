@@ -1,4 +1,4 @@
-<div class="chat-body" id="chat-body"> 
+<div class="chat-body" id="chat-body" > 
     <div class="messages" id="messages-holder" >
         @php
             $messages_grouped = [];
@@ -32,9 +32,25 @@
         @endforeach
         
     </div>
-    <script>
-        // Your JS here.
-        var element = document.getElementById("messages-holder");
-        element.scrollIntoView(false);
-    </script>
 </div>
+<script>
+    // Your JS here.
+    var element = document.getElementById("messages-holder");
+    element.scrollIntoView({
+        block: "end",
+        behavior: "smooth"
+    });
+
+
+    Echo.channel('private-chat.{{$room->id}}')
+    .listen('Chat\\MessageAdded', (e) => {
+        window.Livewire.emit('prependMessageFromBroadcasting', e)
+    }).listen('Chat\\MessageSeen', (e) => {
+        window.Livewire.emit('refreshRooms')
+    });
+
+    Echo.channel('private-chat.{{$room->id}}.user.{{auth()->id()}}')
+    .listen('Chat\\MessageSeenResponse', (e) => {
+        window.Livewire.emit('refreshRooms')
+    })
+</script>
