@@ -396,6 +396,29 @@
             },
         }
     }
+
+    function CreateMessage() {
+        return {
+            voice_holder: false,
+            buttons_holder: false,
+            open_voice() {
+                this.buttons_holder = false;
+                this.voice_holder = true;
+            },
+            close_voice() {
+                this.voice_holder = false;
+            },
+            open_buttons() {
+                this.buttons_holder = true;
+            },
+            close_buttons() {
+                this.buttons_holder = false;
+            },
+            toggle_buttons() {
+                this.buttons_holder = ! this.buttons_holder;
+            }
+        }
+    }
     
     function autosize(div,ta) {
         setTimeout(function() {

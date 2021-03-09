@@ -7,6 +7,7 @@ use App\Models\Chat;
 use App\Models\Room;
 use App\Events\Chat\MessageAdded;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class CreateMessage extends Component
 {
@@ -19,7 +20,9 @@ class CreateMessage extends Component
 
     public $reply;
 
-    public $file;
+    public $photos = [];
+
+    public $voice;
 
     public $room;
 
@@ -56,8 +59,42 @@ class CreateMessage extends Component
         
         broadcast(new MessageAdded($this->room->id, $message->id, $sender))->toOthers();
 
-        $this->body = $this->parent_id = $this->score = $this->reply = null;
+        $this->resetProperties();        
+
+    }
+
+    public function updatedPhotos()
+    {
+        $this->validate([
+            'photos.*' => 'image|max:5024',
+        ]);
+    }
+
+    public function saveVoice($voice)
+    {
         
+        $resource = "/.tmb/voice/{$voice}";
+        $destination = "uploads/chat/voice/{$voice}";
+        Storage::disk('local')->move($resource, $destination);
+
+        $message = auth()->user()->messages()->create([
+            'body'       => $voice,
+            'room_id'    => $this->room->id,
+            'parent_id'  => $this->parent,
+            'type'       => 'voice',
+        ]);
+            
+        $this->emit('message-added', $message->id);
+
+        $sender = auth()->id();
+        
+        broadcast(new MessageAdded($this->room->id, $message->id, $sender))->toOthers();
+
+        $this->resetProperties();
+    }
+
+    public function savePhotos()
+    {
 
     }
 
@@ -65,6 +102,10 @@ class CreateMessage extends Component
         $this->body = $body;
     }
 
+    public function resetProperties()
+    {
+        $this->body = $this->parent_id = $this->score = $this->reply = $this->photos = null;
+    }
 
     public function render()
     {

@@ -18,7 +18,16 @@
                         $seen = '';
                     }
                 @endphp
-                {{-- <livewire:chat.message :message="$message" /> --}}
+                @if ($message->type == 'voice');
+                <div class="message-item {{$class}}" id="message-{{$message->id}}">
+                    <div class="message-content player" dir="ltr">
+                        <audio src="{{url("/uploads/chat/voice/{$message->body}")}}"></audio>
+                    </div>
+                    <div class="message-action">
+                        {{$message->time}} {!! $seen !!}
+                    </div>
+                </div>
+                @else
                 <div class="message-item {{$class}}" id="message-{{$message->id}}">
                     <div class="message-content">
                         {!! $message->body !!}
@@ -27,6 +36,7 @@
                         {{$message->time}} {!! $seen !!}
                     </div>
                 </div>
+                @endif
                 
             @endforeach
         @endforeach

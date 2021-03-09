@@ -28,6 +28,11 @@ class Index extends Component
         'echo-presence:chat,here'                           => 'setUsersHere',
     ];
 
+    public function dehydrate()
+    {
+        $this->dispatchBrowserEvent('playAudio');
+    }
+
     public function setUsersHere($users) 
     {
         

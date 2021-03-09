@@ -1,6 +1,6 @@
-<div class="chat-footer">
-    <form x-ref="div" wire:submit.prevent="submit" x-data="{open_voic: false}"  id="ta-frame" style="position: relative;">
-        <div id="voiceHolder" x-ref="voiceHolder" x-show="open_voic" >
+<div class="chat-footer" x-data="CreateMessage()">
+    <form x-ref="div" wire:submit.prevent="submit"  id="ta-frame" style="position: relative;">
+        <div id="voiceHolder" x-ref="voiceHolder" x-show="voice_holder" >
             <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
                 <i class="fa fa-pause voice-btn player-btn-pause"></i>
             </button>
@@ -11,7 +11,7 @@
             <div class="wave-holder" dir="ltr">
                 <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
             </div>
-            <button class="btn btn-floating" x-on:click="deleteRecording();open_voic = false" type="button">
+            <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
                 <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
             </button>
         </div>
@@ -22,7 +22,7 @@
             <button class="btn btn-light btn-floating" type="button">
                 <i class="fa fa-paperclip"></i>
             </button>
-            <button id="recordButton" x-on:click="startRecording();open_voic = true" class="btn btn-light btn-floating" type="button">
+            <button id="recordButton" x-on:click="startRecording();open_voice()" class="btn btn-light btn-floating" type="button">
                 <i class="fa fa-microphone"></i>
             </button>
             <button class="btn btn-primary btn-floating" type="submit">
@@ -53,9 +53,14 @@
         //     scrollParent: true
         // });
         // wavesurfer.load('https://essential.audio/audio/Song.mp3');
-    console.log('before event');
+    
     window.addEventListener('playAudio', event => {
-        console.log('event fire');
-        new GreenAudioPlayer('.wave-holder');
+        // console.log('event fire');
+        // new GreenAudioPlayer('.wave-holder');
+        console.log('dispatched');
+        GreenAudioPlayer.init({
+            selector: '.player', // inits Green Audio Player on each audio container that has class "player"
+            stopOthersOnPlay: true
+        });
     })
 </script>

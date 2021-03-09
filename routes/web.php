@@ -9,6 +9,7 @@ use App\Http\Livewire\Product\Show;
 use App\Http\Livewire\User\DoctorProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,7 @@ Route::get('/pay', function () {
     })->pay()->render();
 });
 // At the top of the file.
-
+Route::post('/upload/voice', [UploadController::class, 'voice']);
 Route::get('/test', function () {
     $name = 'products.status';
     $model = config('setting-operation.setting_model_class', \Rezahmady\SettingOperation\app\Models\SettingOperation::class);
