@@ -75,7 +75,7 @@ class CreateMessage extends Component
         
         $resource = "/.tmb/voice/{$voice}";
         $destination = "uploads/chat/voice/{$voice}";
-        Storage::disk('local')->move($resource, $destination);
+        if(Storage::disk('local')->exists($resource)) Storage::disk('local')->move($resource, $destination);
 
         $message = auth()->user()->messages()->create([
             'body'       => $voice,
@@ -96,6 +96,30 @@ class CreateMessage extends Component
     public function savePhotos()
     {
 
+    
+        $filenames = [];
+        foreach ($this->photos as $photo) {
+            // $photo->store('/uploads/chat/photo');
+            array_push($filenames, $photo->getFilename());
+            $resource = "/livewire/preview-file/{$photo->getFilename()}";
+            $destination = "uploads/chat/photo/{$photo->getFilename()}";
+            if(Storage::disk('local')->exists($resource)) Storage::disk('local')->move($resource, $destination);
+        }
+
+        $message = auth()->user()->messages()->create([
+            'body'       => json_encode($filenames),
+            'room_id'    => $this->room->id,
+            'parent_id'  => $this->parent,
+            'type'       => 'photos',
+        ]);
+            
+        $this->emit('message-added', $message->id);
+
+        $sender = auth()->id();
+        
+        broadcast(new MessageAdded($this->room->id, $message->id, $sender))->toOthers();
+
+        $this->resetProperties();
     }
 
     public function setBody($body) {
