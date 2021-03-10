@@ -21,6 +21,7 @@ class RoomCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
 
+    Const ENTITY = 'chat';
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -30,7 +31,18 @@ class RoomCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Room::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/room');
-        CRUD::setEntityNameStrings('room', 'rooms');
+        CRUD::setEntityNameStrings('گفتگو', 'گفتگوها');
+
+        /*
+        |--------------------------------------------------------------------------
+        | PERMISHIONS
+        |--------------------------------------------------------------------------
+        */
+        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
+        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
+        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
+        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
+        
     }
 
     /**
@@ -41,10 +53,38 @@ class RoomCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('user_id');
-        CRUD::column('doctor_id');
-        CRUD::column('operator_id');
-        CRUD::column('extras');
+        CRUD::addColumns([
+            [  
+                // any type of relationship
+                'name'         => 'user', // name of relationship method in the model
+                'type'         => 'relationship',
+                'label'        => 'کاربر', // Table column heading
+                // OPTIONAL
+                // 'entity'    => 'tags', // the method that defines the relationship in your Model
+                // 'attribute' => 'name', // foreign key attribute that is shown to user
+                // 'model'     => App\Models\Category::class, // foreign key model
+             ],
+             [  
+                // any type of relationship
+                'name'         => 'doctor', // name of relationship method in the model
+                'type'         => 'relationship',
+                'label'        => 'پزشک', // Table column heading
+                // OPTIONAL
+                // 'entity'    => 'tags', // the method that defines the relationship in your Model
+                // 'attribute' => 'name', // foreign key attribute that is shown to user
+                // 'model'     => App\Models\Category::class, // foreign key model
+             ],
+             [  
+                // any type of relationship
+                'name'         => 'operator', // name of relationship method in the model
+                'type'         => 'relationship',
+                'label'        => 'اپراتور', // Table column heading
+                // OPTIONAL
+                // 'entity'    => 'tags', // the method that defines the relationship in your Model
+                // 'attribute' => 'name', // foreign key attribute that is shown to user
+                // 'model'     => App\Models\Category::class, // foreign key model
+             ],
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -63,10 +103,60 @@ class RoomCrudController extends CrudController
     {
         CRUD::setValidation(RoomRequest::class);
 
-        CRUD::field('user_id');
-        CRUD::field('doctor_id');
-        CRUD::field('operator_id');
-        CRUD::field('extras');
+        CRUD::addFields([
+            [   // 1-n relationship
+                'label'       => "کاربر", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'user_id', // the column that contains the ID of that connected entity
+                'entity'      => 'user', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/users"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [   // 1-n relationship
+                'label'       => "پزشک", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'doctor_id', // the column that contains the ID of that connected entity
+                'entity'      => 'doctor', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/doctors"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [   // 1-n relationship
+                'label'       => "اپراتور", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'operator_id', // the column that contains the ID of that connected entity
+                'entity'      => 'operator', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/operators"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+           
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
