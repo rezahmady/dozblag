@@ -21198,6 +21198,12 @@ nav.navigation ul li a.active::before {
     z-index: 2;
 }
 
+.green-audio-player {
+    width: 300px !important;
+    min-width: 300px;
+    margin: auto;
+}
+
 .voice-btn {
     padding: 0 20px;
     color: #373e48;
@@ -21322,4 +21328,164 @@ nav.navigation ul li a.active::before {
     flex-shrink: 0;
     flex-basis: 50%;
     padding: 5px;
+}
+
+
+/* 
+    Gallery
+*/
+
+
+/* The Modal (background) */
+
+.gallery-modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+}
+
+
+/* Modal Content */
+
+.modal-content {
+    position: relative;
+    background-color: black;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+}
+
+
+/* The Close Button */
+
+.gallery-close {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.gallery-close:hover,
+.gallery-close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mySlides {
+    display: none;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+
+/* Next & previous buttons */
+
+.gallery-prev,
+.gallery-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* Position the "next button" to the right */
+
+.gallery-next {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+
+.gallery-prev:hover,
+.gallery-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Number text (1/3 etc) */
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+img {
+    margin-bottom: -4px;
+}
+
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+img.hover-shadow {
+    transition: 0.3s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mySlides img {
+    width: auto;
+    height: 75vh;
+    margin: auto;
+    display: block;
+}
+
+.gallery-thumb-holder {
+    flex-flow: row wrap;
+    display: flex;
+    justify-content: center;
+}
+
+.gallery-thumb {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 25%;
+    padding: 5px;
+}
+
+.gallery-download {
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    background: white;
+    padding: 6px 7px 1px 7px;
+    border-radius: 40px;
+    line-height: 1;
 }

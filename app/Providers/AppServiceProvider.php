@@ -11,6 +11,8 @@ use App\View\Components\RoomListItem;
 use App\View\Components\Rooms;
 use App\View\Components\Room;
 use App\View\Components\Messages;
+use App\View\Components\Gallery;
+use App\View\Components\RoomSidebar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,10 +44,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        Blade::component('room-list-item', RoomListItem::class);
-        Blade::component('rooms', Rooms::class);
-        Blade::component('room', Room::class);
-        Blade::component('messages', Messages::class);
+        Blade::component('chat-room-list-item', RoomListItem::class);
+        Blade::component('chat-rooms', Rooms::class);
+        Blade::component('chat-room', Room::class);
+        Blade::component('chat-messages', Messages::class);
+        Blade::component('chat-gallery', Gallery::class);
+        Blade::component('chat-room-sidebar', RoomSidebar::class);
         
         Paginator::useBootstrap();
 
