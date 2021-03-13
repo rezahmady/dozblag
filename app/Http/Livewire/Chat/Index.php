@@ -26,6 +26,7 @@ class Index extends Component
         "refreshRooms"                                      => '$refresh',
         'echo-private:consultation.added,ConsultationAdded' => 'roomAdded',
         'echo-presence:chat,here'                           => 'setUsersHere',
+        'edited-rooms'                                      => 'editedRooms',
     ];
 
     public function dehydrate()
@@ -35,7 +36,6 @@ class Index extends Component
 
     public function setUsersHere($users) 
     {
-        
         $this->onlineUsers = $users;
         $this->emit('refreshUserStatus', $users);
     }
@@ -54,7 +54,7 @@ class Index extends Component
 
     public function seenFromBroadcasting($payload)
     {
-        $messages = $this->currentRoom->messages()
+        $this->currentRoom->messages()
         ->where('id', '<=', $payload['messageId'])
         ->where('user_id', $payload['sender'])
         ->update([
@@ -86,6 +86,26 @@ class Index extends Component
         $this->dispatchBrowserEvent('scrollToBottom');
     }
 
+    public function cancelChat() {
+        $this->currentRoom->update(['operator_id' => null]);
+        // $this->currentRoom = null;
+        $this->emit('rerenderCreateMessage',$this->currentRoom);
+    }
+
+    public function editedRooms() {
+        // $this->emit('refreshRooms');
+        $this->emit('rerenderCreateMessage',$this->currentRoom);
+    }
+
+    public function archiveChat() {
+        $this->currentRoom->update(['status' => 'archive']);
+        $this->emit('rerenderCreateMessage',$this->currentRoom);
+    }
+    public function cancelArchive() {
+        $this->currentRoom->update(['status' => 'chat']);
+        $this->emit('rerenderCreateMessage',$this->currentRoom);
+    }
+
     public function seenMessages($messageId)
     {
         $messages = $this->currentRoom->messages()
@@ -99,17 +119,9 @@ class Index extends Component
 
     }
 
-
-
-
-
     public function ShowRoom()
     {
         $this->loadingRoom = false;
-        // $this->currentRoom = 2;
-        // dd($this->currentRoom);
-        // $this->emit('setRoom',$this->currentRoom );
-        // dd($this->currentRoom);
     }
     
     public function render()

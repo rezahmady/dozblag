@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>پلت فرم گفت و گو و بحث</title>
-
+    <link rel="stylesheet" href="{{asset('packages/chatino/css/lity.css')}}" >
     {{-- <script src="https://unpkg.com/wavesurfer.js"></script> --}}
-    <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.min.js" defer></script>
+    <script src="{{asset('packages/chatino/js/vendor/green-audio-player.min.js')}}" defer></script>
     <script src="{{asset('packages/chatino/js/vendor/recorder/recorder.js')}}" ></script>
     {{-- <script src="{{asset('packages/chatino/js/vendor/audioPlayer/essential_audio.js')}}" defer></script> --}}
     <!-- Favicon -->
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/packages/chatino/css/soho.min.css">
     
     {{-- <link rel="stylesheet" href="/packages/chatino/js/vendor/audioPlayer/essential_audio.css"></link> --}}
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/css/green-audio-player.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('packages/chatino/css/green-audio-player.min.css')}}">
 </head>
 <body class="rtl">
 
@@ -502,7 +502,7 @@
 
 <!-- Soho -->
 <script src="/packages/chatino/js/soho.min.js" defer></script>
-
+<script src="/packages/chatino/js/vendor/lity.min.js" defer></script>
 <!-- Examples -->
 {{-- <script src="/packages/chatino/js/examples.js"></script> --}}
 {{-- <script src="{{ asset('/packages/chatino/js/vendor/RTLText.module.js') }}" defer></script> --}}

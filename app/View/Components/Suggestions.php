@@ -2,10 +2,10 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
 use App\Models\Room;
+use Illuminate\View\Component;
 
-class Rooms extends Component
+class Suggestions extends Component
 {
 
     public $rooms;
@@ -17,14 +17,11 @@ class Rooms extends Component
      */
     public function __construct()
     {
-        $id = auth()->id();
-        $this->rooms = Room::where('user_id',$id)
-        ->with('latestMessage')
-        ->orWhere('doctor_id', $id)
-        ->orWhere('operator_id', $id)
-        ->get()->sortByDesc('latestMessage.created_at');
+        $this->rooms = Room::whereNull('operator_id')->WhereHas('user', function($q) {
+            $q->where('template', 'customer');
+        })->get();
     }
-    
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -32,6 +29,6 @@ class Rooms extends Component
      */
     public function render()
     {
-        return view('livewire.chat.rooms');
+        return view('livewire.chat.suggestions');
     }
 }

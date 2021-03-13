@@ -11,10 +11,12 @@ trait WithAudience {
     {
         if(auth()->id() === $room->user->id) {
             $this->audience = ($room->doctor) ? $room->doctor : $room->operator ?? null;
-        } elseif(auth()->id() === $room->doctor->id) {
+        } elseif($room->doctor and auth()->id() === $room->doctor->id) {
             $this->audience = ($room->user) ? $room->user : $room->operator ?? null;
-        } elseif(auth()->id() === $room->operator->id) {
+        } elseif($room->operator and auth()->id() === $room->operator->id) {
             $this->audience = ($room->user) ? $room->user : $room->doctor ?? null;
+        } else {
+            $this->audience = $room->user;
         }
         
         switch ($this->audience->template) {

@@ -26,6 +26,8 @@ class CreateMessage extends Component
 
     public $room;
 
+    public $status;
+
     protected $listeners = [
         'rerenderCreateMessage',
     ];
@@ -33,11 +35,29 @@ class CreateMessage extends Component
     public function mount(Room $room)
     {
         $this->room = $room;
+        if($room->user->id === auth()->id() and auth()->user()->template === 'customer') {
+            $this->status = 'chat';
+        } elseif($room->operator === null and $room->user->template === 'customer'){
+            $this->status = 'suggest';
+        } elseif($room->status === 'archive') {
+            $this->status = 'archive';
+        } else {
+            $this->status = 'chat';
+        }
     }
 
     public function rerenderCreateMessage(Room $room)
     {
         $this->room = $room;
+        if($room->user->id === auth()->id() and auth()->user()->template == 'customer') {
+            $this->status = 'chat';
+        } elseif($room->operator === null and $room->user->template === 'customer'){
+            $this->status = 'suggest';
+        } elseif($room->status === 'archive') {
+            $this->status = 'archive';
+        } else {
+            $this->status = 'chat';
+        }
     }
 
     protected $rules = [
@@ -61,6 +81,20 @@ class CreateMessage extends Component
 
         $this->resetProperties();        
 
+    }
+
+    public function acceptSuggestion()
+    {
+        $this->room->update(['operator_id' => auth()->id(), 'status' => 'chat']);
+        $this->emitUp('refreshRooms');
+        $this->status = 'chat';
+    }
+
+    public function cancelArchive()
+    {
+        $this->room->update(['status' => 'chat', 'status' => 'suggest']);
+        $this->emitUp('refreshRooms');
+        $this->status = 'chat';
     }
 
     public function updatedPhotos()

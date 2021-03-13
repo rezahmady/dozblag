@@ -3,9 +3,12 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\Room;
 
-class CreateMessage extends Component
+class Archives extends Component
 {
+    public $rooms;
+
     /**
      * Create a new component instance.
      *
@@ -13,7 +16,19 @@ class CreateMessage extends Component
      */
     public function __construct()
     {
-        //
+        $this->rooms = Room::where('extras->status', 'archive')->get();
+    }
+
+    
+
+    public function incrementUnread()
+    {
+        $this->unread++;
+    }
+
+    public function selectRoom()
+    {
+        $this->unread = 0;
     }
 
     /**
@@ -23,6 +38,6 @@ class CreateMessage extends Component
      */
     public function render()
     {
-        return view('components.create-message');
+        return view('livewire.chat.archives');
     }
 }

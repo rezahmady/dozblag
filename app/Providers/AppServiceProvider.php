@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Components\Archives;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -13,6 +14,7 @@ use App\View\Components\Room;
 use App\View\Components\Messages;
 use App\View\Components\Gallery;
 use App\View\Components\RoomSidebar;
+use App\View\Components\Suggestions;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +52,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('chat-messages', Messages::class);
         Blade::component('chat-gallery', Gallery::class);
         Blade::component('chat-room-sidebar', RoomSidebar::class);
+        Blade::component('chat-suggestions', Suggestions::class);
+        Blade::component('chat-archives', Archives::class);
         
         Paginator::useBootstrap();
 

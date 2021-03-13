@@ -13,6 +13,8 @@ class Room extends Component
 
     public $onlineUsers;
 
+    public $status;
+
     /**
      * Create a new component instance.
      *
@@ -23,6 +25,15 @@ class Room extends Component
         $this->room = $room;
         $this->audience = $audience;
         $this->onlineUsers = $onlineUsers;
+        if($room) {
+            if($room->operator === null and $room->user->template === 'customer'){
+                $this->status = 'suggest';
+            } elseif($room->status === 'archive') {
+                $this->status = 'archive';
+            } else {
+                $this->status = 'chat';
+            }
+        }
     }
 
     /**

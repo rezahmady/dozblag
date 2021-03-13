@@ -2,28 +2,24 @@
         <livewire:chat.room-user-status :room="$room" :audience="$audience" :onlineUsers="$onlineUsers" :key="'room-user-status'.$audience->id" />
         <div class="chat-header-action">
             <ul class="list-inline">
-                <li class="list-inline-item">
-                    <a href="#" class="">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="">
-                        <i class="fa fa-video-camera" aria-hidden="true"></i>
-                    </a>
-                </li>
+                @if ($status != 'suggest')
                 <li class="list-inline-item">
                     <a href="#" class="" data-toggle="dropdown">
                         <i class="ti-more"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="#" data-navigation-target="contact-information" class="dropdown-item">پروفایل</a>
-                        <a href="#" class="dropdown-item">اضافه کردن به بایگانی</a>
-                        <a href="#" class="dropdown-item">حذف</a>
+                        @if ($room->status === 'archive')
+                        <a wire:click.prevent="cancelArchive()" href="#" class="dropdown-item">خارج کردن از بایگانی</a>
+                        @else
+                        <a wire:click.prevent="archiveChat()" href="#" class="dropdown-item">اضافه کردن به بایگانی</a>
+                        @endif
+                        <a href="{{ url("/admin/room/$room->id/edit?iframe=true") }}" data-lity  class="dropdown-item">ویرایش و انتقال گفتگو</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">بلاک</a>
+                        <a wire:click.prevent="cancelChat()" href="#" class="dropdown-item">انصراف از پذیرش</a>
                     </div>
                 </li>
+                @endif
             </ul>
         </div>
     </div>

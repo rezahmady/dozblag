@@ -5,18 +5,18 @@
         <div class="nav-group">
             <ul>
                 <li>
-                    <a data-navigation-target="chats" class="active" href="#">
+                    <a x-on:click.prevent="set_navigation('chats')" :class="{ 'active': navigation_target == 'chats' }" href="#">
                         <i class="ti-comment-alt"></i>
                     </a>
                 </li>
                 <li>
-                    <a data-navigation-target="friends" href="#" class="notifiy_badge">
+                    <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
                         <i class="ti-user"></i>
                     </a>
                 </li>
-                <li data-navigation-target="favorites" class="brackets">
+                <li x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" class="brackets">
                     <a href="#">
-                        <i class="ti-star"></i>
+                        <i class="ti-archive"></i>
                     </a>
                 </li>
                 <li>
@@ -46,26 +46,9 @@
         <div class="sidebar-group">
 
             <!-- Chats sidebar -->
-            <div id="chats" class="sidebar active">
+            <div x-show="navigation_target == 'chats'" :class="{ 'active': navigation_target == 'chats' }" class="sidebar">
                 <header>
                     <span>چت ها</span>
-                    <ul class="list-inline">
-                        {{-- <li class="list-inline-item" data-toggle="tooltip" title="گروه جدید" >
-                            <a class="" href="#" data-toggle="modal" data-target="#newGroup">
-                                <i class="fa fa-users"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-light" data-toggle="tooltip" title="چت جدید" href="#" data-navigation-target="friends">
-                                <i class="ti-comment-alt"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item d-lg-none d-sm-block">
-                            <a href="#" class="btn btn-light sidebar-close">
-                                <i class="ti-close"></i>
-                            </a>
-                        </li> --}}
-                    </ul>
                 </header>
                 <form action="#">
                     <input type="text" class="form-control" placeholder="جستجوی چت">
@@ -76,120 +59,26 @@
             <!-- ./ Chats sidebar -->
 
             <!-- Friends sidebar -->
-            <div id="friends" class="sidebar">
+            <div x-show="navigation_target == 'suggestion'" :class="{ 'active': navigation_target == 'suggestion' }" class="sidebar">
                 <header>
-                    <span>دوستان</span>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a class="btn btn-light" href="#" data-toggle="modal" data-target="#addFriends">
-                                <i class="ti-plus btn-icon"></i> افزودن دوست
-                            </a>
-                        </li>
-                        <li class="list-inline-item d-lg-none d-sm-block">
-                            <a href="#" class="btn btn-light sidebar-close">
-                                <i class="ti-close"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <span>پذیرش نشده</span>
                 </header>
                 <form action="#">
                     <input type="text" class="form-control" placeholder="جستجوی چت">
                 </form>
-                <livewire:chat.suggestions />
+                <x-chat-suggestions />
             </div>
             <!-- ./ Friends sidebar -->
 
             <!-- Favorites sidebar -->
-            <div id="favorites" class="sidebar">
+            <div x-show="navigation_target == 'archives'" :class="{ 'active': navigation_target == 'archives' }" class="sidebar">
                 <header>
-                    <span>موارد دلخواه</span>
-                    <ul class="list-inline">
-                        <li class="list-inline-item d-lg-none d-sm-block">
-                            <a href="#" class="btn btn-light sidebar-close">
-                                <i class="ti-close"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <span>آرشیو</span>
                 </header>
                 <form action="#">
-                    <input type="text" class="form-control" placeholder="جستجوی موارد دلخواه">
+                    <input type="text" class="form-control" placeholder="جستجو در آرشیو">
                 </form>
-                <div class="sidebar-body">
-                    <ul class="list-group list-group-flush users-list">
-                        <li class="list-group-item">
-                            <div class="users-list-body">
-                                <h5>جسیکا</h5>
-                                <p>می دانم این پرونده برای شما چقدر مهم است. تو میتوانی به من اعتماد کنی ؛)</p>
-                                <div class="users-list-action action-toggle">
-                                    <div class="dropdown">
-                                        <a data-toggle="dropdown" href="#">
-                                            <i class="ti-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">نمایش چت</a>
-                                            <a href="#" class="dropdown-item">ارسال</a>
-                                            <a href="#" class="dropdown-item">حذف</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="users-list-body">
-                                <h5>جعفر عباسی</h5>
-                                <p>اختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                <div class="users-list-action action-toggle">
-                                    <div class="dropdown">
-                                        <a data-toggle="dropdown" href="#">
-                                            <i class="ti-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">نمایش چت</a>
-                                            <a href="#" class="dropdown-item">ارسال</a>
-                                            <a href="#" class="dropdown-item">حذف</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="users-list-body">
-                                <h5>طاهر نصیری</h5>
-                                <p>اختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                <div class="users-list-action action-toggle">
-                                    <div class="dropdown">
-                                        <a data-toggle="dropdown" href="#">
-                                            <i class="ti-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">نمایش چت</a>
-                                            <a href="#" class="dropdown-item">ارسال</a>
-                                            <a href="#" class="dropdown-item">حذف</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="users-list-body">
-                                <h5>جعفر</h5>
-                                <p>اختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                <div class="users-list-action action-toggle">
-                                    <div class="dropdown">
-                                        <a data-toggle="dropdown" href="#">
-                                            <i class="ti-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item">نمایش چت</a>
-                                            <a href="#" class="dropdown-item">ارسال</a>
-                                            <a href="#" class="dropdown-item">حذف</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <x-chat-archives />
             </div>
             <!-- ./ Stars sidebar -->
 
@@ -216,10 +105,16 @@
 </div>
 
 <script>
+    
     function data() {
         return {
             loadingRoom: @entangle('loadingRoom'),
             currentRoom: @entangle('currentRoom'),
+            navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
+            set_navigation(target) {
+                localStorage.setItem("navigation-target", target);
+                this.navigation_target = target;
+            },
             setRoom() {
                 this.loadingRoom = true;
             },
@@ -307,20 +202,21 @@
             block: "end",
             behavior: "smooth"
         });
-        document.getElementById("textarea").focus();
-    })
+        if (document.getElementById("textarea")) {
+            document.getElementById("textarea").focus();
+        }
 
-    // Echo.join('chat')
-    //     .here((users) => {
-    //         console.log(users);
-    //         window.Livewire.emit('setUsersHere', users)
-    //     })
-    //     .joining((user) => {
-    //         window.Livewire.emit('setUserJoining', user)
-    //     })
-    //     .leaving((user) => {
-    //         window.Livewire.emit('setUserLeaving', user)
-    //     });
-   
+    })
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        Livewire.hook('component.initialized', (component) => {
+            $(document).on('lity:close', function(event, instance) {
+                setTimeout(() => {
+                    Livewire.emit('edited-rooms')
+                }, 1000);
+            }); 
+        })
+    
+    })
 
 </script>

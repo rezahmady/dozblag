@@ -1,5 +1,5 @@
 <div class="sidebar-body">
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush users-list">
         @foreach ($rooms as $room)
         <li class="list-group-item" wire:click="setRoom({{$room->id}})" x-on:click="setRoom({{$room->id}})">
             <div>

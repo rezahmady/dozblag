@@ -201,7 +201,6 @@ class RoomCrudController extends CrudController
         $id = $this->crud->getCurrentEntry()->id;
         event(new ConsultationAdded());
 
-        dd($id);
         return $response;
     }
 }

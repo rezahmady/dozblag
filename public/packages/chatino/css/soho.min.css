@@ -21489,3 +21489,25 @@ img.hover-shadow {
     border-radius: 40px;
     line-height: 1;
 }
+
+.lity-iframe-container {
+    max-height: 386px;
+    max-width: 365px;
+    height: 100%;
+    margin: auto;
+}
+
+.lity-content {
+    height: 100%;
+}
+
+.lity-iframe .lity-container,
+.lity-youtube .lity-container,
+.lity-vimeo .lity-container,
+.lity-facebookvideo .lity-container,
+.lity-googlemaps .lity-container {
+    width: 100%;
+    max-width: 365px;
+    height: 100%;
+    max-height: 425px;
+}
