@@ -72,12 +72,12 @@
         </div>
     @elseif($status === 'archive')
     <div class="p-relative">
-        <form x-ref="div" wire:submit.prevent="cancelArchive()" style="justify-content: center">
-            <button class="btn btn-primary " type="submit">
+        <div class="d-flex" style="padding:15px;justify-content: center">
+            <button wire:click="cancelArchive()" class="btn btn-primary" type="submit">
                 خارج کردن از بایگانی
             </button>
 
-        </form>
+        </div>
     </div>
     @else 
     <div class="p-relative">

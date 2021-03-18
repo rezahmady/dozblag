@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class PageRender extends Component
 {
-    // use WithPagination;
+    use WithPagination;
 
     // public $search;
 
@@ -20,10 +20,20 @@ class PageRender extends Component
         $this->modelPage = $this->modelPage->withFakes();
 
         $this->data['title'] = $this->modelPage->title;
-        $this->data['page'] = $this->modelPage->withFakes();
+        $this->data['entity'] = $this->modelPage->withFakes();
         // items
         $items = $this->modelPage->itemInChildren();
         $items = collect($items);
+        $tags = [];
+        if($this->modelPage->template == 'blog')
+        {
+            foreach ($items as $item) {
+                $tags = array_merge($tags, $item->tags->toArray());
+                if(sizeof($tags) >= 15) break;
+            }
+        }
+        $this->data['tags'] = $tags;
+        // dd($this->data['entity']);
         // if($this->search !== null and $this->search !== '') {
         //     $items = $items->where('name', 'LIKE', '%'.$this->search.'%');
         // }
@@ -33,7 +43,7 @@ class PageRender extends Component
         // children
         $this->data['children'] = $this->modelPage->children()->paginate($this->modelPage->max_item);
 
-        $this->data['form'] = $this->data['page']['form'];
+        $this->data['form'] = $this->data['entity']['form'];
 
     }
 

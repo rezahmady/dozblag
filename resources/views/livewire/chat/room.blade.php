@@ -25,7 +25,7 @@
     </div>
     <x-chat-messages :room="$room" :audience="$audience" />
     
-    <livewire:chat.create-message :room="$room" />
+    <livewire:chat.create-message :room="$room" :key="'chat-create-message'" />
 
 
 

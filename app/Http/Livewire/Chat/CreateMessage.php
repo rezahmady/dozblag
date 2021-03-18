@@ -30,6 +30,7 @@ class CreateMessage extends Component
 
     protected $listeners = [
         'rerenderCreateMessage',
+        'refreshCreateMessage' => '$refresh'
     ];
 
     public function mount(Room $room)

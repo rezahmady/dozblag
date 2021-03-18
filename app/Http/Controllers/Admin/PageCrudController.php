@@ -212,9 +212,59 @@ class PageCrudController extends CrudController
             ]);
         }
 
+
+        $this->crud->field('line')->type('custom_html')
+        ->value('<span class="bg-warning text-warning">تیتر و شرح مختصر صفحه به صورت خودکار ایجاد می‌شود و در صورتی که تمایل دارید این مقادیر را به صورت سفارشی ایجاد کنید، از فرم زیر استفاده کنید.</span>')
+        ->tab('سئو');
+
+        $this->crud->addFields(static::getFieldsArrayForSeo());
+
         // Add default theme page fields
         $this->themeOptions('default');
 
+    }
+
+    public static function getFieldsArrayForSeo()
+    {
+        return [
+            [ // Text
+                'name'  => 'meta_title',
+                'label' => 'تیتر صفحه',
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 60 حرف در این فیلد بنویسید.',
+                'type'  => 'text',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // textarea
+                'name'  => 'meta_description',
+                'label' => 'شرح مختصر',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 155 حرف در این فیلد بنویسید.',
+                'type'  => 'textarea',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'meta_keywords',
+                'label' => 'کلمات کلیدی',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-key la-lg"></i>',
+                'hint'  => 'این فیلد دیگر توسط گوگل پشتیبانی نمی‌شود و در بهینه‌سازی سایت شما تاثیری ندارد!',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'slug',
+                'label' => 'آدرس صفحه',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'hint'  => 'درصورت خالی گذاشتن به طور خودکار از روی عنوان پست ساخته می شود',
+                'tab'   => 'سئو',
+            ],
+        ];
     }
 
     /**

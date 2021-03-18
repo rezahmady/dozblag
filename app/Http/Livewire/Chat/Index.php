@@ -88,12 +88,10 @@ class Index extends Component
 
     public function cancelChat() {
         $this->currentRoom->update(['operator_id' => null]);
-        // $this->currentRoom = null;
         $this->emit('rerenderCreateMessage',$this->currentRoom);
     }
 
     public function editedRooms() {
-        // $this->emit('refreshRooms');
         $this->emit('rerenderCreateMessage',$this->currentRoom);
     }
 

@@ -105,6 +105,20 @@ class ThemeOptions
 
     }
 
+    public function page_blog()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'description',
+                'label' => 'توضیحات',
+                'fake'   => true,
+                'type' => 'summernote',
+                'placeholder' => 'محتوای خود را در اینجا بنویسید',
+                'tab'   => 'محتوا',
+            ],
+        ]);
+    }
+
     public function page_shop()
     {
         CRUD::addFields([

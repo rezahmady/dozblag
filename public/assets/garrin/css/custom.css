@@ -406,6 +406,12 @@
     text-align: right !important;
 }
 
+.social-share>li>a.active {
+    background-color: #ffffff;
+    color: #20c0f3;
+    border-color: #ffffff;
+}
+
 
 /* 
     Instagram widget
@@ -972,6 +978,13 @@ i.blog-item-suggested {
     left: 10px;
     color: #f58;
     cursor: pointer;
+}
+
+.no-comments {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #7b7b7b;
 }
 
 .create-comment-spiner-holder {

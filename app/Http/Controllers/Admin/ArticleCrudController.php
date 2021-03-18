@@ -124,13 +124,34 @@ class ArticleCrudController extends CrudController
                     'fake'        =>   true,
                     'tab'         => 'محتوا',
                 ],
-                [
-                    'name' => 'content',
+                // [
+                //     'name' => 'content',
+                //     'label' => trans('validation.attributes.content'),
+                //     'type' => 'summernote',
+                //     'placeholder' => 'محتوای خود را در اینجا بنویسید',
+                //     'tab'   => 'محتوا',
+                // ],
+                [   // WYSIWYG Editor
+                    'name'  => 'content',
                     'label' => trans('validation.attributes.content'),
-                    'type' => 'summernote',
+                    'type'  => 'ckeditor',
                     'placeholder' => 'محتوای خود را در اینجا بنویسید',
                     'tab'   => 'محتوا',
-                ]
+                    'extra_plugins' => [
+                        'autolink',
+                        'colorbutton',
+                        'justify',
+                        'emoji',
+                        'find',
+                        // 'templates',
+                        'divarea',
+                        'div'
+                    ],
+                    'options' => [
+                        'language' => 'fa',
+                        // 'skin'     => 'office2013',
+                    ]
+                ],
             ]);
 
             $this->crud->addField([

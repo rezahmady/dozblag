@@ -53,7 +53,6 @@
                 <form action="#">
                     <input type="text" class="form-control" placeholder="جستجوی چت">
                 </form>
-                {{-- <livewire:chat.rooms /> --}}
                 <x-chat-rooms />
             </div>
             <!-- ./ Chats sidebar -->
@@ -86,7 +85,6 @@
         <!-- ./ sidebar group -->
 
         <!-- chat -->
-        {{-- <livewire:chat.room :room="$currentRoom" /> --}}
         <div class="chat position-relative" >
             <x-chat-room :room="$currentRoom" :audience="$audience" :onlineUsers="$onlineUsers" />
 

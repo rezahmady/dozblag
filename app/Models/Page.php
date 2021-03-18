@@ -95,9 +95,9 @@ class Page extends Model
 
     public function itemInChildren()
     {
-        if (!$this->items()) return null;
+        if (!$this->items($this->template)) return null;
         $allItem = [];
-        $items = $this->items()->get();
+        $items = $this->items($this->template)->get();
         foreach($items as $item)
         {
             $allItem[$item->id] = $item;
