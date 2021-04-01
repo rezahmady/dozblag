@@ -9,6 +9,7 @@
 /storage/*.key
 /storage/
 /tests/
+.idea/
 /resources/views/raque
 /resources/views/default
 /vendor
