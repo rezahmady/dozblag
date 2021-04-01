@@ -21,7 +21,7 @@ class Filter extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'parent_id', 'status'];
+    protected $fillable = ['name', 'parent_id', 'status', 'module'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -43,7 +43,7 @@ class Filter extends Model
             case 0:
                 $status = '<span class="badge badge-danger">غیرفعال</span>';
                 break;
-            
+
             default:
                 # code...
                 break;
