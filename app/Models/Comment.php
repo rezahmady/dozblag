@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Article;
+use App\Traits\ModelCommonMethods;
 
 class Comment extends Model
 {
     use HasFactory;
-    use CrudTrait;
+    use CrudTrait, ModelCommonMethods;
 
     protected $table = 'comments';
     protected $primaryKey = 'id';

@@ -7,11 +7,12 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
+use App\Traits\ModelCommonMethods;
 
 class Article extends Model
 {
     use CrudTrait;
-    use Sluggable, SluggableScopeHelpers;
+    use Sluggable, SluggableScopeHelpers, ModelCommonMethods;
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ class Article extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['slug', 'title', 'content', 'image', 'status', 'featured','user_id', 'extras'];
+    protected $fillable = ['slug', 'title', 'content', 'image', 'status', 'featured','user_id', 'extras', 'like', 'dislike', 'whatsapp', 'telegram'];
     protected $fakeColumns = ['extras'];
     // protected $hidden = [];
     // protected $dates = [];
@@ -31,6 +32,10 @@ class Article extends Model
         'featured'  => 'boolean',
         'date'      => 'date',
         'extras'    => 'object',
+        'like'      => 'integer',
+        'dislike'      => 'integer',
+        'telegram'      => 'integer',
+        'whatsapp'      => 'integer',
     ];
 
     public function path()
@@ -114,6 +119,11 @@ class Article extends Model
         return $this->hasMany(Comment::class, 'module_id')->with('childrenRecursive')->where('parent_id', null);
     }
 
+    public function allComments()
+    {
+        return $this->hasMany(Comment::class, 'module_id')->with('childrenRecursive');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -148,9 +158,60 @@ class Article extends Model
         return $this->title.'%0a%0a'.$this->description.'%0a%0a'.$this->path();
     }
 
+    public function getExtrasAttribute($value)
+    {
+        return collect(json_decode($value));
+    }
+
+    public function getLikeAttribute()
+    {
+        return $this->extras->get('like');
+    }
+
+    public function getDislikeAttribute()
+    {
+        return $this->extras->get('dislike');
+    }
+
+    public function getWhatsappAttribute()
+    {
+        return $this->extras->get('whatsapp');
+    }
+
+    public function getTelegramAttribute()
+    {
+        return $this->extras->get('telegram');
+    }
+
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function setExtrasAttribute($values)
+    {
+        $this->attributes['extras'] = json_encode($values);
+    }
+    
+    public function setLikeAttribute($value)
+    {
+        $this->extras = $this->extras->merge(['like' => $value]);
+    }
+    
+    public function setDislikeAttribute($value)
+    {
+        $this->extras = $this->extras->merge(['dislike' => $value]);
+    }
+
+    public function setWhatsappAttribute($value)
+    {
+        $this->extras = $this->extras->merge(['whatsapp' => $value]);
+    }
+    
+    public function setTelegramAttribute($value)
+    {
+        $this->extras = $this->extras->merge(['telegram' => $value]);
+    }
 }

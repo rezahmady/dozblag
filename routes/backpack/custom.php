@@ -32,5 +32,17 @@ Route::group([
     Route::get('article/comment/{comment:id}/approvedComment', 'CommentCrudController@approvedComment');
     Route::get('article/comment/{comment:id}/rejectComment', 'CommentCrudController@rejectComment');
     Route::crud('user/doctor/comment', 'CommentDoctorCrudController');
-    Route::get('chat', 'Chat\Index')->name('chat.index');
+    Route::crud('room', 'RoomCrudController');
+    Route::crud('chat', 'ChatCrudController');
 }); // this should be the absolute last line of this file
+
+Route::group([
+    'prefix'     => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => array_merge(
+        (array) config('backpack.base.web_middleware', 'web'),
+        (array) config('backpack.base.middleware_key', 'admin')
+    ),
+    'namespace'  => 'App\Http\Livewire\Chat',
+], function () { // custom admin routes
+    Route::get('chats', 'Index')->name('chat.index');
+}); 

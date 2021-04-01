@@ -12,12 +12,19 @@ if (window.location.search === '?iframe=true') {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function() {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-            document.getElementById("saveActions").style.bottom = "0";
-        } else {
-            document.getElementById("saveActions").style.bottom = "-70px";
+        if (document.getElementById("saveActions")) {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("saveActions").style.bottom = "0";
+            } else {
+                document.getElementById("saveActions").style.bottom = "-70px";
+            }
+            prevScrollpos = currentScrollPos;
         }
-        prevScrollpos = currentScrollPos;
     }
 }
+
+Echo.channel('private-consultation.added')
+    .listen('ConsultationAdded', (e) => {
+        console.log('ConsultationAdded');
+    });

@@ -1,3 +1,14 @@
+@section('meta_title')
+{{ $post->meta_title ?? $post->title}}
+@endsection
+
+@section('meta_description')
+{{ $post->meta_description}}
+@endsection
+
+@section('meta_keywords')
+{{ $post->meta_keywords}}
+@endsection
 <div>
     <div class="blog-progress-head">
         <div class="progress-container">
@@ -69,7 +80,7 @@
                                         <div class="">
                                             <ul class="link-list">
                                                 @foreach ($resources as $item)
-                                                    <li><a target="_blank" href="{{ $item->link }}" class="link">{{ $item->label }}</a></li>
+                                                    <li><a href="{{ $item->link }}" class="link">{{ $item->label }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -144,11 +155,11 @@
                                             <div class="about-author">
                                                 <div class="about-author-img">
                                                     <div class="author-img-wrap">
-                                                        <a href="doctor-profile.html"><img class="img-fluid rounded-circle" alt="" src="/assets/garrin/img/doctors/doctor-thumb-02.jpg"></a>
+                                                        <a href="{{$post->user->path()}}"><img class="img-fluid rounded-circle" alt="{{ $post->user->name }}" src="{{$post->user->profile}}"></a>
                                                     </div>
                                                 </div>
                                                 <div class="author-details">
-                                                    <a  itemprop="author" href="doctor-profile.html" class="blog-author-name">{{ $post->user->name }}</a>
+                                                    <a  itemprop="author" href="{{$post->user->path()}}" class="blog-author-name">{{ $post->user->name }}</a>
                                                     <p class="mb-0">{{ $author->bio }}</p>
                                                 </div>
                                             </div>
@@ -231,9 +242,6 @@
                                     </div>
                                      <!-- /Latest Posts -->
 
-                                    
-                                    
-                                    
                                 </div>
                             </div>
                         
@@ -250,29 +258,10 @@
                                 <div class="sharethis-sticky-share-buttons"></div>
                                 <div class="blog-share clearfix sticky">
                                     <div class="card-body">
-                                        <ul class="social-share">
-                                            <li><a href="#" title="می پسندم"><i class="fa fa-thumbs-up"></i><span class="social-value">
-                                            1    
-                                            </span></a></li>
-                                            <li><a href="#" title="نمی پسندم"><i class="fa fa-thumbs-down"></i><span class="social-value">
-                                            0    
-                                            </span></a></li>
-                                            <li><a href="#blog-comments" title="نظرات"><i class="far fa-comments"></i><span class="social-value">
-                                            23
-                                            </span></a></li>
-                                            <li><a href="whatsapp://send?text={{$post->whatsappContent}}" data-action="share/whatsapp" title="اشتراک گزاری در واتساپ"><i class="fab fa-whatsapp"></i><span class="social-value">
-                                            0    
-                                            </span></a></li>
-                                            <li><a href="https://t.me/share/url?url={{ $post->path() }}&text={{ rawurlencode($post->title) }}" title="اشتراک گزاری در تلگرام"><i class="fab fa-telegram"></i><span class="social-value">
-                                            0    
-                                            </span></a></li>
-                                            
-                                        </ul>
+                                        <livewire:partials.blog.share-holder :article="$post" />
                                     </div>
                                 </div>
-                
-                            
-                                
+
                             </div>
                             <!-- /Blog Sidebar -->
                             
@@ -293,22 +282,5 @@
         </div>
     </div>		
     <!-- /Page Content -->
-    <ul class="social-share fixed d-md-none d-lg-none d-sm-flex">
-        <li><a href="#" title="می پسندم"><i class="fa fa-thumbs-up"></i><span class="social-value">
-        1    
-        </span></a></li>
-        <li><a href="#" title="نمی پسندم"><i class="fa fa-thumbs-down"></i><span class="social-value">
-        0    
-        </span></a></li>
-        <li><a href="#blog-comments" title="نظرات"><i class="far fa-comments"></i><span class="social-value">
-        23
-        </span></a></li>
-        <li><a href="whatsapp://send?text={{$post->whatsappContent}}" data-action="share/whatsapp" title="اشتراک گزاری در واتساپ"><i class="fab fa-whatsapp"></i><span class="social-value">
-        0    
-        </span></a></li>
-        <li><a target="_blank" href="https://t.me/share/url?url={{ $post->path() }}&text={{ rawurlencode($post->title) }}" title="اشتراک گزاری در تلگرام"><i class="fab fa-telegram"></i><span class="social-value">
-        0    
-        </span></a></li>
-        
-    </ul>
+    <livewire:partials.blog.share-holder :article="$post" :class="'fixed d-md-none d-lg-none d-sm-flex'" />
 </div>

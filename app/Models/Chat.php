@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Verta;
 
 class Chat extends Model
 {
@@ -20,10 +21,11 @@ class Chat extends Model
         'user_id',
         'room_id',
         'parent_id',
-        'extras'
+        'seen',
+        'type',
     ];
 
-    protected $fakeColumns = ['extras'];
+    // protected $fakeColumns = ['extras'];
 
     /**
      * The attributes that should be cast to native types.
@@ -31,7 +33,7 @@ class Chat extends Model
      * @var array
      */
     protected $casts = [
-        'extras'         => 'object',
+        // 'seen'         => 'boolian',
     ];
 
     /*
@@ -55,4 +57,38 @@ class Chat extends Model
         return $this->belongsTo(Self::class, 'parent_id');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESORS
+    |--------------------------------------------------------------------------
+    */
+    
+    public function getDateFullAttribute()
+    {
+        $date = new Verta($this->created_at);
+        return $date->format('H:i Y/n/j');
+    }
+
+    public function getDateAttribute()
+    {
+        $date = new Verta($this->created_at);
+        return $date->format('Y/n/j');
+    }
+
+    public function getTimeAttribute()
+    {
+        $date = new Verta($this->created_at);
+        return $date->format('H:i');
+    }
+
+    
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
+
+    
 }

@@ -19,7 +19,8 @@ class Room extends Model
         'user_id',
         'doctor_id',
         'operator_id',
-        'extras'
+        'extras',
+        'status'
     ];
 
     protected $fakeColumns = ['extras'];
@@ -58,4 +59,37 @@ class Room extends Model
     {
         return $this->belongsTo(User::class, 'operator_id');
     }
+
+    public function latestMessage()
+    {
+        return $this->hasOne(Chat::class)->latest();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
+
+    public function setExtrasAttribute($value)
+    {
+        $this->attributes['extras'] = $value ? $value->toJson() : json_encode([]);
+    }
+
+    public function getExtrasAttribute($value)
+    {
+        return collect(json_decode($value));
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->extras->get('status');
+    }
+
+    
+    public function setStatusAttribute($value)
+    {
+        $this->extras = $this->extras->merge(['status' => $value]);
+    }
+
 }

@@ -3,7 +3,7 @@
         <div class="col-md-7 blog-single-comments">
             
             <div class="blog-comments clearfix">
-                
+                @if (sizeOf($comments))
                 <div class="pb-0">
                     <ul class="comments-list">
                         @foreach ($comments as $comment)
@@ -11,6 +11,10 @@
                         @endforeach
                     </ul>
                 </div>
+                @else
+                <p class="no-comments">هنوز نظری برای این مقاله ثبت نشده است</p>
+                @endif
+                
             </div>
         </div>
         <div class="col-md-5 comment-create-box">

@@ -18,7 +18,7 @@
                 <span class="blog-author-name">{{ $name }}</span>
             </span>
             <p>{{ $comment->body }}</p>
-            <p class="blog-date">6 مهر 1399</p>
+            <p class="blog-date">{{$comment->date()}}</p>
             <a wire:click.prevent="$emit('setCommentParentId',{{$comment->id}})" class="comment-btn" href="#">
                 <i class="fas fa-reply"></i> پاسخ
             </a>

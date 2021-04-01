@@ -1,3 +1,14 @@
+@section('meta_title')
+{{ $entity->meta_title ?? $entity->name}}
+@endsection
+
+@section('meta_description')
+{!! $entity->meta_description ?? $entity->description !!}
+@endsection
+
+@section('meta_keywords')
+{{ $entity->meta_keywords}}
+@endsection
 <div class="content">
     <div class="container">
 
@@ -6,32 +17,34 @@
                 <div class="card blog-cat-box">
                     <div class="grid-blog p-3 text-justify">
                         <div class="blog-image">
-                            <img class="img-fluid" src="https://image.freepik.com/free-vector/online-medical-education-illustration_9041-133.jpg" alt="Post Image">
+                            <img class="img-fluid" src="{{asset($entity->image)}}" alt="{{$title}}">
                         </div>
-                        
-                        <h3 class="blog-title"><a href="blog-details.html">آموزش و تحقیقات</a></h3>
-                        <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <h1 class="blog-title">{{$title}}</h1>
+                        <p class="mb-0">{!! $entity->description!!}</p>
                         
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
                 <!-- Blog Post -->
+                @php
+                    $firstItem = $items->first()->withFakes();
+                @endphp
                 <div class="card flex-fill rounded-3xl">
                     <div class="blog-image card-img-top">
-                        <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-01.jpg" alt="Post Image"></a>
+                        <a href="{{$firstItem->path()}}"><img class="img-fluid" src="{{asset($firstItem->image)}}" alt="{{$firstItem->title}}"></a>
                     </div>
                     <div class="blog-content grid-blog p-3">
                         <ul class="entry-meta meta-item">
                             <li>
                                 <div class="post-author">
-                                    <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-01.jpg" alt="Post Author"> <span>پرشک رابی پرین</span></a>
+                                    <a href="{{$firstItem->user->path()}}"><img src="{{$firstItem->user->profile}}" alt="{{$firstItem->user->name}}"> <span>{{$firstItem->user->name}}</span></a>
                                 </div>
                             </li>
-                            <li class="color-second"><i class="far fa-clock"></i> 4 مهر 1399</li>
+                            <li class="color-second"><i class="far fa-clock"></i> {{$firstItem->date()}}</li>
                         </ul>
-                        <h3 class="blog-title"><a href="blog-details.html"> سؤال - بازدید از کلینیک به راحتی </a></h3>
-                        <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <h3 class="blog-title"><a href="{{$firstItem->path()}}">{{$firstItem->title}}</a></h3>
+                        <p class="mb-0">{{\Illuminate\Support\Str::limit($firstItem->description, 300)}}</p>
                     </div>
                 </div>
                 <!-- /Blog Post -->
@@ -42,263 +55,40 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
             
-                <div class="row blog-grid-row">                  
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-01.jpg" alt="Post Image"></a>
+                <div class="row blog-grid-row">               
+                    @foreach ($items as $item)
+                        @if (!$loop->first)
+                        @php
+                            $item = $item->withFakes();
+                        @endphp
+                        <div class="col-md-6 col-sm-12">
+                            <!-- Blog Post -->
+                            <div class="card flex-fill rounded-3xl">
+                                <div class="blog-image card-img-top">
+                                    <a href="{{$item->path()}}"><img class="img-fluid" src="{{$item->image}}" alt="{{$item->title}}"></a>
+                                </div>
+                                <div class="blog-content grid-blog p-3">
+                                    <ul class="entry-meta meta-item">
+                                        <li>
+                                            <div class="post-author">
+                                                <a href="{{$item->user->path()}}"><img src="{{$item->user->profile}}" alt="{{$item->user->name}}"> <span>{{$item->user->name}}</span></a>
+                                            </div>
+                                        </li>
+                                        <li class="color-second"><i class="far fa-clock"></i> {{$item->date()}}</li>
+                                    </ul>
+                                    <h3 class="blog-title"><a href="{{$item->path()}}">{{$item->title}}</a></h3>
+                                    <p class="mb-0">{{\Illuminate\Support\Str::limit($item->description, 125)}}</div>
                             </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-01.jpg" alt="Post Author"> <span>پرشک رابی پرین</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 4 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> سؤال - بازدید از کلینیک به راحتی </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
+                            <!-- /Blog Post -->
                         </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-02.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-02.jpg" alt="Post Author"> <span>پزشک دارن الدر</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 3 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> فواید رزرو آنلاین پزشک چیست؟ </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-03.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-03.jpg" alt="Post Author"> <span>پزشک دبرا انجل</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 3 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> مزایای مشاوره با پزشک آنلاین </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-04.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-04.jpg" alt="Post Author"> <span>پزشک صوفیا برینت</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 2 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> 5 دلیل عالی برای استفاده از یک دکتر آنلاین </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-05.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-05.jpg" alt="Post Author"> <span>پزشک ماروین کمپل</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 1 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> برنامه زمان بندی قرار ملاقات پزشک آنلاین </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-06.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-06.jpg" alt="Post Author"> <span>پزشک کاترینا برتفولد</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 30 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html">مراحل ساده برای مراجعه به پزشک استثنایی!</a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-07.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-07.jpg" alt="Post Author"> <span>پزشک لیندا توبین</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 28 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html">انتخاب پزشک آنلاین خود </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-08.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-08.jpg" alt="Post Author"> <span>پزشک پول ریچارد </span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 25 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html">مراحل ساده ای برای مراجعه به پزشک امروز</a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-09.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-09.jpg" alt="Post Author"> <span>پزشک جان گیبز</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 24 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html"> 5 دلیل عالی برای استفاده از یک دکتر آنلاین </a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                    
-                        <!-- Blog Post -->
-                        <div class="card flex-fill rounded-3xl">
-                            <div class="blog-image card-img-top">
-                                <a href="blog-details.html"><img class="img-fluid" src="assets/garrin/img/blog/blog-10.jpg" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content grid-blog p-3">
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <a href="doctor-profile.html"><img src="assets/garrin/img/doctors/doctor-thumb-10.jpg" alt="Post Author"> <span>پزشک اولگا بارلو</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="color-second"><i class="far fa-clock"></i> 23 مهر 1399</li>
-                                </ul>
-                                <h3 class="blog-title"><a href="blog-details.html">برنامه های آنلاین دکترا</a></h3>
-                                <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                            </div>
-                        </div>
-                        <!-- /Blog Post -->
-                        
-                    </div>
+                        @endif
+                    @endforeach   
                 </div>
                 
                 <!-- Blog Pagination -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="blog-pagination">
-                                    <nav>
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-double-right"></i></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        {{ $items->links('theme::partials.pagination') }}
                     </div>
                 </div>
                 <!-- /Blog Pagination -->
@@ -323,99 +113,21 @@
                     </a>
                 </div>
                 <!-- /Telegram -->
-
-                <!-- Latest Posts -->
-                {{-- <div class="card post-widget">
-                    <div class="card-header">
-                        <h4 class="card-title">دسته بندی ها</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="latest-posts">
-                            <li>
-                                <div class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-01.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <h4>
-                                        <a href="blog-details.html"> سؤال - بازدید از کلینیک به راحتی </a>
-                                    </h4>
-                                    <p>4 مهر 1399</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-02.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <h4>
-                                        <a href="blog-details.html"> فواید رزرو آنلاین پزشک چیست؟ </a>
-                                    </h4>
-                                    <p>3 مهر 1399</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-03.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <h4>
-                                        <a href="blog-details.html"> مزایای مشاوره با پزشک آنلاین </a>
-                                    </h4>
-                                    <p>3 مهر 1399</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-04.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <h4>
-                                        <a href="blog-details.html"> 5 دلیل عالی برای استفاده از یک دکتر آنلاین </a>
-                                    </h4>
-                                    <p>2 مهر 1399</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-05.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <h4>
-                                        <a href="blog-details.html"> برنامه زمان بندی قرار ملاقات پزشک آنلاین </a>
-                                    </h4>
-                                    <p>1 مهر 1399</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div> --}}
-                <!-- /Latest Posts -->
-
+                @if (sizeOf($children))
                 <!-- Categories -->
                 <div class="category-widget mb-3">
                     <div class="">
                         <h4 class="section-title"> دسته‌بندی </h4>
                     </div>
                     <ul class="categories">
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-01.jpg"><a class="cat-detail" href="#">قلب و عروق <span>(62)</span></a></li>
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-02.jpg"><a class="cat-detail" href="#">مراقبت های بهداشتی <span>(27)</span></a></li>
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-03.jpg"><a class="cat-detail" href="#">تغذیه <span>(41)</span></a></li>
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-04.jpg"><a class="cat-detail" href="#">نکات بهداشتی <span>(16)</span></a></li>
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-05.jpg"><a class="cat-detail" href="#">تحقیقات پزشکی <span>(55)</span></a></li>
-                        <li><img class="cat-img" src="assets/garrin/img/blog/blog-06.jpg"><a class="cat-detail" href="#">درمان بهداشت <span>(07)</span></a></li>
+                        @foreach ($children as $item)
+                            <li><img class="cat-img" src="{{asset($item->extras['image'])}}"><a class="cat-detail" href="{{$item->path()}}">{{$item->name}} <span>({{$item->items()->count()}})</span></a></li>
+                        @endforeach
+                        
                     </ul>
                 </div>
                 <!-- /Categories -->
+                @endif
                 
                 <!-- Instagram -->
                 <div class="search-widget mb-3">
@@ -434,10 +146,7 @@
                 
                 <!-- /Instagram -->
 
-
-
-
-
+                @if (sizeOf($tags))
                 <!-- Tags -->
                 <div class="card tags-widget">
                     <div class="card-header">
@@ -445,30 +154,14 @@
                     </div>
                     <div class="card-body">
                         <ul class="tags">
-                            <li><a href="#" class="tag">کودکان</a></li>
-                            <li><a href="#" class="tag">بیماری</a></li>
-                            <li><a href="#" class="tag">رزرو نوبت</a></li>
-                            <li><a href="#" class="tag">رزرو نوبت</a></li>
-                            <li><a href="#" class="tag">نوزادان</a></li>
-                            <li><a href="#" class="tag">سلامتی</a></li>
-                            <li><a href="#" class="tag">فامیل</a></li>
-                            <li><a href="#" class="tag">نکته‌ها</a></li>
-                            <li><a href="#" class="tag">زمان‌بندی</a></li>
-                            <li><a href="#" class="tag">درمان</a></li>
-                            <li><a href="#" class="tag">پزشک</a></li>
-                            <li><a href="#" class="tag">کلینیک</a></li>
-                            <li><a href="#" class="tag">آنلاین</a></li>
-                            <li><a href="#" class="tag">مراقبت های بهداشتی</a></li>
-                            <li><a href="#" class="tag">مشاوره</a></li>
-                            <li><a href="#" class="tag">پزشکان</a></li>
-                            <li><a href="#" class="tag">نئورولوژی</a></li>
-                            <li><a href="#" class="tag">دندان‌پزشک</a></li>
-                            <li><a href="#" class="tag">متخصص</a></li>
-                            <li><a href="#" class="tag">داک‌کیور</a></li>
+                            @foreach ($tags as $tag)
+                                <li><a href="{{url('/tags/'.$tag['slug'])}}" class="tag">{{$tag['name']}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
                 <!-- /Tags -->
+                @endif
                 
             </div>
             <!-- /Blog Sidebar -->
