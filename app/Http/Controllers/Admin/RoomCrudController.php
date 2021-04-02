@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoomRequest;
+use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Events\ConsultationAdded;
@@ -20,11 +21,11 @@ class RoomCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-
+    use DefaultPermissions;
     Const ENTITY = 'chat';
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -35,26 +36,22 @@ class RoomCrudController extends CrudController
 
         /*
         |--------------------------------------------------------------------------
-        | PERMISHIONS
+        | PERMISSIONS
         |--------------------------------------------------------------------------
         */
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        
+        $this->setPermissions();
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
         CRUD::addColumns([
-            [  
+            [
                 // any type of relationship
                 'name'         => 'user', // name of relationship method in the model
                 'type'         => 'relationship',
@@ -64,7 +61,7 @@ class RoomCrudController extends CrudController
                 // 'attribute' => 'name', // foreign key attribute that is shown to user
                 // 'model'     => App\Models\Category::class, // foreign key model
              ],
-             [  
+             [
                 // any type of relationship
                 'name'         => 'doctor', // name of relationship method in the model
                 'type'         => 'relationship',
@@ -74,7 +71,7 @@ class RoomCrudController extends CrudController
                 // 'attribute' => 'name', // foreign key attribute that is shown to user
                 // 'model'     => App\Models\Category::class, // foreign key model
              ],
-             [  
+             [
                 // any type of relationship
                 'name'         => 'operator', // name of relationship method in the model
                 'type'         => 'relationship',
@@ -89,13 +86,13 @@ class RoomCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -155,19 +152,19 @@ class RoomCrudController extends CrudController
                 'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
                 // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
-           
+
         ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
@@ -187,7 +184,7 @@ class RoomCrudController extends CrudController
     // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
     // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
 
-    // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
+    // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate
     // the request directly to add or remove request parameters, you can also do that.
     // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
     // you want it to apply to all CRUDs, or inside a particular CrudController:

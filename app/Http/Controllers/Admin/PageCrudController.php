@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\DefaultPermissions;
 use App\Traits\PageTemplates;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -18,14 +19,14 @@ class PageCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-
+    use DefaultPermissions;
     use PageTemplates;
     private $themes_folder = '';
     Const ENTITY = 'page';
 
     protected function setupReorderOperation()
     {
-        // define which model attribute will be shown on draggable elements 
+        // define which model attribute will be shown on draggable elements
         $this->crud->set('reorder.label', 'name');
         // define how deep the admin is allowed to nest the items
         // for infinite levels, set it to 0
@@ -39,12 +40,12 @@ class PageCrudController extends CrudController
         $this->crud->setEntityNameStrings(trans('backpack::pagemanager.page'), trans('backpack::pagemanager.pages'));
         $this->themes_folder = config('themes.themes_folder', resource_path('views/themes'));
 
-        // Permission Manager
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        (backpack_user()->can(self::ENTITY.' clone')) ? $this->crud->allowAccess('clone') : $this->crud->denyAccess('clone'); // clone
+        /*
+         |--------------------------------------------------------------------------
+         | PERMISSIONS
+         |--------------------------------------------------------------------------
+         */
+        $this->setPermissions();
     }
 
     protected function setupListOperation()
@@ -78,7 +79,7 @@ class PageCrudController extends CrudController
         $defaultTemplates = $this->getTemplates();
         $defaultTemplates = $defaultTemplates[0]->name;
         $template = Request::input('template') ?? $defaultTemplates;
-        
+
         $this->crud->addField([
             'name' => 'name',
             'label' => trans('backpack::pagemanager.page_name'),
@@ -100,7 +101,7 @@ class PageCrudController extends CrudController
 
         // Add theme page fields
         $this->themeOptions($template);
-        
+
         // Add page template fields
         $this->useTemplate($template);
 
@@ -140,10 +141,10 @@ class PageCrudController extends CrudController
 
         // Add page template fields
         $this->useTemplate($template);
-        
+
         // Add default fields
         $this->addDefaultPageFields($template);
-        
+
         // valdation
         $this->crud->setValidation(PageRequest::class);
     }
@@ -172,7 +173,7 @@ class PageCrudController extends CrudController
             ],
             'tab' => 'تنظیمات'
         ]);
-        
+
         $this->crud->addField([
             'name' => 'slug',
             'label' => trans('backpack::pagemanager.page_slug'),
@@ -188,7 +189,7 @@ class PageCrudController extends CrudController
         // filename
         $path = theme_path("/modules/pages/$template");
         if(!File::isDirectory($path)) File::makeDirectory($path, 0777, true, true);
-        $files = array_diff(scandir($path), array('.', '..')); 
+        $files = array_diff(scandir($path), array('.', '..'));
 
         if($files) {
             $options = [];
@@ -200,7 +201,7 @@ class PageCrudController extends CrudController
                     "image" => asset(config('themes.assets_folder')."/admin/images/pages/$filename.svg"),
                 ];
             }
- 
+
             $this->crud->addField([   // radio
                 'name'        => 'filename', // the name of the db column
                 'label'       => 'قالب صفحه', // the input label

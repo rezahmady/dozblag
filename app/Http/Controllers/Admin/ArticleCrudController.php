@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\ArticleRequest;
 
@@ -17,7 +18,7 @@ class ArticleCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-
+    use DefaultPermissions;
     Const ENTITY = 'post';
 
     public function setup()
@@ -33,14 +34,11 @@ class ArticleCrudController extends CrudController
 
         /*
         |--------------------------------------------------------------------------
-        | PERMISHIONS
+        | PERMISSIONS
         |--------------------------------------------------------------------------
         */
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        
+        $this->setPermissions();
+
         /*
         |--------------------------------------------------------------------------
         | LIST OPERATION
@@ -49,7 +47,7 @@ class ArticleCrudController extends CrudController
         $this->crud->operation('list', function () {
 
             $this->crud->addButtonFromModelFunction('line', 'open', 'getOpenButton', 'beginning');
-            
+
             $this->crud->addColumn([
                 'name' => 'title',
                 'label' => trans('validation.attributes.title')
@@ -114,12 +112,23 @@ class ArticleCrudController extends CrudController
             $this->crud->setValidation(ArticleRequest::class);
             $this->crud->setOperationSetting('contentClass', 'col-md-12 bold-labels');
             $this->crud->addFields(static::getFieldsArrayForAttributes());
-            
+
             $this->crud->addFields([
                 [
                     'name'        => 'description',
                     'label'       => trans('validation.attributes.description'),
-                    'type'        => 'textarea',
+                    'type'    => 'summernote',
+                    'options' => [
+                        'toolbar' => [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                    ],
                     'placeholder' => 'خلاصه ای از مطلب',
                     'fake'        =>   true,
                     'tab'         => 'محتوا',
@@ -172,9 +181,9 @@ class ArticleCrudController extends CrudController
             $this->crud->field('line')->type('custom_html')
             ->value('<span class="bg-warning text-warning">تیتر و شرح مختصر صفحه به صورت خودکار ایجاد می‌شود و در صورتی که تمایل دارید این مقادیر را به صورت سفارشی ایجاد کنید، از فرم زیر استفاده کنید.</span>')
             ->tab('سئو');
-            
+
             $this->crud->addFields(static::getFieldsArrayForSeo());
-            
+
         });
     }
 
@@ -199,7 +208,7 @@ class ArticleCrudController extends CrudController
                 'label'     => "نویسنده",
                 'type'      => 'select2',
                 'name'      => 'user_id', // the db column for the foreign key
-             
+
                 // optional
                 'entity'    => 'user', // the method that defines the relationship in your Model
                 'model'     => "App\Models\User", // foreign key model
@@ -273,9 +282,9 @@ class ArticleCrudController extends CrudController
                                 منتشر نشود.
                             </span>',
                 ],
-                'wrapper'   => [ 
+                'wrapper'   => [
                     'class'      => 'form-group col-md-6'
-                ], 
+                ],
                 'default' => 'PUBLISHED',
                 'tab'   => 'مشخصات',
             ],
@@ -311,7 +320,18 @@ class ArticleCrudController extends CrudController
                 'name'  => 'meta_description',
                 'label' => 'شرح مختصر',
                 'hint'  => 'پیشنهاد می‌شود حداکثر 155 حرف در این فیلد بنویسید.',
-                'type'  => 'textarea',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
                 'fake'  => true,
                 'store_in' => 'extras',
                 'tab'   => 'سئو',
@@ -337,7 +357,7 @@ class ArticleCrudController extends CrudController
         ];
     }
 
-    
+
 
     /**
      * Respond to AJAX calls from the select2 with entries from the Category model.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FilterRequest;
 use App\Models\Filter;
+use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -21,7 +22,7 @@ class UserFilterCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
-
+    use DefaultPermissions;
     Const ENTITY = 'resource filter';
     Const MODULE = 'User';
 
@@ -46,13 +47,12 @@ class UserFilterCrudController extends CrudController
         CRUD::setEntityNameStrings(' دسته', 'دسته بندی ها');
         $this->crud->addClause('whereModule', self::MODULE);
 
-
-        // Permission Manager
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        (backpack_user()->can(self::ENTITY.' clone')) ? $this->crud->allowAccess('clone') : $this->crud->denyAccess('clone'); // clone
+        /*
+        |--------------------------------------------------------------------------
+        | PERMISSIONS
+        |--------------------------------------------------------------------------
+        */
+        $this->setPermissions();
     }
 
     /**

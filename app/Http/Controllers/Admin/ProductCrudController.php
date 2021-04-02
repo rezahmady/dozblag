@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Filter;
+use App\Traits\DefaultPermissions;
 use App\Traits\ProductTemplates;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -24,11 +25,12 @@ class ProductCrudController extends CrudController
     use \Rezahmady\SettingOperation\SettingOperation;
     use \Backpack\ReviseOperation\ReviseOperation;
     use ProductTemplates;
+    use DefaultPermissions;
     
     Const ENTITY = 'product';
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -37,17 +39,17 @@ class ProductCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/product');
         CRUD::setEntityNameStrings('محصول', 'محصولات');
 
-        // Permission Manager
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        (backpack_user()->can(self::ENTITY.' clone')) ? $this->crud->allowAccess('clone') : $this->crud->denyAccess('clone'); // clone
+        /*
+        |--------------------------------------------------------------------------
+        | PERMISSIONS
+        |--------------------------------------------------------------------------
+        */
+        $this->setPermissions();
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -92,7 +94,7 @@ class ProductCrudController extends CrudController
         CRUD::column('status')->type('model_function')
         ->label('وضعیت')
         ->function_name('getStatusBrowse');
-       
+
 
 
         /*
@@ -113,19 +115,19 @@ class ProductCrudController extends CrudController
             return$this->crud->addClause('where', 'settings->status', $value);
         });
 
-        
+
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProductRequest::class);
-        
+
         $this->addDefaultProductFields(\Request::input('template'));
 
         CRUD::setOperationSetting('contentClass', 'col-md-12');
@@ -133,7 +135,7 @@ class ProductCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
@@ -141,7 +143,7 @@ class ProductCrudController extends CrudController
     {
         CRUD::setValidation(ProductRequest::class);
         $template = \Request::input('template') ?? $this->crud->getCurrentEntry()->template;
-        
+
         $this->addDefaultProductFields($template);
 
         CRUD::setOperationSetting('contentClass', 'col-md-12');
@@ -149,7 +151,7 @@ class ProductCrudController extends CrudController
 
     /**
      * Define what happens when the Setting operation is loaded.
-     * 
+     *
      * @see https://github.com/rezahmady/setting-operation
      * @return void
      */
@@ -269,11 +271,11 @@ class ProductCrudController extends CrudController
             ])
             ->tab('محتوا');
 
-        
+
         if(backpack_user()->can('filter list')) {
 
             $filters = Filter::where('status', 1)->get();
-    
+
             foreach($filters as $filter) {
                 CRUD::addField([
                     'label'        => $filter->name,
@@ -416,9 +418,9 @@ class ProductCrudController extends CrudController
                                 منتشر نشود.
                             </span>',
                 ],
-                'wrapper'   => [ 
+                'wrapper'   => [
                     'class'      => 'form-group col-md-6'
-                ], 
+                ],
                 'default' => 'PUBLISHED',
                 'fake'  => true,
                 'store_in' => 'settings',
@@ -428,9 +430,9 @@ class ProductCrudController extends CrudController
                 'name'  => 'password',
                 'label' => 'رمزعبور',
                 'type'  => 'text',
-                'wrapper'   => [ 
+                'wrapper'   => [
                     'class'      => 'form-group col-md-6'
-                 ], 
+                 ],
                 'prefix' => '<i class="la la-key la-lg"></i>',
                 'hint'   => 'در صورتی که می‌خواهید صفحه برای بازدیدکنندگانی خاص قابل مشاهده باشد، رمز عبوری در این فیلد بنویسید.',
                 'fake'  => true,
@@ -438,7 +440,7 @@ class ProductCrudController extends CrudController
                 'tab'    => 'تنظیمات'
             ]
         ]);
-        
+
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FilterItemRequest;
+use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -21,12 +22,13 @@ class FilterItemCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use DefaultPermissions;
 
     Const ENTITY = 'filter';
 
     protected function setupReorderOperation()
     {
-        // define which model attribute will be shown on draggable elements 
+        // define which model attribute will be shown on draggable elements
         $this->crud->set('reorder.label', 'name');
         // define how deep the admin is allowed to nest the items
         // for infinite levels, set it to 0
@@ -36,7 +38,7 @@ class FilterItemCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -46,24 +48,24 @@ class FilterItemCrudController extends CrudController
         CRUD::setEntityNameStrings('فیلتر', 'فیلترها');
 
 
-        // Permission Manager
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create'); // add
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        (backpack_user()->can(self::ENTITY.' clone')) ? $this->crud->allowAccess('clone') : $this->crud->denyAccess('clone'); // clone
+        /*
+        |--------------------------------------------------------------------------
+        | PERMISSIONS
+        |--------------------------------------------------------------------------
+        */
+        $this->setPermissions();
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
         CRUD::addColumn(['name' => 'name', 'label' => 'عنوان']);
-        CRUD::addColumn([  
+        CRUD::addColumn([
             // any type of relationship
             'name'         => 'filter', // name of relationship method in the model
             'type'         => 'relationship',
@@ -84,18 +86,18 @@ class FilterItemCrudController extends CrudController
             $this->crud->addClause('where', 'filter_id', $value);
         });
         // CRUD::column('filter_id');
-        
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -135,18 +137,18 @@ class FilterItemCrudController extends CrudController
             ],
             'tab'          => 'تصویر شاخص'
         ]);
-        
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

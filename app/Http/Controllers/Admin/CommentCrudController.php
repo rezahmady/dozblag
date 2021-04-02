@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CommentRequest;
+use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Comment;
@@ -22,13 +23,14 @@ class CommentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Rezahmady\SettingOperation\SettingOperation;
+    use DefaultPermissions;
 
     Const ENTITY = 'comment';
     Const MODULE = 'Article';
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -41,18 +43,15 @@ class CommentCrudController extends CrudController
 
         /*
         |--------------------------------------------------------------------------
-        | PERMISHIONS
+        | PERMISSIONS
         |--------------------------------------------------------------------------
         */
-        (backpack_user()->can(self::ENTITY.' list')) ? $this->crud->allowAccess('list') : $this->crud->denyAccess('list'); // list
-        (backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update'); // update
-        (backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete'); // delete
-        
+        $this->setPermissions();
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -77,7 +76,7 @@ class CommentCrudController extends CrudController
         ]);
 
         $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');
-        
+
         /*
         |--------------------------------------------------------------------------
         | FILTER
@@ -102,13 +101,13 @@ class CommentCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -159,19 +158,19 @@ class CommentCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
     protected function setupUpdateOperation()
     {
-        
+
         CRUD::setValidation(CommentRequest::class);
         CRUD::addFields([
             [
@@ -217,9 +216,9 @@ class CommentCrudController extends CrudController
     {
         // by default the Show operation will try to show all columns in the db table,
         // but we can easily take over, and have full control of what columns are shown,
-        // by changing this config for the Show operation 
+        // by changing this config for the Show operation
         $this->crud->set('show.setFromDb', false);
-        
+
         CRUD::addColumns([
             [
                 'name' => 'name',
@@ -238,7 +237,7 @@ class CommentCrudController extends CrudController
                 'function_parameters' => ['title'], // pass one/more parameters to that method
                 // 'limit' => 100, // Limit the number of characters shown
             ],
-            [  
+            [
                 // any type of relationship
                 'name'         => 'parent', // name of relationship method in the model
                 'type'         => 'relationship',
@@ -262,7 +261,7 @@ class CommentCrudController extends CrudController
                 'type'  => 'model_function',
                 'function_name' => 'getStatusShow',
             ],
-        
+
         ]);
 
         $this->crud->addButtonFromModelFunction('line', 'reject', 'rejectComment', 'beginning');
@@ -273,7 +272,7 @@ class CommentCrudController extends CrudController
 
     /**
     * Define what happens when the Setting operation is loaded.
-    * 
+    *
     * @see https://github.com/rezahmady/setting-operation
     * @return void
     */
@@ -305,5 +304,5 @@ class CommentCrudController extends CrudController
         return redirect()->to($this->crud->route);
     }
 
-    
+
 }
