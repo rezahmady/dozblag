@@ -24,8 +24,9 @@
 
 @can('resource manage')
 <li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> بانک سلامت</a>
+    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-stethoscope"></i> بانک سلامت</a>
     <ul class="nav-dropdown-items">
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource') }}'><i class='nav-icon la la-hospital'></i> منابع</a></li>
         @can('resource filter')
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filter') }}'><i class='nav-icon la la-archive'></i> دسته بندی فیلتر ها</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filteritem') }}'><i class='nav-icon la la-filter'></i> فیلتر ها</a></li>
@@ -110,3 +111,4 @@
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon la la-envelope-o'></i> صندوق پیام</a></li>
 {{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('chat') }}'><i class='nav-icon la la-question'></i> Chats</a></li> --}}
+

@@ -36,6 +36,7 @@ return [
         "doctor"   => "دکتر",
         "clinic"   => "کلینیک (درمانگاه)",
         "customer" => "مشتری",
+        "hospital" => "بیمارستان",
     ],
 
     'attribute'            => [
