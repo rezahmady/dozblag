@@ -22,6 +22,18 @@
 </li>
 @endcan
 
+@can('resource manage')
+<li class="nav-item nav-dropdown">
+    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> بانک سلامت</a>
+    <ul class="nav-dropdown-items">
+        @can('resource filter')
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filter') }}'><i class='nav-icon la la-archive'></i> دسته بندی فیلتر ها</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filteritem') }}'><i class='nav-icon la la-filter'></i> فیلتر ها</a></li>
+        @endcan
+    </ul>
+</li>
+@endcan
+
 @can('chat list')
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('room') }}'><i class='nav-icon la la-comments'></i> گفتگوها</a></li>
 @endcan
