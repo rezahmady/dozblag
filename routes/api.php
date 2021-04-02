@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/users', 'UserController@users');
 Route::get('/doctors', 'UserController@doctors');
 Route::get('/operators', 'UserController@operators');
+Route::post('/shahrestan', 'ShahrestanController@index');
+Route::post('/shahrestan/{id}', 'ShahrestanController@show');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
