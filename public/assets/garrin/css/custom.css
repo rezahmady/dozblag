@@ -1474,7 +1474,7 @@ input[type="submit"] {
 }
 
 .section-search {
-    background: #f9f9f9 url(http://gariin.test/uploads/images/indexbg2-2.png) no-repeat right top;
+    background: #f9f9f9 url(/uploads/images/themes/garrin/indexbg2-2.png) no-repeat right top;
     padding-bottom: 0 !important;
 }
 

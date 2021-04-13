@@ -28,7 +28,7 @@
                 <a href="{{ route('auth.login') }}" type="button" class="button kt-modal-button button-info kt-register-button" data-modal="login">ورود | ثبت‌نام</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('auth.login') }}" type="button" class="button button-chat kt-modal-button kt-login-button" data-modal="login"><img width="42px" src="http://gariin.test/uploads/images/support.svg" alt=""></a>
+                <a href="{{ route('auth.login') }}" type="button" class="button button-chat kt-modal-button kt-login-button" data-modal="login"><img width="42px" src="{{url('/uploads/images/themes/garrin/support.svg')}}" alt=""></a>
             </li>
         </ul>
     </nav>
