@@ -21,7 +21,6 @@ trait ResourceTemplates
 
     private function clinic()
     {
-
         $this->crud->addFields([
             [   // select_and_order
                 'name'    => 'services',
