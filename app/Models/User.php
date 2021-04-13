@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
     use HasFactory, Notifiable, HasRoles, CrudTrait;
 
     /**
@@ -70,6 +71,21 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class);
     }
 
+    public function specilty()
+    {
+        return $this->belongsTo(FilterItem::class,'extras->specialty_id');
+    }
+
+    public function relationBelongsTo()
+    {
+        return $this->belongsTo(self::class);
+    }
+
+    public function relationHasMany()
+    {
+        return $this->hasMany(self::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -81,12 +97,31 @@ class User extends Authenticatable
         return url('/');
     }
 
+    public function getPageLink()
+    {
+        return url('doctor/'.$this->id);
+    }
+
+    public function getOpenButton()
+    {
+        if($this->template === 'doctor') {
+            return '<a class="btn btn-sm btn-link" href="'.$this->getPageLink().'" target="_blank">'.
+                '<i class="la la-eye"></i> نمایش</a>';
+        }
+        return '';
+    }
+
+    public function getSpecilty()
+    {
+       return ($this->specilty) ? $this->specilty->name : '';
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-    
+
     public function getProfileAttribute()
     {
         $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
@@ -102,14 +137,14 @@ class User extends Authenticatable
     public function setExtrasAttribute($values)
     {
         // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name'); 
+        $disk = config('backpack.base.root_disk_name');
         // destination path relative to the disk above
         $destination_path = "public/uploads/images/user/";
 
         foreach($values as $attribute => $value)
         {
             if (Str::startsWith($value, 'data:image')){
-                
+
                 // 0. Make the image
                 $image = Image::make($value)->encode('jpg', 90);
 
@@ -123,7 +158,7 @@ class User extends Authenticatable
                 if(isset($this->extras->$attribute)) Storage::disk($disk)->delete('/public/'.$this->extras->$attribute);
 
                 // 4. Save the public path to the database
-                // but first, remove "public/" from the path, since we're pointing to it 
+                // but first, remove "public/" from the path, since we're pointing to it
                 // from the root folder; that way, what gets saved in the db
                 // is the public URL (everything that comes after the domain name)
                 $public_destination_path = Str::replaceFirst('public/', '', $destination_path);

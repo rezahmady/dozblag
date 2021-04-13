@@ -18,12 +18,19 @@ class Custom extends Component
     {
         $this->widget = $this->widget->withFakes();
     }
-    
-    protected $listeners = ['lityClosed' => 'updateComponent'];
+
+    protected function getListeners()
+    {
+        return [
+            "widget-updated:{$this->widget->name}" => 'updateComponent'
+        ];
+    }
 
     public function updateComponent()
     {
         $this->widget = $this->widget->withFakes();
+
+        $this->dispatchBrowserEvent("contentChanged:{$this->widget->name}");
     }
 
 }

@@ -29,10 +29,12 @@
         "livewire/livewire": "^2.3",
         "rezahmady/setting-operation": "^1.0",
         "shetabit/payment": "^4.0",
-        "sopamo/laravel-filepond": "^0.5.0"
+        "sopamo/laravel-filepond": "^0.5.0",
+        "staudenmeir/eloquent-json-relations": "^1.5"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
+        "barryvdh/laravel-ide-helper": "^2.9",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "jeroen-g/laravel-packager": "^2.6",
@@ -48,7 +50,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
         }
     },
     "autoload": {

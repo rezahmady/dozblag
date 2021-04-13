@@ -23,12 +23,19 @@ class ListGroup extends Component
 
         $this->categories = Page::whereIn('id', $this->widget->category_filter)->get()->take($this->widget->category_filter_max);
     }
-    
-    protected $listeners = ['lityClosed' => 'updateComponent'];
+
+    protected function getListeners()
+    {
+        return [
+            "widget-updated:{$this->widget->name}" => 'updateComponent'
+        ];
+    }
 
     public function updateComponent()
     {
         $this->widget = $this->widget->withFakes();
         $this->categories = Page::whereIn('id', $this->widget->category_filter)->get()->take($this->widget->category_filter_max);
+
+        $this->dispatchBrowserEvent("contentChanged:{$this->widget->name}");
     }
 }

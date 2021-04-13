@@ -51,7 +51,7 @@ class Widget extends Model
     public function setExtrasAttribute($values)
     {
         // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name'); 
+        $disk = config('backpack.base.root_disk_name');
         // destination path relative to the disk above
         $destination_path = "public/uploads/images/page/";
 
@@ -60,10 +60,10 @@ class Widget extends Model
             if (!is_array($value) and  Str::startsWith($value, 'data:image')){
 
                     // 0. Make the image
-                $image = Image::make($value)->encode('jpg', 90);
+                $image = Image::make($value)->encode('png', 90);
 
                 // 1. Generate a filename.
-                $filename = md5($value.time()).'.jpg';
+                $filename = md5($value.time()).'.png';
 
                 // 2. Store the image on disk.
                 Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
@@ -72,7 +72,7 @@ class Widget extends Model
                 if(isset($this->extras[$attribute])) Storage::disk($disk)->delete('/public/'.$this->extras[$attribute]);
 
                 // 4. Save the public path to the database
-                // but first, remove "public/" from the path, since we're pointing to it 
+                // but first, remove "public/" from the path, since we're pointing to it
                 // from the root folder; that way, what gets saved in the db
                 // is the public URL (everything that comes after the domain name)
                 $public_destination_path = Str::replaceFirst('public/', '', $destination_path);

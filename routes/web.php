@@ -10,6 +10,8 @@ use App\Http\Livewire\User\DoctorProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
+use App\Http\Livewire\User\Auth\Login;
+use App\Http\Livewire\User\Auth\Register;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,9 +118,13 @@ Route::get('download', function(Request $request)
         exit('Requested file does not exist on our server!');
     }
 });
-Route::get('/product/{product:slug}', Show::class)->name('product.show');
+// Route::get('/product/{product:slug}', Show::class)->name('product.show');
 Route::post('/form/{page:id}', [FormController::class, 'save'])->name('form.save');
 
+Route::group(['prefix'=>'auth','as'=>'auth.'], function() {
+    Route::get('/login', Login::class)->name('login');
+    Route::get('/register', Register::class)->name('register');
+});
 Route::get('/doctor/{user:id}', DoctorProfile::class)->name('doctor.show');
 
 Route::get('mag/{article:slug}/{subs?}', PostRender::class)

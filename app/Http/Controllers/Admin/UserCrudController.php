@@ -37,13 +37,13 @@ class UserCrudController extends CrudController
     public function setupListOperation()
     {
         $this->crud->enableExportButtons();
+        $this->crud->addButtonFromModelFunction('line', 'open', 'getOpenButton', 'ending');
         $this->crud->addColumns([
             [
                 'name'  => 'name',
                 'label' => trans('backpack::permissionmanager.name'),
                 'type'  => 'text',
             ],
-
             [
                 'name'  => 'mobile',
                 'label' => trans('backpack::permissionmanager.mobile'),

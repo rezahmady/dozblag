@@ -19,8 +19,12 @@ class Custom extends Component
         $this->theme = $theme;
     }
 
-    
-    protected $listeners = ['lityClosed' => 'updateComponent'];
+    protected function getListeners()
+    {
+        return [
+            "widget-updated:ThemeSettings" => 'updateComponent'
+        ];
+    }
 
     public function updateComponent()
     {

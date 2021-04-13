@@ -41,8 +41,13 @@ class ListGrouped extends Component
             };
         }
     }
-    
-    protected $listeners = ['lityClosed' => 'updateComponent'];
+
+    protected function getListeners()
+    {
+        return [
+            "widget-updated:{$this->widget->name}" => 'updateComponent'
+        ];
+    }
 
     public function updateComponent()
     {
@@ -62,5 +67,7 @@ class ListGrouped extends Component
                 }
             };
         }
+
+        $this->dispatchBrowserEvent("contentChanged:{$this->widget->name}");
     }
 }

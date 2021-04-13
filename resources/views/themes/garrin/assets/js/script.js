@@ -188,9 +188,38 @@ Version      : 1.3
             dots: true,
             autoplay: false,
             infinite: true,
-            variableWidth: true,
+            // variableWidth: true,
             rtl: true,
-            centerMode: true,
+            // centerMode: true,
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '10px',
+                        slidesToShow: 4
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '20px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '20px',
+                        slidesToShow: 2
+                    }
+                }
+            ],
 
             prevArrow: false,
             nextArrow: false
@@ -203,10 +232,60 @@ Version      : 1.3
             autoplay: false,
             infinite: true,
             rtl: true,
-            centerMode: true,
+            // centerMode: true,
             variableWidth: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 4
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ],
         });
     }
+
+    if ($('.comment-slider').length > 0) {
+        $('.comment-slider').slick({
+            // centerMode: true,
+            centerPadding: '60px',
+            rtl: true,
+            slidesToShow: 3,
+            responsive: [{
+                    breakpoint: 899,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 670,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+    }
+
     if ($('.features-slider').length > 0) {
         $('.features-slider').slick({
             dots: true,

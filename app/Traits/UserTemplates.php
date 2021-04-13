@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\FilterItem;
+
 trait UserTemplates
 {
     /*
@@ -56,6 +58,36 @@ trait UserTemplates
     private function doctor()
     {
         $this->crud->addFields([
+            [   // select2_from_array
+                'name'        => 'specialty_id',
+                'label'       => "تخصص اصلی",
+                'type'        => 'select2_from_array',
+                'options'     => FilterItem::where('filter_id', 6)->get()->pluck('name','id')->toArray(),
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'     => 'تخصصی',
+                'wrapper'   => [ 
+                    'class'      => 'form-group col-md-6'
+                 ],
+                'allows_null' => true,
+                // 'default'     => 'one',
+                // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ],
+            [   // select2_from_array
+                'name'        => 'extra_specialty',
+                'label'       => "سایر تخصص ها",
+                'type'        => 'select2_from_array',
+                'options'     => FilterItem::where('filter_id', 6)->get()->pluck('name','id')->toArray(),
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'     => 'تخصصی',
+                'wrapper'   => [ 
+                    'class'      => 'form-group col-md-6'
+                 ], 
+                'allows_null' => true,
+                // 'default'     => 'one',
+                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ],
             [
                 'name'    => 'medical_code',
                 'type'    => 'text',

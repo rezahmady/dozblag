@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // $this->overrideConfigValues();
+        if ($this->app->isLocal()) $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
     }
 
     protected function overrideConfigValues()
@@ -54,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('chat-room-sidebar', RoomSidebar::class);
         Blade::component('chat-suggestions', Suggestions::class);
         Blade::component('chat-archives', Archives::class);
-        
+
         Paginator::useBootstrap();
 
                 /**

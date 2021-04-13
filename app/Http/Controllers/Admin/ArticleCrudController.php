@@ -297,13 +297,12 @@ class ArticleCrudController extends CrudController
                 'attribute' => 'title',
                 'model'     => "App\Models\Page",
                 'pivot'     => true,
-                'tab'          => 'دسته بندی',
                 'tab'   => 'مشخصات',
             ],
         ];
     }
 
-    public static function getFieldsArrayForSeo()
+    public static function getFieldsArrayForSeo(): array
     {
         return [
             [ // Text

@@ -6,12 +6,12 @@
                 <div class="post-show-top-widget-box">
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
-                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i> 
-                                <a href="#" rel="category" data-wpel-link="internal">مورد شماره یک</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
+                                <a href="#" rel="category" data-wpel-link="internal">پزشکان</a>
                                 <i class="fa fa-chevron-left blog-item-popular"></i>
-                                <a href="#" rel="category" data-wpel-link="internal">مورد دوم</a>
+                                <a  rel="category" data-wpel-link="internal">{{$doctor->name}}</a>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                                         <li>تعداد مشاوره: <span class="value">11664 سوال (در مدت 1 سال و 10 ماه )</span> </li>
                                     </ul>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="doc-info-right">
@@ -51,7 +51,7 @@
                                 <div class="rating">
                                     <div class="card-rating">
                                         <div class="num">
-                                        <p>4.5</p>    
+                                        <p>4.5</p>
                                         </div>
                                     </div>
                                     <i class="fas fa-star filled"></i>
@@ -61,7 +61,7 @@
                                     <i class="fas fa-star"></i>
                                     <span class="d-inline-block average-rating">7 نظر</span>
                                 </div>
-                                
+
                             </div>
                             <div class="clinic-booking">
                                 <a class="apt-btn bg-svg-02" href="booking.html">گفتگوی متنی با پزشک</a>
@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div clas="card-body pt-0">
-                    
+
                         <!-- Tab Menu -->
                         <nav class="user-tabs mb-4">
                             <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
@@ -91,15 +91,15 @@
                             </ul>
                         </nav>
                         <!-- /Tab Menu -->
-                        
+
                         <!--  محتوای تب -->
                         <div class="tab-content pt-0">
-                        
+
                             <!-- Overview Content -->
                             <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
-                                    
+
                                         <!-- About Details -->
                                         <div class="widget about-widget">
                                             <h4 class="section-title"> درباره من </h4>
@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                         <!-- /About Details -->
-                                    
+
                                         @if ($services)
                                         <!-- Services List -->
                                         <div class="service-list">
@@ -121,7 +121,7 @@
                                         </div>
                                         <!-- /Services List -->
                                         @endif
-                                        
+
                                         <div class="col-md-12 col-lg-9">
 
 
@@ -150,7 +150,7 @@
                                             </div>
                                             <!-- /Education Details -->
                                             @endif
-                                            
+
                                             @if ($job_bg)
                                             <!-- Experience Details -->
                                             <div class="widget experience-widget">
@@ -176,7 +176,7 @@
                                             </div>
                                             <!-- /Experience Details -->
                                             @endif
-                                            
+
                                             @if ($gif_bg)
                                             <!-- Awards Details -->
                                             <div class="widget awards-widget">
@@ -201,16 +201,16 @@
                                                 </div>
                                             </div>
                                             <!-- /Awards Details -->
-                                            @endif                                
-                                            
+                                            @endif
+
                                         </div>
-                                        
-        
+
+
                                     </div>
                                 </div>
                             </div>
                             <!-- /Overview Content -->
-                            
+
                             <!-- Locations Content -->
                             <div role="tabpanel" id="doc_locations" class="tab-pane fade">
                                 @if ($clinics)
@@ -218,7 +218,7 @@
                                     <!-- Location List -->
                                     <div class="location-list card p-3 bg-cover-05">
                                         <div class="row">
-                                        
+
                                             <!-- Clinic Content -->
                                             <div class="col-md-6">
                                                 <div class="clinic-content">
@@ -260,7 +260,7 @@
                                                 </div>
                                             </div>
                                             <!-- /Clinic Content -->
-                                            
+
                                             <!-- Clinic Timing -->
                                             <div class="col-md-6">
                                                 @php
@@ -282,24 +282,24 @@
                                                 @endif
                                             </div>
                                             <!-- /Clinic Timing -->
-                                            
+
                                         </div>
                                     </div>
                                     <!-- /Location List -->
                                     @endforeach
                                 @endif
-                                
-        
+
+
                             </div>
                             <!-- /Locations Content -->
-                            
+
                             <!-- Reviews Content -->
                             <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
-                            
+
                                 <!-- Review Listing -->
                                 <div class="widget review-listing">
                                     <ul class="comments-list">
-                                    
+
                                         <!-- Comment List -->
                                         <li>
                                             <div class="comment card p-3">
@@ -321,36 +321,9 @@
                                                     <p class="comment-content">
                                                         سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
                                                     </p>
-                                                    
+
                                                 </div>
-                                            </div>                                        
-                                        </li>
-                                        <!-- /Comment List -->
-                                        
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">تراویس تریمبل</span>
-                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-                                                    
-                                                </div>
-                                            </div>                                        
+                                            </div>
                                         </li>
                                         <!-- /Comment List -->
 
@@ -375,9 +348,9 @@
                                                     <p class="comment-content">
                                                         سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
                                                     </p>
-                                                    
+
                                                 </div>
-                                            </div>                                        
+                                            </div>
                                         </li>
                                         <!-- /Comment List -->
 
@@ -402,9 +375,9 @@
                                                     <p class="comment-content">
                                                         سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
                                                     </p>
-                                                    
+
                                                 </div>
-                                            </div>                                        
+                                            </div>
                                         </li>
                                         <!-- /Comment List -->
 
@@ -429,14 +402,41 @@
                                                     <p class="comment-content">
                                                         سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
                                                     </p>
-                                                    
+
                                                 </div>
-                                            </div>                                        
+                                            </div>
                                         </li>
                                         <!-- /Comment List -->
-                                        
+
+                                        <!-- Comment List -->
+                                        <li>
+                                            <div class="comment card p-3">
+                                                <div class="comment-body">
+                                                    <div class="meta-data">
+                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
+                                                        <div class="inline-block">
+                                                            <span class="comment-author">تراویس تریمبل</span>
+                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
+                                                        </div>
+                                                        <div class="review-count rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p class="comment-content">
+                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- /Comment List -->
+
                                     </ul>
-                                    
+
                                     <!-- Show All -->
                                     <div class="all-feedback text-center">
                                         <a href="#" class="btn btn-primary btn-sm">
@@ -444,16 +444,16 @@
                                         </a>
                                     </div>
                                     <!-- /Show All -->
-                                    
+
                                 </div>
                                 <!-- /Review Listing -->
                             </div>
                             <!-- /Reviews Content -->
-                            
+
                         </div>
                     </div>
-                    
-        
+
+
                 </div>
                 <div class="col-md-4">
 
@@ -480,11 +480,11 @@
                             <div class="blog-single-social-box-text">دکتر حبیبه رازی<br>در <b>اینستاگرام</b></div>
                         </a>
                     </div>
-                    
+
                     <!-- /Instagram -->
 
                     <!-- Telegram -->
-                    
+
                     <div class="search-widget mb-3" >
                         <a href="https://t.me/garrin" class="blog-single-social-box blog-single-social-box-telegram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                             <div class="blog-single-social-box-icon">
@@ -499,12 +499,12 @@
                     </div>
                     <!-- /Telegram -->
                 </div>
-                    
+
             </div>
-          
+
 
         </div>
-    </div>		
+    </div>
     <!-- /Page Content -->
 
 

@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:J2w57lYZ44YnvfVqA9vo5RQsyokICOhvK5l8ewMXCGA='),
 
     'cipher' => 'AES-256-CBC',
 
@@ -134,7 +134,7 @@ return [
     */
 
     'log' => env('APP_LOG', 'daily'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

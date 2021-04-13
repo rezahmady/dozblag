@@ -57,22 +57,21 @@ class CommentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        // CRUD::column('parent_id');
-        CRUD::addColumn([
-            'name'   => 'name',
-            'label'  => 'کاربر'
-        ]);
-
-        CRUD::addColumn([
-            'name'   => 'body',
-            'label'  => 'نظر'
-        ]);
-
-        CRUD::addColumn([
-            'name'  => 'status',
-            'label' => 'وضعیت', // Table column heading
-            'type'  => 'model_function',
-            'function_name' => 'getStatusShow',
+        CRUD::addColumns([
+            [
+                'name'   => 'name',
+                'label'  => 'کاربر'
+            ],
+            [
+                'name'   => 'body',
+                'label'  => 'نظر'
+            ],
+            [
+                'name'  => 'status',
+                'label' => 'وضعیت', // Table column heading
+                'type'  => 'model_function',
+                'function_name' => 'getStatusShow',
+            ]
         ]);
 
         $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');

@@ -4,5 +4,8 @@ function myFunction() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     var scrolled = (winScroll / height) * 100;
-    document.getElementById("blog-content").style.width = scrolled + "%";
+    if (document.getElementById("blog-content")) {
+        document.getElementById("blog-content").style.width = scrolled + "%";
+    }
+
 }

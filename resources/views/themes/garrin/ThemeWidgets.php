@@ -1,12 +1,13 @@
 <?php
 namespace ThemeFolder\themes;
 
+use App\Models\Filter;
 use App\Models\Page;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 class ThemeWidgets
 {
-    
+
     /*
     |--------------------------------------------------------------------------
     | Template options field for ThemeManager
@@ -18,340 +19,6 @@ class ThemeWidgets
     | - Theme name (only seen by admins)
     */
 
-    public function widget_banner()
-    {
-
-        // 
-        CRUD::addField([
-            'name' => 'banner_title',
-            'label' => 'عنوان بنر',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'banner_description',
-            'label' => 'توضیحات بنر',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        // image
-        CRUD::addField([
-            'label'        => "تصویر بنر",
-            'name'         => 'image',
-            'fake'  => true,
-            'type' => 'image',
-            'crop' => true, // set to true to allow cropping, false to disable
-            'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-            // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-            'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-            'wrapper'      => [
-                'class'  => "form-group col-12 ltr"
-            ],
-            'tab'          => 'بنر',
-        ]);
-
-        // button
-
-        CRUD::addField([
-            'name' => 'banner_button_header',
-            'label' => '',
-            'type'  => 'custom_html',
-            'value' => '<hr><p class="text-center"><b>دکمه</b></p>',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name'   => 'banner_button_title',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'label'  => '',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'attributes'   => ['placeholder' => 'عنوان'],
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'banner_button_link',
-            'prefix' => '<i class="la la-link la-lg"></i>',
-            'attributes'   => ['placeholder' => 'لینک'],
-            'label' => '',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'banner_button_visible',
-            'label' => ' نمایش',
-            'wrapper'      => [
-                'class'  => "form-group col-md-4"
-            ],
-            'type'  => 'toggle',
-            'view_namespace' => 'vendor/backpack/crud/fields',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        // link
-
-        CRUD::addField([
-            'name' => 'banner_link_header',
-            'label' => '',
-            'type'  => 'custom_html',
-            'value' => '<hr><p class="text-center"><b>لینک متنی</b></p>',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name'   => 'banner_link_text',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'label'  => '',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'attributes'   => ['placeholder' => 'متن'],
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'banner_link_link',
-            'prefix' => '<i class="la la-link la-lg"></i>',
-            'attributes'   => ['placeholder' => 'لینک'],
-            'label' => '',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'banner_link_visible',
-            'label' => ' نمایش',
-            'wrapper'      => [
-                'class'  => "form-group col-md-4"
-            ],
-            'type'  => 'toggle',
-            'view_namespace' => 'vendor/backpack/crud/fields',
-            'tab'          => 'بنر',
-            'fake'  => true,
-        ]);
-
-
-
-
-
-        ///////////////////////////// ویجت دسته بندی ها ///////////////////////
-
-
-
-    }
-
-    public function widget_course_grouped()
-    {
-        ///////////////////////////// ویجت لیست دوره ها به صورت تب بندی شده ///////////////////////
-
-        CRUD::addField([
-            'name' => 'tabs_title',
-            'label' => 'عنوان ویجت',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'tabs_filter',
-            'label' => 'دسته برای نمایش آیتم ها',
-            'type'        => 'select2_from_array',
-            'options'     => [
-                'shop'  => trans('backpack::pagemanager.function_name.shop'),
-                'blog'  => trans('backpack::pagemanager.function_name.blog')
-            ],
-            'allows_null' => false,
-            'default'     => 'one',
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-            // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-        ],);
-
-        CRUD::addField([
-            'name' => 'tabs_filter_max',
-            'label' => 'حداکثر تعداد نمایش تب',
-            'type'  => 'number',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-        ]);
-        CRUD::addField([
-            'name' => 'tabs_filter_item_max',
-            'label' => 'حداکثر تعداد محصول',
-            'type'  => 'number',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name'   => 'tabs_button_label',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'label'  => 'متن دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'attributes'   => ['placeholder' => 'متن'],
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'tabs_button_link',
-            'prefix' => '<i class="la la-link la-lg"></i>',
-            'attributes'   => ['placeholder' => 'لینک'],
-            'label' => 'لینک دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'تب بندی شده',
-            'fake'  => true,
-        ]);
-
-
-    }
-
-    public function widget_course_group()
-    {
-        ///////////////////////////// ویجت دسته بندی ها ///////////////////////
-
-        CRUD::addField([
-            'name' => 'category_title',
-            'label' => 'عنوان ویجت',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'tab'          => 'دسته بندی دوره ها',
-            'fake'  => true,
-        ]);
-
-        // CRUD::addField([
-        //     'name' => 'category_filter',
-        //     'label' => 'دسته برای نمایش ',
-        //     'type'  => 'select2',
-        //     'wrapper'      => ['class'  => "form-group col-md-6"],
-        //     // optional
-        //     'entity'    => 'relationBelongsTo', // the method that defines the relationship in your Model
-        //     'model'     => "App\Models\Filter", // foreign key model
-        //     'attribute' => 'name', // foreign key attribute that is shown to user
-        //     'default'   => 2, // set the default value of the select2
-
-        //         // also optional
-        //     'options'   => (function ($query) {
-        //             return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-        //         }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-
-        //     'tab'          => 'دسته بندی دوره ها',
-        //     'fake'  => true,
-        // ]);
-        CRUD::addField([
-            'name' => 'category_filter',
-            'label' => 'دسته برای نمایش ',
-            'type'      => 'select2_from_array',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            // optional
-            'allows_multiple' => true,
-            'allows_null' => false,
-            'options' => Page::where('template', 'shop')->get()->pluck('name','id')->toArray(),
-            'tab'          => 'دسته بندی دوره ها',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'category_filter_max',
-            'label' => 'حداکثر تعداد آیتم',
-            'default' => 4,
-            'type'  => 'number',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'دسته بندی دوره ها',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name'   => 'category_button_label',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'label'  => 'متن دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'attributes'   => ['placeholder' => 'متن'],
-            'tab'          => 'دسته بندی دوره ها',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'category_button_link',
-            'prefix' => '<i class="la la-link la-lg"></i>',
-            'attributes'   => ['placeholder' => 'لینک'],
-            'label' => 'لینک دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'دسته بندی دوره ها',
-            'fake'  => true,
-        ]);
-        
-
-    }
-
-    public function widget_kashi()
-    {
-
-        ///////////////////////////// ویجت کاشی ///////////////////////
-
-        CRUD::addField([
-            'name' => 'kashi_title',
-            'label' => 'عنوان ویجت',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'tab'          => 'کاشی',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'kashi_description',
-            'type' => 'wysiwyg',
-            'label' => 'توضیحات ویجت',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'tab'          => 'کاشی',
-            'fake'  => true,
-        ]);
-
-        // image
-        CRUD::addField([
-            'label'        => "تصویر پس زمینه",
-            'name'         => 'image_bg',
-            'fake'  => true,
-            'type' => 'image',
-            'crop' => true, // set to true to allow cropping, false to disable
-            'aspect_ratio' => 2, // omit or set to 0 to allow any aspect ratio
-            // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-            'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-            'wrapper'      => [
-                'class'  => "form-group col-12 ltr"
-            ],
-            'tab'          => 'کاشی',
-        ]);
-
-        CRUD::addField([
-            'name'   => 'kashi_button_label',
-            'prefix' =>'<i class="la la-pencil la-lg"></i>',
-            'label'  => 'متن دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'attributes'   => ['placeholder' => 'متن'],
-            'tab'          => 'کاشی',
-            'fake'  => true,
-        ]);
-
-        CRUD::addField([
-            'name' => 'kashi_button_link',
-            'prefix' => '<i class="la la-link la-lg"></i>',
-            'attributes'   => ['placeholder' => 'لینک'],
-            'label' => 'لینک دکمه',
-            'wrapper'      => ['class'  => "form-group col-md-6"],
-            'tab'          => 'کاشی',
-            'fake'  => true,
-        ]);
-        
-    }
-
     public function widget_main_menu()
     {
         CRUD::addFields([
@@ -360,7 +27,7 @@ class ThemeWidgets
                 'prefix' => '<i class="la la-pencil"></i>',
                 'label' => 'عنوان',
                 'fake'        => true,
-                'wrapper' => [ 
+                'wrapper' => [
                     'class'      => 'form-group col-md-12'
                 ],
                 'tab'   => 'منو'
@@ -383,9 +50,9 @@ class ThemeWidgets
                 'tab'         => 'منو',
                 'store_in' => 'extras',
                 'options'           => [
-                    'all_pages', 
-                    'shop', 
-                    'blog', 
+                    'all_pages',
+                    'shop',
+                    'blog',
                     'custom_menu'
                 ],
                 'fields'            => [
@@ -418,15 +85,82 @@ class ThemeWidgets
         $this->widget_main_menu();
     }
 
-    public function widget_top_menu()
+    public function widget_footer_menu2()
     {
         $this->widget_main_menu();
     }
 
-
-    public function widget_footer_menu2()
+    public function widget_footer_menu3()
     {
         $this->widget_main_menu();
+    }
+
+    public function widget_footer_about_us()
+    {
+        CRUD::addFields([
+            [
+                'name'   => 'about_img',
+                'prefix' =>'<i class="la la-image la-lg"></i>',
+                'type'   => 'browse',
+                'label'  => 'تصویر',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'        => 'about_description',
+                'label'       => 'توضیحات',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'        =>   true,
+                'tab'         => 'محتوا',
+            ],
+            [   // repeatable
+                'name'  => 'social_list',
+                'label' => 'آیکن شبکه های اجتماعی',
+                'type'  => 'repeatable',
+                'fake'        => true,
+                'fields' => [
+                    [
+                        'name'    => 'icon',
+                        'type'    => 'icon_picker',
+                        'iconset' => 'fontawesome',
+                        'label'   => 'آیکن',
+                        'wrapper' => ['class' => 'form-group col-md-2 col-sm-2'],
+                    ],
+                    [
+                        'name'    => 'link',
+                        'type'    => 'text',
+                        'prefix'  => '<i class="la la-link"></i>',
+                        'label'   => 'لینک',
+                        'wrapper' => ['class' => 'form-group col-md-7 col-sm-7'],
+                    ],
+                    [   // select2_from_array
+                        'name'        => 'target',
+                        'label'   => 'تارگت',
+                        'type'        => 'select2_from_array',
+                        'options'     => ['_blank' => 'در تب جدید باز شود', '_self' => 'در همان تب باز شود'],
+                        'allows_null' => false,
+                        'default'     => '_self',
+                        'wrapper' => ['class' => 'form-group col-md-3 col-sm-3'],
+                        // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+                    ],
+                ],
+                'tab'   => 'شبکه های اجتماعی',
+                // optional
+                'new_item_label'  => 'افزودن شبکه اجتماعی جدید', // customize the text of the button
+            ],
+           
+        ]);
     }
 
     public function widget_footer_contact_us()
@@ -437,7 +171,7 @@ class ThemeWidgets
                 'prefix' => '<i class="la la-pencil"></i>',
                 'label' => 'عنوان',
                 'fake'        => true,
-                'wrapper' => [ 
+                'wrapper' => [
                     'class'      => 'form-group col-md-12'
                 ],
                 'tab'   => 'اطلاعات تماس'
@@ -483,78 +217,401 @@ class ThemeWidgets
                 // optional
                 'new_item_label'  => 'افزودن تماس جدید', // customize the text of the button
             ],
-            [   // repeatable
-                'name'  => 'social_list',
-                'label' => 'آیکن شبکه های اجتماعی',
-                'type'  => 'repeatable',
-                'fake'        => true,
-                'fields' => [
-                    [
-                        'name'    => 'icon',
-                        'type'    => 'icon_picker',
-                        'iconset' => 'fontawesome',
-                        'label'   => 'آیکن',
-                        'wrapper' => ['class' => 'form-group col-md-2 col-sm-2'],
-                    ],
-                    [
-                        'name'    => 'link',
-                        'type'    => 'text',
-                        'prefix'  => '<i class="la la-link"></i>',
-                        'label'   => 'لینک',
-                        'wrapper' => ['class' => 'form-group col-md-7 col-sm-7'],
-                    ],
-                    [   // select2_from_array
-                        'name'        => 'target',
-                        'label'   => 'تارگت',
-                        'type'        => 'select2_from_array',
-                        'options'     => ['_blank' => 'در تب جدید باز شود', '_self' => 'در همان تب باز شود'],
-                        'allows_null' => false,
-                        'default'     => '_self',
-                        'wrapper' => ['class' => 'form-group col-md-3 col-sm-3'],
-                        // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-                    ],
+
+        ]);
+    }
+
+    
+
+    public function widget_home_search()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'search_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'جستو جو',
+                'fake'  => true,
+            ],
+            [
+                'name'        => 'search_description',
+                'label'       => 'توضیحات',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
                 ],
-                'tab'   => 'اطلاعات تماس',
-                // optional
-                'new_item_label'  => 'افزودن شبکه اجتماعی جدید', // customize the text of the button
+                'fake'        =>   true,
+                'tab'         => 'جستو جو',
+            ],
+            [
+                'name'   => 'input_placeholder',
+                'prefix' =>'<i class="la la-i-cursor la-lg"></i>',
+                'label'  => 'متن پیشفرض جستجو',
+                'tab'          => 'جستو جو',
+                'fake'  => true,
+            ],
+            [
+                'name'   => 'input_hint',
+                'prefix' =>'<i class="la la-info-circle la-lg"></i>',
+                'label'  => 'متن راهنمای جستجو',
+                'tab'          => 'جستو جو',
+                'fake'  => true,
+            ],
+            [
+                'name'   => 'header_img',
+                'prefix' =>'<i class="la la-image la-lg"></i>',
+                'type'   => 'browse',
+                'label'  => 'تصویر بنر',
+                'tab'          => 'جستو جو',
+                'fake'  => true,
+            ],
+        ]);
+    }
+
+    public function widget_service1()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'service_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'        => 'service_description',
+                'label'       => 'توضیحات',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'        =>   true,
+                'tab'         => 'محتوا',
+            ],
+            [
+                'name'   => 'service_img',
+                'prefix' =>'<i class="la la-image la-lg"></i>',
+                'type'   => 'browse',
+                'label'  => 'تصویر شاخص',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+        ]);
+    }
+
+    public function widget_service2()
+    {
+        $this->widget_service1();
+    }
+
+    public function widget_service3()
+    {
+        $this->widget_service1();
+    }
+
+    public function widget_filter_slide()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'filter_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [   // relationship
+                'type' => "relationship",
+                'name' => 'filter', // the method on your model that defines the relationship
+                'ajax' => false,
+                'fake' => true,
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'محتوا',
+                // OPTIONALS:
+                 'label' => "دسته فیلتر",
+                 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+                 'entity' => 'relationBelongsTo', // the method that defines the relationship in your Model
+                 'model' => "App\Models\Filter", // foreign key Eloquent model
+                 'placeholder' => "انتخاب کنید...", // placeholder for the select2 input
+            ],
+            [   // relationship
+                'type' => "relationship",
+                'name' => 'filterItem', // the method on your model that defines the relationship
+                'ajax' => true,
+                'fake' => true,
+                // OPTIONALS:
+                'label' => "فیلترها",
+                'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+                'entity' => 'relationHasMany', // the method that defines the relationship in your Model
+                'model' => "App\Models\FilterItem", // foreign key Eloquent model
+                'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'محتوا',
+                // AJAX OPTIONALS:
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                 'data_source' => url("api/filter-item"), // url to controller search function (with /{id} should return model)
+                 'minimum_input_length' => 0, // minimum characters to type before querying results
+                 'dependencies'         => ['filter'], // when a dependency changes, this select2 is reset to null
+                 'include_all_form_fields'  => true, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
             
         ]);
     }
 
-    public function widget_counter()
+    public function widget_doctor_slide()
     {
-        CRUD::addField([   // repeatable
-            'name'  => 'items',
-            'label' => 'آیتم',
-            'type'  => 'repeatable',
-            'fake'  => true,
-            'fields' => [
-                [   // icon_picker
-                    'label'   => '',
-                    'name'    => 'icon',
-                    'type'    => 'icon_picker',
-                    'iconset' => 'fontawesome', // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
-                    'wrapper' => ['class' => 'form-group col-md-2 col-sm-2'],
-                ],
-                [
-                    'name'    => 'label',
-                    'type'    => 'text',
-                    'label'   => 'عنوان',
-                    'wrapper' => ['class' => 'form-group col-md-6 col-sm-6'],
-                ],
-                [
-                    'name'    => 'number',
-                    'type'    => 'number',
-                    'label'   => 'مقدار عددی',
-                    'wrapper' => ['class' => 'form-group col-md-4 col-sm-4'],
-                ]
+        CRUD::addFields([
+            [   // icon_picker
+                'label'   => "Icon",
+                'name'    => 'doctor_icon',
+                'type'    => 'icon_picker',
+                'tab'          => 'محتوا',
+                'wrapper' => ['class' => 'form-group col-md-2 col-sm-2'],
+                'fake'  => true,
+                'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
             ],
-            'tab'             => 'آیتم ها',
-            // optional
-            'new_item_label'  => 'افزودن آیتم', // customize the text of the button
+            [
+                'name' => 'doctor_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'wrapper' => ['class' => 'form-group col-md-10 col-sm-10'],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'        => 'doctor_description',
+                'label'       => 'توضیحات',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'        =>   true,
+                'tab'         => 'محتوا',
+            ],
+            [
+                'name' => 'template',
+                'label' => 'نوع کاربر',
+                'type'      => 'select2_from_array',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                // optional
+                // 'allows_multiple' => true,
+                'allows_null' => false,
+                'options' => $this->getUserTemplatesArray(),
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [   // relationship
+                'type' => "relationship",
+                'name' => 'users', // the method on your model that defines the relationship
+                'ajax' => true,
+                'fake' => true,
+                // OPTIONALS:
+                'label' => "انتخاب از کاربران",
+                'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+                'entity' => 'relationHasMany', // the method that defines the relationship in your Model
+                'model' => "App\Models\User", // foreign key Eloquent model
+                'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'محتوا',
+                // AJAX OPTIONALS:
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                 'data_source' => url("api/doctor"), // url to controller search function (with /{id} should return model)
+                 'minimum_input_length' => 0, // minimum characters to type before querying results
+                 'dependencies'         => ['template'], // when a dependency changes, this select2 is reset to null
+                 'include_all_form_fields'  => true, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
         ]);
     }
+
+    public function widget_consultation_banner()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'banner_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'        => 'banner_description',
+                'label'       => 'توضیحات',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'        =>   true,
+                'tab'         => 'محتوا',
+            ],
+            [
+                'name'   => 'banner_css',
+                'prefix' =>'<i class="la la-css3 la-lg"></i>',
+                'wrapper'      => ['class'  => "form-group col-md-12 dir-left"],
+                'label'  => 'css اختصاصی',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'   => 'button_label',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'label'  => 'متن دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'attributes'   => ['placeholder' => 'متن'],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name' => 'button_link',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'attributes'   => ['placeholder' => 'لینک'],
+                'label' => 'لینک دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'   => 'banner_img',
+                'prefix' =>'<i class="la la-image la-lg"></i>',
+                'type'   => 'browse',
+                'label'  => 'تصویر شاخص',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+        ]);
+    }
+
+    public function widget_mag_grider()
+    {
+        CRUD::addFields([
+            [   // icon_picker
+                'label'   => "Icon",
+                'name'    => 'mag_icon',
+                'type'    => 'icon_picker',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+                'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
+            ],
+            [
+                'name' => 'mag_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name'   => 'button_label',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'label'  => 'متن دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'attributes'   => ['placeholder' => 'متن'],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name' => 'button_link',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'attributes'   => ['placeholder' => 'لینک'],
+                'label' => 'لینک دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+        ]);
+    }
+
+    public function widget_comment_slide()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'comment_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [   // repeatable
+                'name'  => 'items',
+                'label' => 'نظرات',
+                'type'  => 'repeatable',
+                'fake'  => true,
+                'fields' => [
+                    [
+                        'name'    => 'name',
+                        'type'    => 'text',
+                        'label'   => 'نام کاربر',
+                        'wrapper' => ['class' => 'form-group col-md-6 col-sm-6'],
+                    ],
+                    [
+                        'name'    => 'filter',
+                        'type'    => 'text',
+                        'label'   => 'زمینه تخصص',
+                        'wrapper' => ['class' => 'form-group col-md-6 col-sm-6'],
+                    ],
+                    [
+                        'name'        => 'content',
+                        'label'       => 'نظر',
+                        'type'    => 'summernote',
+                        'options' => [
+                            'toolbar' => [
+                                ['style', ['style']],
+                                ['font', ['bold', 'underline', 'clear']],
+                                ['color', ['color']],
+                                ['para', ['ul', 'ol', 'paragraph']],
+                                ['table', ['table']],
+                                ['insert', ['link', 'video']],
+                                ['view', ['fullscreen', 'codeview', 'help']]
+                            ]
+                        ],
+                        'fake'        =>   true,
+                        'tab'         => 'محتوا',
+                    ],
+                ],
+                'tab'             => 'محتوا',
+                // optional
+                'new_item_label'  => 'افزودن نظر', // customize the text of the button
+            ]
+
+        ]);
+    }
+
+
 
             /**
      * Get all defined templates.
@@ -589,7 +646,40 @@ class ThemeWidgets
         //     $templates_array[$template->name] = 'لیست صفحات '.trans('backpack::pagemanager.function_name.'.$template->name);
         // }
 
-        
+
         return $templates_array;
+    }
+
+    /**
+     * Get all defined template as an array.
+     *
+     * Used to populate the template dropdown in the create/update forms.
+     */
+    public function getUserTemplatesArray()
+    {
+        $templates = $this->getUserTemplates();
+
+        foreach ($templates as $template) {
+            $templates_array[$template->name] = trans('backpack::permissionmanager.function_name.'.$template->name);
+        }
+
+        return $templates_array;
+    }
+
+        /**
+     * Get all defined templates.
+     */
+    public function getUserTemplates($template_name = false)
+    {
+        $templates_array = [];
+
+        $templates_trait = new \ReflectionClass('App\Traits\UserTemplates');
+        $templates = $templates_trait->getMethods(\ReflectionMethod::IS_PRIVATE);
+
+        if (! count($templates)) {
+            abort(503, trans('backpack::permissionmanager.template_not_found'));
+        }
+
+        return $templates;
     }
 }

@@ -438,3 +438,7 @@
         color: #c61d1d;
         background-color: #ffc1c1;
     }
+    
+    .dir-left input {
+        direction: ltr !important;
+    }
