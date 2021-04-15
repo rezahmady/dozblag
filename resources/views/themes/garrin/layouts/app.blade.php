@@ -25,13 +25,13 @@
 		<div class="main-wrapper">
 
 			<!-- Header -->
-			<livewire:partials.header :key="'partils_header" />
+			<livewire:partials.header />
 			<!-- /Header -->
 
             {{ $slot }}
 
 			<!-- Footer -->
-			<livewire:partials.footer :key="'partials_footer'" />
+			<livewire:partials.footer />
 			<!-- /Footer -->
 
 	    </div>

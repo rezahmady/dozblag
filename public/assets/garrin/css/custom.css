@@ -1052,11 +1052,6 @@ div.sticky {
     border-bottom: 1px solid #f2f2f2;
 }
 
-.footer-bottom {
-    /* background-color: #ededed; */
-    background: linear-gradient(295deg, #fff 0%, #ededed 100%);
-}
-
 .footer .footer-top {
     padding: 40px 0;
     background-color: #fff;
@@ -1736,4 +1731,21 @@ a:hover {
 
 .copyright-text p {
     margin: 0 !important;
+}
+
+.footer-top.bg-cover-08 {
+    background-position: bottom left;
+    padding-bottom: 80px;
+}
+
+.footer-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.footer {
+    background-color: inherit !important;
+    position: relative;
 }
