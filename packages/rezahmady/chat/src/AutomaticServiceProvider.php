@@ -167,7 +167,7 @@ trait AutomaticServiceProvider
     }
 
     protected function packageChannelRoutesFile() {
-        return $this->path.'/routes/Channels.php';
+        return $this->path.'/routes/channels.php';
     }
 
     protected function packageHelpersFile() {
