@@ -7,6 +7,7 @@ use Rezahmady\Chat\Models\Room;
 use Rezahmady\Chat\Events\MessageAdded;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Rezahmady\Chat\Models\Chat;
 
 class CreateMessage extends Component
 {
@@ -67,7 +68,8 @@ class CreateMessage extends Component
     public function submit()
     {
         $this->validate();
-        $message = auth()->user()->messages()->create([
+        $message = Chat::create([
+            'user_id'    => auth()->id(),
             'body'       => $this->body,
             'room_id'    => $this->room->id,
             'parent_id'  => $this->parent
