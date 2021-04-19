@@ -3,84 +3,11 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
 
-@can('user manage')
-<!-- Users, Roles, Permissions -->
-<li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> مدیریت کاربران</a>
-	<ul class="nav-dropdown-items">
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>{{ trans('backpack::permissionmanager.users') }}</span></a></li>
-        @can('role manage')
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>{{ trans('backpack::permissionmanager.roles') }}</span></a></li>
-        @endcan
-        @can('permission manage')
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>{{ trans('backpack::permissionmanager.permission_plural') }}</span></a></li>
-        @endcan
-        @can('comment list')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user/doctor/comment') }}'><i class='nav-icon la la-comments'></i> کامنت پزشکان</a></li>
-        @endcan
-	</ul>
-</li>
-@endcan
+<?php use App\Services\Menu; ?>
 
-@can('resource manage')
-<li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-stethoscope"></i> بانک سلامت</a>
-    <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource') }}'><i class='nav-icon la la-hospital'></i> منابع</a></li>
-        @can('resource filter')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filter') }}'><i class='nav-icon la la-archive'></i> دسته بندی فیلتر ها</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('resource/filteritem') }}'><i class='nav-icon la la-filter'></i> فیلتر ها</a></li>
-        @endcan
-    </ul>
-</li>
-@endcan
-
-@can('chat list')
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('room') }}'><i class='nav-icon la la-comments'></i> گفتگوها</a></li>
-@endcan
-
-@can('post manage')
-<!-- Articles, Category, Tag -->
-<li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-newspaper-o"></i>وبلاگ</a>
-    <ul class="nav-dropdown-items">
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('article') }}"><i class="nav-icon la la-newspaper-o"></i> {{ trans('general.article_plural') }}</a></li>
-        {{-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('category') }}"><i class="nav-icon la la-list"></i> {{ trans('general.category_singular') }}</a></li> --}}
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('tag') }}"><i class="nav-icon la la-tag"></i> {{ trans('general.tag_plural') }}</a></li>
-        @can('comment list')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('article/comment') }}'><i class='nav-icon la la-comments'></i> کامنت ها</a></li>
-        @endcan
-    </ul>
-</li>
-@endcan
-
-@can('page list')
-<!-- Pages -->
-<li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-file"></i> مدیریت صفحات</a>
-	<ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon la la-file'></i> <span>همه صفحات</span></a></li>
-        @can('page create text')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=text') }}'><i class='nav-icon la la-align-right'></i> <span>ایجاد صفحه محتوایی</span></a></li>
-        @endcan
-        @can('page create shop')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=shop') }}'><i class='nav-icon la la-shopping-cart'></i> <span>ایجاد دسته فروشگاهی</span></a></li>
-        @endcan
-        @can('page create blog')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=blog') }}'><i class='nav-icon la la-file-text'></i> <span>ایجاد دسته وبلاگی</span></a></li>
-        @endcan
-        @can('page create gallery')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=gallery') }}'><i class='nav-icon la la-image'></i> <span>ایجاد گالری تصاویر</span></a></li>
-        @endcan
-        @can('page create form')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=form') }}'><i class='nav-icon la la-clipboard'></i> <span>ایجاد فرم</span></a></li>
-        @endcan
-        @can('page create link')
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('page/create?template=link') }}'><i class='nav-icon la la-link'></i> <span>ایجاد لینک</span></a></li>
-        @endcan
-	</ul>
-</li>
-@endcan
+{!! Menu::create(function($menu) {
+    event('admin.menu.build', $menu);
+})->render(); !!}
 
 @can('admin advance')
 <li class="nav-item nav-dropdown">
@@ -110,5 +37,3 @@
     </ul>
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon la la-envelope-o'></i> صندوق پیام</a></li>
-{{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('chat') }}'><i class='nav-icon la la-question'></i> Chats</a></li> --}}
-

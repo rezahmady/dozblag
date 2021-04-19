@@ -13,15 +13,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/users', 'UserController@users');
-Route::get('/doctors', 'UserController@doctors');
-Route::get('/operators', 'UserController@operators');
+
 Route::post('/shahrestan', 'ShahrestanController@index');
 Route::post('/shahrestan/{id}', 'ShahrestanController@show');
-Route::post('/filter-item', 'FilterItemController@index');
-Route::post('/filter-item/{id}', 'FilterItemController@show');
-Route::post('/doctor', 'DoctorController@index');
-Route::post('/doctor/{id}', 'DoctorController@show');
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});

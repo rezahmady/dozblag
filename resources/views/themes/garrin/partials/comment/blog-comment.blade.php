@@ -30,7 +30,7 @@
         @endphp
         <ul class="comments-list reply">
             @foreach ($comments as $comment)
-            <livewire:partials.comment.comment :comment="$comment" :key="$loop->index" :view="'theme::partials.comment.blog-comment'" />
+            <livewire:comment.comment :comment="$comment" :key="$loop->index" :view="'theme::partials.comment.blog-comment'" />
             @endforeach
         </ul>
     @endif

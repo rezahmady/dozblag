@@ -15,13 +15,20 @@ const mix = require('laravel-mix');
 
 // mix.js('resources/js/app.js', 'public/assets/admin/js')
 
+
+
 mix.styles([
     'resources/views/themes/garrin/assets/plugins/bootstrap-rtl/css/bootstrap.min.css',
     'resources/views/themes/garrin/assets/plugins/fontawesome/css/fontawesome.min.css',
     'resources/views/themes/garrin/assets/plugins/fontawesome/css/all.min.css',
     'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.css',
     'resources/views/themes/garrin/assets/css/style.css',
+    // 'public/assets/garrin/css/custom.css',
 ], 'public/assets/garrin/css/theme.css');
+
+// mix.postCss("public/assets/garrin/css/theme.css", "public/assets/garrin/css/theme-production.css", [
+//     require("postcss-combine-duplicated-selectors"),
+// ]);
 
 mix.scripts([
     'resources/views/themes/garrin/assets/js/jquery.min.js',

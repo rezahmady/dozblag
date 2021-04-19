@@ -1,8 +1,6 @@
 <?php
 namespace ThemeFolder\themes;
 
-use App\Models\Filter;
-use App\Models\Page;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 class ThemeWidgets
@@ -348,7 +346,7 @@ class ThemeWidgets
                  'label' => "دسته فیلتر",
                  'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                  'entity' => 'relationBelongsTo', // the method that defines the relationship in your Model
-                 'model' => "App\Models\Filter", // foreign key Eloquent model
+                 'model' => "Rezahmady\Filter\Models\Filter", // foreign key Eloquent model
                  'placeholder' => "انتخاب کنید...", // placeholder for the select2 input
             ],
             [   // relationship
@@ -360,7 +358,7 @@ class ThemeWidgets
                 'label' => "فیلترها",
                 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                 'entity' => 'relationHasMany', // the method that defines the relationship in your Model
-                'model' => "App\Models\FilterItem", // foreign key Eloquent model
+                'model' => "Rezahmady\Filter\Models\FilterItem", // foreign key Eloquent model
                 'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
                 'wrapper'      => [
                     'class'  => "form-group col-md-6"
@@ -436,7 +434,7 @@ class ThemeWidgets
                 'label' => "انتخاب از کاربران",
                 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                 'entity' => 'relationHasMany', // the method that defines the relationship in your Model
-                'model' => "App\Models\User", // foreign key Eloquent model
+                'model' => "Rrzahmady\User\Models\User", // foreign key Eloquent model
                 'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
                 'wrapper'      => [
                     'class'  => "form-group col-md-6"

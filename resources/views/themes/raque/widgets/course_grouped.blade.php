@@ -27,7 +27,7 @@
                     $fClass = "";
                     
                     foreach ($item->pages as $key => $page) {
-                        $pagesId = App\Models\Page::find($page->id)->getAllParentsId();
+                        $pagesId = Rezahmady\Page\Models\Page::find($page->id)->getAllParentsId();
                         foreach ($pagesId as $filterItem) {
                             $fClass .= "  filterItem-".$filterItem;
                         }

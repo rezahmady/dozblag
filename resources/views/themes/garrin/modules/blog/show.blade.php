@@ -258,7 +258,7 @@
                                 <div class="sharethis-sticky-share-buttons"></div>
                                 <div class="blog-share clearfix sticky">
                                     <div class="card-body">
-                                        <livewire:partials.blog.share-holder :article="$post" />
+                                        <livewire:article.share-holder :view="'theme::partials.blog.share-holder'" :article="$post" />
                                     </div>
                                 </div>
 
@@ -278,9 +278,9 @@
                     </div>
                 </div>
             </div>
-            <livewire:partials.comment.comments :post="$post" :view="'theme::partials.comment.blog-comments'"/>
+            <livewire:comment.comment-holder :post="$post" :view="'theme::partials.comment.blog-comments'"/>
         </div>
     </div>		
     <!-- /Page Content -->
-    <livewire:partials.blog.share-holder :article="$post" :class="'fixed d-md-none d-lg-none d-sm-flex'" />
+    <livewire:article.share-holder :view="'theme::partials.blog.share-holder'" :article="$post" :class="'fixed d-md-none d-lg-none d-sm-flex'" />
 </div>

@@ -7,7 +7,7 @@
                 <div class="pb-0">
                     <ul class="comments-list">
                         @foreach ($comments as $comment)
-                            <livewire:partials.comment.comment :comment="$comment" :key="$loop->index" :view="'theme::partials.comment.blog-comment'" />
+                            <livewire:comment.comment :comment="$comment" :key="$loop->index" :view="'theme::partials.comment.blog-comment'" />
                         @endforeach
                     </ul>
                 </div>
@@ -24,7 +24,7 @@
                     <h4 class="section-title">ارسال نظر</h4>
                 </div>
                 <div class="card-body">
-                    <livewire:partials.comment.create-comment :module="'Article'" :moduleId="$postId" :view="'theme::partials.comment.blog-create-comment'" />
+                    <livewire:comment.create-comment :module="'Article'" :moduleId="$postId" :view="'theme::partials.comment.blog-create-comment'" />
                 </div>
             </div>
         </div>

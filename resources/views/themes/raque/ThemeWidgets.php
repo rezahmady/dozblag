@@ -1,7 +1,7 @@
 <?php
 namespace ThemeFolder\themes;
 
-use App\Models\Page;
+use Rezahmady\Page\Models\Page;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 class ThemeWidgets

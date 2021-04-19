@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "401ee8d94c945f434e69c61c1a9dd5fd",
+    "content-hash": "1458296777ea298f8d46ceaf1b054c16",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -345,155 +345,6 @@
                 "source": "https://github.com/Laravel-Backpack/LogManager/tree/v4.0.2"
             },
             "time": "2020-09-24T18:42:18+00:00"
-        },
-        {
-            "name": "backpack/pagemanager",
-            "version": "3.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravel-Backpack/PageManager.git",
-                "reference": "7599394b9c72a0e472a34365f6b7a3b54cebb532"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/PageManager/zipball/7599394b9c72a0e472a34365f6b7a3b54cebb532",
-                "reference": "7599394b9c72a0e472a34365f6b7a3b54cebb532",
-                "shasum": ""
-            },
-            "require": {
-                "backpack/crud": "^4.1.0",
-                "cviebrock/eloquent-sluggable": "^8.0||^7.0||^6.0||4.8"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0||^7.0",
-                "scrutinizer/ocular": "~1.1",
-                "squizlabs/php_codesniffer": "~2.3 || ~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Backpack\\PageManager\\PageManagerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Backpack\\PageManager\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Cristian Tabacitu",
-                    "email": "hello@tabacitu.ro",
-                    "homepage": "http://tabacitu.ro",
-                    "role": "Architect & Developer"
-                }
-            ],
-            "description": "Create admin panels for presentation websites on Laravel, using page templates and Backpack\\CRUD.",
-            "homepage": "https://github.com/laravel-backpack/PageManager",
-            "keywords": [
-                "Content management system",
-                "admin panel",
-                "administer pages",
-                "backpack",
-                "cms",
-                "crud",
-                "manage pages",
-                "pagemanager",
-                "presentation pages",
-                "presentation website",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/Laravel-Backpack/PageManager/issues",
-                "source": "https://github.com/Laravel-Backpack/PageManager/tree/3.0.7"
-            },
-            "time": "2021-02-01T10:32:38+00:00"
-        },
-        {
-            "name": "backpack/permissionmanager",
-            "version": "6.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravel-Backpack/PermissionManager.git",
-                "reference": "a21231b4ca1bce0199e778aea21109043f4c6728"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/PermissionManager/zipball/a21231b4ca1bce0199e778aea21109043f4c6728",
-                "reference": "a21231b4ca1bce0199e778aea21109043f4c6728",
-                "shasum": ""
-            },
-            "require": {
-                "backpack/crud": "^4.1.0",
-                "spatie/laravel-permission": "^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0||^7.0",
-                "scrutinizer/ocular": "~1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Backpack\\PermissionManager\\PermissionManagerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Backpack\\PermissionManager\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Marius Constantin",
-                    "email": "marius@updivision.com",
-                    "homepage": "http://www.updivision.com",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Cristian Tabacitu",
-                    "email": "hello@tabacitu.ro",
-                    "homepage": "http://www.tabacitu.ro",
-                    "role": "Chief Architect"
-                }
-            ],
-            "description": "Users and permissions management interface for Laravel 5 using Backpack CRUD.",
-            "homepage": "https://github.com/laravel-backpack/permissionmanager",
-            "keywords": [
-                "backpack",
-                "backpack permission",
-                "backpack roles",
-                "backpack user management",
-                "laravel backpack",
-                "manage permission",
-                "manage roles",
-                "manage users",
-                "tabacitu",
-                "updivision",
-                "users roles admin"
-            ],
-            "support": {
-                "issues": "https://github.com/Laravel-Backpack/PermissionManager/issues",
-                "source": "https://github.com/Laravel-Backpack/PermissionManager/tree/6.0.4"
-            },
-            "time": "2020-10-27T14:34:29+00:00"
         },
         {
             "name": "backpack/revise-operation",
@@ -2707,6 +2558,57 @@
                 "source": "https://github.com/Intervention/image/tree/master"
             },
             "time": "2019-11-02T09:15:47+00:00"
+        },
+        {
+            "name": "javoscript/laravel-macroable-models",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javoscript/laravel-macroable-models.git",
+                "reference": "2ade1984f33362c0a304da6352f95c407d5c761f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/javoscript/laravel-macroable-models/zipball/2ade1984f33362c0a304da6352f95c407d5c761f",
+                "reference": "2ade1984f33362c0a304da6352f95c407d5c761f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.6",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Javoscript\\MacroableModels\\MacroableModelsServiceProvider"
+                    ],
+                    "aliases": {
+                        "MacroableModels": "Javoscript\\MacroableModels\\Facades\\MacroableModels"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Javoscript\\MacroableModels\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Javier Ugarte",
+                    "email": "javougarte@gmail.com"
+                }
+            ],
+            "description": "A package for adding methods to Laravel models on the fly",
+            "support": {
+                "issues": "https://github.com/javoscript/laravel-macroable-models/issues",
+                "source": "https://github.com/javoscript/laravel-macroable-models/tree/1.0.4"
+            },
+            "time": "2020-03-10T01:19:26+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5264,6 +5166,441 @@
             "time": "2020-05-04T10:17:57+00:00"
         },
         {
+            "name": "rezahmady/article",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/article",
+                "reference": "004b301097e81d3325bb601923795acdee3436ae"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Article\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Article\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Article\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "description": "articla management for sityno CMS",
+            "homepage": "https://github.com/rezahmady/article",
+            "keywords": [
+                "Article",
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/chat",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/chat",
+                "reference": "5e6c1b06eafc8277deae211f7bf5dbb20236fe6a"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Chat\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Chat\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Chat\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/chat",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Chat",
+                "Laravel"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/comment",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/comment",
+                "reference": "f211bc188e55082d26f775ff838f0d114f737a0a"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Comment\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Comment\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Comment\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/comment",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Comment",
+                "Laravel"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/filter",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/filter",
+                "reference": "a00d31a7d6122c087a64addf57eaf3e8fdc15c15"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Filter\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Filter\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Filter\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/filter",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Filter",
+                "Laravel"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/page",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/page",
+                "reference": "84418fe55aa23552a72c34a11e6f5cd986c4824e"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Page\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Page\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Page\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/page",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Page"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/product",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/product",
+                "reference": "014b24d81978c4602becf6c189f02b10da178c05"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Product\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Product\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Product\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/product",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Product"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/resource",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/resource",
+                "reference": "2f1b3d92d9ab531af14406ad2bfb3737250fbd80"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Resource\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Resource\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Resource\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/resource",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Resource"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
             "name": "rezahmady/setting-operation",
             "version": "1.0.4",
             "source": {
@@ -5323,6 +5660,70 @@
                 "source": "https://github.com/rezahmady/setting-operation/tree/1.0.4"
             },
             "time": "2021-02-05T11:01:53+00:00"
+        },
+        {
+            "name": "rezahmady/user",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/user",
+                "reference": "2e0d4c184ebc0fd7008f154bce49e6e38e1676df"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8",
+                "spatie/laravel-permission": "^3.0",
+                "staudenmeir/eloquent-json-relations": "^1.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\User\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\User\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\User\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/user",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "User"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "ringcentral/psr7",
@@ -12097,7 +12498,16 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rezahmady/article": 20,
+        "rezahmady/chat": 20,
+        "rezahmady/comment": 20,
+        "rezahmady/filter": 20,
+        "rezahmady/page": 20,
+        "rezahmady/product": 20,
+        "rezahmady/resource": 20,
+        "rezahmady/user": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

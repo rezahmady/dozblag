@@ -3,15 +3,9 @@
 use App\Http\Controllers\FormController;
 use App\Http\Livewire\Home;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\PageRender;
-use App\Http\Livewire\PostRender;
-use App\Http\Livewire\Product\Show;
-use App\Http\Livewire\User\DoctorProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
-use App\Http\Livewire\User\Auth\Login;
-use App\Http\Livewire\User\Auth\Register;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,19 +49,6 @@ Route::get('/pay', function () {
 });
 // At the top of the file.
 Route::post('/upload/voice', [UploadController::class, 'voice']);
-Route::get('/test', function () {
-    $name = 'products.status';
-    $model = config('setting-operation.setting_model_class', \Rezahmady\SettingOperation\app\Models\SettingOperation::class);
-    $arr = explode('.',$name);
-    $key = $arr[0];
-    $field = $arr[1];
-    $settings = $model::where('key', $key)->first();
-    $fields = json_decode($settings->fields);
-    if(property_exists($fields,$field)) {
-        return $fields->{$field};
-    }
-    ddd($fields);
-});
 
 Route::any('/callback', function (Request $request) {
    if($request->Status === "OK") {
@@ -96,7 +77,7 @@ Route::any('/callback', function (Request $request) {
 
 });
 
-Route::get('/', Home::class)->name('home');
+
 // Download Route
 Route::get('download', function(Request $request)
 {
@@ -118,23 +99,9 @@ Route::get('download', function(Request $request)
         exit('Requested file does not exist on our server!');
     }
 });
-// Route::get('/product/{product:slug}', Show::class)->name('product.show');
-Route::post('/form/{page:id}', [FormController::class, 'save'])->name('form.save');
-
-Route::group(['prefix'=>'auth','as'=>'auth.'], function() {
-    Route::get('/login', Login::class)->name('login');
-    Route::get('/register', Register::class)->name('register');
-});
-Route::get('/doctor/{user:id}', DoctorProfile::class)->name('doctor.show');
-
-Route::get('mag/{article:slug}/{subs?}', PostRender::class)
-    ->where(['article' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*'])->name('article');
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
-Route::get('{modelPage}/{subs?}', PageRender::class)
-    ->where(['modelPage' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*'])->name('page');
 
-   
 
 
 

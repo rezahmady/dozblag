@@ -13,8 +13,6 @@
         "backpack/crud": "4.1.*",
         "backpack/filemanager": "^1.1",
         "backpack/logmanager": "^4.0",
-        "backpack/pagemanager": "^3.0",
-        "backpack/permissionmanager": "^6.0",
         "backpack/revise-operation": "^1.0",
         "backpack/settings": "^3.0",
         "beyondcode/laravel-websockets": "^1.9",
@@ -24,13 +22,21 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hekmatinasser/verta": "^1.11",
+        "javoscript/laravel-macroable-models": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.3",
+        "rezahmady/article": "dev-master",
+        "rezahmady/chat": "dev-master",
+        "rezahmady/comment": "dev-master",
+        "rezahmady/filter": "dev-master",
+        "rezahmady/page": "dev-master",
+        "rezahmady/product": "dev-master",
+        "rezahmady/resource": "dev-master",
         "rezahmady/setting-operation": "^1.0",
+        "rezahmady/user": "dev-master",
         "shetabit/payment": "^4.0",
-        "sopamo/laravel-filepond": "^0.5.0",
-        "staudenmeir/eloquent-json-relations": "^1.5"
+        "sopamo/laravel-filepond": "^0.5.0"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
@@ -81,5 +87,63 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "rezahmady/chat": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/chat",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/resource": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/resource",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/product": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/product",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/filter": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/filter",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/page": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/page",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/user": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/user",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/comment": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/comment",
+            "options": {
+                "symlink": true
+            }
+        },
+        "rezahmady/article": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/article",
+            "options": {
+                "symlink": true
+            }
+        }
     }
 }

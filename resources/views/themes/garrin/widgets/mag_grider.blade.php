@@ -15,7 +15,7 @@
 
 
         @php
-            $posts = App\Models\Article::where('status', 'PUBLISHED')->latest()->get()->take(5);
+            $posts = Rezahmady\Article\Models\Article::where('status', 'PUBLISHED')->latest()->get()->take(5);
         @endphp
 
         <div class="row blog-grid-row">

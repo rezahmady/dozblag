@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
-use App\Models\Page;
+use Rezahmady\Page\Models\Page;
 use Alert;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;

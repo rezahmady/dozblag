@@ -13,29 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-
-Broadcast::channel('consultation.added', function ($user) {
-    return true;
-});
-
-Broadcast::channel('chat', function ($user) {
-    return Arr::only($user->toArray(), [
-        'id', 'name'
-    ]);
-});
-
-Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
-    return Arr::only($user->toArray(), [
-        'id', 'name'
-    ]);
-});
-
-Broadcast::channel('chat.{roomId}.user.{sender}', function ($user, $roomId, $sender) {
-    return Arr::only($user->toArray(), [
-        'id', 'name'
-    ]);
-});
-
 // Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 //     return (int) $user->id === (int) $id;
 // });

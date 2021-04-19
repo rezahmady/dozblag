@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Rezahmady\Page\Models\Page;
 
 class Message extends Model
 {
@@ -24,7 +25,7 @@ class Message extends Model
 
     public function form()
     {
-        return $this->belongsTo('App\Models\Page', 'form_id');
+        return $this->belongsTo(Page::class, 'form_id');
     }
 
     /*

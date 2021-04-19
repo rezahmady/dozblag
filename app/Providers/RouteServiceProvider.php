@@ -49,8 +49,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
-
-        Route::model('modelPage', 'App\Models\Page');
     }
 
     /**

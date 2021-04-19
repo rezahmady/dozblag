@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Widgets;
 
 use App\Http\Livewire\Traits\WidgetRender;
-use App\Models\Page;
+use Rezahmady\Page\Models\Page;
 use App\Models\Widget;
 use Livewire\Component;
 

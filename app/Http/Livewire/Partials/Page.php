@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Partials;
 
-use App\Models\Page as ModelsPage;
+use Rezahmady\Page\Models\Page as ModelsPage;
 use Livewire\Component;
 
 class Page extends Component
