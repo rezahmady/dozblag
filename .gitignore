@@ -13,7 +13,7 @@
 /resources/views/raque
 /resources/views/default
 /vendor
-/packages
+# /packages
 .env
 .env.backup
 .phpunit.result.cache
