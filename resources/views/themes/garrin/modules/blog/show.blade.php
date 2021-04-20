@@ -65,21 +65,8 @@
                                 <div class="blog-view blog-single-content">
                                     @php
                                         $list = (isset($post->list)) ? json_decode($post->list) : null;
-                                        // dd($list);
                                     @endphp
                                     @if ($list)
-                                    <div class="tags-widget">
-                                        <div class="mt-1">
-                                            <h4 class="section-title">فهرست</h4>
-                                        </div>
-                                        <div class="">
-                                            <ul class="link-list">
-                                                @foreach ($list as $item)
-                                                    <li ><a href="#{{ $item->hook ?? '' }}" class="link">{{ $item->label ?? '' }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
                                     <div class="accordions accordion-items-closed" x-data="blogList()">
                                         <div class="accordion blog-single-headings-list"  :class="{ 'active': showList === true }" x-on:click="toggleShow()">
                                             <div class="accordion-title" :class="{ 'active': showList === true }">
@@ -100,19 +87,13 @@
                                         </div>
                                     </div>
                                     @endif
-
-
-
-
                                     <div class="blog blog-single-post">
                                         <div class="blog-content" itemprop="articleBody" >
                                             {!! $post->content !!}
                                         </div>
                                     </div>
-
                                     @php
                                         $resources = (isset($post->resources)) ? json_decode($post->resources) : null;
-                                        // dd($resources);
                                     @endphp
                                     @if ($resources)
                                     <div class="tags-widget">
