@@ -29,6 +29,15 @@ Route::get('/fire', function () {
     $user = App\Models\User::first();
     $user->notify(new App\Notifications\InvoicePaid());
 });
+
+Route::get('/admin/aa', function() {
+    header('Content-Type: text/event-stream');
+    header('Cache-Control: no-cache');
+
+    $time = date('r');
+    echo "data: {$time}\n\n";
+    flush();
+});
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Multipay\Invoice;

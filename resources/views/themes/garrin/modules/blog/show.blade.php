@@ -62,7 +62,48 @@
                     
                         <div class="row">
                             <div class="col-lg-9 col-md-9">
-                                <div class="blog-view">
+                                <div class="blog-view blog-single-content">
+                                    @php
+                                        $list = (isset($post->list)) ? json_decode($post->list) : null;
+                                        // dd($list);
+                                    @endphp
+                                    @if ($list)
+                                    <div class="tags-widget">
+                                        <div class="mt-1">
+                                            <h4 class="section-title">فهرست</h4>
+                                        </div>
+                                        <div class="">
+                                            <ul class="link-list">
+                                                @foreach ($list as $item)
+                                                    <li ><a href="#{{ $item->hook ?? '' }}" class="link">{{ $item->label ?? '' }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="accordions accordion-items-closed" x-data="blogList()">
+                                        <div class="accordion blog-single-headings-list"  :class="{ 'active': showList === true }" x-on:click="toggleShow()">
+                                            <div class="accordion-title" :class="{ 'active': showList === true }">
+                                                <i class="fa fa-list"></i>
+                                                <h4 class="accordion-title-inner">فهرست مطالب</h4>
+                                            </div>
+                                            <div class="accordion-content" >
+                                                <div class="accordion-content-inner">
+                                                    <ul>
+                                                        @foreach ($list as $item)
+                                                            <li>
+                                                                <a href="#{{ $item->hook ?? '' }}" >{{ $item->label ?? '' }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+
+
+
                                     <div class="blog blog-single-post">
                                         <div class="blog-content" itemprop="articleBody" >
                                             {!! $post->content !!}
@@ -70,7 +111,8 @@
                                     </div>
 
                                     @php
-                                        $resources = (isset($post->extras->resources)) ? json_decode($post->extras->resources) : null;
+                                        $resources = (isset($post->resources)) ? json_decode($post->resources) : null;
+                                        // dd($resources);
                                     @endphp
                                     @if ($resources)
                                     <div class="tags-widget">
@@ -80,7 +122,7 @@
                                         <div class="">
                                             <ul class="link-list">
                                                 @foreach ($resources as $item)
-                                                    <li><a href="{{ $item->link }}" class="link">{{ $item->label }}</a></li>
+                                                    <li id="{{ $item->hook ?? null }}" ><a href="{{ $item->link ?? '#' }}" class="link">{{ $item->label ?? null }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -283,4 +325,15 @@
     </div>		
     <!-- /Page Content -->
     <livewire:article.share-holder :view="'theme::partials.blog.share-holder'" :article="$post" :class="'fixed d-md-none d-lg-none d-sm-flex'" />
+
+    <script>
+        function blogList() {
+            return {
+                showList: false,
+                toggleShow() {
+                    this.showList = ! this.showList;
+                }
+            }
+        }
+    </script>
 </div>

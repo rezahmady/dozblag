@@ -163,12 +163,30 @@ class ArticleCrudController extends CrudController
                 ],
             ]);
 
+
+            $this->crud->addField([
+                'name'  => 'list',
+                'type'  => 'table',
+                'label' => 'فهرست',
+                'entity_singular' => 'فهرست',
+                'columns' => [
+                    'hook'  => 'لنگر (#)',
+                    'label'  => 'عنوان',
+                ],
+                'min' => 0,
+                'max' => 30,
+                'fake' => true,
+                'tab' => 'فهرست'
+            ]);
+            
+
             $this->crud->addField([
                 'name'  => 'resources',
                 'type'  => 'table',
                 'label' => 'منابع',
                 'entity_singular' => 'منبع',
                 'columns' => [
+                    'hook'  => 'لنگر',
                     'label'  => 'عنوان',
                     'link'  => 'لینک',
                 ],
