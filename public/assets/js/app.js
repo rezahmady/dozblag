@@ -6218,8 +6218,9 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "rezahmady",
-  wsHost: window.location.hostname,
+  wsHost: 'gariin.com',
   wsPort: 6001,
+  wssPort: 6001,
   forceTLS: false,
   disableStats: true
 });

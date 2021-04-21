@@ -1,5 +1,5 @@
 @extends(backpack_view('blank'))
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap-v4.min.css">
+{{-- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap-v4.min.css"> --}}
 
 @php
 
@@ -40,6 +40,14 @@
     //     'type'     => 'view',
     //     'view'     => 'widgets.tileLayout',
     //     'someAttr' => 'some value2',
+    // ])
+    // ->to('before_content');
+
+    // alternatively, use a fluent syntax to define each widget attribute
+    // Widget::add([
+    //     'type'     => 'view',
+    //     'view'     => 'widgets.timer-sse',
+    //     'someAttr' => 'some value',
     // ])
     // ->to('before_content');
 

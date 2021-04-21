@@ -12,17 +12,17 @@
     {{-- <script src="https://unpkg.com/wavesurfer.js"></script> --}}
     <script src="{{asset('packages/chatino/js/vendor/green-audio-player.min.js')}}" defer></script>
     <script src="{{asset('packages/chatino/js/vendor/recorder/recorder.js')}}" ></script>
-    {{-- <script src="{{asset('packages/chatino/js/vendor/audioPlayer/essential_audio.js')}}" defer></script> --}}
+    <script src="/packages/chatino/js/vendor/jquery.min.js" ></script>
     <!-- Favicon -->
     {{-- <link rel="icon" href="dist/media/img/favicon.png" type="image/png"> --}}
+    
     @livewireStyles
     <script src="{{ mix('/assets/js/app.js') }}"></script>
     
     
     <!-- Soho css -->
+    <link rel="stylesheet" href="{{asset('packages/chatino/js/vendor/calamansijs/calamansi.min.css')}}">
     <link rel="stylesheet" href="/packages/chatino/css/soho.min.css">
-    
-    {{-- <link rel="stylesheet" href="/packages/chatino/js/vendor/audioPlayer/essential_audio.css"></link> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('packages/chatino/css/green-audio-player.min.css')}}">
 </head>
 <body class="rtl">
@@ -488,7 +488,6 @@
 <!-- ./ layout -->
 
 <!-- JQuery -->
-<script src="/packages/chatino/js/vendor/jquery-3.4.1.min.js" defer></script>
 
 
 <!-- Popper.js -->
@@ -503,8 +502,9 @@
 <!-- Soho -->
 <script src="/packages/chatino/js/soho.min.js" defer></script>
 <script src="/packages/chatino/js/vendor/lity.min.js" defer></script>
+
+<script src="{{asset('packages/chatino/js/vendor/calamansijs/calamansi.min.js')}}" defer></script>
 <!-- Examples -->
-{{-- <script src="/packages/chatino/js/examples.js"></script> --}}
 {{-- <script src="{{ asset('/packages/chatino/js/vendor/RTLText.module.js') }}" defer></script> --}}
 <script src="{{asset('packages/alpinejs/alpine.min.js')}}" defer></script>
 <script src="{{asset('packages/chatino/js/vendor/recorder/app.js')}}" defer></script>

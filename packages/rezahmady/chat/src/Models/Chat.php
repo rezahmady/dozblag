@@ -2,7 +2,7 @@
 
 namespace Rezahmady\Chat\Models;
 
-use Rezahmady\Chat\Models\User;
+use Rezahmady\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;

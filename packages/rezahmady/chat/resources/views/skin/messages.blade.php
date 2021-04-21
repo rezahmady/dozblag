@@ -20,9 +20,35 @@
                 @endphp
                 @if ($message->type == 'voice')
                 <div class="message-item {{$class}}" id="message-{{$message->id}}">
-                    <div class="message-content player" dir="ltr">
-                        <audio src="{{url(config('rezahmady.chat.uploud_voice_path').$message->body)}}"></audio>
-                    </div>
+
+                        <div class="" dir="ltr" style="width: 300px;">
+                            <div 
+                            {{-- data-source="{{url(config('rezahmady.chat.uploud_voice_path').$message->body)}}" --}}
+                            id="mediPlayer_{{$message->id}}"
+                                x-data
+                            x-ref="voice_{{$message->id}}"
+                            x-init="
+
+                            setTimeout(function() { 
+                                
+                                new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
+                                skin: '/packages/chatino/js/vendor/calamansijs/skins/ayon',
+                                playlists: {
+                                    'Classics': [
+                                        {
+                                            source: '{{url(config('rezahmady.chat.uploud_voice_path').$message->body)}}',
+                                        }
+                                    ],
+                                },
+                                defaultAlbumCover: '{{$message->user->profile}}',
+                            });
+                            
+                            }, 3000);"
+                            >
+                                در حال پردازش پلیر ...
+                            </div>
+                        </div>
+
                     <div class="message-action">
                         {{$message->time}} {!! $seen !!}
                     </div>
@@ -57,14 +83,6 @@
     </div>
 </div>
 <script>
-    // Your JS here.
-    var element = document.getElementById("messages-holder");
-    element.scrollIntoView({
-        block: "end",
-        behavior: "smooth"
-    });
-
-
     Echo.channel('private-chat.{{$room->id}}')
     .listen('\\Rezahmady\\Chat\\Events\\MessageAdded', (e) => {
         window.Livewire.emit('prependMessageFromBroadcasting', e)
