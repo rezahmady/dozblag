@@ -1,4 +1,4 @@
-<div class="layout" id="app" x-data="data()">
+<div class="layout" id="app" x-data="data()"  x-init="init()">
 
     <!-- navigation -->
     <nav class="navigation">
@@ -14,8 +14,8 @@
                         <i class="ti-user"></i>
                     </a>
                 </li>
-                <li x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" class="brackets">
-                    <a href="#">
+                <li>
+                    <a x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" href="#">
                         <i class="ti-archive"></i>
                     </a>
                 </li>
@@ -43,7 +43,7 @@
     <div class="content">
 
         <!-- sidebar group -->
-        <div class="sidebar-group">
+        <div class="sidebar-group" :class="{ 'active': sidebar === true }" >
 
             <!-- Chats sidebar -->
             <div x-show="navigation_target == 'chats'" :class="{ 'active': navigation_target == 'chats' }" class="sidebar">
@@ -80,12 +80,39 @@
                 <x-chat-archives />
             </div>
             <!-- ./ Stars sidebar -->
+            
+            <nav class="navigation">
+                <div class="nav-group">
+                    <ul>
+                        <li>
+                            <a x-on:click.prevent="set_navigation('chats')" :class="{ 'active': navigation_target == 'chats' }" href="#">
+                                <i class="ti-comment-alt"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
+                                <i class="ti-user"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" href="#">
+                                <i class="ti-archive"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="ti-power-off"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
         </div>
         <!-- ./ sidebar group -->
 
         <!-- chat -->
-        <div class="chat position-relative" >
+        <div class="chat position-relative" :class="{ 'active': sidebar === false }" >
             <x-chat-room :room="$currentRoom" :audience="$audience" :onlineUsers="$onlineUsers" />
 
             <div x-show="loadingRoom" class="loading-holder">
@@ -106,7 +133,8 @@
     
     function data() {
         return {
-            loadingRoom: @entangle('loadingRoom'),
+            sidebar: true,
+            loadingRoom: false,
             currentRoom: @entangle('currentRoom'),
             navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
             set_navigation(target) {
@@ -114,11 +142,22 @@
                 this.navigation_target = target;
             },
             setRoom() {
+                this.sidebar = false;
                 this.loadingRoom = true;
             },
             hiddenLoader() {
                 this.loadingRoom = false;
             },
+            sidebarShow() {
+                this.sidebar = true;
+            },
+            init() {
+                this.hiddenLoader();
+                window.addEventListener('room-set', event => {
+                    this.loadingRoom = false;
+                })
+                
+            }
         }
     }
 

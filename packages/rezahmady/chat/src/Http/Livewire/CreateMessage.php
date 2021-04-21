@@ -113,7 +113,8 @@ class CreateMessage extends Component
         $destination = config('rezahmady.chat.uploud_voice_path').$voice;
         if(Storage::disk('local')->exists($resource)) Storage::disk('local')->move($resource, $destination);
 
-        $message = auth()->user()->messages()->create([
+        $message = Chat::create([
+            'user_id'    => auth()->id(),
             'body'       => $voice,
             'room_id'    => $this->room->id,
             'parent_id'  => $this->parent,
@@ -142,7 +143,8 @@ class CreateMessage extends Component
             if(Storage::disk('local')->exists($resource)) Storage::disk('local')->move($resource, $destination);
         }
 
-        $message = auth()->user()->messages()->create([
+        $message = Chat::create([
+            'user_id'    => auth()->id(),
             'body'       => json_encode($filenames),
             'room_id'    => $this->room->id,
             'parent_id'  => $this->parent,

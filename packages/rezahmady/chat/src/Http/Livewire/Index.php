@@ -77,7 +77,6 @@ class Index extends Component
         $this->audience->status = 'در حال اتصال';
         $this->emit('rerenderCreateMessage', $this->currentRoom);
         // $this->emit('refreshUserStatus');
-
         $last = $this->currentRoom->messages()->latest('id')->first();
         if($last) {
             $this->seenMessages($last->id);
@@ -85,6 +84,8 @@ class Index extends Component
         } else{
             $this->dispatchBrowserEvent('scrollToBottom');
         }
+        
+        $this->dispatchBrowserEvent('room-set');
 
     }
 
