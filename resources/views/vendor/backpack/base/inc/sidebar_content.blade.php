@@ -5,9 +5,9 @@
 
 <?php use App\Services\Menu; ?>
 
-{{-- {!! Menu::create(function($menu) {
+{!! Menu::create(function($menu) {
     event('admin.menu.build', $menu);
-})->render(); !!} --}}
+})->render(); !!}
 
 @can('admin advance')
 <li class="nav-item nav-dropdown">

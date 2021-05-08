@@ -66,7 +66,7 @@ class Menu {
 		// dd($this->items);
         $items = $items ?: $this->items;
 		$menu = '';
-		foreach($items as $item) {
+        if(is_array($this->items)) foreach($items as $item) {
 			$classes = array('nav-item');
             $classes[] = $this->getActive($item);
             $has_children = sizeof($item['children']);
@@ -133,7 +133,7 @@ class Menu {
      * @return void 
      */
     private function sortItems() { 
-        usort($this->items, function($a, $b) {
+        if(is_array($this->items)) usort($this->items, function($a, $b) {
             if($a['sort'] == $b['sort']) {
                 return 0;
             }
