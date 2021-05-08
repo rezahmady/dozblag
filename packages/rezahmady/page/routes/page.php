@@ -17,7 +17,6 @@
 use App\Http\Livewire\Home;
 use Rezahmady\Page\Http\Controllers\Admin\PageCrudController;
 use Rezahmady\Page\Http\Controllers\FormController;
-use Rezahmady\Page\Http\Livewire\PageRender;
 
 Route::group([
     'middleware'=> array_merge(
@@ -29,9 +28,6 @@ Route::group([
 
     Route::post('/form/{page:id}', [FormController::class, 'save'])->name('form.save');
     
-    Route::get('{modelPage}/{subs?}', PageRender::class)
-    ->where(['modelPage' => '^(((?=(?!admin)(?!doctor)(?!mag))(?=(?!\/)).))*$', 'subs' => '.*'])
-    ->name('page');
 });
 
 

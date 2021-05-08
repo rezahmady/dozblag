@@ -2,17 +2,14 @@
 
 namespace Rezahmady\User\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function logout()
     {
-        //
-    }
-
-    public function register()
-    {
-        //
+        Auth::logout();
+        return redirect('/');
     }
 }

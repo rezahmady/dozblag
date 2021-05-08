@@ -14,6 +14,10 @@
  * User Routes
  */
 
+use Rezahmady\Resource\Http\Controllers\Admin\ResourceCrudController;
+use Rezahmady\User\Http\Controllers\Api\DoctorController;
+use Rezahmady\User\Http\Controllers\Api\UserController;
+use Rezahmady\User\Http\Controllers\AuthController;
 use Rezahmady\User\Http\Livewire\Auth\Login;
 use Rezahmady\User\Http\Livewire\Auth\Register;
 use Rezahmady\User\Http\Livewire\DoctorProfile;
@@ -24,21 +28,26 @@ Route::group([
     ),
 ], function() {
     Route::group(['prefix'=>'auth','as'=>'auth.'], function() {
-        Route::get('/login', Login::class)->name('login');
-        Route::get('/register', Register::class)->name('register');
+        Route::middleware('guest')->get('/login', Login::class)->name('login');
+        Route::middleware('auth')->get('/logout', [AuthController::class, 'logout'])->name('logout');
     });
     Route::get('/doctor/{user:id}', DoctorProfile::class)->name('doctor.show');  
     
     Route::group(['prefix'=>'api'], function(){
-        Route::get('/users', 'UserController@users');
-        Route::get('/doctors', 'UserController@doctors');
-        Route::get('/operators', 'UserController@operators');
-        Route::post('/doctor', 'DoctorController@index');
-        Route::post('/doctor/{id}', 'DoctorController@show');
+        Route::get('/users', [UserController::class, 'users']);
+        Route::get('/doctors', [UserController::class, 'doctors']);
+        Route::get('/operators', [UserController::class, 'operators']);
+        Route::post('/doctor', [DoctorController::class, 'index']);
+        Route::post('/doctor/{id}', [DoctorController::class, 'show']);
         Route::middleware('auth:api')->get('/user', function (Request $request) {
             return $request->user();
         });
     });
+
+    // Route::middleware('auth')->group(['prefix'=>'profile'], function(){
+    //     // Route::get('/personal-info', 'UserController@users');
+    //     // Route::get('/medical-info', 'UserController@users');
+    // });
 });
 
 
@@ -56,4 +65,6 @@ Route::group([
     Route::crud('permission', \Rezahmady\User\Http\Controllers\Admin\PermissionCrudController::class);
     Route::crud('role', \Rezahmady\User\Http\Controllers\Admin\RoleCrudController::class);
     Route::crud('user', \Rezahmady\User\Http\Controllers\Admin\UserCrudController::class);
+    // Route::post('/resource/inline/create/modal', [ResourceCrudController::class, 'setupInlineCreateOperation'])->name('resources-inline-create');
+    // Route::post('/resource/inline/create', [ResourceCrudController::class, 'storeInlineCreate'])->name('resources-inline-create-save');
 });

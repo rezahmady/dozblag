@@ -4,6 +4,7 @@ namespace Rezahmady\Resource\Models;
 
 use App\Models\Ostan;
 use App\Models\Shahrestan;
+use App\Models\User;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,11 @@ class Resource extends Model
     public function Shahrestan()
     {
         return $this->belongsTo(Shahrestan::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     /*

@@ -2,6 +2,9 @@
 
 namespace Rezahmady\User\Models;
 
+use App\Models\Ostan;
+use App\Models\Shahrestan;
+use App\Traits\SetJsonMutator;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,11 +13,12 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
+use Rezahmady\Resource\Models\Resource;
 
 class User extends Authenticatable
 {
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
-    use HasFactory, Notifiable, HasRoles, CrudTrait;
+    use HasFactory, Notifiable, HasRoles, CrudTrait,SetJsonMutator;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +31,20 @@ class User extends Authenticatable
         'email',
         'password',
         'template',
-        'extras'
+        'extras',
+        'extras->sex',
+        'extras->bio',
+        'extras->edu_bg',
+        'extras->job_bg',
+        'extras->gif_bg',
+        'extras->ostan',
+        'extras->shahrestan',
+        'extras->address',
+        'extras->profile',
+        'extras->services',
+        'extras->experience',
+        'extras->medical_code',
+        'extras->specialty_id',
     ];
 
     protected $fakeColumns = ['extras'];
@@ -73,11 +90,31 @@ class User extends Authenticatable
         return $this->hasMany(self::class);
     }
 
+    public function resource()
+    {
+        return $this->belongsToMany(Resource::class);
+    }
+
+    public function ostan()
+    {
+        return $this->belongsTo(Ostan::class, 'extras->ostan_id');
+    }
+
+    public function shahrestan()
+    {
+        return $this->belongsTo(Shahrestan::class, 'extras->shahrestan_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public function username()
+    {
+        return 'mobile';
+    }
 
     public function path()
     {
@@ -96,6 +133,14 @@ class User extends Authenticatable
                 '<i class="la la-eye"></i> نمایش</a>';
         }
         return '';
+    }
+
+    public function hasTemplate($template)
+    {
+        if(is_array($template)) {
+            return in_array($this->template, $template);
+        }
+        return $this->template == $template;//or $this->hasRole(trans("rezahmady.user::permissionmanager.function_name.{$template}")
     }
 
     /*

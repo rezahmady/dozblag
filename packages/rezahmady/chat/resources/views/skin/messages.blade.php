@@ -68,6 +68,11 @@
 
                 @else
                 <div class="message-item {{$class}}" id="message-{{$message->id}}">
+                    @if ($message->user_id != auth()->id())
+                    <div class="message-sender">
+                        {{$message->user->name}}
+                    </div>
+                    @endif
                     <div class="message-content">
                         {!! $message->body !!}
                     </div>

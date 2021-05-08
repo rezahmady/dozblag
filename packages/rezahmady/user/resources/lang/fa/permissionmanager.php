@@ -32,8 +32,8 @@ return [
     'template_not_found'    => 'هیچ نوع کاربری تعریف نشده است',
 
     'function_name' => [
-        "operator" => "اپراتور سامانه",
-        "doctor"   => "دکتر",
+        "operator" => "اپراتور",
+        "doctor"   => "پزشک",
         "clinic"   => "کلینیک (درمانگاه)",
         "customer" => "مشتری",
         "hospital" => "بیمارستان",

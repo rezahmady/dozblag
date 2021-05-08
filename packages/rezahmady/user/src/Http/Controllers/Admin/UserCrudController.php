@@ -7,7 +7,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Rezahmady\User\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use Rezahmady\User\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Illuminate\Support\Facades\Hash;
-use Rezahmady\User\Models\User;
+use App\Models\User;
+use Rezahmady\Resource\Models\Resource;
 use Rezahmady\User\Traits\UserTemplates;
 
 class UserCrudController extends CrudController
@@ -16,6 +17,7 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     use DefaultPermissions;
     use UserTemplates;
 
@@ -24,7 +26,7 @@ class UserCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel(User::class);
-        $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.user'), trans('backpack::permissionmanager.users'));
+        $this->crud->setEntityNameStrings(trans('rezahmady.user::permissionmanager.user'), trans('rezahmady.user::permissionmanager.users'));
         $this->crud->setRoute(backpack_url('user'));
 
         /*
@@ -42,22 +44,22 @@ class UserCrudController extends CrudController
         $this->crud->addColumns([
             [
                 'name'  => 'name',
-                'label' => trans('backpack::permissionmanager.name'),
+                'label' => trans('rezahmady.user::permissionmanager.name'),
                 'type'  => 'text',
             ],
             [
                 'name'  => 'mobile',
-                'label' => trans('backpack::permissionmanager.mobile'),
+                'label' => trans('rezahmady.user::permissionmanager.mobile'),
                 'type'  => 'text',
             ],
 
             [
                 'name'  => 'email',
-                'label' => trans('backpack::permissionmanager.email'),
+                'label' => trans('rezahmady.user::permissionmanager.email'),
                 'type'  => 'email',
             ],
             [ // n-n relationship (with pivot table)
-                'label'     => trans('backpack::permissionmanager.roles'), // Table column heading
+                'label'     => trans('rezahmady.user::permissionmanager.roles'), // Table column heading
                 'type'      => 'select_multiple',
                 'name'      => 'roles', // the method that defines the relationship in your Model
                 'entity'    => 'roles', // the method that defines the relationship in your Model
@@ -65,7 +67,7 @@ class UserCrudController extends CrudController
                 'model'     => config('permission.models.role'), // foreign key model
             ],
             [ // n-n relationship (with pivot table)
-                'label'     => trans('backpack::permissionmanager.extra_permissions'), // Table column heading
+                'label'     => trans('rezahmady.user::permissionmanager.extra_permissions'), // Table column heading
                 'type'      => 'select_multiple',
                 'name'      => 'permissions', // the method that defines the relationship in your Model
                 'entity'    => 'permissions', // the method that defines the relationship in your Model
@@ -79,7 +81,7 @@ class UserCrudController extends CrudController
             [
                 'name'  => 'role',
                 'type'  => 'dropdown',
-                'label' => trans('backpack::permissionmanager.role'),
+                'label' => trans('rezahmady.user::permissionmanager.role'),
             ],
             config('permission.models.role')::all()->pluck('name', 'id')->toArray(),
             function ($value) { // if the filter is active
@@ -94,7 +96,7 @@ class UserCrudController extends CrudController
             [
                 'name'  => 'permissions',
                 'type'  => 'select2',
-                'label' => trans('backpack::permissionmanager.extra_permissions'),
+                'label' => trans('rezahmady.user::permissionmanager.extra_permissions'),
             ],
             config('permission.models.permission')::all()->pluck('display_name', 'id')->toArray(),
             function ($value) { // if the filter is active
@@ -170,7 +172,7 @@ class UserCrudController extends CrudController
     {
         $this->crud->addField([
             'name' => 'template',
-            'label' => trans('backpack::permissionmanager.template'),
+            'label' => trans('rezahmady.user::permissionmanager.template'),
             'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
             'type' => 'select_crud_template',
             'options' => $this->getTemplatesArray(),
@@ -182,14 +184,32 @@ class UserCrudController extends CrudController
             [
                 'name'  => 'name',
                 'prefix'  => '<i class="la la-user"></i>',
-                'label' => trans('backpack::permissionmanager.name'),
+                'label' => trans('rezahmady.user::permissionmanager.name'),
                 'type'  => 'text',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'مشخصات فردی',
+            ],
+            [
+                'name'  => 'sex',
+                'label' => 'جنسیت',
+                'type'        => 'select2_from_array',
+                'options' => [
+                    'mail'  => 'مرد',
+                    'fmail' => 'زن'
+                ],
+                'allows_null' => true,
+                'fake' => true,
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
                 'tab'   => 'مشخصات فردی',
             ],
             [
                 'name'  => 'mobile',
                 'prefix'  => '<i class="la la-mobile"></i>',
-                'label' => trans('backpack::permissionmanager.mobile'),
+                'label' => trans('rezahmady.user::permissionmanager.mobile'),
                 'type'  => 'text',
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
@@ -198,7 +218,7 @@ class UserCrudController extends CrudController
             ],
             [
                 'name'  => 'email',
-                'label' => trans('backpack::permissionmanager.email'),
+                'label' => trans('rezahmady.user::permissionmanager.email'),
                 'type'  => 'email',
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
@@ -207,7 +227,7 @@ class UserCrudController extends CrudController
             ],
             [
                 'name'  => 'password',
-                'label' => trans('backpack::permissionmanager.password'),
+                'label' => trans('rezahmady.user::permissionmanager.password'),
                 'type'  => 'password',
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
@@ -216,7 +236,7 @@ class UserCrudController extends CrudController
             ],
             [
                 'name'  => 'password_confirmation',
-                'label' => trans('backpack::permissionmanager.password_confirmation'),
+                'label' => trans('rezahmady.user::permissionmanager.password_confirmation'),
                 'type'  => 'password',
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
@@ -274,7 +294,7 @@ class UserCrudController extends CrudController
         $templates = $templates_trait->getMethods(\ReflectionMethod::IS_PRIVATE);
 
         if (! count($templates)) {
-            abort(503, trans('backpack::permissionmanager.template_not_found'));
+            abort(503, trans('rezahmady.user::permissionmanager.template_not_found'));
         }
 
         return $templates;
@@ -290,9 +310,18 @@ class UserCrudController extends CrudController
         $templates = $this->getTemplates();
 
         foreach ($templates as $template) {
-            $templates_array[$template->name] = trans('backpack::permissionmanager.function_name.'.$template->name);
+            $templates_array[$template->name] = trans('rezahmady.user::permissionmanager.function_name.'.$template->name);
         }
 
         return $templates_array;
+    }
+
+    protected function fetchResources()
+    {
+        return $this->fetch([
+            'model' => Resource::class, // required
+            'searchable_attributes' => ['name', 'caption'],
+            'paginate' => 10, // items to show per page
+        ]);
     }
 }

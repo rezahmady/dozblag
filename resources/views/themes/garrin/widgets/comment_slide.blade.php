@@ -75,4 +75,34 @@
             });
         }
     });
+
+    document.addEventListener("turbolinks:load", function() {
+        if ($('.comment-slider').length > 0) {
+            $('.comment-slider').slick({
+                // centerMode: true,
+                centerPadding: '60px',
+                rtl: true,
+                slidesToShow: 3,
+                responsive: [{
+                        breakpoint: 899,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 670,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+        }
+    })
 </script>

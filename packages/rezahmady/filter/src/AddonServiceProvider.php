@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Rezahmady\Filter\Http\Livewire\Widgets\FilterItem;
 use Rezahmady\Filter\Models\FilterItem as ModelsFilterItem;
-use Rezahmady\User\Models\User;
+use App\Models\User;
 
 class AddonServiceProvider extends ServiceProvider
 {

@@ -7,6 +7,7 @@ use App\Traits\DefaultPermissions;
 use Rezahmady\Resource\Traits\ResourceTemplates;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\Request;
 use Rezahmady\Resource\Models\Resource;
 
 /**
@@ -20,6 +21,7 @@ class ResourceCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use ResourceTemplates;
     use DefaultPermissions;
     Const ENTITY = 'resource';
@@ -81,6 +83,7 @@ class ResourceCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        // dd('dd');
         $this->addResourceFields(\Request::input('template'));
         CRUD::setValidation(ResourceRequest::class);
 
@@ -102,6 +105,24 @@ class ResourceCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+    // notice InlineCreateOperation is used AFTER CreateOperation
+    // that's required in order for InlineCreate to re-use whatever
+    // CreateOperation has already setup
+
+    // OPTIONAL
+    // only if you want to make the InlineCreateOperation behave differently 
+    // from the CreateOperation, otherwise you can just skip the setup method entirely
+    
+    protected function setupInlineCreateOperation()
+    {
+        // $template = \Request::input('resource_template_h') ?? \Request::input('resource_template_c');
+        // $request2 = \Request::input('main_form_fields');
+        // $template = $request2[0]['value'];
+        // dd($template);
+        $this->addResourceFields('');
+        CRUD::setValidation(ResourceRequest::class);
+    }
+
     protected function addResourceFields($template = '')
     {
         $this->crud->addField([
@@ -113,6 +134,10 @@ class ResourceCrudController extends CrudController
             'value' => $template,
             'allows_null' => false,
         ]);
+
+        // $this->crud->addFields([
+            
+        // ]);
 
         $this->crud->addFields([
             [

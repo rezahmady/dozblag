@@ -6,8 +6,8 @@
                 @if (sizeOf($comments))
                 <div class="pb-0">
                     <ul class="comments-list">
-                        @foreach ($comments as $comment)
-                            <livewire:comment.comment :comment="$comment" :key="$loop->index" :view="'theme::partials.comment.blog-comment'" />
+                        @foreach ($comments as $comment) 
+                            <livewire:comment.comment :comment="$comment" :key="'comment-component-'.$loop->index" :view="'theme::partials.comment.blog-comment'" />
                         @endforeach
                     </ul>
                 </div>

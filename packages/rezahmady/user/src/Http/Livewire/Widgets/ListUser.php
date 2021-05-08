@@ -3,9 +3,7 @@
 namespace Rezahmady\User\Http\Livewire\Widgets;
 
 use App\Http\Livewire\Traits\WidgetRender;
-use App\Models\Filter;
-use App\Models\FilterItem as ModelsFilterItem;
-use Rezahmady\User\Models\User;
+use App\Models\User;
 use App\Models\Widget;
 use Livewire\Component;
 

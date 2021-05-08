@@ -13,12 +13,20 @@
 
         <!-- Links of CSS files -->
         @livewireStyles
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.css" integrity="sha512-NDcw4w5Uk5nra1mdgmYYbghnm2azNRbxeI63fd3Zw72aYzFYdBGgODILLl1tHZezbC8Kep/Ep/civILr5nd1Qw==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="{{ asset('/packages/line-awesome/css/line-awesome.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/assets/garrin/css/eac4d452.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/packages/lity/lity.css') }}" />
         <link rel="stylesheet" href="{{ mix('/assets/garrin/css/theme.css') }}">
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/custom.css') }}">
-		{{-- <link rel="stylesheet" href="{{ mix('/assets/css/app.css') }}"> --}}
         @stack('custom-style')
-		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+        <!-- Links of JS files -->
+        <script src="{{ mix('/assets/garrin/js/theme.js') }}" defer></script>
+        <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
+		<script src="{{ mix('/assets/js/app.js') }}"></script>
+        <script src="{{ asset('/packages/lity/lity.min.js') }}" defer ></script>
+        @livewireScripts
+        <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>
+		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
 	</head>
 	<body>
 
@@ -31,13 +39,7 @@
 	   <!-- /Main Wrapper -->
 
 
-        <!-- Links of JS files -->
-        <script src="{{ mix('/assets/garrin/js/theme.js') }}" defer></script>
-        <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
-		<script src="{{ mix('/assets/js/app.js') }}"></script>
-		{{-- <script src="{{asset('packages/alpinejs/alpine.min.js')}}" defer></script> --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js" defer integrity="sha512-UU0D/t+4/SgJpOeBYkY+lG16MaNF8aqmermRIz8dlmQhOlBnw6iQrnt4Ijty513WB3w+q4JO75IX03lDj6qQNA==" crossorigin="anonymous"></script>
-        @livewireScripts
+        
         @stack('custom-script')
 
 	</body>

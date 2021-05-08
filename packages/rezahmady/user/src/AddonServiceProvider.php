@@ -2,10 +2,11 @@
 
 namespace Rezahmady\User;
 
-use Illuminate\Events\Dispatcher;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Rezahmady\User\Http\Livewire\Auth\FormLogin;
+use Rezahmady\User\Http\Livewire\Auth\FormValidation;
+use Rezahmady\User\Http\Livewire\Auth\Login;
 use Rezahmady\User\Http\Livewire\Widgets\ListUser;
 
 class AddonServiceProvider extends ServiceProvider
@@ -19,6 +20,11 @@ class AddonServiceProvider extends ServiceProvider
     public function moduleBoot() : void
     {
         Livewire::component('widgets.list-user', ListUser::class);
+        Livewire::component('auth.form-validation', FormValidation::class);
+        Livewire::component('rezahmady.user.http.livewire.auth.form-validation', FormValidation::class);
+        Livewire::component('auth.form-login', FormLogin::class);
+        Livewire::component('rezahmady.user.http.livewire.auth.form-login', FormLogin::class);
+        Livewire::component('rezahmady.user.http.livewire.auth.login', Login::class);
     }
 
     public function menuBuilder($menu)

@@ -2247,10 +2247,9 @@ button.bg-danger:hover {
 }
 
 .header-navbar-rht li .dropdown-menu a:hover {
-    color: #09dca4;
+    color: #19bfd3;
     letter-spacing: 0.5px;
     padding-left: 20px;
-    background-color: #fff;
 }
 
 .header-navbar-rht li a.header-login {

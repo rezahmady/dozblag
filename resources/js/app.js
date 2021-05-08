@@ -1,6 +1,8 @@
 import Echo from "laravel-echo"
+var Turbolinks = require("turbolinks")
 
 window.Pusher = require('pusher-js');
+Turbolinks.start();
 
 window.Echo = new Echo({
     broadcaster: 'pusher',

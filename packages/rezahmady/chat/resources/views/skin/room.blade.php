@@ -10,14 +10,18 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="#" data-navigation-target="contact-information" class="dropdown-item">پروفایل</a>
-                    @if ($room->status === 'archive')
-                    <a wire:click.prevent="cancelArchive()" href="#" class="dropdown-item">خارج کردن از بایگانی</a>
-                    @else
-                    <a wire:click.prevent="archiveChat()" href="#" class="dropdown-item">اضافه کردن به بایگانی</a>
+                    @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
+                        @if ($room->status === 'archive')
+                        <a wire:click.prevent="cancelArchive()" href="#" class="dropdown-item">خارج کردن از بایگانی</a>
+                        @else
+                        <a wire:click.prevent="archiveChat()" href="#" class="dropdown-item">اضافه کردن به بایگانی</a>
+                        @endif
                     @endif
+                    @if (backpack_user()->hasTemplate('operator'))
                     <a href="{{ url("/admin/room/$room->id/edit?iframe=true") }}" data-lity  class="dropdown-item">ویرایش و انتقال گفتگو</a>
                     <div class="dropdown-divider"></div>
                     <a wire:click.prevent="cancelChat()" href="#" class="dropdown-item">انصراف از پذیرش</a>
+                    @endif
                 </div>
             </li>
             @endif

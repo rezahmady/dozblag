@@ -124,7 +124,7 @@ return [
     // JS files that are loaded in all pages, using Laravel's asset() helper
     'scripts' => [
         // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
-        'assets/js/app.js',
+        // 'assets/js/app.js',
         'packages/backpack/base/js/bundle.js',
         'assets/admin/js/admin.js',
         // 'assets/admin/js/app.js',

@@ -85,4 +85,49 @@
             });
         }
     });
+
+    document.addEventListener("turbolinks:load", function() {
+        if ($('.specialities-slider').length > 0) {
+            $('.specialities-slider').slick({
+                dots: true,
+                autoplay: false,
+                infinite: true,
+                // variableWidth: true,
+                rtl: true,
+                // centerMode: true,
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '10px',
+                            slidesToShow: 4
+                        }
+                    }, {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '20px',
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '20px',
+                            slidesToShow: 2
+                        }
+                    }
+                ],
+
+                prevArrow: false,
+                nextArrow: false
+            });
+        }
+    })
 </script>

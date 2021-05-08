@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace Rezahmady\Filter\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Rezahmady\Filter\Models\FilterItem;

@@ -81,4 +81,38 @@
             });
         }
     });
+
+    document.addEventListener("turbolinks:load", function() {
+        if ($('.doctor-slider').length > 0) {
+            $('.doctor-slider').slick({
+                dots: false,
+                autoplay: false,
+                infinite: true,
+                rtl: true,
+                // centerMode: true,
+                variableWidth: true,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                responsive: [{
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 4
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+                ],
+            });
+        }
+    })
 </script>

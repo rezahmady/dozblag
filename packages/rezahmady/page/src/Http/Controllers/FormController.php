@@ -6,6 +6,7 @@ use App\Models\Message;
 use Rezahmady\Page\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 class FormController extends Controller
 {

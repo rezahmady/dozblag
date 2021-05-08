@@ -21626,3 +21626,9 @@ img.hover-shadow {
 .calamansi-skin--ayon {
     padding-top: 0;
 }
+
+.message-item.outgoing-message .message-sender {
+    font-size: 10px;
+    color: #00bcd4;
+    text-align: left;
+}

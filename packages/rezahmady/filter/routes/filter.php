@@ -14,7 +14,7 @@
  * User Routes
  */
 
-use App\Http\Controllers\Api\FilterItemController;
+use Rezahmady\Filter\Http\Controllers\Api\FilterItemController;
 use Rezahmady\Filter\Http\Controllers\Admin\FilterItemCrudController;
 use Rezahmady\Filter\Http\Controllers\Admin\UserFilterItemCrudController;
 use Rezahmady\Filter\Http\Controllers\Admin\FilterCrudController;

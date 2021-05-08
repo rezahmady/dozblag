@@ -9,17 +9,21 @@
                         <i class="ti-comment-alt"></i>
                     </a>
                 </li>
+                @if (backpack_user()->hasTemplate('operator'))
                 <li>
                     <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
                         <i class="ti-user"></i>
                     </a>
                 </li>
+                @endif
+                @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
                 <li>
                     <a x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" href="#">
                         <i class="ti-archive"></i>
                     </a>
                 </li>
-                <li>
+                @endif
+                {{-- <li>
                     <a href="#" data-toggle="modal" data-target="#editProfileModal">
                         <i class="ti-pencil"></i>
                     </a>
@@ -28,9 +32,9 @@
                     <a href="#" data-toggle="modal" data-target="#settingModal">
                         <i class="ti-settings"></i>
                     </a>
-                </li>
+                </li> --}}
                 <li>
-                    <a href="login.html">
+                    <a href="{{route('home')}}">
                         <i class="ti-power-off"></i>
                     </a>
                 </li>
@@ -56,7 +60,7 @@
                 <x-chat-rooms />
             </div>
             <!-- ./ Chats sidebar -->
-
+            @if (backpack_user()->hasTemplate('operator'))
             <!-- Friends sidebar -->
             <div x-show="navigation_target == 'suggestion'" :class="{ 'active': navigation_target == 'suggestion' }" class="sidebar">
                 <header>
@@ -68,7 +72,9 @@
                 <x-chat-suggestions />
             </div>
             <!-- ./ Friends sidebar -->
+            @endif
 
+            @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
             <!-- Favorites sidebar -->
             <div x-show="navigation_target == 'archives'" :class="{ 'active': navigation_target == 'archives' }" class="sidebar">
                 <header>
@@ -80,6 +86,7 @@
                 <x-chat-archives />
             </div>
             <!-- ./ Stars sidebar -->
+            @endif
             
             <nav class="navigation">
                 <div class="nav-group">
@@ -89,18 +96,22 @@
                                 <i class="ti-comment-alt"></i>
                             </a>
                         </li>
+                        @if (backpack_user()->hasTemplate('operator'))
                         <li>
                             <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
                                 <i class="ti-user"></i>
                             </a>
                         </li>
+                        @endif
+                        @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
                         <li>
                             <a x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" href="#">
                                 <i class="ti-archive"></i>
                             </a>
                         </li>
+                        @endif
                         <li>
-                            <a href="login.html">
+                            <a href="{{route('home')}}">
                                 <i class="ti-power-off"></i>
                             </a>
                         </li>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
+use Rezahmady\Page\Http\Livewire\PageRender;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,10 @@ Route::get('download', function(Request $request)
         exit('Requested file does not exist on our server!');
     }
 });
+
+Route::get('{modelPage}/{subs?}', PageRender::class)
+->where(['modelPage' => '^(((?=(?!admin)(?!doctor)(?!mag)(?!auth)(?!profile))(?=(?!\/)).))*$', 'subs' => '.*'])
+->name('page');
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 
