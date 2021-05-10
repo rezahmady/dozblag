@@ -1,5 +1,6 @@
 {
     "/assets/js/app.js": "/assets/js/app.js",
+    "/assets/js/chat.js": "/assets/js/chat.js",
     "/assets/garrin/css/theme.css": "/assets/garrin/css/theme.css",
     "/assets/garrin/js/theme.js": "/assets/garrin/js/theme.js"
 }

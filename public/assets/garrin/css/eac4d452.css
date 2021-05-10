@@ -8317,16 +8317,18 @@ input[type=checkbox]:checked+.c-ui-statusswitcher__slider span {
 .c-header__profile-dropdown-action--activate-digiclub {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    padding-right: 25px;
     white-space: nowrap
 }
 
-.c-header__profile-dropdown-action--activate-digiclub:after {
+
+/* .c-header__profile-dropdown-action--activate-digiclub:after {
     content: "\E0BF\00FE0E";
     font-size: 18px;
     font-size: 1.286rem;
     line-height: 1.222
-}
+} */
 
 
 /* 

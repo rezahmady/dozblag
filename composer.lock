@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1458296777ea298f8d46ceaf1b054c16",
+    "content-hash": "2df766163da972d3a6a41d74b08a10bf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5539,6 +5539,68 @@
             }
         },
         {
+            "name": "rezahmady/profile",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/profile",
+                "reference": "eafe9927a413a4db93953cbd87eefba7c7ac265a"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Profile\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Profile\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Profile\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/profile",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Profile"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
             "name": "rezahmady/resource",
             "version": "dev-master",
             "dist": {
@@ -5660,6 +5722,138 @@
                 "source": "https://github.com/rezahmady/setting-operation/tree/1.0.4"
             },
             "time": "2021-02-05T11:01:53+00:00"
+        },
+        {
+            "name": "rezahmady/smsir",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rezahmady/smsir.git",
+                "reference": "c31bf0b427ad4510bf0512a85a6fbf10b957b7b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rezahmady/smsir/zipball/c31bf0b427ad4510bf0512a85a6fbf10b957b7b0",
+                "reference": "c31bf0b427ad4510bf0512a85a6fbf10b957b7b0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0.1",
+                "illuminate/notifications": "~6.0 || ~7.0 || ~8.0",
+                "illuminate/support": "~6.0 || ~7.0 || ~8.0",
+                "php": "~7.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Smsir\\SmsirServiceProvider"
+                    ],
+                    "aliases": {
+                        "SMSIR": "Rezahmady\\Smsir\\Facades\\Smsir"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Smsir\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com",
+                    "role": "Developer"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/smsir",
+            "keywords": [
+                "laravel",
+                "notifacation",
+                "sendsms",
+                "sms",
+                "sms.ir",
+                "smsir",
+                "اس ام اس",
+                "پیامک"
+            ],
+            "support": {
+                "issues": "https://github.com/rezahmady/smsir/issues",
+                "source": "https://github.com/rezahmady/smsir/tree/1.0.0"
+            },
+            "time": "2021-04-26T15:32:12+00:00"
+        },
+        {
+            "name": "rezahmady/subscribtion",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/subscribtion",
+                "reference": "b80d374e4d4dddc4694b0969ef3880dfd40d39fd"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Subscribtion\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Subscribtion\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Subscribtion\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/rezahmady/subscribtion",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Subscribtion"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "rezahmady/user",
@@ -12505,7 +12699,9 @@
         "rezahmady/filter": 20,
         "rezahmady/page": 20,
         "rezahmady/product": 20,
+        "rezahmady/profile": 20,
         "rezahmady/resource": 20,
+        "rezahmady/subscribtion": 20,
         "rezahmady/user": 20
     },
     "prefer-stable": true,

@@ -195,7 +195,7 @@ return [
 
             'mode' => 'sandbox', // can be normal, sandbox, zaringate
             'merchantId' => 'd8131c32-c5bb-11e8-b5d5-005056a205be',
-            'callbackUrl' => 'http://maktabrajaee.test/callback',
+            'callbackUrl' => 'http://gariin.test/callback',
             'description' => 'payment using zarinpal',
         ],
         'zibal' => [

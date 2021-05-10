@@ -97,4 +97,6 @@ return [
 
     'manifest_path' => null,
 
+    'layout'       => 'theme::layouts.app',
+
 ];

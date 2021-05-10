@@ -47,14 +47,30 @@
                         <div class="c-header__profile-dropdown-account">
                                                                                                         
                             <div class="c-header__profile-dropdown-account-item">                                
-                                <span class="c-header__profile-dropdown-account-item-title">نقش: {{trans('rezahmady.user::permissionmanager.function_name.'.backpack_user()->template)}}</span>         
-                            </div>                                            
+                                <span class="c-header__profile-dropdown-account-item-title">نقش :</span>         
+                                <span class="c-header__profile-dropdown-account-item-amount">
+                                    {{-- <span class="c-header__profile-dropdown-account-item-amount-number js-dc-point">۰</span> --}}
+                                    {{trans('rezahmady.user::permissionmanager.function_name.'.backpack_user()->template)}}
+                                </span>
+                            </div>
+                            <div class="c-header__profile-dropdown-account-item">
+                                <span class="c-header__profile-dropdown-account-item-title">اشتراک :</span>
+                                <span class="c-header__profile-dropdown-account-item-amount">
+                                    {{-- <span class="c-header__profile-dropdown-account-item-amount-number js-dc-point">۰</span> --}}
+                                    برنزی
+                                </span>
+                            </div>
                         </div>                                
                         <a href="{{ route('profile.dashboard') }}" class="c-header__profile-dropdown-user-profile-full-link"></a>
                     </div>
 
                     <div class="c-header__profile-dropdown-actions">
-
+                        <div class="c-header__profile-dropdown-action-container">
+                            <a href="{{route('subscribtion.view')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--activate-digiclub">
+                                <span class="c-header__profile-dropdown-action-notification-badge"></span>
+                                فعال سازی اشتراک
+                            </a>
+                        </div>
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('profile.info')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--orders "><i class="la la-user"></i> ویرایش مشخصات</a>
                         </div>

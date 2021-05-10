@@ -135,10 +135,6 @@ class ResourceCrudController extends CrudController
             'allows_null' => false,
         ]);
 
-        // $this->crud->addFields([
-            
-        // ]);
-
         $this->crud->addFields([
             [
                 'name'  => 'name',

@@ -66,6 +66,11 @@
     background-repeat: no-repeat;
 }
 
+.bg-cover-09 {
+    background-image: url(/assets/garrin/img/bg/bg8.png);
+    background-repeat: no-repeat;
+}
+
 .bg-gradient-01 {
     background: linear-gradient(119deg, #065482, #00c395) !important;
 }
@@ -1562,7 +1567,7 @@ input[type="submit"] {
     background-position: bottom;
     background-color: #f8f9fa;
     padding: 20px 0;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .comment-slider .slide-holder {
@@ -2019,4 +2024,25 @@ a.kt-register-button:hover {
     margin-bottom: .25rem;
     min-width: 10rem;
     border: none !important;
+}
+
+.fw-800 {
+    font-weight: 800 !important;
+}
+
+.subscribe-page .apt-btn {
+    border: 1px solid #ef394e;
+    padding: 5px 10px;
+    color: #ffffff;
+    margin: auto;
+    display: block;
+    text-align: center;
+    border-radius: 20px;
+    background: #fb2941;
+    box-shadow: 4px 5px 0px 0 rgb(0 0 0 / 9%);
+    width: max-content;
+    position: absolute;
+    bottom: 25px;
+    right: 0;
+    left: 0;
 }

@@ -80,9 +80,13 @@ Route::any('/callback', function (Request $request) {
                We can catch the exception to handle invalid payments.
                getMessage method, returns a suitable message that can be used in user interface.
            **/
-          ddd($exception);
+        //   ddd($exception);
            echo $exception->getMessage();
        }
+   } else {
+       $transaction_id = $request->Authority;
+       
+        $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
    }
 
 });
