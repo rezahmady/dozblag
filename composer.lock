@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2df766163da972d3a6a41d74b08a10bf",
+    "content-hash": "652b8c54fb90686f72317492cafcd515",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5470,6 +5470,68 @@
                 "Backpack for Laravel",
                 "Laravel",
                 "Page"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
+            "name": "rezahmady/payment",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/10/Desktop/projects/gariin.test/packages/rezahmady/payment",
+                "reference": "775d63be3cad1e842dccdaaa9c55b939a5280ce5"
+            },
+            "require": {
+                "backpack/crud": "^4.1.0",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rezahmady\\Payment\\AddonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rezahmady\\Payment\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rezahmady\\Payment\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit --testdox"
+                ]
+            },
+            "license": [
+                "license"
+            ],
+            "authors": [
+                {
+                    "name": "Reza Ahmadi Sabzevar",
+                    "email": "ahmadireza15@gmail.com",
+                    "homepage": "https://sityno.com"
+                }
+            ],
+            "homepage": "https://github.com/Rezahmady/Payment",
+            "keywords": [
+                "Backpack",
+                "Backpack Addon",
+                "Backpack for Laravel",
+                "Laravel",
+                "Payment"
             ],
             "transport-options": {
                 "symlink": true,
@@ -12698,6 +12760,7 @@
         "rezahmady/comment": 20,
         "rezahmady/filter": 20,
         "rezahmady/page": 20,
+        "rezahmady/payment": 20,
         "rezahmady/product": 20,
         "rezahmady/profile": 20,
         "rezahmady/resource": 20,

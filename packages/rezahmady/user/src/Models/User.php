@@ -13,7 +13,10 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
+use Rezahmady\Payment\Models\Invoice;
+use Rezahmady\Payment\Models\Transaction;
 use Rezahmady\Resource\Models\Resource;
+use Rezahmady\Subscribtion\Models\Subscribtion;
 
 class User extends Authenticatable
 {
@@ -103,6 +106,21 @@ class User extends Authenticatable
     public function shahrestan()
     {
         return $this->belongsTo(Shahrestan::class, 'extras->shahrestan_id');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasManyThrough(Transaction::class, Invoice::class);
+    }
+
+    public function subscribtions()
+    {
+        return $this->belongsToMany(Subscribtion::class)->withPivot(['use', 'expire_date']);
     }
 
     /*

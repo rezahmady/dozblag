@@ -12,7 +12,7 @@ return [
     */
 
     'models' => [
-        'user'       => Rezahmady\User\Models\User::class,
+        'user'       => App\Models\User::class,
         'permission' => Rezahmady\User\Models\Permission::class,
         'role'       => Rezahmady\User\Models\Role::class,
     ],

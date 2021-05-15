@@ -2,6 +2,9 @@
 
 namespace Rezahmady\Profile\Http\Controllers;
 
+use Alert;
+
+use App\Http\Livewire\Traits\WithAlert;
 use App\Models\Ostan;
 use App\Models\Shahrestan;
 use Illuminate\Support\Facades\Storage;
@@ -9,10 +12,11 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Rezahmady\Filter\Models\FilterItem;
 
+
 class Info extends Component
 {
 
-    use RepeatableFields, WithFileUploads;
+    use RepeatableFields, WithFileUploads, WithAlert;
 
     public $user;
 
@@ -125,6 +129,7 @@ class Info extends Component
     public function dehydrate()
     {
         $this->dispatchBrowserEvent('update-components');
+        $this->dehydrateWithAlert();
     }
 
     public function updatedOstanId()
@@ -163,6 +168,7 @@ class Info extends Component
             'extras->medical_code' => $this->medical_code,
             'extras->specialty_id' => $this->specialty_id,
         ]);
+        Alert::success('تغییرات ذخیره شد')->flash();       
     }
     
     public function edu_bg()

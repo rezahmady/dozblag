@@ -22,7 +22,7 @@ Route::group([
     	(array) config('backpack.base.web_middleware', 'web'),
     ),
 ], function() {
-    Route::get('subscribtion', Subscribtion::class)->name('subscribtion.view');
+    Route::middleware('auth')->get('subscribtion', Subscribtion::class)->name('subscribtion.view');
 });
 
 

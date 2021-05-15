@@ -60,37 +60,6 @@ Route::get('/pay', function () {
 // At the top of the file.
 Route::post('/upload/voice', [UploadController::class, 'voice']);
 
-Route::any('/callback', function (Request $request) {
-   if($request->Status === "OK") {
-       // You need to verify the payment to ensure the invoice has been paid successfully.
-       // We use transaction id to verify payments
-       // It is a good practice to add invoice amount as well.
-       $transaction_id = $request->Authority;
-
-       try {
-           $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
-   
-           // You can show payment referenceId to the user.
-        //    echo $receipt->getReferenceId();
-           ddd($receipt);
-   
-       } catch (InvalidPaymentException $exception) {
-           /**
-               when payment is not verified, it will throw an exception.
-               We can catch the exception to handle invalid payments.
-               getMessage method, returns a suitable message that can be used in user interface.
-           **/
-        //   ddd($exception);
-           echo $exception->getMessage();
-       }
-   } else {
-       $transaction_id = $request->Authority;
-       
-        $receipt = Payment::amount(1000)->transactionId($transaction_id)->verify();
-   }
-
-});
-
 
 // Download Route
 Route::get('download', function(Request $request)

@@ -62,24 +62,22 @@
     <!-- Footer -->
     <livewire:partials.footer />
     <!-- /Footer -->
+    <script>
+        function state() {
+            return {
+                widget: @entangle('widget'),
+                setwidget(widget) {
+                    this.widget = widget;
+                },
+                init() {
+                    $(document).on('lity:close', function(event, instance) {
+                        Livewire.emit('update-widget');
+                    });
+                }
+            }
+        }
+    </script>
 </div>
 
 
 
-<script>
-
-    function state() {
-        return {
-            widget: @entangle('widget'),
-            setwidget(widget) {
-                this.widget = widget;
-            },
-            init() {
-                $(document).on('lity:close', function(event, instance) {
-                    Livewire.emit('update-widget');
-                });
-            }
-        }
-    }
-    
-</script>

@@ -2,13 +2,14 @@
 
 namespace Rezahmady\Page\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithAlert;
 use Rezahmady\Page\Models\Page as ModelsPage;
 use Livewire\WithPagination;
 use Livewire\Component;
 
 class PageRender extends Component
 {
-    use WithPagination;
+    use WithPagination, WithAlert;
 
     // public $search;
 
@@ -51,10 +52,14 @@ class PageRender extends Component
     {
         $this->register();
     }
+
+    public function dehydrate()
+    {
+        $this->dehydrateWithAlert();
+    }
     
     public function render()
     {
-
         
         $this->register();
         $filename = ($this->modelPage->filename) ? $this->modelPage->filename : 'default';

@@ -9,7 +9,7 @@
 		<title>@yield('meta_title') | {{ theme_option('meta_title') }}</title>
 
 		<!-- Favicons -->
-        <link rel="icon" type="image/png" href="{{ theme('img/favicon.png') }}">
+        <link rel="icon" type="image/png" href="{{ theme_option('favicon') }}">
 
         <!-- Links of CSS files -->
         @livewireStyles
@@ -17,17 +17,20 @@
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/eac4d452.css') }}" />
         <link rel="stylesheet" href="{{ asset('/packages/lity/lity.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/garrin/js/plugins/select2/css/select2.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/packages/noty/noty.css') }}">
+        <link rel="stylesheet" href="{{ asset('/packages/noty/themes/light.css') }}">
         @stack('custom-style')
         <link rel="stylesheet" href="{{ mix('/assets/garrin/css/theme.css') }}">
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/custom.css') }}">
         <!-- Links of JS files -->
         <script src="{{ mix('/assets/garrin/js/theme.js') }}" defer></script>
-        <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
 		<script src="{{ mix('/assets/js/app.js') }}"></script>
         <script src="{{ asset('/packages/lity/lity.min.js') }}" defer ></script>
         <script src="{{asset('assets/garrin/js/plugins/select2/js/select2.min.js')}}" defer></script>
         <script src="{{asset('assets/garrin/js/plugins/theia-sticky-sidebar/ResizeSensor.js')}}" defer></script>
         <script src="{{asset('assets/garrin/js/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}" defer></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js' defer ></script>
+        <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
         @livewireScripts
         <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>
 		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
@@ -41,28 +44,20 @@
 			<livewire:partials.header />
 			<!-- /Header -->
 
-           
-
             <!-- Page Content -->
             <div class="content">
                 <div class="container-fluid">
-        
                     <div class="row">
                         <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                            
                             <!-- Profile Sidebar -->
                             <x-rezahmady.profile.sidebar/>
                             <!-- /Profile Sidebar -->
-                            
                         </div>
-                        
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             {{ $slot }}
                         </div>
                     </div>
-        
                 </div>
-        
             </div>		
             <!-- /Page Content -->
 
@@ -74,6 +69,6 @@
         @stack('custom-script')
         <script src="{{asset('assets/garrin/js/profile.js')}}" defer></script>
         <!-- /Main Wrapper -->
-
+        @include('theme::partials.alerts')
 	</body>
 </html>

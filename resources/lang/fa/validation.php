@@ -133,6 +133,7 @@ return [
 		"file" => "فایل",
 		"fullname" => "نام کامل",
         "shahrestan" => "شهر",
-        "featured_item" => "پست ویژه"
+        "featured_item" => "پست ویژه",
+        "discount"  => 'کدتخفیف'
     ],
 ];

@@ -31,6 +31,7 @@
         "rezahmady/comment": "dev-master",
         "rezahmady/filter": "dev-master",
         "rezahmady/page": "dev-master",
+        "rezahmady/payment": "dev-master",
         "rezahmady/product": "dev-master",
         "rezahmady/profile": "dev-master",
         "rezahmady/resource": "dev-master",
@@ -92,6 +93,13 @@
         ]
     },
     "repositories": {
+        "rezahmady/payment": {
+            "type": "path",
+            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/payment",
+            "options": {
+                "symlink": true
+            }
+        },
         "rezahmady/subscribtion": {
             "type": "path",
             "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/subscribtion",

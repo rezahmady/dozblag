@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Rezahmady\Filter\Models\FilterItem;
 use Rezahmady\Page\Models\Page;
+use Rezahmady\Payment\Models\Invoice;
 
 class Product extends Model
 {
@@ -140,6 +141,11 @@ class Product extends Model
     public function pages()
     {
         return $this->belongsToMany(Page::class)->with('childrenRecursive');
+    }
+
+    public function invoices()
+    {
+        return $this->morphToMany(Invoice::class, 'invoiceable');
     }
 
     /*

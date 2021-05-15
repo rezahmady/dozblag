@@ -10,7 +10,7 @@ return [
     | You can switch to a different driver at runtime.
     |
     */
-    'default' => 'zarinpal',
+    'default' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -193,9 +193,9 @@ return [
             'zaringateApiPaymentUrl' => 'https://www.zarinpal.com/pg/StartPay/:authority/ZarinGate',
             'zaringateApiVerificationUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
 
-            'mode' => 'sandbox', // can be normal, sandbox, zaringate
-            'merchantId' => 'd8131c32-c5bb-11e8-b5d5-005056a205be',
-            'callbackUrl' => 'http://gariin.test/callback',
+            'mode' => '', // can be normal, sandbox, zaringate
+            'merchantId' => '',
+            'callbackUrl' => '',
             'description' => 'payment using zarinpal',
         ],
         'zibal' => [

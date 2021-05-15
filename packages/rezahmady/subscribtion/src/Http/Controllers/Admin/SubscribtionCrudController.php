@@ -223,8 +223,8 @@ class SubscribtionCrudController extends CrudController
             ],
             [
                 'name'    => 'limit_duration',
-                'prefix'  => '<i class="la la-clock"></i>',
-                'suffix'  => 'ساعت',
+                'prefix'  => '<i class="la la-calendar"></i>',
+                'suffix'  => 'روز',
                 'type'    => 'text',
                 'label'   => 'محدودیت زمان',
                 'fake'    => true,

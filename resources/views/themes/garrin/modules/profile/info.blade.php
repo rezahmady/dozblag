@@ -357,7 +357,7 @@
                 });
                 
             });
-        }) 
+        })
 
         window.addEventListener('update-components', event => {
             if ($('.select').length > 0) {

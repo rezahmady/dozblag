@@ -2046,3 +2046,54 @@ a.kt-register-button:hover {
     right: 0;
     left: 0;
 }
+
+.noty_theme__light.noty_bar .noty_body {
+    color: white !important;
+}
+
+.noty_close_button {
+    right: auto !important;
+    left: 2px !important;
+}
+
+.gateways-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gateways-logo {
+    width: 119px;
+    background: #eaeaea;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.gateways-logo:hover {
+    background: #ffcece;
+}
+
+.gateways-logo img {
+    width: 100%;
+}
+
+.gateways-logo.active {
+    border: 2px dotted #bd2323;
+    background: #ffcece;
+}
+
+.btn-success {
+    color: #fff !important;
+    background: #8BC34A linear-gradient( 180deg, #8BC34A 80%, #7eb73d 100%) repeat-x !important;
+    box-shadow: 0 5px 15px rgb(139 195 74 / 25%) !important;
+    border-color: #7eb73d !important;
+}
+
+.btn-primery {
+    background: #4dc5ff linear-gradient( 180deg, #5ac8fd 80%, #3eb6e4 100%) repeat-x !important;
+    box-shadow: 0 5px 15px rgb(99 146 242 / 25%) !important;
+    border-color: #4bbbf0 !important;
+    color: #fff !important;
+}

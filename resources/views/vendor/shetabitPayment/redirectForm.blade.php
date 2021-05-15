@@ -61,18 +61,18 @@
             <div class="bounce3"></div>
         </div>
         <form class="text-center mt-2" method="{{ $method }}" action="{{ $action }}">
-            <p>Forwarding to secure payment provider.</p>
+            <p>انتقال به درگاه پرداخت</p>
             <p>
-                If you are not automatically redirected to the payment website with in
+                درصورتی که پس از 
                 <span id="countdown">10</span>
-                seconds...
+                ثانیه به طور خودکار به درگاه منتقل نشدید ...
             </p>
 
             @foreach($inputs as $name => $value)
                 <input type="hidden" name="{{ $name }}" value="{{ $value }}">
             @endforeach
 
-            <button type="submit">Click here</button>
+            <button type="submit">اینجا بزنید</button>
         </form>
         <script>
             // Total seconds to wait

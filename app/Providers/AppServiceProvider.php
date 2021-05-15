@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,18 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->overrideConfigValues();
         if ($this->app->isLocal()) $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-    }
-
-    protected function overrideConfigValues()
-    {
-        $config = [];
-        if (config('settings.skin'))
-            $config['backpack.base.skin'] = config('settings.skin');
-        if (config('settings.show_powered_by'))
-            $config['backpack.base.show_powered_by'] = config('settings.show_powered_by') == '1';
-        config($config);
     }
 
     /**
@@ -34,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 }

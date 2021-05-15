@@ -30,3 +30,28 @@
 
 //     return false;
 // });
+
+Noty.overrideDefaults({
+    layout: 'topLeft',
+    theme: 'light',
+    timeout: 2500,
+    closeWith: ['click', 'button'],
+});
+
+window.addEventListener('alert', event => {
+    const flash_message_element = document.querySelector(".noty_layout")
+    if (flash_message_element) {
+        flash_message_element.remove()
+    }
+    new Noty({
+        type: event.detail.type,
+        text: event.detail.message
+    }).show();
+});
+
+document.addEventListener("turbolinks:before-cache", function() {
+    const flash_message_element = document.querySelector(".noty_layout")
+    if (flash_message_element) {
+        flash_message_element.remove()
+    }
+})
