@@ -53,6 +53,7 @@ return [
         'comment'    => 'نظرات',
         'chat'       => 'چت',
         'resource'   => 'بانک سلامت',
+        'payment'   => 'مدیریت مالی',
     ]
 
 ];
