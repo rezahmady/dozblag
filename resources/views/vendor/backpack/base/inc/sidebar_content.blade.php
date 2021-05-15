@@ -3,11 +3,17 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
 
-<?php use App\Services\Menu; ?>
+<?php 
+use App\Services\Menu;
+use Illuminate\Support\Facades\Cache;
+$menu = cache()->remember('admin-menu', 60*60*24, function () {
+    return Menu::create(function($menu) {
+        event('admin.menu.build', $menu);
+    })->render();
+});
+?>
 
-{!! Menu::create(function($menu) {
-    event('admin.menu.build', $menu);
-})->render(); !!}
+{!! $menu !!}
 
 @can('admin advance')
 <li class="nav-item nav-dropdown">

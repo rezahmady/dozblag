@@ -54,6 +54,7 @@ return [
         'chat'       => 'چت',
         'resource'   => 'بانک سلامت',
         'payment'   => 'مدیریت مالی',
+        'subscribtion'   => 'حق اشتراک',
     ]
 
 ];
