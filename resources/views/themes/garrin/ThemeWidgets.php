@@ -671,7 +671,7 @@ class ThemeWidgets
     {
         $templates_array = [];
 
-        $templates_trait = new \ReflectionClass('App\Traits\UserTemplates');
+        $templates_trait = new \ReflectionClass('Rezahmady\User\Traits\UserTemplates');
         $templates = $templates_trait->getMethods(\ReflectionMethod::IS_PRIVATE);
 
         if (! count($templates)) {
