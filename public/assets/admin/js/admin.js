@@ -26,8 +26,10 @@ if (window.location.search === '?iframe=true') {
 
 document.addEventListener("DOMContentLoaded", function() {
     $(".loader").delay(1000).fadeOut("slow");
-    $("#overlayer").delay(1000).fadeOut("slow");
-    $('body').delay(1000).removeClass('h-100vh')
+    $.when($("#overlayer").delay(1000).fadeOut("slow"))
+        .done(function() {
+            $('body').delay(1000).removeClass('h-100vh');
+        });
 });
 
 

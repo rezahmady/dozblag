@@ -464,7 +464,7 @@ table.dataTable thead>tr>th {
     height: 30px;
     position: absolute;
     z-index: 30000;
-    border: 4px solid #Fff;
+    border: 4px solid #6faf29;
     top: 50%;
     animation: loader 2s infinite ease;
     left: 0;
@@ -476,12 +476,12 @@ table.dataTable thead>tr>th {
     vertical-align: top;
     display: inline-block;
     width: 100%;
-    background-color: #fff;
+    background-color: #6faf29;
     animation: loader-inner 2s infinite ease-in;
 }
 
 .h-100vh {
-    height: 100vh;
+    overflow: hidden;
 }
 
 @keyframes loader {
