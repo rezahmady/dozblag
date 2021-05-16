@@ -24,7 +24,14 @@ if (window.location.search === '?iframe=true') {
     }
 }
 
-Echo.channel('private-consultation.added')
-    .listen('ConsultationAdded', (e) => {
-        console.log('ConsultationAdded');
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    $(".loader").delay(1000).fadeOut("slow");
+    $("#overlayer").delay(1000).fadeOut("slow");
+    $('body').delay(1000).removeClass('h-100vh')
+});
+
+
+// Echo.channel('private-consultation.added')
+//     .listen('ConsultationAdded', (e) => {
+//         console.log('ConsultationAdded');
+//     });
