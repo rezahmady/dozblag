@@ -434,7 +434,7 @@ class ThemeWidgets
                 'label' => "انتخاب از کاربران",
                 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                 'entity' => 'relationHasMany', // the method that defines the relationship in your Model
-                'model' => "Rrzahmady\User\Models\User", // foreign key Eloquent model
+                'model' => "App\Models\User", // foreign key Eloquent model
                 'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
                 'wrapper'      => [
                     'class'  => "form-group col-md-6"
