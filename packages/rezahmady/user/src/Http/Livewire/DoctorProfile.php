@@ -3,7 +3,7 @@
 namespace Rezahmady\User\Http\Livewire;
 
 use Livewire\Component;
-use Rezahmady\User\Models\User;
+use App\Models\User;
 
 class DoctorProfile extends Component
 {
@@ -21,19 +21,19 @@ class DoctorProfile extends Component
 
     public function mount(User $user) {
         
-        $this->doctor = $user->withFakes();
+        $this->doctor   = $user->withFakes();
 
-        $this->clinics = json_decode($this->doctor->clinics);
+        $this->clinics  = json_decode($this->doctor->clinics);
 
-        $this->edu_bg = json_decode($this->doctor->edu_bg);
+        $this->edu_bg   = json_decode($this->doctor->edu_bg);
 
-        $this->job_bg = json_decode($this->doctor->job_bg);
+        $this->job_bg   = json_decode($this->doctor->job_bg);
 
-        $this->gif_bg = json_decode($this->doctor->gif_bg);
+        $this->gif_bg   = json_decode($this->doctor->gif_bg);
 
-        $this->services = json_decode($this->doctor->services);
+        $this->services = $this->doctor->servicesFilter();
 
-        // ddd($this->doctor);
+        // dd($this->services);
 
     }
 

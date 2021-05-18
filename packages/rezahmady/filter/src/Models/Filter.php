@@ -5,12 +5,14 @@ namespace Rezahmady\Filter\Models;
 use Rezahmady\Filter\Models\FilterItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 class Filter extends Model
 {
     use HasFactory;
-    use CrudTrait;
+    use CrudTrait, Sluggable, SluggableScopeHelpers;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,11 +24,23 @@ class Filter extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'parent_id', 'status', 'module'];
+    protected $fillable = ['name', 'parent_id', 'status', 'module', 'slug', 'type', 'field'];
     // protected $hidden = [];
     // protected $dates = [];
 
-
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable() :array
+    {
+        return [
+            'slug' => [
+                'source' => 'slug_or_name',
+            ],
+        ];
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -78,6 +92,8 @@ class Filter extends Model
         return $this->hasMany(FilterItem::class);
     }
 
+    
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -89,6 +105,11 @@ class Filter extends Model
         return $query->where('depth', '1')
                     ->orWhere('depth', null)
                     ->orderBy('lft', 'ASC');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
     }
 
     /*

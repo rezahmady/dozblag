@@ -24,7 +24,7 @@ class Info extends Component
 
     public $name;
 
-    public $sex;
+    public $gender;
 
     public $bio;
 
@@ -62,7 +62,7 @@ class Info extends Component
     {
         $this->user = backpack_user()->withFakes();
         $this->name = $this->user->name;
-        $this->sex = $this->user->sex;
+        $this->gender = $this->user->gender;
         $this->email = $this->user->email;
         $this->bio = $this->user->bio;
         $this->address = $this->user->address;
@@ -122,7 +122,7 @@ class Info extends Component
         return [
             'name'  => 'required|string|min:2',
             'email' => 'email|unique:users,email,'.$this->user->id,
-            'sex'   => 'required',
+            'gender'   => 'required',
         ];
     }
 
@@ -155,7 +155,7 @@ class Info extends Component
             'name' => $this->name,
             'email' => $this->email,
             'extras->bio' => $this->bio,
-            'extras->sex' => $this->sex,
+            'extras->gender' => $this->gender,
             'extras->edu_bg' => json_encode($this->edu_bg),
             'extras->job_bg' => json_encode($this->job_bg),
             'extras->gif_bg' => json_encode($this->gif_bg),

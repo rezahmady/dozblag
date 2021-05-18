@@ -1,6 +1,6 @@
 <div class="chat-header-user">
     <figure class="avatar avatar-md @if ($status)  avatar-state-success @endif">
-        <img src="{{$audience->profile}}" class="rounded-circle">
+        <img src="{{$audience->getProfile()}}" class="rounded-circle">
     </figure>
     <div>
         <h5>{{$audience->name}}</h5>

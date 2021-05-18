@@ -38,7 +38,7 @@
                         <ul class="entry-meta meta-item">
                             <li>
                                 <div class="post-author">
-                                    <a href="{{$firstItem->user->path()}}"><img src="{{$firstItem->user->profile}}" alt="{{$firstItem->user->name}}"> <span>{{$firstItem->user->name}}</span></a>
+                                    <a href="{{$firstItem->user->path()}}"><img src="{{$firstItem->user->getProfile()}}" alt="{{$firstItem->user->name}}"> <span>{{$firstItem->user->name}}</span></a>
                                 </div>
                             </li>
                             <li class="color-second"><i class="far fa-clock"></i> {{$firstItem->date()}}</li>
@@ -71,7 +71,7 @@
                                     <ul class="entry-meta meta-item">
                                         <li>
                                             <div class="post-author">
-                                                <a href="{{$item->user->path()}}"><img src="{{$item->user->profile}}" alt="{{$item->user->name}}"> <span>{{$item->user->name}}</span></a>
+                                                <a href="{{$item->user->path()}}"><img src="{{$item->user->getProfile()}}" alt="{{$item->user->name}}"> <span>{{$item->user->name}}</span></a>
                                             </div>
                                         </li>
                                         <li class="color-second"><i class="far fa-clock"></i> {{$item->date()}}</li>

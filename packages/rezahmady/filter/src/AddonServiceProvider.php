@@ -8,6 +8,8 @@ use Livewire\Livewire;
 use Rezahmady\Filter\Http\Livewire\Widgets\FilterItem;
 use Rezahmady\Filter\Models\FilterItem as ModelsFilterItem;
 use App\Models\User;
+use Rezahmady\Filter\Models\Filter;
+use Rezahmady\Resource\Models\Resource;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -25,12 +27,25 @@ class AddonServiceProvider extends ServiceProvider
 
     public function resolveModelsEloquent()
     {
-        User::resolveRelationUsing('specilty', function ($Model) {
-            return $Model->belongsTo(ModelsFilterItem::class, 'extras->specialty_id');
+
+        User::resolveRelationUsing('speciltyFilter', function ($Model) {
+            return $Model->belongsTo(ModelsFilterItem::class, 'extras->filter_specilty');
+        });
+
+
+        MacroableModels::addMacro(User::class, 'servicesFilter', function() {
+            $user = $this;
+            return Filter::findBySlug('services')->items->filter(function($filteritem) use ($user) {
+                return in_array($filteritem->id, $user->extras->filter_services) ;
+            });
+        });
+
+        Resource::resolveRelationUsing('servicesFilter', function ($Model) {
+            return $Model->hasMany(ModelsFilterItem::class, 'extras->filter_services');
         });
 
         MacroableModels::addMacro(User::class, 'getSpecilty', function() {
-            return ($this->specilty) ? $this->specilty->name : '';
+            return ($this->speciltyFilter) ? $this->speciltyFilter->name : '';
         });
     }
 }

@@ -35,7 +35,7 @@ class User extends Authenticatable
         'password',
         'template',
         'extras',
-        'extras->sex',
+        'extras->gender',
         'extras->bio',
         'extras->edu_bg',
         'extras->job_bg',
@@ -48,6 +48,7 @@ class User extends Authenticatable
         'extras->experience',
         'extras->medical_code',
         'extras->specialty_id',
+        'extras->telegram_user_id',
     ];
 
     protected $fakeColumns = ['extras'];
@@ -161,17 +162,29 @@ class User extends Authenticatable
         return $this->template == $template;//or $this->hasRole(trans("rezahmady.user::permissionmanager.function_name.{$template}")
     }
 
+    
+    public function getProfile()
+    {
+        $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
+        return asset($src);
+    }
+
+    public function routeNotificationForTelegram()
+    {
+        return $this->telegram_user_id;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
     |--------------------------------------------------------------------------
     */
 
-    public function getProfileAttribute()
-    {
-        $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
-        return asset($src);
-    }
+    // public function getProfileAttribute()
+    // {
+    //     $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
+    //     return asset($src);
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -179,42 +192,48 @@ class User extends Authenticatable
     |--------------------------------------------------------------------------
     */
 
-    public function setExtrasAttribute($values)
-    {
-        // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name');
-        // destination path relative to the disk above
-        $destination_path = "public/uploads/images/user/";
+    // public function setExtrasAttribute($values)
+    // {
+    //     // dd($values);
+    //     // or use your own disk, defined in config/filesystems.php
+    //     $disk = config('backpack.base.root_disk_name');
+    //     // destination path relative to the disk above
+    //     $destination_path = "public/uploads/images/user/";
 
-        foreach($values as $attribute => $value)
-        {
-            if (Str::startsWith($value, 'data:image')){
+    //     foreach($values as $attribute => $value)
+    //     {
+    //         if(Str::startsWith($attribute, 'filter_')) {
+    //             // $values[$attribute] = json_encode($value);
+                
+    //         }
+    //         elseif (Str::startsWith($value, 'data:image')){
 
-                // 0. Make the image
-                $image = Image::make($value)->encode('jpg', 90);
+    //             // 0. Make the image
+    //             $image = Image::make($value)->encode('jpg', 90);
 
-                // 1. Generate a filename.
-                $filename = md5($value.time()).'.jpg';
+    //             // 1. Generate a filename.
+    //             $filename = md5($value.time()).'.jpg';
 
-                // 2. Store the image on disk.
-                Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
+    //             // 2. Store the image on disk.
+    //             Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
 
-                // 3. Delete the previous image, if there was one.
-                if(isset($this->extras->$attribute)) Storage::disk($disk)->delete('/public/'.$this->extras->$attribute);
+    //             // 3. Delete the previous image, if there was one.
+    //             if(isset($this->extras->$attribute)) Storage::disk($disk)->delete('/public/'.$this->extras->$attribute);
 
-                // 4. Save the public path to the database
-                // but first, remove "public/" from the path, since we're pointing to it
-                // from the root folder; that way, what gets saved in the db
-                // is the public URL (everything that comes after the domain name)
-                $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
-                $values[$attribute] = $public_destination_path.$filename;
-            }
-            elseif ($value == null) {
-                // delete the image from disk
-                Storage::disk($disk)->delete($this->{$attribute});
-            }
-        }
+    //             // 4. Save the public path to the database
+    //             // but first, remove "public/" from the path, since we're pointing to it
+    //             // from the root folder; that way, what gets saved in the db
+    //             // is the public URL (everything that comes after the domain name)
+    //             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
+    //             $values[$attribute] = $public_destination_path.$filename;
+    //         }
+    //         elseif ($value == null) {
+    //             // delete the image from disk
+    //             Storage::disk($disk)->delete($this->{$attribute});
+    //         }
+    //     }
 
-        $this->attributes['extras'] = json_encode($values);
-    }
+    //     // dd(json_encode($values));
+    //     $this->attributes['extras'] = $values;
+    // }
 }

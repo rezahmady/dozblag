@@ -14,12 +14,11 @@
  * User Routes
  */
 
-use Rezahmady\Resource\Http\Controllers\Admin\ResourceCrudController;
 use Rezahmady\User\Http\Controllers\Api\DoctorController;
 use Rezahmady\User\Http\Controllers\Api\UserController;
 use Rezahmady\User\Http\Controllers\AuthController;
 use Rezahmady\User\Http\Livewire\Auth\Login;
-use Rezahmady\User\Http\Livewire\Auth\Register;
+use Rezahmady\User\Http\Livewire\DoctorList;
 use Rezahmady\User\Http\Livewire\DoctorProfile;
 
 Route::group([
@@ -31,7 +30,12 @@ Route::group([
         Route::middleware('guest')->get('/login', Login::class)->name('login');
         Route::middleware('auth')->get('/logout', [AuthController::class, 'logout'])->name('logout');
     });
-    Route::get('/doctor/{user:id}', DoctorProfile::class)->name('doctor.show');  
+
+    Route::group(['prefix'=>'doctor','as'=>'doctor.'], function() {
+        Route::get('/', DoctorList::class)->name('list'); 
+        Route::get('/{user:id}', DoctorProfile::class)->name('show'); 
+    });
+     
     
     Route::group(['prefix'=>'api'], function(){
         Route::get('/users', [UserController::class, 'users']);

@@ -732,7 +732,7 @@ html {
 i.blog-item-popular,
 i.blog-item-suggested {
     display: inline;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1em;
     vertical-align: middle;
     padding: 0 5px;
@@ -750,6 +750,7 @@ i.blog-item-suggested {
 .blog-single-categories a {
     color: #757575;
     font-weight: 800;
+    font-size: 14px;
 }
 
 .blog-single-categories a:hover {
@@ -2096,4 +2097,15 @@ a.kt-register-button:hover {
     box-shadow: 0 5px 15px rgb(99 146 242 / 25%) !important;
     border-color: #4bbbf0 !important;
     color: #fff !important;
+}
+
+.custom_check .checkmark::after {
+    color: var(--color-second) !important;
+}
+
+.filter-remove-btn {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--color-second);
+    cursor: pointer;
 }

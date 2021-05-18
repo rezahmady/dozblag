@@ -22,7 +22,7 @@
                             <a class="btn btn-setting mb-5" x-on:click="setwidget('{{$widget->name}}')" style="top:10px;left:0;" href="{{ url("/admin/user/$item->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
                         @endcan
                         <div class="">
-                            <img src="{{$item->profile}}" class="img-fluid img-frame-02 " alt="User Image">
+                            <img src="{{$item->getProfile()}}" class="img-fluid img-frame-02 " alt="User Image">
                         </div>
                         <div class="card-body">
                             <div class="doctor-widget mb-3">

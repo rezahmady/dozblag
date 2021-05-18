@@ -2,7 +2,9 @@
 
 namespace Rezahmady\User\Traits;
 
+use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Filter\Models\FilterItem;
+use Rezahmady\SettingOperation\Setting;
 
 trait UserTemplates
 {
@@ -58,21 +60,21 @@ trait UserTemplates
     private function doctor()
     {
         $this->crud->addFields([
-            [   // select2_from_array
-                'name'        => 'specialty_id',
-                'label'       => "تخصص اصلی",
-                'type'        => 'select2_from_array',
-                'options'     => FilterItem::where('filter_id', 6)->get()->pluck('name','id')->toArray(),
-                'fake'  => true,
-                'store_in' => 'extras',
-                'tab'     => 'تخصصی',
-                'wrapper'   => [ 
-                    'class'      => 'form-group col-md-6'
-                 ],
-                'allows_null' => true,
-                // 'default'     => 'one',
-                // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-            ],
+            // [   // select2_from_array
+            //     'name'        => 'specialty_id',
+            //     'label'       => "تخصص اصلی",
+            //     'type'        => 'select2_from_array',
+            //     'options'     => FilterItem::where('filter_id', 6)->get()->pluck('name','id')->toArray(),
+            //     'fake'  => true,
+            //     'store_in' => 'extras',
+            //     'tab'     => 'تخصصی',
+            //     'wrapper'   => [ 
+            //         'class'      => 'form-group col-md-6'
+            //      ],
+            //     'allows_null' => true,
+            //     // 'default'     => 'one',
+            //     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            // ],
             // [   // select2_from_array
             //     'name'        => 'extra_specialty',
             //     'label'       => "سایر تخصص ها",
@@ -120,19 +122,19 @@ trait UserTemplates
                 'fake'  => true,
                 'store_in' => 'extras',
             ],
-            [   // Table
-                'name'            => 'services',
-                'label'           => 'خدمات در مطب',
-                'type'            => 'table',
-                'fake'  => true,
-                'tab'             => 'تخصصی',
-                'entity_singular' => 'خدمت', // used on the "Add X" button
-                'columns'         => [
-                    'text'  => 'عنوان',
-                ],
-                'max' => 30, // maximum rows allowed in the table
-                'min' => 0, // minimum rows allowed in the table
-            ],
+            // [   // Table
+            //     'name'            => 'services',
+            //     'label'           => 'خدمات در مطب',
+            //     'type'            => 'table',
+            //     'fake'  => true,
+            //     'tab'             => 'تخصصی',
+            //     'entity_singular' => 'خدمت', // used on the "Add X" button
+            //     'columns'         => [
+            //         'text'  => 'عنوان',
+            //     ],
+            //     'max' => 30, // maximum rows allowed in the table
+            //     'min' => 0, // minimum rows allowed in the table
+            // ],
         ]);
         
         $this->crud->addFields([
@@ -149,15 +151,15 @@ trait UserTemplates
                 'fake'  => true,
                 'tab'   => 'محل ها',
                 // 'inline_create' => true, // assumes the URL will be "/admin/category/inline/create"
-                'inline_create' => [ // specify the entity in singular
-                    'entity' => 'resource', // the entity in singular
-                    // OPTIONALS
-                    'force_select' => true, // should the inline-created entry be immediately selected?
-                    'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg to change width
-                    'modal_route' => route('resource-inline-create'), // InlineCreate::getInlineCreateModal()
-                    'create_route' =>  route('resource-inline-create-save'), // InlineCreate::storeInlineCreate()
-                    'include_main_form_fields' => ['resource_template_h'], // pass certain fields from the main form to the modal
-                ]
+                // 'inline_create' => [ // specify the entity in singular
+                //     'entity' => 'resource', // the entity in singular
+                //     // OPTIONALS
+                //     'force_select' => true, // should the inline-created entry be immediately selected?
+                //     'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg to change width
+                //     'modal_route' => route('resource-inline-create'), // InlineCreate::getInlineCreateModal()
+                //     'create_route' =>  route('resource-inline-create-save'), // InlineCreate::storeInlineCreate()
+                //     'include_main_form_fields' => ['resource_template_h'], // pass certain fields from the main form to the modal
+                // ]
             ],
 
             [   // relationship
@@ -415,7 +417,8 @@ trait UserTemplates
             ],
         ]);
 
-        
+        $this->getFilters('doctor');
+
     }
 
     private function clinic()
@@ -456,5 +459,47 @@ trait UserTemplates
                 ],
             ],
         ]);
+    }
+
+    protected function getFilters($template) {
+        $filters = Setting::get("users.template_{$template}_filters");
+
+        if($filters) foreach($filters as $key => $item) {
+            $item = Filter::findOrFail($item);
+            $multiple = ($item->type == 'hasMany') ? true : false;
+            switch ($item->field) {
+                case 'select2_from_array':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'        => 'select2_from_array',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                        'wrapper'   => [ 
+                            'class'      => 'form-group col-md-6'
+                        ],
+                        'multiple' => $multiple,
+                        'allows_null' => true,
+                    ]);
+                    break;
+                case 'select_and_order':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'    => 'select_and_order',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                    ]);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+            
+
+            
+        }
     }
 }

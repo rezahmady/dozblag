@@ -2,7 +2,9 @@
 
 namespace Rezahmady\Resource\Traits;
 
+use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Filter\Models\FilterItem;
+use Rezahmady\SettingOperation\Setting;
 
 trait ResourceTemplates
 {
@@ -21,16 +23,7 @@ trait ResourceTemplates
 
     private function clinic()
     {
-        $this->crud->addFields([
-            [   // select_and_order
-                'name'    => 'services',
-                'label'   => 'خدمات',
-                'type'    => 'select_and_order',
-                'fake'    => true,
-                'options' => FilterItem::where('filter_id', 5)->get()->pluck('name','id')->toArray(),
-                'tab' => 'خدمات',
-            ],
-        ]);
+        $this->getFilters('clinic');
     }
 
     private function hospital()
@@ -47,6 +40,22 @@ trait ResourceTemplates
                 ],
             ],
         ]);
+        $this->getFilters('hospital');
+    }
+
+    protected function getFilters($template) {
+        $filters = Setting::get("resources.template_{$template}_filters");
+        if($filters) foreach($filters as $key => $item) {
+            $item = Filter::findOrFail($item);
+            $this->crud->addField([
+                'name'    => "filter_{$item->slug}",
+                'label'   => $item->name,
+                'type'    => 'select_and_order',
+                'fake'    => true,
+                'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                'tab' => 'فیلترها',
+            ]);
+        }
     }
 
 }

@@ -40,7 +40,7 @@
                                         }
                                     ],
                                 },
-                                defaultAlbumCover: '{{$message->user->profile}}',
+                                defaultAlbumCover: '{{$message->user->getProfile()}}',
                             });
                             
                             }, 3000);"

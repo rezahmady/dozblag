@@ -113,6 +113,38 @@ class UserFilterCrudController extends CrudController
                 'label'      => 'نام',
                 'type'       => 'text'
             ],
+            [
+                'name'       => 'slug',
+                'label'      => 'آدرس یکتا',
+                'hint'       => 'بهتر است از مقادیر انگلیسی استفاده شود.',
+                'type'       => 'text'
+            ],
+            [   // select2_from_array
+                'name'        => "type",
+                'label'       => "نوع",
+                'type'        => 'select2_from_array',
+                'options'     => [
+                    'belongsTo' => 'تکی',
+                    'hasMany' => 'چند انتخابی',
+                ],
+                'default'     => 'belongsTo',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [   // select2_from_array
+                'name'        => "field",
+                'label'       => "فیلد",
+                'type'        => 'select2_from_array',
+                'options'     => [
+                    'select2_from_array' => 'select2_from_array',
+                    'select_and_order' => 'select_and_order',
+                ],
+                'default'     => 'select2_from_array',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
             [ // Text
                 'name'    => 'status',
                 'label'   => '<i class="la la-flag-o"></i> وضعیت انتشار',
@@ -129,7 +161,7 @@ class UserFilterCrudController extends CrudController
                 'wrapper' => [
                     'class'      => 'form-group col-md-12'
                 ]
-            ]
+            ],
         ]);
 
         /**

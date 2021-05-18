@@ -6,10 +6,11 @@ use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Rezahmady\User\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use Rezahmady\User\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use Rezahmady\Resource\Models\Resource;
 use Rezahmady\User\Traits\UserTemplates;
+use Rezahmady\Resource\Models\Resource;
+use Illuminate\Support\Facades\Hash;
+use Rezahmady\Filter\Models\Filter;
+use App\Models\User;
 
 class UserCrudController extends CrudController
 {
@@ -18,6 +19,7 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \Rezahmady\SettingOperation\SettingOperation;
     use DefaultPermissions;
     use UserTemplates;
 
@@ -35,6 +37,34 @@ class UserCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->setPermissions();
+    }
+
+    /**
+    * Define what happens when the Setting operation is loaded.
+    * 
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        // backpack fields
+        $templates = $this->getTemplatesArray();
+        $filters = Filter::active()->pluck('name','id');
+        foreach($templates as $key => $item) {
+            $this->crud->addField([   // select2_from_array
+                'name'        => "template_{$key}_filters",
+                'label'       => $item,
+                'type'        => 'select2_from_array',
+                'options'     => $filters,
+                'allows_null' => false,
+                'default'     => 'one',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'فیلتر ها',
+                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ]);
+        }
     }
 
     public function setupListOperation()
@@ -105,6 +135,16 @@ class UserCrudController extends CrudController
                 });
             }
         );
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'doctor',
+            'label' => 'پزشک'
+          ], 
+          false, 
+          function() { // if the filter is active
+            $this->crud->addClause('where','template', 'doctor'); // apply the "active" eloquent scope 
+          } );
     }
 
     public function setupCreateOperation()
@@ -192,12 +232,12 @@ class UserCrudController extends CrudController
                 'tab'   => 'مشخصات فردی',
             ],
             [
-                'name'  => 'sex',
+                'name'  => 'gender',
                 'label' => 'جنسیت',
                 'type'        => 'select2_from_array',
                 'options' => [
-                    'mail'  => 'مرد',
-                    'fmail' => 'زن'
+                    'mail'  => 'آقا',
+                    'fmail' => 'خانم'
                 ],
                 'allows_null' => true,
                 'fake' => true,
@@ -247,9 +287,9 @@ class UserCrudController extends CrudController
                 'label'        => "تصویر پروفایل",
                 'name'         => 'profile',
                 'fake'  => true,
-                'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
-                'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+                'type' => 'browse',
+                // 'crop' => true, // set to true to allow cropping, false to disable
+                // 'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
                 // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
                 'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
                 'wrapper'      => [

@@ -7,7 +7,7 @@
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
                             <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a href="#" rel="category" data-wpel-link="internal">پزشکان</a>
+                                <a href="{{route('doctor.list')}}" rel="category" data-wpel-link="internal">پزشکان</a>
                                 <i class="fa fa-chevron-left blog-item-popular"></i>
                                 <a  rel="category" data-wpel-link="internal">{{$doctor->name}}</a>
                         </div>
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="row top-rounded-box" style="background: #f8f9fa" ></div>
+    <div class="top-rounded-box" style="background: #f8f9fa" ></div>
     <!-- /Breadcrumb -->
 
     <!-- Page Content -->
@@ -26,21 +26,20 @@
             <!-- Doctor Widget -->
             <div class="card card-vertical doctor-widget-holder bg-cover-08">
                 <div class="">
-                    <img src="{{url($doctor->profile)}}" class="img-fluid img-frame-02" alt="User Image">
+                    <img width="300px" src="{{$doctor->getProfile()}}" class="img-fluid img-frame-02" alt="User Image">
                 </div>
                 <div class="card-body">
                     <div class="doctor-widget">
                         <div class="doc-info-left">
                             <div class="doc-info-cont pl-3">
                                 <h4 class="doc-name">{{ $doctor->name }}</h4>
-                                <p class="doc-speciality">متخصص زنان و زایمان</p>
+                                <p class="doc-speciality">{{ $doctor->getSpecilty() }}</p>
                                 <span class="pb-3 pt-2 d-block"></span>
-                                {{-- <p class="doc-department"><img src="/assets/garrin/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">دندان‌پزشک</p> --}}
                                 <div class="clini-infos">
                                     <ul>
                                         <li> نظام پزشکی: <span class="value">{{$doctor->medical_code}}</span></li>
                                         <li>تجربه: <span class="value">{{$doctor->experience}} سال</span> </li>
-                                        <li>تعداد مشاوره: <span class="value">11664 سوال (در مدت 1 سال و 10 ماه )</span> </li>
+                                        {{-- <li>تعداد مشاوره: <span class="value">11664 سوال (در مدت 1 سال و 10 ماه )</span> </li> --}}
                                     </ul>
                                 </div>
 
@@ -115,7 +114,7 @@
                                             <h4>خدمات در مطب</h4>
                                             <ul class="clearfix">
                                                 @foreach ($services as $item)
-                                                <li>{{$item->name}}</li>
+                                                <li><a href="{{$item->path()}}">{{$item->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>

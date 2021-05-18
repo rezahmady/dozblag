@@ -8,6 +8,7 @@ use Rezahmady\Resource\Traits\ResourceTemplates;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
+use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Resource\Models\Resource;
 
 /**
@@ -21,7 +22,8 @@ class ResourceCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \Rezahmady\SettingOperation\SettingOperation;
     use ResourceTemplates;
     use DefaultPermissions;
     Const ENTITY = 'resource';
@@ -42,6 +44,35 @@ class ResourceCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->setPermissions();
+    }
+
+    /**
+    * Define what happens when the Setting operation is loaded.
+    * 
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        // backpack fields
+        $templates = $this->getTemplatesArray();
+        $filters = Filter::active()->pluck('name','id');
+        // dd($templates);
+        foreach($templates as $key => $item) {
+            $this->crud->addField([   // select2_from_array
+                'name'        => "template_{$key}_filters",
+                'label'       => $item,
+                'type'        => 'select2_from_array',
+                'options'     => $filters,
+                'allows_null' => false,
+                'default'     => 'one',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'فیلتر ها',
+                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ]);
+        }
     }
 
     /**

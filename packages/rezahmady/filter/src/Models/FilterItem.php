@@ -62,6 +62,7 @@ class FilterItem extends Model
     {
         return $this->belongsTo('App\Models\Filter', 'filter_id')->where('module', 'User');
     }
+    
     /*
     |--------------------------------------------------------------------------
     | SCOPES

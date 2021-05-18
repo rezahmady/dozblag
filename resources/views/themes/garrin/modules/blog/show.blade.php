@@ -178,7 +178,7 @@
                                             <div class="about-author">
                                                 <div class="about-author-img">
                                                     <div class="author-img-wrap">
-                                                        <a href="{{$post->user->path()}}"><img class="img-fluid rounded-circle" alt="{{ $post->user->name }}" src="{{$post->user->profile}}"></a>
+                                                        <a href="{{$post->user->path()}}"><img class="img-fluid rounded-circle" alt="{{ $post->user->name }}" src="{{$post->user->getProfile()}}"></a>
                                                     </div>
                                                 </div>
                                                 <div class="author-details">
@@ -191,7 +191,7 @@
 
                                     <!-- Latest Posts -->
                                     <hr>
-                                    <h4 class="section-title mt-3">مطالب مشابه </h4>
+                                    {{-- <h4 class="section-title mt-3">مطالب مشابه </h4>
                                     <div class="card post-widget rounded-3xl">
                                         <div class="">
                                             <ul class="latest-posts">
@@ -262,7 +262,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                      <!-- /Latest Posts -->
 
                                 </div>
@@ -274,7 +274,7 @@
                                     <div class="post-left">
                                         <ul>
                                         
-                                            <li class="section-title"><i class="far fa-calendar"></i>4 مهر 1399</li>
+                                            <li class="section-title"><i class="far fa-calendar"></i>{{$post->date()}}</li>
                                         </ul>
                                     </div>
                                 </div>     

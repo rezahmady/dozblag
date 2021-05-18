@@ -14,7 +14,7 @@
         <div class="sidebar-body">
             <div class="pl-4 pr-4 text-center">
                 <figure class="avatar avatar-xl mb-4">
-                    <img src="{{$audience->profile}}" class="rounded-circle">
+                    <img src="{{$audience->getProfile()}}" class="rounded-circle">
                 </figure>
                 <h5 class="text-primary">{{$audience->name}}</h5>
             </div>

@@ -56,12 +56,12 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>جنسیت</label>
-                            <select wire:model.lazy="sex" id="sex" class="form-control select">
+                            <select wire:model.lazy="gender" id="gender" class="form-control select">
                                 <option>انتخاب</option>
-                                <option @if ($sex == 'mail') selected @endif value="mail">مرد</option>
-                                <option @if ($sex == 'fmail') selected @endif value="fmail">زن</option>
+                                <option @if ($gender == 'mail') selected @endif value="mail">آقا</option>
+                                <option @if ($gender == 'fmail') selected @endif value="fmail">خانم</option>
                             </select>
-                            @error('sex') <span class="error">{{ $message }}</span> @enderror
+                            @error('gender') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                                     <option @if ($specialty_id == $key) selected @endif value="{{$key}}">{{$item}}</option>
                                 @endforeach
                             </select>
-                            @error('sex') <span class="error">{{ $message }}</span> @enderror
+                            @error('specialty_id') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -351,9 +351,9 @@
         document.addEventListener('livewire:load', function () {
             $(document).ready(function() {
              
-                $('#sex').on('select2:select', function (e) {
-                    var data = $('#sex').select2("val");
-                    @this.set('sex', data);
+                $('#gender').on('select2:select', function (e) {
+                    var data = $('#gender').select2("val");
+                    @this.set('gender', data);
                 });
                 
             });

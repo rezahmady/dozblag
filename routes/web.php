@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
+use App\Models\User;
+use App\Services\Telegram\Telegram;
 use Rezahmady\Page\Http\Livewire\PageRender;
 
 /*
@@ -18,12 +20,7 @@ use Rezahmady\Page\Http\Livewire\PageRender;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/test', function() {
-//     $volumeId = 'elf_l1_';
-//     $path = 'images/filter'; // without root path
-//     //$path = 'path\\to\\target'; // use \ on windows server
-//     return $hash = $volumeId . rtrim(strtr(base64_encode($path), '+/=', '-_.'), '.');
-// });
+
 Route::get('/fire', function () {
     // event(new \App\Events\SystemMessage());
     // return 'ok';
@@ -39,24 +36,7 @@ Route::get('/admin/aa', function() {
     echo "data: {$time}\n\n";
     flush();
 });
-use Shetabit\Multipay\Exceptions\InvalidPaymentException;
-use Shetabit\Payment\Facade\Payment;
-use Shetabit\Multipay\Invoice;
-Route::get('/pay', function () {
-   
-    $invoice = (new Invoice)->amount(1000);
-    // ->transactionId(2)
-    // ->via('zarinpal');
 
-    // return $invoice->getDriver();
-    // $invoice->uuid(1)->
-    // Purchase the given invoice.
-    return Payment::purchase($invoice,function($driver, $transactionId) {
-        // We can store $transactionId in database.
-        // return $driver;
-        // ddd($transactionId);
-    })->pay()->render();
-});
 // At the top of the file.
 Route::post('/upload/voice', [UploadController::class, 'voice']);
 

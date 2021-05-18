@@ -4,7 +4,7 @@
         <li class="list-group-item" wire:click="setRoom({{$room->id}})" x-on:click="setRoom({{$room->id}})">
             <div>
                 <figure class="avatar">
-                    <img src="{{$room->user->profile}}" class="rounded-circle">
+                    <img src="{{$room->user->getProfile()}}" class="rounded-circle">
                 </figure>
             </div>
             <div class="users-list-body">
