@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TelegramController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/shahrestan', 'ShahrestanController@index');
 Route::post('/shahrestan/{id}', 'ShahrestanController@show');
-Route::any('/telegram', [Telegram::class, 'index']);
+Route::any('/telegram', [TelegramController::class, 'index']);

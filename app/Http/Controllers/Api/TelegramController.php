@@ -21,13 +21,18 @@ class TelegramController extends Controller
 
     public function index()
     {
-        $this->telegram = new Telegram(env('TELEGRAM_BOT_TOKEN'));
+        
+        try {
+            $this->telegram = new Telegram(env('TELEGRAM_BOT_TOKEN'));
+            $result = $this->telegram->getData();
+            $this->text = $result['message']['text'];
+            $this->chat_id = $result['message']['chat']['id'];
+            if($this->text == "/start") return $this->start();
+            if($this->text != "/start") return $this->login();
 
-        $result = $this->telegram->getData();
-        $this->text = $result['message']['text'];
-        $this->chat_id = $result['message']['chat']['id'];
-        if($this->text == "/start") return $this->start();
-        if($this->text != "/start") return $this->login();
+        } catch (\Throwable $th) {
+            return redirect()->to('/');
+        }
     }
 
     public function start()
