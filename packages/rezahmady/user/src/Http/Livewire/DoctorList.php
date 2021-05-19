@@ -12,33 +12,23 @@ class DoctorList extends Component
 {
     use WithPagination;
 
-    // public $doctors;
-
     public $filters = [];
 
-    public $filter = [
-        "search" => "",
-        "gender" => [],
-        "specilty" => [],
-    ];
+    public $filter = [];
 
     public $filterShow;
 
     protected $queryString = [
         // 'jensiat',
         'page' => ['except' => 1],
+        // "filter" => ['except' => 0],
     ];
-
-    public function add($param)
-    {
-        array_push( $this->filter[$param[0]] ,$param[1]);
-    }
 
     protected $pp = 15;
 
     public function mount() {
         $filtersId = Setting::get('users.template_doctor_filters');
-        $this->filters = Filter::whereIn('id', $filtersId)->active()->get();
+        $this->filters = Filter::whereIn('id', $filtersId)->active()->orderBy('lft', 'ASC')->get();
     }
 
     public function loadList() {
@@ -56,16 +46,10 @@ class DoctorList extends Component
             }
             if(!empty($filter)) $objects->whereIn('extras->gender', $filter );
         }
-
-        if(!empty($this->filter["specilty"])){
-            $filter = [];
-            foreach ($this->filter["specilty"] as $key => $value) {
-                if($value) array_push($filter,$key);
-            }
-            if(!empty($filter)) $objects->whereIn('extras->filter_specilty', $filter );
-        }
-
+        
         $this->filterShow =  (!empty($filter)) ? true : false;
+        
+        $objects = $this->addFilters($objects);
         
         if(round($objects->count()/$this->pp,false) < $this->page) {
             $this->page = 1;
@@ -76,9 +60,42 @@ class DoctorList extends Component
         return $objects;
     }
 
-    public function removeFilters()
+    public function addFilters($objects)
     {
-        $this->filter['gender'] = $this->filter['specilty'] = [];
+        foreach($this->filters as $key => $filter) {
+            if(!empty($this->filter["{$filter->slug}"])){
+                $filterValues = [];
+                foreach ($this->filter["{$filter->slug}"] as $key => $value) {
+                    if($value) array_push($filterValues,$key);
+                }
+
+                switch ($filter->type) {
+                    case 'belongsTo':
+                        if(!empty($filterValues)) $objects->whereIn("extras->filter_{$filter->slug}", $filterValues );
+                        break;
+                    case 'hasMany':
+                        if(!empty($filterValues)) $objects->where(function($query) use($filterValues, $filter){
+                            $query->whereRaw("JSON_CONTAINS(JSON_EXTRACT(extras, '$.filter_".$filter->slug."'), '\"{$filterValues[0]}\"')");
+                            for($i = 1; $i < count($filterValues); $i++) {
+                               $query->orWhereRaw("JSON_CONTAINS(JSON_EXTRACT(extras, '$.filter_".$filter->slug."'), '\"{$filterValues[$i]}\"')");
+                            }
+                            return $query;
+                        });
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }
+        }
+
+        $this->filterShow =  (!empty($filterValues)) ? true : false;
+        return $objects;
+    }
+
+    public function setNullFilterArray()
+    {
+        $this->filter = [];
     }
 
 

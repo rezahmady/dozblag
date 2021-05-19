@@ -21,6 +21,7 @@ class MessageCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation { show as traitShow; }
+    use \Rezahmady\SettingOperation\SettingOperation;
 
     public $id;
     /**
@@ -33,6 +34,27 @@ class MessageCrudController extends CrudController
         CRUD::setModel(\App\Models\Message::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/message');
         CRUD::setEntityNameStrings('صندوق پیام', 'صندوق پیام ها');
+    }
+
+    /**
+    * Define what happens when the Setting operation is loaded.
+    * 
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        $this->crud->addFields([
+            [
+                'name'    => 'telegram_api_token',
+                'type'    => 'text',
+                'label'   => 'توکن بات تلگرامی',
+                'wrapper'   => [ 
+                    'class'      => 'form-group col-md-6'
+                 ], 
+                'tab'     => 'تلگرام',
+            ],
+        ]);
     }
 
     /**

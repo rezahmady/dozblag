@@ -25,11 +25,11 @@
                 <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
                     <!-- Search Filter -->
-                    <div class="card search-filter bg-cover-06">
+                    <div class="card search-filter bg-cover-06" style="background-position: bottom">
                         <div class="card-header d-flex justify-between">
                             <h4 class="card-title font-weight-bold line-e mb-0"><i class="la la-filter"></i> فیلتر ها</h4>
                             @if ($filterShow)
-                            <small class="filter-remove-btn font-weight-bold" wire:click="removeFilters()">پاک کردن فیلترها</small>
+                            <small class="filter-remove-btn font-weight-bold" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
                             @endif
                         </div>
                         <div class="card-body">
@@ -52,10 +52,10 @@
                             @foreach ($filters as $filter)
                             <div class="filter-widget">
                                 <h4 class="font-weight-bold">{{$filter->name}}</h4>
-                                @foreach ($filter->items as $item)
+                                @foreach ($filter->items->sortBy('rgt') as $item)
                                 <div>
                                     <label class="custom_check">
-                                        <input type="checkbox" wire:model="filter.specilty.{{$item->id}}">
+                                        <input type="checkbox" wire:model="filter.{{$filter->slug}}.{{$item->id}}">
                                         <span class="checkmark"></span> {{$item->name}}
                                     </label>
                                 </div>
@@ -74,7 +74,7 @@
                         <div>
                             <h3 class="text-center p-3">رکوردی وجود ندارد</h3>
                             @if ($filterShow)
-                            <small class="filter-remove-btn font-weight-bold m-auto text-center d-block" wire:click="removeFilters()">پاک کردن فیلترها</small>
+                            <small class="filter-remove-btn font-weight-bold m-auto text-center d-block" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
                             @endif
                         </div>
                     @endif
