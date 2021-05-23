@@ -9,7 +9,7 @@
                     <i class="ti-more"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="#" data-navigation-target="contact-information" class="dropdown-item">پروفایل</a>
+                    <a href="#" x-on:click.prevent="profileShow()" class="dropdown-item">پروفایل</a>
                     @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
                         @if ($room->status === 'archive')
                         <a wire:click.prevent="cancelArchive()" href="#" class="dropdown-item">خارج کردن از بایگانی</a>

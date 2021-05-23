@@ -1,24 +1,35 @@
 <?php
 
-namespace Rezahmady\User\Http\Livewire;
+namespace Rezahmady\Resource\Http\Livewire;
 
+use App\Models\Ostan;
+use App\Models\Shahrestan;
 use Livewire\Component;
-use App\Models\User;
 use Livewire\WithPagination;
 use Rezahmady\Filter\Models\Filter;
+use Rezahmady\Resource\Models\Resource;
 use Rezahmady\SettingOperation\Facades\Setting;
 
-class DoctorList extends Component
+class ResourceList extends Component
 {
     use WithPagination;
 
+    public $resource;
+
     public $filters = [];
 
-    public $filter = [];
+    public $filter = [
+        'ostan' => null,
+        'shahrestan' => null
+    ];
 
     public $filterShow;
 
     public $query;
+
+    public $ostans;
+
+    public $shahrestans;
 
     protected $queryString = [
         // 'jensiat',
@@ -28,25 +39,33 @@ class DoctorList extends Component
 
     protected $pp = 15;
 
-    public function mount() {
-        $filtersId = Setting::get('users.template_doctor_filters');
+    public function mount(Resource $resource) {
+        $this->resource = $resource;
+        $filtersId = Setting::get('resources.template_clinic_filters');
         $this->filters = Filter::whereIn('id', $filtersId)->active()->orderBy('lft', 'ASC')->get();
+        $this->ostans = Ostan::pluck('name','id');
+        $this->shahrestans = [];
     }
+
 
     public function loadList() {
 
+        if($this->filter['ostan']) $this->shahrestans = Shahrestan::where('ostan_id', $this->filter['ostan'])->pluck('name', 'id');
+
         $filter = [];
         
-        $query = ['template' => 'doctor'];
+        $query = ['template' => $this->resource->template];
 
-        $objects = User::where($query);
+        $objects = Resource::where($query);
 
-        if(!empty($this->filter["gender"])){
-            $filter = [];
-            foreach ($this->filter["gender"] as $key => $value) {
-                if($value) array_push($filter,$key);
-            }
-            if(!empty($filter)) $objects->whereIn('extras->gender', $filter );
+        if($this->filter["ostan"]){
+            $filter = $this->filter["ostan"];
+            $objects->where('extras->ostan_id', $filter );
+        }
+
+        if($this->filter["shahrestan"]){
+            $filter = $this->filter["shahrestan"];
+            $objects->where('extras->shahrestan_id', $filter );
         }
         
         $this->filterShow =  (!empty($filter)) ? true : false;
@@ -97,14 +116,17 @@ class DoctorList extends Component
 
     public function setNullFilterArray()
     {
-        $this->filter = [];
+        $this->filter = [
+            'ostan' => null,
+            'shahrestan' => null
+        ];
     }
 
 
     public function render()
     {
-        return view('theme::modules.user.doctor-list', [
-            'doctors' => $this->loadList()->paginate($this->pp),
+        return view("theme::modules.resource.{$this->resource->template}-list", [
+            'items' => $this->loadList()->paginate($this->pp),
         ]);
     }
 }

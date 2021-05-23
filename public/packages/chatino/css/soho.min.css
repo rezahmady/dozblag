@@ -20386,35 +20386,9 @@ body.form-membership .form-wrapper hr {
         display: none;
     }
     .layout .content .chat {
-        /*position: fixed;*/
-        /*left: -50%;*/
-        /*top: 0;*/
-        /*bottom: 0;*/
-        /*opacity: 0;*/
-        /*-webkit-transition: all .2s;*/
-        /*-o-transition: all .2s;*/
-        /*-moz-transition: all .2s;*/
-        /*transition: all .2s;*/
-        /*-webkit-box-shadow: -25px 0 30px 5px #000;*/
-        /*-moz-box-shadow: -25px 0 30px 5px #000;*/
-        /*box-shadow: -25px 0 30px 5px #000;*/
-        /*visibility: hidden;*/
         display: none !important;
     }
-    body.rtl .sidebar-group {
-        /*position: fixed;*/
-        /*left: -50%;*/
-        /*top: 0;*/
-        /*bottom: 0;*/
-        /*opacity: 0;*/
-        /*-webkit-transition: all .2s;*/
-        /*-o-transition: all .2s;*/
-        /*-moz-transition: all .2s;*/
-        /*transition: all .2s;*/
-        /*-webkit-box-shadow: -25px 0 30px 5px #000;*/
-        /*-moz-box-shadow: -25px 0 30px 5px #000;*/
-        /*box-shadow: -25px 0 30px 5px #000;*/
-        /*visibility: hidden;*/
+    body.rtl .sidebar-group.menu {
         display: none !important;
     }
     body.rtl .sidebar-group.active {
@@ -20450,12 +20424,13 @@ body.form-membership .form-wrapper hr {
     }
 }
 
-@media screen and (max-width:992px) {
+
+/* @media screen and (max-width:992px) {
     body .sidebar-group,
     body:not(.rtl) .sidebar-group {
         width: 45%
     }
-}
+} */
 
 .chat-header-action .list-inline-item:first-child {
     display: none;
@@ -20581,9 +20556,10 @@ body.form-membership .form-wrapper hr {
     flex: 1;
 }
 
-.layout .content .sidebar-group .sidebar:not(.active) {
+
+/* .layout .content .sidebar-group .sidebar:not(.active) {
     display: none
-}
+} */
 
 .layout .content .sidebar-group .sidebar>header {
     display: -webkit-box;
@@ -20874,16 +20850,16 @@ body.form-membership .form-wrapper hr {
     flex: 1;
     margin: 0;
     padding: 20px;
-    background-color: #e9eeef;
+    background-color: #ecf4f7;
     margin-top: -20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .09);
-    background-image: url(/packages/chatino/media/img/chat-bg.jpg);
-    background-size: 330px;
+    background-image: url(/packages/chatino/media/img/pattern.png);
+    /* background-size: 330px; */
     background-attachment: inherit;
     background-repeat: repeat;
-    background-blend-mode: color-burn;
+    /* background-blend-mode: color-burn; */
 }
 
 .layout .content .chat .chat-body:not(.no-message) {
@@ -20961,12 +20937,13 @@ body.form-membership .form-wrapper hr {
 
 .layout .content .chat .chat-body .messages .message-item .message-content {
     background: #def2c1;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    /* -webkit-border-radius: 5px; */
+    /* -moz-border-radius: 5px; */
+    /* border-radius: 5px; */
     padding: 10px 20px;
     /*! box-shadow: 0 0px 4px 0 rgba(0, 0, 0, .09); */
     border-bottom: 2px solid #c2dfa5;
+    border-radius: 10px 0 10px 10px;
 }
 
 .layout .content .chat .chat-body .messages .message-item .message-content.message-file {
@@ -21025,6 +21002,7 @@ body.form-membership .form-wrapper hr {
     background-color: #fff;
     color: #373e48;
     border-bottom: 2px solid #d9d9d9;
+    border-radius: 0 10px 10px 10px;
 }
 
 .layout .content .chat .chat-body .messages .message-item.outgoing-message .message-action {
@@ -21173,6 +21151,7 @@ nav.navigation ul li a.active::before {
     top: 0;
     background: #f2f8f8;
     bottom: 0;
+    z-index: 15;
 }
 
 .loading-holder .empty-chat-holder {
@@ -21311,6 +21290,7 @@ nav.navigation ul li a.active::before {
     padding: 5px;
     border-radius: 20px;
     box-shadow: 0px 0px 4px 1px #e5eeee;
+    z-index: 10;
 }
 
 .buttons_holder .btn {
@@ -21615,12 +21595,18 @@ img.hover-shadow {
 
 .message-item .calamansi-skin--ayon .clmns--control-panel {
     background-color: #def2c1 !important;
-    box-shadow: 0px 3px 16px 2px rgb(132 132 132 / 30%);
+    /* box-shadow: 0px 3px 16px 2px rgb(132 132 132 / 30%); */
+    box-shadow: none;
+    border-radius: 10px 0 10px 10px;
+    border-bottom: 2px solid #c2dfa5;
 }
 
 .message-item.outgoing-message .calamansi-skin--ayon .clmns--control-panel {
     background-color: white !important;
-    box-shadow: 0px 3px 16px 2px rgb(132 132 132 / 30%);
+    /* box-shadow: 0px 3px 16px 2px rgb(132 132 132 / 30%); */
+    box-shadow: none;
+    border-bottom: 2px solid #d9d9d9;
+    border-radius: 0 10px 10px 10px;
 }
 
 .calamansi-skin--ayon {
@@ -21631,4 +21617,12 @@ img.hover-shadow {
     font-size: 10px;
     color: #00bcd4;
     text-align: left;
+}
+
+.sidebar-group.info {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
 }

@@ -12,5 +12,9 @@ return [
     'resource_plural'    => 'منابع',
     'filtes'    => 'دسته بندی فیلتر ها',
     'filterItems'    => 'فیلتر ها',
+    'function_name' => [
+        'hospital' => 'بیمارستان',
+        'clinic' => 'کلینیک',
+    ],
 
 ];

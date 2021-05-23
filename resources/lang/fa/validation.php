@@ -134,6 +134,7 @@ return [
 		"fullname" => "نام کامل",
         "shahrestan" => "شهر",
         "featured_item" => "پست ویژه",
-        "discount"  => 'کدتخفیف'
+        "discount"  => 'کدتخفیف',
+        "slug"             => "آدرس صفحه",
     ],
 ];

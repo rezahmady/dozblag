@@ -201,6 +201,4 @@ return [
     
     'onUpdate' => false,
 
-    'use_cache' => false,
-
 ];

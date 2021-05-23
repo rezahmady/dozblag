@@ -608,6 +608,19 @@ class ThemeWidgets
 
         ]);
     }
+    
+    public function widget_resource_slide()
+    {
+        CRUD::addFields([
+            [
+                'name' => 'resource_title',
+                'label' => 'عنوان',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+        ]);
+    }
 
 
 

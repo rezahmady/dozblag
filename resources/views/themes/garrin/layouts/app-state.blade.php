@@ -15,6 +15,7 @@
         @livewireStyles
         <link rel="stylesheet" href="{{ asset('/packages/line-awesome/css/line-awesome.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/eac4d452.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/garrin/js/plugins/select2/css/select2.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('/packages/lity/lity.css') }}" />
         <link rel="stylesheet" href="{{ mix('/assets/garrin/css/theme.css') }}">
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/custom.css') }}">
@@ -26,6 +27,8 @@
 		<script src="{{ mix('/assets/js/app.js') }}"></script>
         <script src="{{ asset('/packages/lity/lity.min.js') }}" defer ></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js' defer ></script>
+        <script src="{{asset('assets/garrin/js/plugins/select2/js/select2.min.js')}}" defer></script>
+        <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
         <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
         @livewireScripts
         <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>

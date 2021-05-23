@@ -19,13 +19,13 @@ class ShahrestanController extends Controller
         $options = Shahrestan::query();
 
         // if no ostan has been selected, show no options
-        if (!isset($form['ostan'])) {
+        if (!isset($form['ostan_id'])) {
             return [];
         }
 
         // if a ostan has been selected, only show articles in that ostan
-        if ($form['ostan']) {
-            $options = $options->where('ostan_id', $form['ostan']);
+        if ($form['ostan_id']) {
+            $options = $options->where('ostan_id', $form['ostan_id']);
         }
 
         if ($search_term) {

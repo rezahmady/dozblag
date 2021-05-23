@@ -3,6 +3,10 @@
 namespace Rezahmady\Resource;
 
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use Rezahmady\Resource\Http\Livewire\ClinicList;
+use Rezahmady\Resource\Http\Livewire\HospitalList;
+use Rezahmady\Resource\Http\Livewire\ResourceList;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -14,7 +18,7 @@ class AddonServiceProvider extends ServiceProvider
 
     public function moduleBoot() : void
     {
-        //
+        Livewire::component('rezahmady.resource.http.livewire.resource-list', ResourceList::class);
     }
 
     public function menuBuilder($menu)

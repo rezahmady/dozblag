@@ -82,12 +82,12 @@
     <div class="content">
 
         <!-- sidebar group -->
-        <div class="sidebar-group" :class="{ 'active': sidebar === true }" >
+        <div class="sidebar-group menu" :class="{ 'active': sidebar === true }" >
 
             <!-- Chats sidebar -->
             <div x-show="navigation_target == 'chats'" :class="{ 'active': navigation_target == 'chats' }" class="sidebar">
                 <header>
-                    <span>چت ها</span>
+                    <span>گفت و  گو ها</span>
                 </header>
                 <form action="#">
                     <input type="text" class="form-control" placeholder="جستجوی چت">
@@ -181,6 +181,7 @@
     function data() {
         return {
             sidebar: true,
+            profile: false,
             loadingRoom: false,
             currentRoom: @entangle('currentRoom'),
             navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
@@ -197,6 +198,12 @@
             },
             sidebarShow() {
                 this.sidebar = true;
+            },
+            profileShow() {
+                this.profile = true;
+            },
+            profileClose() {
+                this.profile = false;
             },
             init() {
                 this.hiddenLoader();

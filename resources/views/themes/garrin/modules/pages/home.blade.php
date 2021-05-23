@@ -52,6 +52,10 @@
         <livewire:widgets.custom :widget="widget('mag_grider')" :view="'theme::widgets.mag_grider'" />
         <!-- /Blog Section -->
     
+        
+        <!-- Popular Resources -->
+        <livewire:widgets.custom :widget="widget('resource_slide')" :view="'theme::widgets.resource_slide'" />
+        <!-- /Popular Resources -->
     
         <!-- Comment Section -->
         <livewire:widgets.custom :widget="widget('comment_slide')" :view="'theme::widgets.comment_slide'" />

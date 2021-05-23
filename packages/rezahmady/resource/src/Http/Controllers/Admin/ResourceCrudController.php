@@ -57,20 +57,29 @@ class ResourceCrudController extends CrudController
         // backpack fields
         $templates = $this->getTemplatesArray();
         $filters = Filter::active()->pluck('name','id');
-        // dd($templates);
         foreach($templates as $key => $item) {
-            $this->crud->addField([   // select2_from_array
-                'name'        => "template_{$key}_filters",
-                'label'       => $item,
-                'type'        => 'select2_from_array',
-                'options'     => $filters,
-                'allows_null' => false,
-                'default'     => 'one',
-                'wrapper'   => [
-                    'class'  => "form-group col-md-6"
+            $this->crud->addFields([
+                [   // Browse
+                    'name'  => "template_{$key}_title",
+                    'label' => 'عنوان',
+                    'wrapper'   => [
+                        'class'  => "form-group col-md-6"
+                    ],
+                    'tab'   => $item,
                 ],
-                'tab'   => 'فیلتر ها',
-                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+                [
+                    'name'        => "template_{$key}_filters",
+                    'label'       => 'فیلتر ها',
+                    'type'        => 'select2_from_array',
+                    'options'     => $filters,
+                    'allows_null' => false,
+                    'default'     => 'one',
+                    'wrapper'   => [
+                        'class'  => "form-group col-md-6"
+                    ],
+                    'tab'   => $item,
+                    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+                ]
             ]);
         }
     }
@@ -208,9 +217,9 @@ class ResourceCrudController extends CrudController
                 'label'        => "تصویر پروفایل",
                 'name'         => 'profile',
                 'fake'  => true,
-                'type' => 'image',
-                'crop' => true, // set to true to allow cropping, false to disable
-                'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+                'type' => 'browse',
+                // 'crop' => true, // set to true to allow cropping, false to disable
+                // 'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
                 // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
                 'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
                 'wrapper'      => [
@@ -220,7 +229,7 @@ class ResourceCrudController extends CrudController
             ],
             [   // relationship
                 'type' => "relationship",
-                'name' => 'ostan', // the method on your model that defines the relationship
+                'name' => 'ostan_id', // the method on your model that defines the relationship
                 'ajax' => false,
                 'fake' => true,
                 'wrapper'      => [
@@ -236,7 +245,7 @@ class ResourceCrudController extends CrudController
             ],
             [   // relationship
                 'type' => "relationship",
-                'name' => 'shahrestan', // the method on your model that defines the relationship
+                'name' => 'shahrestan_id', // the method on your model that defines the relationship
                 'ajax' => true,
                 'fake' => true,
                 // OPTIONALS:
@@ -253,7 +262,7 @@ class ResourceCrudController extends CrudController
                 // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
                  'data_source' => url("api/shahrestan"), // url to controller search function (with /{id} should return model)
                  'minimum_input_length' => 0, // minimum characters to type before querying results
-                 'dependencies'         => ['ostan'], // when a dependency changes, this select2 is reset to null
+                 'dependencies'         => ['ostan_id'], // when a dependency changes, this select2 is reset to null
                  'include_all_form_fields'  => true, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
             [
@@ -282,6 +291,62 @@ class ResourceCrudController extends CrudController
         ]);
 
         $this->useTemplate($template);
+        
+        $this->crud->addFields(static::getFieldsArrayForSeo());
+    }
+
+    public static function getFieldsArrayForSeo(): array
+    {
+        return [
+            [ // Text
+                'name'  => 'meta_title',
+                'label' => 'تیتر صفحه',
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 60 حرف در این فیلد بنویسید.',
+                'type'  => 'text',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // textarea
+                'name'  => 'meta_description',
+                'label' => 'شرح مختصر',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 155 حرف در این فیلد بنویسید.',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'meta_keywords',
+                'label' => 'کلمات کلیدی',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-key la-lg"></i>',
+                'hint'  => 'این فیلد دیگر توسط گوگل پشتیبانی نمی‌شود و در بهینه‌سازی سایت شما تاثیری ندارد!',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'slug',
+                'label' => 'آدرس صفحه',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'hint'  => 'درصورت خالی گذاشتن به طور خودکار از روی عنوان پست ساخته می شود',
+                'tab'   => 'سئو',
+            ],
+        ];
     }
 
     /**

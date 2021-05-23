@@ -1,11 +1,11 @@
 @if ($room)
-<div class="sidebar-group">
+<div class="sidebar-group info" x-show="profile" >
     <div id="contact-information" class="sidebar">
         <header>
             <span>درباره</span>
             <ul class="list-inline">
                 <li class="list-inline-item">
-                    <a href="#" class="btn btn-light sidebar-close">
+                    <a href="#" x-on:click.prevent="profileClose()" class="btn btn-light sidebar-close">
                         <i class="ti-close"></i>
                     </a>
                 </li>
@@ -26,7 +26,7 @@
                     
             </div>
             
-            <hr>
+            {{-- <hr>
             <div class="pl-4 pr-4">
                 <div class="form-group">
                     <div class="form-item custom-control custom-switch">
@@ -46,7 +46,7 @@
                         <label class="custom-control-label" for="customSwitch13">دریافت اعلان</label>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

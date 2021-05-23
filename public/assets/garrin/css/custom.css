@@ -1191,7 +1191,7 @@ input[type="submit"] {
 }
 
 .doctor-widget .doc-name {
-    font-size: 30px;
+    /* font-size: 30px; */
     font-weight: 800;
     margin-bottom: 10px;
 }
@@ -2108,4 +2108,52 @@ a.kt-register-button:hover {
     line-height: 2;
     color: var(--color-second);
     cursor: pointer;
+}
+
+.clinic-show .apt-btn {
+    border: 1px solid var(--color-second);
+    padding: 5px 10px;
+    color: var(--color-second);
+    margin: auto;
+    display: block;
+    text-align: center;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.clini-infos.list-show ul li {
+    display: block;
+    line-height: 30px;
+    font-weight: 800;
+    color: cornflowerblue;
+}
+
+.filter-holder {
+    max-height: 200px;
+    overflow: hidden;
+    outline: none;
+    background: #fbfafd;
+    padding: 15px;
+}
+
+.filter-widget {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-widget h4 {
+    font-size: 1rem;
+    margin-bottom: 0;
+    background: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.filter-widget h4.active {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.resource-slider .slick-slide {
+    display: block;
+    margin-left: 0;
+    padding: 10px;
 }

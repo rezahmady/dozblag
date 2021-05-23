@@ -15,14 +15,21 @@
  */
 
 use Rezahmady\Resource\Http\Controllers\Admin\ResourceCrudController;
+use Rezahmady\Resource\Http\Livewire\ResourceIndex;
+use Rezahmady\Resource\Http\Livewire\ResourceList;
+use Rezahmady\Resource\Http\Livewire\ResourceShow;
 
-// Route::group([
-//     'middleware'=> array_merge(
-//     	(array) config('backpack.base.web_middleware', 'web'),
-//     ),
-// ], function() {
-//     Route::get('something/action', \Rezahmady\Resource\Http\Controllers\SomethingController::actionName());
-// });
+Route::group([
+    'middleware'=> array_merge(
+    	(array) config('backpack.base.web_middleware', 'web'),
+    ),
+], function() {
+    Route::group(['prefix'=>'/resource','as'=>'resource.'], function() {
+        Route::get('/', ResourceIndex::class)->name('all'); 
+        Route::get('/{resource:template}', ResourceList::class)->name('list'); 
+        Route::get('/show/{resource:slug}', ResourceShow::class)->name('show'); 
+    });
+});
 
 
 /**

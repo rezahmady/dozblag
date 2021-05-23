@@ -24,7 +24,7 @@ Route::group([
     ),
 ], function() {
     // Route::get('something/action', \Rezahmady\Chat\Http\Controllers\SomethingController::actionName());
-    Route::get('chats', Index::class)->name('chatyno.index');
+    Route::get('doctorConsulation', Index::class)->name('chatyno.index');
 });
 
 

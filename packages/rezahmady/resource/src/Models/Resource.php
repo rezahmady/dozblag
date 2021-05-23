@@ -6,6 +6,8 @@ use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Models\User;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -13,7 +15,7 @@ use Illuminate\Support\Str;
 class Resource extends Model
 {
     use HasFactory;
-    use CrudTrait;
+    use CrudTrait,Sluggable, SluggableScopeHelpers;
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ class Resource extends Model
 
     protected $table = 'resources';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'caption', 'template', 'extras'];
+    protected $fillable = ['name', 'caption', 'template', 'slug', 'extras'];
     protected $fakeColumns = ['extras'];
     const LIMIT = 35;
     /**
@@ -34,6 +36,20 @@ class Resource extends Model
     protected $casts = [
         'extras'         => 'object',
     ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable() :array
+    {
+        return [
+            'slug' => [
+                'source' => 'slug_or_name',
+            ],
+        ];
+    }
 
 
     /*
@@ -51,6 +67,19 @@ class Resource extends Model
         return trans('backpack::permissionmanager.function_name.'.$this->template);
     }
 
+    public function getProfile()
+    {
+        if($this->extras->profile) {
+            
+        }
+        $src = $this->extras->profile ?? "uploads/images/themes/garrin/{$this->template}.jpg";
+        return asset($src);
+    }
+
+    public function getShahrestan()
+    {
+        return $this->shahrestan->name ?? '';
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -60,12 +89,12 @@ class Resource extends Model
 
     public function ostan()
     {
-        return $this->belongsTo(Ostan::class);
+        return $this->belongsTo(Ostan::class, 'extras->ostan');
     }
 
-    public function Shahrestan()
+    public function shahrestan()
     {
-        return $this->belongsTo(Shahrestan::class);
+        return $this->belongsTo(Shahrestan::class, 'shahrestan_id');
     }
 
     public function users()

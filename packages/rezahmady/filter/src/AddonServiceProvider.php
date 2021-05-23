@@ -36,12 +36,20 @@ class AddonServiceProvider extends ServiceProvider
         MacroableModels::addMacro(User::class, 'servicesFilter', function() {
             $user = $this;
             return Filter::findBySlug('services')->items->filter(function($filteritem) use ($user) {
-                return in_array($filteritem->id, $user->extras->filter_services) ;
+                if(isset($user->extras->filter_services))
+                    return in_array($filteritem->id, $user->extras->filter_services) ;
+                return false;
             });
         });
 
-        Resource::resolveRelationUsing('servicesFilter', function ($Model) {
-            return $Model->hasMany(ModelsFilterItem::class, 'extras->filter_services');
+
+        MacroableModels::addMacro(Resource::class, 'servicesFilter', function() {
+            $user = $this;
+            return Filter::findBySlug('services')->items->filter(function($filteritem) use ($user) {
+                if(isset($user->extras->filter_services))
+                    return in_array($filteritem->id, $user->extras->filter_services) ;
+                return false;
+            });
         });
 
         MacroableModels::addMacro(User::class, 'getSpecilty', function() {

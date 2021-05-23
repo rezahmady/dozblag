@@ -1,0 +1,1 @@
+@include('theme::modules.resource.resource-list')
