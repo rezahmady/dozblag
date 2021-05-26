@@ -86,7 +86,7 @@
                         $item = $item->withFakes();
                     @endphp
                     <!-- Doctor Widget -->
-                    <div class="card" style="background-position:right">
+                    <div class="card bg-cover-03" style="background-position:right">
                         <div class="card-body">
                             <div class="doctor-widget">
                                 <div class="doc-info-left">

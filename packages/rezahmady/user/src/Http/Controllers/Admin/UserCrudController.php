@@ -82,11 +82,14 @@ class UserCrudController extends CrudController
                 'label' => trans('rezahmady.user::permissionmanager.mobile'),
                 'type'  => 'text',
             ],
-
             [
-                'name'  => 'email',
-                'label' => trans('rezahmady.user::permissionmanager.email'),
-                'type'  => 'email',
+                // run a function on the CRUD model and show its return value
+                'name'  => 'subscribtion',
+                'label' => 'اشتراک', // Table column heading
+                'type'  => 'model_function',
+                'function_name' => 'getSubscribtionBrowse', // the method in your Model
+                // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
+                // 'limit' => 100, // Limit the number of characters shown
             ],
             [ // n-n relationship (with pivot table)
                 'label'     => trans('rezahmady.user::permissionmanager.roles'), // Table column heading
@@ -95,6 +98,11 @@ class UserCrudController extends CrudController
                 'entity'    => 'roles', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'model'     => config('permission.models.role'), // foreign key model
+            ],
+            [
+                'name'  => 'email',
+                'label' => trans('rezahmady.user::permissionmanager.email'),
+                'type'  => 'email',
             ],
             [ // n-n relationship (with pivot table)
                 'label'     => trans('rezahmady.user::permissionmanager.extra_permissions'), // Table column heading
@@ -140,11 +148,31 @@ class UserCrudController extends CrudController
             'type'  => 'simple',
             'name'  => 'doctor',
             'label' => 'پزشک'
-          ], 
-          false, 
-          function() { // if the filter is active
+        ], 
+        false, 
+        function() { // if the filter is active
             $this->crud->addClause('where','template', 'doctor'); // apply the "active" eloquent scope 
-          } );
+        } );
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'customer',
+            'label' => 'مشتری'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where','template', 'customer'); // apply the "active" eloquent scope 
+        } );
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'operator',
+            'label' => 'اپراتور'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where','template', 'operator'); // apply the "active" eloquent scope 
+        } );
     }
 
     public function setupCreateOperation()

@@ -99,4 +99,15 @@
     .listen('\\Rezahmady\\Chat\\Events\\MessageSeenResponse', (e) => {
         window.Livewire.emit('refreshRooms')
     })
+
+    $(document).ready(function () {
+        $('#chat-body').niceScroll({
+            autohidemode:'leave',
+            cursorborder:'none',
+            cursorcolor: '#cecece',
+        });
+
+        // $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height());
+        // $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height(), -1); // -1 is the animation duration
+    })
 </script>

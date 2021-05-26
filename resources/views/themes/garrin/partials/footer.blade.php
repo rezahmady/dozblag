@@ -35,5 +35,6 @@
         </div>
     </div>
     <!-- /Footer Bottom -->
+    <livewire:widgets.custom :widget="widget('contact_icon')" :view="'theme::widgets.footer.contact_icon'" />
 
 </footer>

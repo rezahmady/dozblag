@@ -1,12 +1,14 @@
 <section class="section section-doctor">
     <div class="container-fluid">
         <!-- Section Header -->
-        <div class="section-header text-left position-relative">
+        <div class="section-header text-left d-flex justify-between position-relative">
             @can('page update')
                 <a class="btn btn-setting mb-5" x-on:click="setwidget('{{$widget->name}}')" style="top:-30px;right:0;" href="{{ url("/admin/widget/$widget->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
             @endcan
             <h2>{{$widget->resource_title}}</h2>
-
+            <div class="view-all text-right">
+                <a href="{{$widget->button_link}}" class="btn btn-more">{{$widget->button_label}}</a>
+            </div>
         </div>
         <!-- /Section Header -->
         <div class="">
@@ -19,8 +21,8 @@
 
                     @foreach ($resources as $item)
                     <!-- Resource Widget -->
-                    <div class="card card-vertical doctor-widget-holder" >
-                        <div class="avatar avatar-xxl d-block m-auto">
+                    <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03" style="background-position:right">
+                        <div class="avatar avatar-xxl d-block mr-3">
                             <img src="{{$item->getProfile()}}" class="avatar-img mt-3 rounded-circle" alt="{{$item->name}}">
                         </div>
                         <div class="card-body">

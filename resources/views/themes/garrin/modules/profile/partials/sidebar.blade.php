@@ -20,7 +20,7 @@
                 <li class="">
                     <a href="{{route('profile.dashboard')}}">
                         <i class="fas fa-columns"></i>
-                        <span>داشبرد</span>
+                        <span>داشبورد</span>
                     </a>
                 </li>
                 <li>

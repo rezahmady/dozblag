@@ -6,6 +6,7 @@ use App\Models\Ostan;
 use App\Models\Shahrestan;
 use App\Traits\SetJsonMutator;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -121,7 +122,28 @@ class User extends Authenticatable
 
     public function subscribtions()
     {
-        return $this->belongsToMany(Subscribtion::class)->withPivot(['use', 'expire_date']);
+        return $this->belongsToMany(Subscribtion::class)->withPivot(['capacity', 'expire_date']);
+    }
+
+    public function getActiveSubscribtion()
+    {
+        return $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now());
+    }
+
+    public function hasSubscribtion()
+    {
+        $subscribtion = $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now())->first() ;
+        return (isset($subscribtion->name)) ? true : false;
+    }
+    
+    public function getSubscribtionBrowse()
+    {
+        $subscribtion = $this->getActiveSubscribtion()->first();
+        if(isset($subscribtion->name)) {
+            echo $subscribtion->name;
+        } else {
+            echo '-';
+        }
     }
 
     /*

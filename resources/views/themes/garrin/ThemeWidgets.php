@@ -219,8 +219,6 @@ class ThemeWidgets
         ]);
     }
 
-    
-
     public function widget_home_search()
     {
         CRUD::addFields([
@@ -412,6 +410,24 @@ class ThemeWidgets
                 ],
                 'fake'        =>   true,
                 'tab'         => 'محتوا',
+            ],
+            [
+                'name'   => 'button_label',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'label'  => 'متن دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'attributes'   => ['placeholder' => 'متن'],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name' => 'button_link',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'attributes'   => ['placeholder' => 'لینک'],
+                'label' => 'لینک دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'tab'          => 'محتوا',
+                'fake'  => true,
             ],
             [
                 'name' => 'template',
@@ -619,6 +635,72 @@ class ThemeWidgets
                 'tab'          => 'محتوا',
                 'fake'  => true,
             ],
+            [
+                'name'   => 'button_label',
+                'prefix' =>'<i class="la la-pencil la-lg"></i>',
+                'label'  => 'متن دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'attributes'   => ['placeholder' => 'متن'],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+            [
+                'name' => 'button_link',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'attributes'   => ['placeholder' => 'لینک'],
+                'label' => 'لینک دکمه',
+                'wrapper'      => ['class'  => "form-group col-md-6"],
+                'tab'          => 'محتوا',
+                'fake'  => true,
+            ],
+        ]);
+    }
+
+    public function widget_contact_icon()
+    {
+        CRUD::addFields([
+            [   // repeatable
+                'name'  => 'contact_list',
+                'label' => 'لیست اطلاعات تماس',
+                'type'  => 'repeatable',
+                'fake'        => true,
+                'fields' => [
+                    [
+                        'name'    => 'icon',
+                        'type'    => 'icon_picker',
+                        'iconset' => 'fontawesome',
+                        'label'   => 'آیکن',
+                        'wrapper' => ['class' => 'form-group col-md-2 col-sm-2'],
+                    ],
+                    [
+                        'name'    => 'text',
+                        'type'    => 'text',
+                        'label'   => 'متن',
+                        'wrapper' => ['class' => 'form-group col-md-10 col-sm-10'],
+                    ],
+                    [
+                        'name'    => 'link',
+                        'type'    => 'text',
+                        'prefix'  => '<i class="la la-link"></i>',
+                        'label'   => 'لینک',
+                        'wrapper' => ['class' => 'form-group col-md-9 col-sm-9'],
+                    ],
+                    [   // select2_from_array
+                        'name'        => 'target',
+                        'label'   => 'تارگت',
+                        'type'        => 'select2_from_array',
+                        'options'     => ['_blank' => 'در تب جدید باز شود', '_self' => 'در همان تب باز شود'],
+                        'allows_null' => false,
+                        'default'     => '_self',
+                        'wrapper' => ['class' => 'form-group col-md-3 col-sm-3'],
+                        // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+                    ],
+                ],
+                'tab'   => 'اطلاعات تماس',
+                // optional
+                'new_item_label'  => 'افزودن تماس جدید', // customize the text of the button
+            ],
+
         ]);
     }
 

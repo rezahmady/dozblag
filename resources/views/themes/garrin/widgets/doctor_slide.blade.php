@@ -1,13 +1,17 @@
 <section class="section section-doctor">
     <div class="container-fluid">
         <!-- Section Header -->
-        <div class="section-header text-left position-relative">
+        <div class="section-header text-left d-flex justify-between position-relative">
             @can('page update')
                 <a class="btn btn-setting mb-5" x-on:click="setwidget('{{$widget->name}}')" style="top:-30px;right:0;" href="{{ url("/admin/widget/$widget->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
             @endcan
-            <h2><i class="{{$widget->doctor_icon}} pr-3"></i>{{$widget->doctor_title}}</h2>
-            <p class="sub-title">{!! $widget->doctor_description !!}</p>
-
+            <div>
+                <h2><i class="{{$widget->doctor_icon}} pr-3"></i>{{$widget->doctor_title}}</h2>
+                <p class="sub-title">{!! $widget->doctor_description !!}</p>
+            </div>
+            <div class="view-all text-right">
+                <a href="{{$widget->button_link}}" class="btn btn-more">{{$widget->button_label}}</a>
+            </div>
         </div>
         <!-- /Section Header -->
         <div class="">
@@ -52,7 +56,7 @@
         if ($('.doctor-slider').length > 0) {
             $('.doctor-slider').slick({
                 dots: false,
-                autoplay: false,
+                autoplay: true,
                 infinite: true,
                 rtl: true,
                 // centerMode: true,
@@ -86,7 +90,7 @@
         if ($('.doctor-slider').length > 0) {
             $('.doctor-slider').slick({
                 dots: false,
-                autoplay: false,
+                autoplay: true,
                 infinite: true,
                 rtl: true,
                 // centerMode: true,

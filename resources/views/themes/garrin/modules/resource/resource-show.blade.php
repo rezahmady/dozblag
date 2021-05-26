@@ -57,22 +57,9 @@
             <div class="row">
                 <div class="col-md-8">
                     <div clas="card-body pt-0">
-                        <!-- About Details -->
-
-                        <div class="card search-filter">
-                            <div class="card-header d-flex justify-between" style="border-top: 3px solid #1abbcc;">
-                                <h4 class="card-title font-weight-bold line-e mb-0">درباره</h4>
-                            </div>
-                            <div class="card-body ">
-                                {!! $resource->bio !!}
-                            </div>
-                        </div>
-                        <!-- /About Details -->
 
                         @if ($services)
                         <!-- Services List -->
-                        
-
                         <div class="card search-filter">
                             <div class="card-header d-flex justify-between" style="border-top: 3px solid #1abbcc;">
                                 <h4 class="card-title font-weight-bold line-e mb-0">خدمات</h4>
@@ -89,6 +76,19 @@
                         </div>
                         <!-- /Services List -->
                         @endif
+
+                        <!-- About Details -->
+
+                        <div class="card search-filter">
+                            <div class="card-header d-flex justify-between" style="border-top: 3px solid #1abbcc;">
+                                <h4 class="card-title font-weight-bold line-e mb-0">درباره</h4>
+                            </div>
+                            <div class="card-body ">
+                                {!! $resource->bio !!}
+                            </div>
+                        </div>
+                        <!-- /About Details -->
+                        
                     </div>
 
 

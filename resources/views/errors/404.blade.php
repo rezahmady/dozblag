@@ -5,7 +5,7 @@
 @endphp
 
 @section('title')
-  Page not found.
+  صفحه ای یافت نشد.
 @endsection
 
 @section('description')

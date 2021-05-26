@@ -15,7 +15,7 @@
     <script src="/packages/chatino/js/vendor/jquery.min.js" ></script>
     <!-- Favicon -->
     {{-- <link rel="icon" href="dist/media/img/favicon.png" type="image/png"> --}}
-    
+    <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
     @livewireStyles
     <script src="{{ mix('/assets/js/chat.js') }}"></script>
     

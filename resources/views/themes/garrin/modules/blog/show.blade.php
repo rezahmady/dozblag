@@ -171,7 +171,7 @@
 
                                     
                                     
-                                    <div class="author-widget clearfix">
+                                    {{-- <div class="author-widget clearfix">
                                         <h4 class="section-title bottom-dashed-border">درباره نویسنده</h4>
                                         
                                         <div class="card-body">
@@ -187,7 +187,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Latest Posts -->
                                     <hr>
@@ -274,7 +274,7 @@
                                     <div class="post-left">
                                         <ul>
                                         
-                                            <li class="section-title"><i class="far fa-calendar"></i>{{$post->date()}}</li>
+                                            <li class="p-3"><i class="far fa-calendar"></i>{{$post->date()}}</li>
                                         </ul>
                                     </div>
                                 </div>     

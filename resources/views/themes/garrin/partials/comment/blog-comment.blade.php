@@ -3,8 +3,15 @@
         <div class="comment-author">
             @php
                 $name = ($user) ? $user->name : $comment->name;
+
+                if($user) {
+                    $profile = $user->getProfile();
+                } else {
+                    $profile = url('assets/garrin/img/user.svg');
+                }
+
             @endphp
-            <img class="avatar" alt="" src="{{$user->getProfile()}}">
+            <img class="avatar" alt="" src="{{$profile}}">
         </div>
         <div class="comment-block">
             <span class="comment-by">

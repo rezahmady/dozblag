@@ -8,9 +8,7 @@
                     <span></span>
                 </span>
             </a>
-            <a href="{{ route('home') }}" class="navbar-brand logo position-relative">
-                <livewire:partials.custom :view="'theme::partials.logo'" />
-            </a>
+            <livewire:partials.custom :view="'theme::partials.logo'" />
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
@@ -35,7 +33,7 @@
                     <div class="c-header__profile-dropdown-account-container">
                         <div class="c-header__profile-dropdown-user">
                             <div class="c-header__profile-dropdown-user-img">
-                                <img style="border-radius:20px;" src="{{auth()->user()->profile}}">
+                                <img style="border-radius:20px;" src="{{auth()->user()->getProfile()}}">
                             </div>
                                                 
                             <div class="c-header__profile-dropdown-user-info">
@@ -53,24 +51,28 @@
                                     {{trans('rezahmady.user::permissionmanager.function_name.'.backpack_user()->template)}}
                                 </span>
                             </div>
+                            @if (auth()->user()->hasSubscribtion())
                             <div class="c-header__profile-dropdown-account-item">
                                 <span class="c-header__profile-dropdown-account-item-title">اشتراک :</span>
                                 <span class="c-header__profile-dropdown-account-item-amount">
                                     {{-- <span class="c-header__profile-dropdown-account-item-amount-number js-dc-point">۰</span> --}}
-                                    برنزی
+                                    {{auth()->user()->getSubscribtionBrowse()}}
                                 </span>
                             </div>
+                            @endif
                         </div>                                
                         <a href="{{ route('profile.dashboard') }}" class="c-header__profile-dropdown-user-profile-full-link"></a>
                     </div>
 
                     <div class="c-header__profile-dropdown-actions">
+                        @if (!auth()->user()->hasSubscribtion())
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('subscribtion.view')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--activate-digiclub">
                                 <span class="c-header__profile-dropdown-action-notification-badge"></span>
                                 فعال سازی اشتراک
                             </a>
                         </div>
+                        @endif
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('profile.info')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--orders "><i class="la la-user"></i> ویرایش مشخصات</a>
                         </div>
@@ -92,8 +94,8 @@
                 <a href="{{ route('auth.login') }}" type="button" class="button kt-modal-button button-info kt-register-button" data-modal="login">ورود | ثبت‌نام</a>
             </li>
             @endauth
-            <li class="nav-item">
-                <a target="_blank" href="{{ route('chatyno.index') }}" type="button" class="button button-chat kt-modal-button kt-login-button" data-modal="login"><img width="42px" src="{{url('/uploads/images/themes/garrin/support.svg')}}" alt=""></a>
+            <li class="nav-item hidden-mobile chat-icon">
+                <a target="_blank" href="{{ route('chatyno.index') }}" type="button" class="button button-chat kt-modal-button kt-login-button" data-modal="login"><i class="la la-comments"></i></a>
             </li>
         </ul>
     </nav>

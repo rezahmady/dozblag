@@ -39,7 +39,7 @@
                             <ul class="entry-meta meta-item">
                                 <li>
                                     <div class="post-author">
-                                        <a href="{{$firstItem->user->path()}}"><img src="{{$firstItem->user->getProfile()}}" alt="{{$firstItem->user->name}}"> <span>{{$firstItem->user->name}}</span></a>
+                                        {{-- <a href="{{$firstItem->user->path()}}"><img src="{{$firstItem->user->getProfile()}}" alt="{{$firstItem->user->name}}"> <span>{{$firstItem->user->name}}</span></a> --}}
                                     </div>
                                 </li>
                                 <li class="color-second"><i class="far fa-clock"></i> {{$firstItem->date()}}</li>
@@ -73,7 +73,7 @@
                                     <ul class="entry-meta meta-item">
                                         <li>
                                             <div class="post-author">
-                                                <a href="{{$item->user->path()}}"><img src="{{$item->user->getProfile()}}" alt="{{$item->user->name}}"> <span>{{$item->user->name}}</span></a>
+                                                {{-- <a href="{{$item->user->path()}}"><img src="{{$item->user->getProfile()}}" alt="{{$item->user->name}}"> <span>{{$item->user->name}}</span></a> --}}
                                             </div>
                                         </li>
                                         <li class="color-second"><i class="far fa-clock"></i> {{$item->date()}}</li>
@@ -102,7 +102,7 @@
 
                 <!-- Telegram -->
                 
-                <div class="search-widget mb-3" >
+                {{-- <div class="search-widget mb-3" >
                     <a href="https://t.me/garrin" class="blog-single-social-box blog-single-social-box-telegram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                         <div class="blog-single-social-box-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -113,7 +113,7 @@
                         </div>
                         <div class="blog-single-social-box-text">در <b>تلگرام</b><br>گرین را دنبال کنید!</div>
                     </a>
-                </div>
+                </div> --}}
                 <!-- /Telegram -->
                 @if (sizeOf($children))
                 <!-- Categories -->
@@ -132,7 +132,7 @@
                 @endif
                 
                 <!-- Instagram -->
-                <div class="search-widget mb-3">
+                {{-- <div class="search-widget mb-3">
                     <a href="https://www.instagram.com/f" class="blog-single-social-box blog-single-social-box-instagram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                         <div class="blog-single-social-box-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -144,7 +144,7 @@
                         </div>
                         <div class="blog-single-social-box-text">در <b>اینستاگرام</b><br>گرین را دنبال کنید!</div>
                     </a>
-                </div>
+                </div> --}}
                 
                 <!-- /Instagram -->
 

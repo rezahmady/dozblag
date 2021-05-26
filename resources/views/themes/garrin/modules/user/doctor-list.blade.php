@@ -7,7 +7,7 @@
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
                             <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a href="{{route('doctor.list')}}" rel="category" data-wpel-link="internal">پزشکان</a>
+                                <a rel="category" data-wpel-link="internal">پزشکان</a>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
                     <!-- Search Filter -->
-                    <div class="card search-filter" style="background-position: bottom">
+                    <div class="card search-filter rounded-3xl">
                         <div class="card-header d-flex justify-between">
                             <h4 class="card-title font-weight-bold line-e mb-0"><i class="la la-filter"></i> فیلتر ها</h4>
                             @if ($filterShow)
@@ -76,7 +76,7 @@
                         $doctor = $doctor->withFakes();
                     @endphp
                     <!-- Doctor Widget -->
-                    <div class="card" style="background-position:right">
+                    <div class="card rounded-3xl bg-cover-06" style="background-position:right">
                         <div class="card-body">
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
@@ -88,7 +88,6 @@
                                     <div class="doc-info-cont pl-3">
                                         <h4 class="doc-name">{{ $doctor->name }}</h4>
                                         <p class="doc-speciality">{{ $doctor->getSpecilty() }}</p>
-                                        <span class="pb-3 pt-2 d-block"></span>
                                         <div class="clini-infos">
                                             <ul>
                                                 <li> نظام پزشکی: <span class="value">{{$doctor->medical_code}}</span></li>

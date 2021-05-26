@@ -284,22 +284,23 @@
     }
 
     window.addEventListener('scrollTo', event => {
-        location.href = '#'+event.detail.hash;
-        setTimeout(function() { document.getElementById("textarea").focus() }, 1000);
-        console.log('csrllTo');
+        // location.href = '#'+event.detail.hash;
+        // setTimeout(function() { document.getElementById("textarea").focus() }, 1000);
+        // console.log('csrllTo');
+        $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height());
     })
 
     window.addEventListener('scrollToBottom', event => {
-        location.href = '#'
-        var element = document.getElementById("messages-holder");
-        element.scrollIntoView({
-            block: "end",
-            behavior: "smooth"
-        });
-        if (document.getElementById("textarea")) {
-            setTimeout(function() { document.getElementById("textarea").focus() }, 2000);
-        }
-        console.log('scrollToBottom');
+        // location.href = '#'
+        // var element = document.getElementById("messages-holder");
+        // element.scrollIntoView({
+        //     block: "end",
+        //     behavior: "smooth"
+        // });
+        // if (document.getElementById("textarea")) {
+        //     setTimeout(function() { document.getElementById("textarea").focus() }, 2000);
+        // }
+        // console.log('scrollToBottom');
 
     })
     document.addEventListener('DOMContentLoaded', function () {
