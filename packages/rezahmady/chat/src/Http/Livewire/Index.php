@@ -23,7 +23,7 @@ class Index extends Component
 
     public $expireDate;
     
-    public $unseenNewConsoltation = 1;
+    public $unseenNewConsoltation = 0;
 
     protected $listeners = [
         'ShowRoom',
