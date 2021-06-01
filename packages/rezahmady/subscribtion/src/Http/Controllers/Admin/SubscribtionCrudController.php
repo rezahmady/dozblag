@@ -224,7 +224,7 @@ class SubscribtionCrudController extends CrudController
             [
                 'name'    => 'limit_duration',
                 'prefix'  => '<i class="la la-calendar"></i>',
-                'suffix'  => 'روز',
+                'suffix'  => 'دقیقه',
                 'type'    => 'text',
                 'label'   => 'محدودیت زمان',
                 'fake'    => true,

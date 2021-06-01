@@ -45,14 +45,19 @@
                     </a>
                 </li>
                 @if (backpack_user()->hasTemplate('operator'))
-                <li>
-                    <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
+                <li class="chat-menu">
+                    <a x-on:click.prevent="set_navigation('suggestion')" wire:click="resetUnseen()" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
+                        @if ($unseenNewConsoltation)
+                        <div class="users-list-action">
+                            <div class="new-message-count">{{$unseenNewConsoltation}}</div>
+                        </div>
+                        @endif
                         <i class="ti-user"></i>
                     </a>
                 </li>
                 @endif
                 @if (backpack_user()->hasTemplate(['operator', 'doctor']) )
-                <li>
+                <li class="chat-menu">
                     <a x-on:click.prevent="set_navigation('archives')" :class="{ 'active': navigation_target == 'archives' }" href="#">
                         <i class="ti-archive"></i>
                     </a>
@@ -68,7 +73,7 @@
                         <i class="ti-settings"></i>
                     </a>
                 </li> --}}
-                <li>
+                <li class="lofout-button">
                     <a href="{{route('home')}}">
                         <i class="ti-power-off"></i>
                     </a>
@@ -132,8 +137,13 @@
                             </a>
                         </li>
                         @if (backpack_user()->hasTemplate('operator'))
-                        <li>
-                            <a x-on:click.prevent="set_navigation('suggestion')" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
+                        <li class="chat-menu">
+                            <a x-on:click.prevent="set_navigation('suggestion')" wire:click="resetUnseen()" :class="{ 'active': navigation_target == 'suggestion' }" href="#" >
+                                @if ($unseenNewConsoltation)
+                                <div class="users-list-action">
+                                    <div class="new-message-count">{{$unseenNewConsoltation}}</div>
+                                </div>
+                                @endif
                                 <i class="ti-user"></i>
                             </a>
                         </li>
@@ -145,7 +155,7 @@
                             </a>
                         </li>
                         @endif
-                        <li>
+                        <li  class="lofout-button">
                             <a href="{{route('home')}}">
                                 <i class="ti-power-off"></i>
                             </a>
@@ -183,6 +193,8 @@
             sidebar: true,
             profile: false,
             loadingRoom: false,
+            expiry: '',
+            remaining:null,
             currentRoom: @entangle('currentRoom'),
             navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
             set_navigation(target) {
@@ -205,16 +217,127 @@
             profileClose() {
                 this.profile = false;
             },
+            setRemaining() {
+                const diff = this.expiry - new Date(@this.expireDate).getTime();
+                this.remaining =  parseInt(diff / 1000);
+            },
+            days() {
+                return {
+                    value:this.remaining / 86400,
+                    remaining:this.remaining % 86400
+                };
+            },
+            hours() {
+                return {
+                    value:this.days().remaining / 3600,
+                    remaining:this.days().remaining % 3600
+                };
+            },
+            minutes() {
+                return {
+                    value:this.hours().remaining / 60,
+                    remaining:this.hours().remaining % 60
+                };
+            },
+            seconds() {
+                return {
+                    value:this.minutes().remaining,
+                };
+            },
+            format(value) {
+                return ("0" + parseInt(value)).slice(-2)
+            },
+            time(){
+                return {
+                    days:this.format(this.days().value),
+                    hours:this.format(this.hours().value),
+                    minutes:this.format(this.minutes().value),
+                    seconds:this.format(this.seconds().value),
+                }
+            },
             init() {
                 this.hiddenLoader();
+                if(this.currentRoom) {
+                    this.sidebar = false;
+                }
                 window.addEventListener('room-set', event => {
                     this.loadingRoom = false;
                 })
                 
-            }
+                    // this.setRemaining()
+                // setInterval(() => {
+                //     this.expiry = new Date(@this.expireDate);
+                //     console.log(this.expiry)
+                //     this.setRemaining();
+                // }, 1000);
+            },
         }
     }
 
+    function timerCounterDown() {
+        return {
+            expiry: '',
+            remaining:null,
+            finish: false,
+            init() {
+                this.expiry = @this.expireDate;
+                this.setRemaining()
+                setInterval(() => {
+                    this.setRemaining();
+                }, 1000);
+
+                window.addEventListener('room-set-time', event => {
+                    this.expiry = event.detail.expire_date;
+                })
+            },
+            setRemaining() {
+                if(this.expiry) {
+                    const diff = new Date(this.expiry) - new Date().getTime();
+                    if(diff >= 0) {
+                        this.remaining =  parseInt(diff / 1000);
+                    }
+                    if(diff < 0 && this.finish == false) {
+                        Livewire.emit('room-end');
+                        this.finish = true;
+                    }
+                }
+            },
+            days() {
+                return {
+                    value:this.remaining / 86400,
+                    remaining:this.remaining % 86400
+                };
+            },
+            hours() {
+                return {
+                    value:this.days().remaining / 3600,
+                    remaining:this.days().remaining % 3600
+                };
+            },
+            minutes() {
+                return {
+                    value:this.hours().remaining / 60,
+                    remaining:this.hours().remaining % 60
+                };
+            },
+            seconds() {
+                return {
+                    value:this.minutes().remaining,
+                };
+            },
+            format(value) {
+                return ("0" + parseInt(value)).slice(-2)
+            },
+            time(){
+                return {
+                    days:this.format(this.days().value),
+                    hours:this.format(this.hours().value),
+                    minutes:this.format(this.minutes().value),
+                    seconds:this.format(this.seconds().value),
+                }
+            },
+        }
+    }
     function CreateMessage() {
         return {
             voice_holder: false,
@@ -285,9 +408,17 @@
 
     window.addEventListener('scrollTo', event => {
         // location.href = '#'+event.detail.hash;
+        var chat_body = $('.layout .content .chat .chat-body');
+        if (chat_body.length > 0) {
+        
+            chat_body.scrollTop(chat_body.get(0).scrollHeight, -1).niceScroll({
+                cursorcolor: 'rgba(66, 66, 66, 0.20)',
+                cursorwidth: "4px",
+                cursorborder: '0px'
+            });
+        }
         // setTimeout(function() { document.getElementById("textarea").focus() }, 1000);
         // console.log('csrllTo');
-        $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height());
     })
 
     window.addEventListener('scrollToBottom', event => {
@@ -297,12 +428,21 @@
         //     block: "end",
         //     behavior: "smooth"
         // });
+        var chat_body = $('.layout .content .chat .chat-body');
+        if (chat_body.length > 0) {        
+            chat_body.scrollTop(chat_body.get(0).scrollHeight, -1).niceScroll({
+                cursorcolor: 'rgba(66, 66, 66, 0.20)',
+                cursorwidth: "4px",
+                cursorborder: '0px'
+            });
+        }
         // if (document.getElementById("textarea")) {
         //     setTimeout(function() { document.getElementById("textarea").focus() }, 2000);
         // }
         // console.log('scrollToBottom');
 
     })
+
     document.addEventListener('DOMContentLoaded', function () {
         
         Livewire.hook('component.initialized', (component) => {

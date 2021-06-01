@@ -1,6 +1,7 @@
 <?php
 
-namespace Rezahmady\Profile\Http\Controllers;
+namespace Rezahmady\Profile\Http\Controllers\Livewire;
+
 
 use Alert;
 
@@ -10,8 +11,9 @@ use App\Models\Shahrestan;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Filter\Models\FilterItem;
-
+use Rezahmady\Profile\Http\Controllers\Livewire\Traits\RepeatableFields;
 
 class Info extends Component
 {
@@ -48,7 +50,7 @@ class Info extends Component
     
     public $services;
 
-    public $new_services;
+    public $new_services = [];
 
     public $medical_code;
 
@@ -68,9 +70,9 @@ class Info extends Component
         $this->address = $this->user->address;
         $this->medical_code = $this->user->medical_code;
         $this->experience = $this->user->experience;
-        $this->specialty_id = $this->user->specialty_id;
-        $this->services = $this->getServicesProperty();
-        $this->new_services = json_decode($this->user->services,true);
+        $this->specialty_id = $this->user->filter_specilty;
+        $this->services = Filter::findBySlug('services')->items->pluck('name', 'id');
+        $this->new_services = $this->user->filter_services;
         $this->edu_bg = json_decode($this->user->edu_bg);
         $this->job_bg = json_decode($this->user->job_bg);
         $this->gif_bg = json_decode($this->user->gif_bg);
@@ -82,33 +84,12 @@ class Info extends Component
         $this->shahrestan = $this->user->shahrestan;
         $this->shahrestans = ($this->user->ostan) ? Shahrestan::where('ostan_id', $this->ostan)->pluck('name', 'id') : [null => '--ابتدا استان را انتخاب کنید--'];
         $this->filters = FilterItem::where('filter_id', 6)->get()->pluck('name','id')->toArray();
-        // dd($this->services);
     }
 
-    public function getServicesProperty()
+    public function setServices($data)
     {
-        $services = json_decode($this->user->services, true);
-        if(is_array($services)) {
-            $values = [];
-            foreach($services as $item) {
-                $values[] = $item['text'];
-            }
-            return $values;
-        }
-        return [];
-    }
-
-    public function setServices()
-    {
-        $services = $this->services;
-        if(is_array($services)) {
-            $values = [];
-            foreach($services as $item) {
-                $values[]['text'] = $item;
-            }
-            return $values;
-        }
-        return [];
+        // dd($this->new_services, $data);
+        $this->new_services = $data;
     }
 
     public function updatedPhoto()
@@ -139,7 +120,7 @@ class Info extends Component
 
     public function submit()
     {
-        // dd($this->setServices());
+        // dd($this->gender);
         $this->validate();
         // upload photo
         $photo = $this->user->extras->profile;
@@ -150,7 +131,7 @@ class Info extends Component
             $photo = $destination;
         }
         $this->photo = null;
-        
+        // dd($this->new_services);
         $this->user->update([
             'name' => $this->name,
             'email' => $this->email,
@@ -163,10 +144,10 @@ class Info extends Component
             'extras->shahrestan' => $this->shahrestan,
             'extras->address' => $this->address,
             'extras->profile'  => $photo,
-            'extras->services'  => json_encode($this->setServices()),
             'extras->experience' => $this->experience,
             'extras->medical_code' => $this->medical_code,
-            'extras->specialty_id' => $this->specialty_id,
+            'extras->filter_specilty' => $this->specialty_id,
+            'extras->filter_services'  => $this->new_services,
         ]);
         Alert::success('تغییرات ذخیره شد')->flash();       
     }

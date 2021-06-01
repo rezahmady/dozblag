@@ -20864,6 +20864,7 @@ body.form-membership .form-wrapper hr {
 
 .layout .content .chat .chat-body:not(.no-message) {
     overflow: hidden;
+    overflow-y: scroll;
 }
 
 .layout .content .chat .chat-body.no-message {
@@ -21582,10 +21583,6 @@ img.hover-shadow {
     }
 }
 
-.layout .content .chat .chat-body .messages .message-item:last-child {
-    margin-bottom: 50px;
-}
-
 .calamansi-skin--ayon .clmns--control-panel .clmns--controls .clmns--prev,
 .calamansi-skin--ayon .clmns--control-panel .clmns--controls .clmns--play,
 .calamansi-skin--ayon .clmns--control-panel .clmns--controls .clmns--pause,
@@ -21625,4 +21622,31 @@ img.hover-shadow {
     top: 0;
     bottom: 0;
     z-index: 20;
+}
+
+.mySlides {
+    position: relative;
+}
+
+.mySlides .file-detail {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    color: aliceblue;
+    background: #6f6f6f30;
+    padding: 10px;
+}
+
+.chat-menu .users-list-action {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    background: #ff9d36;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 20px;
+    width: max-content;
+    line-height: 1;
+    font-size: 14px;
 }

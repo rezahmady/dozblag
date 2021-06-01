@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
+use Rezahmady\Chat\Models\Room;
 
 /*
 |--------------------------------------------------------------------------

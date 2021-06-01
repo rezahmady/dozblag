@@ -8,6 +8,7 @@ use Rezahmady\User\Http\Livewire\Auth\FormLogin;
 use Rezahmady\User\Http\Livewire\Auth\FormValidation;
 use Rezahmady\User\Http\Livewire\Auth\Login;
 use Rezahmady\User\Http\Livewire\DoctorList;
+use Rezahmady\User\Http\Livewire\DoctorProfile;
 use Rezahmady\User\Http\Livewire\Widgets\ListUser;
 
 class AddonServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class AddonServiceProvider extends ServiceProvider
         Livewire::component('rezahmady.user.http.livewire.auth.form-login', FormLogin::class);
         Livewire::component('rezahmady.user.http.livewire.auth.login', Login::class);
         Livewire::component('rezahmady.user.http.livewire.doctor-list', DoctorList::class);
+        Livewire::component('rezahmady.user.http.livewire.doctor-profile', DoctorProfile::class);
     }
 
     public function menuBuilder($menu)

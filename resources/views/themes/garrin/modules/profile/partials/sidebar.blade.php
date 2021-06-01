@@ -2,7 +2,7 @@
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
             <a href="#" class="booking-doc-img">
-                <img src="{{$user->profile}}" alt="User Image">
+                <img src="{{$user->getProfile()}}" alt="User Image">
             </a>
             <div class="profile-det-info">
                 <h3>{{$user->name ?? ''}}</h3>
@@ -19,27 +19,27 @@
             <ul>
                 <li class="">
                     <a href="{{route('profile.dashboard')}}">
-                        <i class="fas fa-columns"></i>
+                        <i class="la la-columns"></i>
                         <span>داشبورد</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('profile.info')}}">
-                        <i class="fas fa-user-cog"></i>
+                        <i class="la la-user"></i>
                         <span>تنظیمات پروفایل</span>
                     </a>
                 </li>
                 @if (backpack_user()->hasTemplate('customer'))
                 <li>
                     <a href="{{route('profile.medical')}}">
-                        <i class="fas fa-user-cog"></i>
+                        <i class="la la-folder-o"></i>
                         <span>پرونده پزشکی</span>
                     </a>
                 </li>
                 @endif
                 <li>
                     <a target="_blank" href="{{route('chatyno.index')}}">
-                        <i class="fas fa-comments"></i>
+                        <i class="la la-comments"></i>
                         <span>گفت و گو ها</span>
                     </a>
                 </li>
@@ -63,7 +63,7 @@
                 </li> --}}
                 <li>
                     <a href="{{route('auth.logout')}}">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i class="la la-sign-out-alt"></i>
                         <span>خروج</span>
                     </a>
                 </li>

@@ -2,6 +2,7 @@
 
 namespace Rezahmady\Chat\View\Components;
 
+use App\Models\User;
 use Illuminate\View\Component;
 
 class RoomSidebar extends Component
@@ -10,7 +11,10 @@ class RoomSidebar extends Component
 
     public $photos;
 
+    public $medical_folder = [];
+
     public $audience;
+
     /**
      * Create a new component instance.
      *
@@ -27,6 +31,13 @@ class RoomSidebar extends Component
                 $files = array_merge($files, json_decode($message->body));
             }
             $this->photos = $files;
+            $this->getMedicalFolder();
+        }
+    }
+
+    public function getMedicalFolder() {
+        if(backpack_user()->template != 'customer') {
+            $this->medical_folder = json_decode(User::find($this->room->user_id)->extras->medical_folder, true);
         }
     }
 

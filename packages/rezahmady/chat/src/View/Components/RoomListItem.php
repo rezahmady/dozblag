@@ -26,6 +26,7 @@ class RoomListItem extends Component
      *
      * @return void
      */
+    
     public function __construct(Room $room)
     {
         $this->room = $room;
@@ -36,9 +37,9 @@ class RoomListItem extends Component
 
         $this->message = $room->messages()->latest()->first();
 
-        if($room->user->id === auth()->id() and auth()->user()->template == 'customer') {
+        if(auth()->user()->template === 'customer' and $room->extras['expire_date'] === null ) {
             $this->status = 'chat';
-        } elseif($room->operator === null and $room->user->template === 'customer'){
+        } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
             $this->status = 'suggest';
         } elseif($room->status === 'archive') {
             $this->status = 'archive';

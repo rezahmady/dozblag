@@ -1,5 +1,6 @@
 <?php
-namespace Rezahmady\Profile\Http\Controllers;
+namespace Rezahmady\Profile\Http\Controllers\Livewire\Traits;
+
 
 trait RepeatableFields
 {

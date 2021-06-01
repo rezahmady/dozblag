@@ -2,6 +2,7 @@
 
 namespace Rezahmady\Chat\View\Components;
 
+use Carbon\Carbon;
 use Illuminate\View\Component;
 
 class Room extends Component
@@ -26,9 +27,16 @@ class Room extends Component
         $this->audience = $audience;
         $this->onlineUsers = $onlineUsers;
         if($room) {
-            if($room->operator === null and $room->user->template === 'customer'){
+            $date = new Carbon();
+            if(auth()->user()->template === 'customer' and $room->extras['expire_date'] === null ) {
+                $this->status = 'chat';
+            } elseif((auth()->user()->template === 'customer') and ($date >  $room->extras['expire_date']) ) {
+                $this->status = 'end';
+            } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
                 $this->status = 'suggest';
-            } elseif($room->status === 'archive') {
+            } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and auth()->user()->template === 'doctor'){
+                $this->status = 'start';
+            }elseif($room->status === 'archive') {
                 $this->status = 'archive';
             } else {
                 $this->status = 'chat';

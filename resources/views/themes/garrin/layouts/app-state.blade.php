@@ -35,6 +35,26 @@
 		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
 	</head>
 	<body>
+        <style>
+            .chat-holder {
+                border: none;
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 330px;
+                height: 100vh;
+                z-index: 100000;
+            }
+
+            .responsive-iframe {
+                height: 100%;
+                width: 100%;
+                border: 0;
+            }
+        </style>
+        {{-- <div class="chat-holder" x-show="chatShow" x-on:click="chatShow = false">
+            <iframe class="responsive-iframe" src="{{ route('chatyno.index') }}?iframe=true"></iframe>
+        </div> --}}
 
 		<!-- Main Wrapper -->
 		<div class="main-wrapper">

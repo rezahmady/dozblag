@@ -20,10 +20,13 @@
             </div>
             <hr>
             
-            <div class="pl-4 pr-4">
+            <div class="pl-4 pr-4 mb-3">
                 <h6>رسانه</h6>
                 <x-chat-gallery :photos="$photos" :id="'About'" :class="'files'" />
-                    
+            </div>
+            <div class="pl-4 pr-4 mb-3">
+                <h6>پرونده پزشکی</h6>
+                <x-chat-gallery :photos="$medical_folder" :id="'medical_folder'" :class="'files'" />
             </div>
             
             {{-- <hr>

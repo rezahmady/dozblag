@@ -428,35 +428,39 @@ trait UserTemplates
 
     private function customer()
     {
-        $this->crud->addField([
-            // two interconnected entities
-            'label'             => trans('backpack::permissionmanager.user_role_permission'),
-            'tab'               => trans('backpack::permissionmanager.user_role_permission'),
-            'field_unique_name' => 'user_role_permission',
-            'type'              => 'checklist_dependency',
-            'name'              => ['roles', 'permissions'],
-            'tab'               => 'دسترسی',
-            'subfields'         => [
-                'primary' => [
-                    'label'            => trans('backpack::permissionmanager.roles'),
-                    'name'             => 'roles', // the method that defines the relationship in your Model
-                    'entity'           => 'roles', // the method that defines the relationship in your Model
-                    'entity_secondary' => 'permissions', // the method that defines the relationship in your Model
-                    'attribute'        => 'name', // foreign key attribute that is shown to user
-                    'model'            => config('permission.models.role'), // foreign key model
-                    'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
-                    'number_columns'   => 3, //can be 1,2,3,4,6
+        $this->crud->addFields([
+            [   // repeatable
+                'name'  => 'medical_folder',
+                'label' => '',
+                'type'  => 'repeatable',
+                'fields' => [
+                    [   // Browse
+                        'name'  => 'photo',
+                        'label' => 'تصویرمدرک',
+                        'type'  => 'browse',
+                    ],
+                    [
+                        'name'    => 'title',
+                        'type'    => 'text',
+                        'label'   => 'عنوان مدرک',
+                    ],
+                    [
+                        'name'    => 'description',
+                        'type'    => 'summernote',
+                        'options' => [
+                            'toolbar' => []
+                        ],
+                        'label'   => 'توضیحات',
+                    ],
                 ],
-                'secondary' => [
-                    'label'          => ucfirst(trans('backpack::permissionmanager.permission_singular')),
-                    'name'           => 'permissions', // the method that defines the relationship in your Model
-                    'entity'         => 'permissions', // the method that defines the relationship in your Model
-                    'entity_primary' => 'roles', // the method that defines the relationship in your Model
-                    'attribute'      => 'display_name', // foreign key attribute that is shown to user
-                    'model'          => config('permission.models.permission'), // foreign key model
-                    'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
-                    'number_columns' => 3, //can be 1,2,3,4,6
-                ],
+                'tab' => 'پرونده پزشکی',
+                'fake'  => true,
+                // optional
+                'new_item_label'  => 'افزودن مدرک', // customize the text of the button
+                'init_rows' => 1, // number of empty rows to be initialized, by default 1
+                'min_rows' => 0, // minimum rows allowed, when reached the "delete" buttons will be hidden
+                // 'max_rows' => 2 // maximum rows allowed, when reached the "new item" button will be hidden
+            
             ],
         ]);
     }

@@ -6448,7 +6448,7 @@ html.menu-opened body {
 }
 
 .dashboard-menu ul li a i {
-    font-size: 16px;
+    font-size: 20px;
     margin-left: 10px;
     width: 16px;
 }
@@ -9396,6 +9396,8 @@ ul.benifits-col li i {
 
 .error {
     color: #f58;
+    background: #fff0f0;
+    padding: 0 10px;
 }
 
 
@@ -10148,7 +10150,7 @@ i.blog-item-suggested {
         padding: 10px 10px;
         border-radius: 0;
         bottom: 0;
-        z-index: 1000;
+        z-index: 10000;
         margin: auto;
         right: 0;
         left: 0;
@@ -10505,7 +10507,7 @@ input[type="submit"] {
 */
 
 .doctor-widget-holder {
-    background-position-y: bottom;
+    /* background-position-y: bottom; */
     background-position-x: left;
 }
 
@@ -11614,4 +11616,69 @@ div.st-panel {
     cursor: pointer;
     background: inherit;
     font-size: 30px;
+}
+
+.subscribtion-custom span.price-strike {
+    font-weight: 400;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.subscribtion-custom span.price {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.subscribtion-card {
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.subscribtion-card.active {
+    border: 1px solid var(--color-3);
+}
+
+.subscribtion-card-body {
+    padding: 10px;
+}
+
+.subscribtion-card-body p {
+    margin: 0;
+    font-size: 12px;
+    color: #797979;
+}
+
+.modal-alpine {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.consulation-btn {
+    background: #ff5588;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+}
+
+.consulation-btn:hover {
+    color: white !important;
+}
+
+span.success {
+    color: #54b819;
+    background: #f0fff3;
+    padding: 0 10px;
 }

@@ -2,11 +2,13 @@
 
 namespace Rezahmady\Chat\Http\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use Rezahmady\Chat\Models\Room;
 use Rezahmady\Chat\Events\MessageAdded;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Rezahmady\Chat\Events\RoomStarted;
 use Rezahmady\Chat\Models\Chat;
 
 class CreateMessage extends Component
@@ -36,11 +38,16 @@ class CreateMessage extends Component
     public function mount(Room $room)
     {
         $this->room = $room;
-        if($room->user->id === auth()->id() and auth()->user()->template === 'customer') {
+        $date = new Carbon;
+        if(auth()->user()->template === 'customer' and $room->extras['expire_date'] === null ) {
             $this->status = 'chat';
-        } elseif($room->operator === null and $room->user->template === 'customer'){
+        } elseif((auth()->user()->template === 'customer') and ($date >  $room->extras['expire_date']) ) {
+            $this->status = 'end';
+        } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
             $this->status = 'suggest';
-        } elseif($room->status === 'archive') {
+        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and auth()->user()->template === 'doctor'){
+            $this->status = 'start';
+        }elseif($room->status === 'archive') {
             $this->status = 'archive';
         } else {
             $this->status = 'chat';
@@ -50,11 +57,16 @@ class CreateMessage extends Component
     public function rerenderCreateMessage(Room $room)
     {
         $this->room = $room;
-        if($room->user->id === auth()->id() and auth()->user()->template == 'customer') {
+        $date = new Carbon;
+        if(auth()->user()->template === 'customer' and $room->extras['expire_date'] === null ) {
             $this->status = 'chat';
-        } elseif($room->operator === null and $room->user->template === 'customer'){
+        } elseif((auth()->user()->template === 'customer') and ($date >  $room->extras['expire_date']) ) {
+            $this->status = 'end';
+        } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
             $this->status = 'suggest';
-        } elseif($room->status === 'archive') {
+        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and auth()->user()->template === 'doctor'){
+            $this->status = 'start';
+        }elseif($room->status === 'archive') {
             $this->status = 'archive';
         } else {
             $this->status = 'chat';
@@ -87,8 +99,34 @@ class CreateMessage extends Component
 
     public function acceptSuggestion()
     {
-        $this->room->update(['operator_id' => auth()->id(), 'status' => 'chat']);
-        $this->emitUp('refreshRooms');
+        if($this->room->extras['expire_date'] == null) {
+            $this->room->update([
+                'operator_id' => auth()->id(),
+                'status' => 'chat',
+                'extras->remaining_duration' => null,
+                'extras->expire_date' => Carbon::now()->addMinutes($this->room->extras['remaining_duration'])->format('Y-m-d H:i:s'),
+            ]);
+            broadcast(new RoomStarted($this->room->id))->toOthers();
+            $this->emitUp('room-started');
+        } else {
+            $this->room->update([
+                'operator_id' => auth()->id(),
+                'status' => 'chat'
+            ]);
+            $this->emitUp('refreshRooms');
+        }
+        $this->status = 'chat';
+    }
+
+    public function startSuggestion()
+    {
+        $this->room->update([
+            'status' => 'chat',
+            'extras->remaining_duration' => null,
+            'extras->expire_date' => Carbon::now()->addMinutes($this->room->extras['remaining_duration'])->format('Y-m-d H:i:s'),
+        ]);
+        broadcast(new RoomStarted($this->room->id))->toOthers();
+        $this->emitUp('room-started');
         $this->status = 'chat';
     }
 
@@ -137,7 +175,7 @@ class CreateMessage extends Component
         $filenames = [];
         foreach ($this->photos as $photo) {
             // $photo->store('/uploads/chat/photo');
-            array_push($filenames, $photo->getFilename());
+            array_push($filenames, config('rezahmady.chat.uploud_photo_path').$photo->getFilename());
             $resource = "/livewire/preview-file/{$photo->getFilename()}";
             $destination = config('rezahmady.chat.uploud_photo_path').$photo->getFilename();
             if(Storage::disk('local')->exists($resource)) Storage::disk('local')->move($resource, $destination);

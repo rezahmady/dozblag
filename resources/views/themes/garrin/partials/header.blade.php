@@ -65,14 +65,14 @@
                     </div>
 
                     <div class="c-header__profile-dropdown-actions">
-                        @if (!auth()->user()->hasSubscribtion())
+                        {{-- @if (!auth()->user()->hasSubscribtion())
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('subscribtion.view')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--activate-digiclub">
                                 <span class="c-header__profile-dropdown-action-notification-badge"></span>
                                 فعال سازی اشتراک
                             </a>
                         </div>
-                        @endif
+                        @endif --}}
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('profile.info')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--orders "><i class="la la-user"></i> ویرایش مشخصات</a>
                         </div>

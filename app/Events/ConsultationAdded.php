@@ -1,6 +1,6 @@
 <?php
 
-namespace Rezahmady\Chat\Events;
+namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -22,9 +22,9 @@ class ConsultationAdded implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Room $room)
+    public function __construct($roomId)
     {
-        $this->room = $room;
+        $this->roomId = $roomId;
     }
 
     /**
@@ -35,5 +35,15 @@ class ConsultationAdded implements ShouldBroadcast
     public function broadcastOn()
     {
         return new PrivateChannel('consultation.added');
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return ['roomId' => $this->roomId];
     }
 }

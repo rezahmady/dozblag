@@ -10,10 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Rezahmady\Chat\Models\Room;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Facades\Storage;
 use Rezahmady\Payment\Models\Invoice;
 use Rezahmady\Payment\Models\Transaction;
 use Rezahmady\Resource\Models\Resource;
@@ -48,8 +46,10 @@ class User extends Authenticatable
         'extras->services',
         'extras->experience',
         'extras->medical_code',
-        'extras->specialty_id',
+        'extras->filter_specilty',
+        'extras->filter_services',
         'extras->telegram_user_id',
+        'extras->medical_folder',
     ];
 
     protected $fakeColumns = ['extras'];
@@ -83,7 +83,6 @@ class User extends Authenticatable
     public function parent() {
         return $this->belongsTo(self::class);
     }
-
 
     public function relationBelongsTo()
     {
@@ -122,23 +121,29 @@ class User extends Authenticatable
 
     public function subscribtions()
     {
-        return $this->belongsToMany(Subscribtion::class)->withPivot(['capacity', 'expire_date']);
+        return $this->belongsToMany(Subscribtion::class)->withPivot(['doctor_id']);
     }
 
-    public function getActiveSubscribtion()
+    public function getActiveSubscribtions()
     {
-        return $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now());
+        // return $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now())->orWhere('expire_date', null);
+        return $this->subscribtions()->with(['room' => function($q) {
+            $q->where('extras->expire_date', '>=', Carbon::now())->orWhere('extras->expire_date', null);
+        }]);
     }
 
     public function hasSubscribtion()
     {
-        $subscribtion = $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now())->first() ;
+        // $subscribtion = $this->subscribtions()->wherePivot('expire_date', '>=', Carbon::now())->orWhere('expire_date', null)->first() ;
+        $subscribtion = $this->subscribtions()->with(['room' => function($q) {
+            $q->where('extras->expire_date', '>=', Carbon::now())->orWhere('extras->expire_date', null);
+        }])->first();
         return (isset($subscribtion->name)) ? true : false;
     }
     
     public function getSubscribtionBrowse()
     {
-        $subscribtion = $this->getActiveSubscribtion()->first();
+        $subscribtion = $this->getActiveSubscribtions()->first();
         if(isset($subscribtion->name)) {
             echo $subscribtion->name;
         } else {
@@ -196,17 +201,28 @@ class User extends Authenticatable
         return $this->telegram_user_id;
     }
 
+    public function getRoom($doctor)
+    {
+        return $this->rooms()->where('doctor_id', $doctor)->where(function($q) {
+            $q->where('extras->expire_date', '>=', Carbon::now())->orWhere('extras->expire_date', null);
+        })->first();
+    }
+
+    public function getRoomMd5Id($doctor) {
+        return md5($this->getRoom($doctor)->id);
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'user_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
     |--------------------------------------------------------------------------
     */
 
-    // public function getProfileAttribute()
-    // {
-    //     $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
-    //     return asset($src);
-    // }
 
     /*
     |--------------------------------------------------------------------------

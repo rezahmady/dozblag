@@ -14,6 +14,8 @@ class PaymentController extends Controller
 {
     public function payment($driver, ModelsInvoice $invoice)
     {
+
+        session(['callbackUrl' => url()->previous()]);
         $invoiceId = $invoice->id;
         $selected_driver = $driver;
         $amount = $invoice->amount;

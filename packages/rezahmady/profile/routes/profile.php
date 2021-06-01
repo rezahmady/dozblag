@@ -14,8 +14,9 @@
  * User Routes
  */
 
-use Rezahmady\Profile\Http\Controllers\Dashboard;
-use Rezahmady\Profile\Http\Controllers\Info;
+use Rezahmady\Profile\Http\Controllers\Livewire\Dashboard;
+use Rezahmady\Profile\Http\Controllers\Livewire\Info;
+use Rezahmady\Profile\Http\Controllers\Livewire\Medical;
 
 Route::group([
     'middleware'=> array_merge(
@@ -26,7 +27,7 @@ Route::group([
 ], function() {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/info', Info::class)->name('info');
-    Route::get('/medical_folder', Info::class)->name('medical');
+    Route::get('/medical_folder', Medical::class)->name('medical');
 });
 
 

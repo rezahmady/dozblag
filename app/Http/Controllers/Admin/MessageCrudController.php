@@ -50,7 +50,16 @@ class MessageCrudController extends CrudController
                 'type'    => 'text',
                 'label'   => 'توکن بات تلگرامی',
                 'wrapper'   => [ 
-                    'class'      => 'form-group col-md-6'
+                    'class'      => 'form-group col-md-6 ltr'
+                 ], 
+                'tab'     => 'تلگرام',
+            ],
+            [
+                'name'    => 'telegram_link',
+                'type'    => 'text',
+                'label'   => 'لینک بات',
+                'wrapper'   => [ 
+                    'class'      => 'form-group col-md-6 ltr'
                  ], 
                 'tab'     => 'تلگرام',
             ],

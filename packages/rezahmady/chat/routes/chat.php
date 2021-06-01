@@ -20,11 +20,11 @@ use Rezahmady\Chat\Http\Livewire\Index;
 
 Route::group([
     'middleware'=> array_merge(
-    	(array) config('backpack.base.web_middleware', 'web'),
+    	['web', 'auth']
     ),
 ], function() {
-    // Route::get('something/action', \Rezahmady\Chat\Http\Controllers\SomethingController::actionName());
     Route::get('doctorConsulation', Index::class)->name('chatyno.index');
+    Route::middleware('room')->get('doctorConsulation/{id}', Index::class)->name('chatyno.show');
 });
 
 

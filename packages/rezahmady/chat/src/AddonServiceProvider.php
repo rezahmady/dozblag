@@ -17,6 +17,7 @@ use Rezahmady\Chat\View\Components\Suggestions;
 use Rezahmady\Chat\View\Components\Archives;
 use Livewire\Livewire;
 use Rezahmady\Chat\Http\Livewire\Index;
+use Rezahmady\Chat\Http\Middleware\RoomMiddleware;
 use Rezahmady\Chat\Models\Chat;
 use Rezahmady\Chat\Models\Room as ModelsRoom;
 use Rezahmady\User\Models\User;
@@ -47,6 +48,7 @@ class AddonServiceProvider extends ServiceProvider
 
         // resolve model relations
         $this->resolveRelationUsing();
+        $this->app['router']->aliasMiddleware('room', RoomMiddleware::class);
     }
 
     public function resolveRelationUsing()

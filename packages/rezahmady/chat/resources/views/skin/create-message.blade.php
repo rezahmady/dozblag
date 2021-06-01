@@ -79,7 +79,21 @@
 
         </div>
     </div>
-    @else 
+    @elseif($status === 'start') 
+    <div class="p-relative">
+        <form x-ref="div" wire:submit.prevent="startSuggestion" style="justify-content: center">
+            <button class="btn btn-primary " type="submit">
+                شروع گفت و گو
+            </button>
+        </form>
+    </div>
+    @elseif($status === 'end') 
+    <div class="p-relative">
+        <form x-ref="div" style="justify-content: center">
+            <span>پایان گفت و گو</span>
+        </form>
+    </div>
+    @else
     <div class="p-relative">
         <form x-ref="div" wire:submit.prevent="acceptSuggestion" style="justify-content: center">
             <button class="btn btn-primary " type="submit">

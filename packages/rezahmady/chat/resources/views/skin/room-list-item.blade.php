@@ -20,7 +20,7 @@
                     $photos = json_decode($message->body);
                     $photo = $photos[0];
                 @endphp
-                <p style="color: #2bd8f4"><img style="width:20px;border-radius: 3px" src="{{url(config('rezahmady.chat.uploud_photo_path').$photo)}}"> تصویر</p>
+                <p style="color: #2bd8f4"><img style="width:20px;border-radius: 3px" src="{{url($photo)}}"> تصویر</p>
             
             @else
             <p style="color: #2bd8f4">{{$message->body}}</p>

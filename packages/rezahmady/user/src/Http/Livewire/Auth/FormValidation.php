@@ -43,6 +43,11 @@ class FormValidation extends Component
             );
 
             if (Auth::attempt($userdata, true)) {
+                if(session('link')) {
+                    $url = session('link');
+                    session()->forget('link');
+                    return redirect()->to($url);
+                }
                 return redirect()->to('/');
             } else {
                 session()->flash('error', 'کد فعال سازی را اشتباه وارد کرده اید. لطفا دوباره سعی کنید');

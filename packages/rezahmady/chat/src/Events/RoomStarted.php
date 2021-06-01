@@ -9,9 +9,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Rezahmady\Chat\Models\Room;
 
-class ConsultationAdded implements ShouldBroadcast
+class RoomStarted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,9 +21,9 @@ class ConsultationAdded implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Room $room)
+    public function __construct($roomId)
     {
-        $this->room = $room;
+        $this->roomId = $roomId;
     }
 
     /**
@@ -34,6 +33,6 @@ class ConsultationAdded implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('consultation.added');
+        return new PrivateChannel("chat.{$this->roomId}");
     }
 }

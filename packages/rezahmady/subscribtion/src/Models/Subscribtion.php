@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Rezahmady\Payment\Models\Invoice;
 use Rezahmady\Payment\Traits\HasPayment;
 use Alert;
+use App\Events\ConsultationAdded;
+use Rezahmady\Chat\Models\Room;
 
 class Subscribtion extends Model
 {
@@ -64,10 +66,20 @@ class Subscribtion extends Model
 
     public function runAfterSettled(Invoice $invoice)
     {
-        backpack_user()->subscribtions()->save($this, [
-            'expire_date' => Carbon::now()->addDay($this->extras->limit_duration)->format('Y-m-d H:i:s'),
-            'capacity'    => $this->extras->limit_capacity
+        $room = Room::create([
+            'user_id' => backpack_user()->id,
+            'doctor_id' => session()->get('doctor_id') ?? null,
+            'extras->subscribtion_id' => $this->id,
+            'extras->remaining_duration' => $this->extras->limit_duration,
+            'extras->expire_date' => null,
         ]);
+
+        backpack_user()->subscribtions()->save($this, [
+            'room_id'     => $room->id,
+            'doctor_id'   => session()->get('doctor_id'),
+        ]);
+
+        broadcast(new ConsultationAdded($room->id))->toOthers();
     }
 
     public function callbackPayment($status, $message)
@@ -77,8 +89,8 @@ class Subscribtion extends Model
         } else {
             Alert::error($message)->flash();
         }
-
-        return redirect()->to('/');
+        $url = session('callbackUrl');
+        return redirect()->to($url);
     }
     
     /*
@@ -86,6 +98,11 @@ class Subscribtion extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function room()
+    {
+        return $this->hasOne(Room::class, 'extras->subscribtion_id');
+    }
 
     /*
     |--------------------------------------------------------------------------

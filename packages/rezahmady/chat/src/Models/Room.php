@@ -5,6 +5,7 @@ namespace Rezahmady\Chat\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Rezahmady\Subscribtion\Models\Subscribtion;
 use Rezahmady\User\Models\User;
 
 class Room extends Model
@@ -17,11 +18,14 @@ class Room extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'doctor_id',
+        'extras->remaining_duration',
+        'extras->subscribtion_id',
+        'extras->expire_date',
         'operator_id',
+        'doctor_id',
+        'user_id',
         'extras',
-        'status'
+        'status',
     ];
 
     protected $fakeColumns = ['extras'];
@@ -65,6 +69,17 @@ class Room extends Model
     {
         return $this->hasOne(Chat::class)->latest();
     }
+
+    public function subscribtion()
+    {
+        return $this->belongsTo(Subscribtion::class, 'extras->subscribtion_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
 
     /*
     |--------------------------------------------------------------------------

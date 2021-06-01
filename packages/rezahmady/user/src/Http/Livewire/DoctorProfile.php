@@ -2,11 +2,19 @@
 
 namespace Rezahmady\User\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithAlert;
 use Livewire\Component;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Rezahmady\Payment\Models\Discount;
+use Rezahmady\SettingOperation\Facades\Setting;
+use Rezahmady\Subscribtion\Models\Subscribtion;
 
 class DoctorProfile extends Component
 {
+    use  WithAlert;
+    
     public $doctor;
 
     public $clinics;
@@ -19,26 +27,118 @@ class DoctorProfile extends Component
 
     public $services;
 
+    public $packages;
+
+    public $gateways;
+
+    public $driver;
+
+    public $discount;
+
+    public $discount_id = null;
+
+    public $subscribtion;
+
+    public $subscribtionStatus;
+
     public function mount(User $user) {
         
         $this->doctor   = $user->withFakes();
 
         $this->clinics  = json_decode($this->doctor->clinics);
 
-        $this->edu_bg   = json_decode($this->doctor->edu_bg);
+        $this->edu_bg   = json_decode($this->doctor->edu_bg, true);
 
-        $this->job_bg   = json_decode($this->doctor->job_bg);
+        $this->job_bg   = json_decode($this->doctor->job_bg, true);
 
-        $this->gif_bg   = json_decode($this->doctor->gif_bg);
+        $this->gif_bg   = json_decode($this->doctor->gif_bg, true);
 
         $this->services = $this->doctor->servicesFilter();
 
-        // dd($this->services);
+        $this->packages = Subscribtion::active()->get();
 
+        $this->subscribtion = Subscribtion::active()->first()->toArray();
+
+        $this->gateways = Setting::get('transactions.drivers');
+        
+        $this->driver = Setting::get('transactions.default_driver');
+
+        $this->subscribtionStatus = $this->checkSubscribtion();
+
+    }
+
+    public function checkSubscribtion()
+    {
+        if(Auth::check() and auth()->user()->hasSubscribtion()) {
+            if (auth()->user()->hasSubscribtion()) {
+                return 'access';
+            }
+        }
+        return 'deny';
+    }
+
+    public function selectSubscribtion($id)
+    {
+        $this->subscribtion = Subscribtion::find($id)->toArray();
+        $this->discount = $this->discount_id = null;
+       
+    }
+
+    function rules() {
+        return [
+            'discount'  => 'required|exists:discounts,name',
+        ];
+    }
+
+    public function checkDiscount()
+    {
+        $this->validate();
+        $discount = Discount::Where('name', $this->discount)->first();
+        // check used before
+        $checkUniqueUsed = backpack_user()->invoices()->where('discount_id', $discount->id)->settled()->get();
+        
+        if(sizeOf($checkUniqueUsed)) {
+            $this->addError('discount', 'این کدتخفیف قبلا استفاده شده');
+        } else {
+            if($this->discount_id != $discount->id)
+                $this->subscribtion['amount'] = $discount->applayDiscount($this->subscribtion['amount']);
+            $this->discount_id = $discount->id;
+        }
+    }
+
+    public function payment(Subscribtion $subscribtion)
+    {
+
+        $invoice = $subscribtion->invoice()->where('user_id', backpack_user()->id)->where('amount', $subscribtion->amount)->notsettled()->first();
+        
+        $amount = ($this->discount_id) ? Discount::find($this->discount_id)->applayDiscount($subscribtion->amount) : $subscribtion->amount;
+        if(!$invoice) {
+            $invoice = $subscribtion->invoice()->create([
+                'user_id' => backpack_user()->id,
+                'amount'  => $amount,
+                'discount_id' => $this->discount_id,
+            ]);
+        } elseif($this->discount_id) {
+            $invoice->update([
+                'discount_id' => $this->discount_id,
+            ]);
+        }
+        
+        $invoiceId = $invoice->id;
+        $selected_driver = $this->driver;
+        session()->put('doctor_id', $this->doctor->id);
+
+        return redirect()->to("/payment/$selected_driver/$invoiceId");
+    }
+
+    public function dehydrate()
+    {
+        $this->dehydrateWithAlert();
     }
 
     public function render()
     {
+        // dd($this->edu_bg);
         return view('theme::modules.user.doctor-profile')->layout('theme::layouts.app');
     }
 }

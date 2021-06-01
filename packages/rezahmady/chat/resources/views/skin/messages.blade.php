@@ -68,7 +68,7 @@
 
                 @else
                 <div class="message-item {{$class}}" id="message-{{$message->id}}">
-                    @if ($message->user_id != auth()->id())
+                    @if ($message->user_id != auth()->id() and backpack_user()->template != 'customer' )
                     <div class="message-sender">
                         {{$message->user->name}}
                     </div>
@@ -91,23 +91,14 @@
     Echo.channel('private-chat.{{$room->id}}')
     .listen('\\Rezahmady\\Chat\\Events\\MessageAdded', (e) => {
         window.Livewire.emit('prependMessageFromBroadcasting', e)
-    }).listen('Chat\\MessageSeen', (e) => {
+    }).listen('\\Rezahmady\\Chat\\Events\\MessageSeen', (e) => {
         window.Livewire.emit('refreshRooms')
+    }).listen('\\Rezahmady\\Chat\\Events\\RoomStarted', (e) => {
+        window.Livewire.emit('room-started')
     });
 
     Echo.channel('private-chat.{{$room->id}}.user.{{auth()->id()}}')
     .listen('\\Rezahmady\\Chat\\Events\\MessageSeenResponse', (e) => {
         window.Livewire.emit('refreshRooms')
-    })
-
-    $(document).ready(function () {
-        $('#chat-body').niceScroll({
-            autohidemode:'leave',
-            cursorborder:'none',
-            cursorcolor: '#cecece',
-        });
-
-        // $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height());
-        // $('#chat-body').getNiceScroll(0).doScrollTop($('#messages-holder').height(), -1); // -1 is the animation duration
     })
 </script>

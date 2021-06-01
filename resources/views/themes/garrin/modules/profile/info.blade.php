@@ -5,9 +5,6 @@
  
     <!-- Basic Information -->
     <form wire:submit.prevent="submit">
-        <div class="submit-section submit-btn-bottom">
-            <button type="submit" class="btn btn-primary submit-btn">ذخیره تغییرات</button>
-        </div>
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">مشخصات اصلی</h4>
@@ -17,9 +14,9 @@
                             <div class="change-avatar">
                                 <div class="profile-img">
                                     @if ($photo)
-                                        <img src="{{ $photo->temporaryUrl() }}">
+                                        <img class="rounded-circle" src="{{ $photo->temporaryUrl() }}">
                                     @else 
-                                        <img src="{{$user->profile}}" alt="User Image">
+                                        <img class="rounded-circle" src="{{$user->getProfile()}}">
                                     @endif
                                 </div>
                                 <div class="upload-img">
@@ -55,9 +52,9 @@
                     
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>جنسیت</label>
+                            <label>جنسیت <span class="text-danger">*</span></label>
                             <select wire:model.lazy="gender" id="gender" class="form-control select">
-                                <option>انتخاب</option>
+                                <option >انتخاب</option>
                                 <option @if ($gender == 'mail') selected @endif value="mail">آقا</option>
                                 <option @if ($gender == 'fmail') selected @endif value="fmail">خانم</option>
                             </select>
@@ -116,34 +113,27 @@
                     <textarea wire:model.defer="bio" class="form-control summernote" rows="5"></textarea>
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group">
                     <label>خدمات در مطب</label>
-                    <div x-data="tagInput()" class="bg-grey-lighter min-h-screen">
-                        <template x-for="tag in tags">
-                            <input type="hidden" name="tags[]" :value="tag">
-                        </template>
-                    
-                        <div class="max-w-sm w-full mx-auto">
-                            <div class="tags-input form-control">
-                                <template x-for="tag in tags" :key="tag">
-                                    <span class="tags-input-tag">
-                                        <span x-text="tag"></span>
-                                        <button type="button" class="tags-input-remove" @click="tags = tags.filter(i => i !== tag)">
-                                            &times;
-                                        </button>
-                                    </span>
-                                </template>
-                    
-                                <input class="tags-input-text" placeholder="بنویسید..."
-                                    @keydown.enter.prevent="if (newTag.trim() !== '') tags.push(newTag.trim()); newTag = ''"
-                                    @keydown.backspace="if (newTag.trim() === '') tags.pop()"
-                                    x-model="newTag"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                    <small class="form-text text-muted">توجه: برای افزودن خدمات جدید ، اینتر را فشار داده و وارد کنید</small>
-                </div> 
+                    <select wire:model.lazy="specialty_id" id="services" multiple class="form-control select"
+                    x-data
+                    x-ref="services"
+                    x-init="
+                    $($refs.services).on('select2:select', function (e) {
+                        var data = $($refs.services).select2('val');
+                        console.log(data)
+                        @this.setServices(data);
+                    });
+                    $($refs.services).val(@this.get('new_services')).trigger('change');
+                    "
+                    >
+                        <option>-- انتخاب --</option>
+                        @foreach ($services as $key => $item)
+                            <option  value="{{$key}}">{{$item}}</option>
+                        @endforeach
+                    </select>
+                    @error('specialty_id') <span class="error">{{ $message }}</span> @enderror
+                </div>
             </div>
         </div>
         <!-- /About Me -->
@@ -333,8 +323,8 @@
         <!-- /successfull -->
         @endif
         
-        <div class="submit-section submit-btn-bottom">
-            <button type="submit" class="btn btn-primary submit-btn">ذخیره تغییرات</button>
+        <div class="submit-section submit-btn-bottom justify-content-end d-flex">
+            <button type="submit" class="btn btn-success submit-btn">ذخیره تغییرات</button>
         </div>
     </form>
     <!-- /Page Content -->
@@ -365,6 +355,8 @@
                     minimumResultsForSearch: -1,
                     width: '100%'
                 });
+
+                $("#services").val(@this.get('new_services')).trigger('change');
             }
         })
     </script>
