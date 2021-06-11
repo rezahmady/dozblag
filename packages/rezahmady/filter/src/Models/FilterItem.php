@@ -2,15 +2,19 @@
 
 namespace Rezahmady\Filter\Models;
 
+use App\Models\User;
 use Rezahmady\Filter\Models\Filter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
+use Rezahmady\Article\Models\Article;
 
 class FilterItem extends Model
 {
     use HasFactory;
-    use CrudTrait;
+    use CrudTrait, Sluggable, SluggableScopeHelpers;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,11 +26,13 @@ class FilterItem extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'parent_id', 'filter_id', 'image'];
+    protected $fillable = ['name', 'parent_id', 'filter_id', 'image', 'slug', 'extras'];
     // protected $hidden = [];
     // protected $dates = [];
-
-
+    protected $fakeColumns = ['extras'];
+    protected $casts = [
+        'extras' => 'object',
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -35,8 +41,23 @@ class FilterItem extends Model
     */
     public function path()
     {
-        return '/';
+        return route('filter.item.page',[$this->filter->slug,$this->slug]);
     }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable() :array
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
+    }
+    
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -61,6 +82,16 @@ class FilterItem extends Model
     public function filterModule()
     {
         return $this->belongsTo('App\Models\Filter', 'filter_id')->where('module', 'User');
+    }
+
+    public function doctors()
+    {
+        return $this->hasMany(User::class, 'extras->filter_'.$this->filter->slug);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'extras->filter_'.$this->filter->slug);
     }
     
     /*

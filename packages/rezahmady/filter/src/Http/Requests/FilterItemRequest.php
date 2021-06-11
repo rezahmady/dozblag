@@ -27,6 +27,7 @@ class FilterItemRequest extends FormRequest
     {
         return [
             'name'      => 'required|max:255',
+            'slug' => 'unique:filter_items,slug,'.\Request::get('id'),
             'filter_id' => 'required'
         ];
     }

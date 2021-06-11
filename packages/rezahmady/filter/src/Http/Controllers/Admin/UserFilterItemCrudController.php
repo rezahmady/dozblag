@@ -114,7 +114,8 @@ class UserFilterItemCrudController extends CrudController
             [
                 'name'       => 'name',
                 'label'      => 'نام',
-                'type'       => 'text'
+                'type'       => 'text',
+                'tab'   => 'مشخصات'
             ],
             [
                 'label' => 'دسته',
@@ -124,12 +125,103 @@ class UserFilterItemCrudController extends CrudController
                 'attribute' => 'name',
                 'inline_create' => true,
                 'ajax' => false,
+                'tab'   => 'مشخصات'
+            ],
+            [
+                'name'       => 'slug',
+                'label'      => 'آدرس یکتا',
+                'hint'       => 'درصورت خالی ماندن به طور خود کار از روی نام ایجاد می شود',
+                'type'       => 'text',
+                'tab'   => 'مشخصات'
             ],
             [   // Browse
                 'name'  => 'image',
                 'label' => 'تصویر',
                 'type'  => 'browse',
-                'tab'   => 'تصویر شاخص'
+                'tab'   => 'مشخصات'
+            ],
+            [
+                'name'    => 'description',
+                'label'   => 'توضیحات',
+                'type'    => 'summernote',
+                'fake'    => true,
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'tab'     => 'مشخصات',
+            ],
+            [
+                'name'       => 'services_title',
+                'label'      => 'عنوان',
+                'type'       => 'text',
+                'tab'   => 'خدمات',
+                'fake'    => true,
+            ],
+            [   // Browse
+                'name'  => 'services_image',
+                'label' => 'تصویر',
+                'type'  => 'browse',
+                'tab'   => 'خدمات',
+                'fake'    => true,
+            ],
+            [
+                'name'    => 'services_description',
+                'label'   => 'توضیحات',
+                'type'    => 'summernote',
+                'fake'    => true,
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'tab'     => 'خدمات',
+            ],
+
+            [
+                'name'       => 'articles_title',
+                'label'      => 'عنوان',
+                'type'       => 'text',
+                'tab'   => 'اطلاعات',
+                'fake'    => true,
+            ],
+            [   // Browse
+                'name'  => 'articles_image',
+                'label' => 'تصویر',
+                'type'  => 'browse',
+                'tab'   => 'اطلاعات',
+                'fake'    => true,
+            ],
+            [
+                'name'    => 'articles_description',
+                'label'   => 'توضیحات',
+                'type'    => 'summernote',
+                'fake'    => true,
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'tab'     => 'اطلاعات',
             ],
         ]);
         /**

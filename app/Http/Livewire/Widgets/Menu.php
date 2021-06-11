@@ -22,7 +22,7 @@ class Menu extends Component
         $this->widget = $this->widget->withFakes();
         switch ($this->widget->type) {
             case 'all_pages':
-                $pages = Page::where(['parent_id' => null])->with('childrenRecursive')->orderBy('lft')->get()->toArray();
+                $pages = Page::where(['parent_id' => null])->with('childrenRecursive')->where('extras->show', 1)->orderBy('lft')->get()->toArray();
                 $this->menu = $this->makeList($pages);
                 break;
             case 'custom_menu':
@@ -30,7 +30,7 @@ class Menu extends Component
                 break;
 
             default:
-                $pages = Page::where(['parent_id' => null, 'template' => $this->widget->type])->with('childrenRecursive')->orderBy('lft')->get()->toArray();
+                $pages = Page::where(['parent_id' => null, 'template' => $this->widget->type])->with('childrenRecursive')->where('extras->show', 1)->orderBy('lft')->get()->toArray();
                 $this->menu = $this->makeList($pages);
                 break;
         }
@@ -76,11 +76,13 @@ class Menu extends Component
         //Recursive Step: make a list with child lists
         $output = $start;
         foreach ($array as $subArray) {
-            $has_child = (empty($subArray['children_recursive'])) ? '' : ' <i class="fas fa-chevron-down"></i> ';
-            $li_class = (empty($subArray['children_recursive'])) ? '' : 'has-submenu';
-            $output .= '<li class="'.$li_class.'"><a href="'.url($subArray['slug']).'" >
-            '.$subArray['title'].$has_child.'</a>'
-            . $this->makeList($subArray['children_recursive'], $subArray['id'] ) . '</li>';
+            if($subArray['extras']['show']) {
+                $has_child = (empty($subArray['children_recursive'])) ? '' : ' <i class="fas fa-chevron-down"></i> ';
+                $li_class = (empty($subArray['children_recursive'])) ? '' : 'has-submenu';
+                $output .= '<li class="'.$li_class.'"><a href="'.url($subArray['slug']).'" >
+                '.$subArray['title'].$has_child.'</a>'
+                . $this->makeList($subArray['children_recursive'], $subArray['id'] ) . '</li>';
+            }
         }
         $output .= ($id) ? '</ul>' : '';
 

@@ -73,9 +73,9 @@
     <!-- /Header -->
     <section class="section home-section-comments" >
         <div class="container position-relative subscribe-page">
-            {{-- @can('subscribtion manage') --}}
+            @can('subscribtion manage')
                 <a class="btn btn-setting mb-5"  x-on:click="setwidget('self-page')" style="right:0;" href="{{ url("admin/subscribtion/setting?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
-            {{-- @endcan --}}
+            @endcan
             <!-- Section Header -->
             <div class="section-header position-relative text-center">
                 <h2 class="fw-800">{{Setting::get('subscribtions.title')}}</h2>

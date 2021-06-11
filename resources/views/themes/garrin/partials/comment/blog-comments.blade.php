@@ -1,8 +1,8 @@
-<div class="container-fluid px-3">
+<div class="px-3 container-fluid">
     <div class="row" >
         <div class="col-md-7 blog-single-comments">
             
-            <div class="blog-comments clearfix">
+            <div class="clearfix blog-comments">
                 @if (sizeOf($comments))
                 <div class="pb-0">
                     <ul class="comments-list">
@@ -19,12 +19,12 @@
         </div>
         <div class="col-md-5 comment-create-box">
     
-            <div class="new-comment clearfix sticky pt-3" id="create-comment">
+            <div class="sticky clearfix pt-3 new-comment" id="create-comment">
                 <div class="">
                     <h4 class="section-title">ارسال نظر</h4>
                 </div>
                 <div class="card-body">
-                    <livewire:comment.create-comment :module="'Article'" :moduleId="$postId" :view="'theme::partials.comment.blog-create-comment'" />
+                    <livewire:comment.create-comment :module="'Article'" :moduleId="$moduleId" :view="'theme::partials.comment.blog-create-comment'" />
                 </div>
             </div>
         </div>

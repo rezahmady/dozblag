@@ -10,9 +10,13 @@ class CommentHolder extends Component
 
     public $comments;
 
-    public $post;
+    public $module;
 
-    public $postId;
+    public $moduleId;
+
+    public $hasMore;
+
+    public $counter = 20;
 
     protected $listeners = [
         'comments-refresh' => 'setComments',
@@ -20,18 +24,25 @@ class CommentHolder extends Component
 
     public function setComments()
     {
-        $this->comments = $this->post->comments;
         $this->emit('comment-refresh');
     }
 
-    public function mount($post)
+    public function moreComments()
     {
-        $this->comments = $post->comments;
-        $this->postId = $post->id;
+        $this->counter = $this->counter+10;
+
+    }
+
+    public function mount($module)
+    {
+        $this->module = $module;
+        $this->moduleId = $module->id;
     }
 
     public function render()
     {
+        $this->comments = $this->module->comments()->latest()->take($this->counter)->get();
+        $this->hasMore = ($this->comments->count() >= $this->module->comments->count()) ? false : true;
         return view($this->view);
     }
 }

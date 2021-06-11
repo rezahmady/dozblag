@@ -45,7 +45,7 @@ class DoctorProfile extends Component
         
         $this->doctor   = $user->withFakes();
 
-        $this->clinics  = json_decode($this->doctor->clinics);
+        $this->clinics  = $this->doctor->resource;
 
         $this->edu_bg   = json_decode($this->doctor->edu_bg, true);
 
@@ -108,6 +108,12 @@ class DoctorProfile extends Component
 
     public function payment(Subscribtion $subscribtion)
     {
+
+        if(!auth()->check())
+        {
+            session(['link' => url()->current()]);
+            return redirect()->to(route('auth.login'));
+        }
 
         $invoice = $subscribtion->invoice()->where('user_id', backpack_user()->id)->where('amount', $subscribtion->amount)->notsettled()->first();
         

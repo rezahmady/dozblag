@@ -4,6 +4,7 @@ namespace Rezahmady\Comment\Http\Livewire;
 
 use Rezahmady\SettingOperation\Setting;
 use Livewire\Component;
+use Rezahmady\Chat\Models\Room;
 use Rezahmady\Comment\Models\Comment;
 
 class CreateComment extends Component
@@ -28,7 +29,12 @@ class CreateComment extends Component
 
     public $reply;
 
-    protected $listeners = ['setCommentParentId'];
+    public $room;
+
+    protected $listeners = [
+        'setCommentParentId',
+        'rerenderCreateMessage',
+    ];
 
     public function setCommentParentId($id)
     {
@@ -60,6 +66,11 @@ class CreateComment extends Component
         'body' => 'نظر'
     ];
 
+    public function rerenderCreateMessage(Room $room)
+    {
+        $this->room = $room;
+    }
+
     public function submit()
     {
         $this->validate();
@@ -90,7 +101,44 @@ class CreateComment extends Component
             $this->emit('comments-refresh');
         }
 
-        session()->flash('success', Setting::get('comments.success-created'));
+        session()->flash('success', Setting::get('comments.blog-success-created'));
+    }
+
+    public function doctorSubmit()
+    {
+        $this->validate([
+            'body'  => 'required|string',
+            'score' => 'required',
+        ]);
+        
+        // Execution doesn't reach here if validation fails.
+
+        if(auth()->check()) {
+            $this->name = auth()->user()->name;
+            $this->user_id = auth()->id();
+        }
+        $status = (auth()->check() and backpack_user()->can('chat join')) ? 1 : 0;
+        
+        Comment::create([
+            'name'       => $this->name,
+            'email'      => $this->email,
+            'body'       => $this->body,
+            'score'      => $this->score,
+            'user_id'    => $this->user_id,
+            'module_id'  => $this->moduleId,
+            'module'     => $this->module,
+            'parent_id'  => $this->parent_id,
+            'extras->room_id' => $this->room->id,
+            'status'     => $status,
+        ]);
+
+        $this->body = $this->parent_id = $this->score = $this->parent_id = $this->reply = null;
+
+        if($status) {
+            $this->emit('comments-refresh');
+        }
+
+        session()->flash('success', Setting::get('comments.doctor-success-created'));
     }
 
     public function render()

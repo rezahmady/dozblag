@@ -45,7 +45,7 @@
                     <div class="buttons_holder" x-show="buttons_holder" x-on:click.away="close_buttons()">
 
                         <form wire:submit.prevent="savePhotos">
-                            <button class="btn btn-light btn-floating mb-1 button-wrapper" type="submit">
+                            <button class="mb-1 btn btn-light btn-floating button-wrapper" type="submit">
                                 <span class="label">
                                     <i class="fa fa-photo"></i>
                                 </span>
@@ -53,7 +53,7 @@
                             </button>
                         </form>
 
-                        <button x-on:click="startRecording();open_voice()" class="btn btn-light btn-floating mb-1" type="button">
+                        <button x-on:click="startRecording();open_voice()" class="mb-1 btn btn-light btn-floating" type="button">
                             <i class="fa fa-microphone"></i>
                         </button>
                         <button class="btn btn-light btn-floating" type="button" x-on:click="close_buttons()">
@@ -87,7 +87,8 @@
             </button>
         </form>
     </div>
-    @elseif($status === 'end') 
+    @elseif($status === 'end')
+    <livewire:comment.create-comment :module="'User'" :moduleId="$room->doctor_id" :room="$room" :view="'theme::partials.comment.doctor-create-comment'" />
     <div class="p-relative">
         <form x-ref="div" style="justify-content: center">
             <span>پایان گفت و گو</span>

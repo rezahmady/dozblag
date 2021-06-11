@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
 use App\Models\User;
 use App\Services\Telegram\Telegram;
+use Rezahmady\Filter\Models\FilterItem;
 use Rezahmady\Page\Http\Livewire\PageRender;
 
 /*
@@ -20,12 +21,18 @@ use Rezahmady\Page\Http\Livewire\PageRender;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
-Route::get('/fire', function () {
+Route::get('/set-slug', function () {
     // event(new \App\Events\SystemMessage());
     // return 'ok';
-    $user = App\Models\User::first();
-    $user->notify(new App\Notifications\InvoicePaid());
+    // $user = App\Models\User::first();
+    // $user->notify(new App\Notifications\InvoicePaid());
+    $filteritems = FilterItem::get();
+    foreach($filteritems as $post) {
+        $slug = SlugService::createSlug(FilterItem::class, 'slug', $post->name);
+        $post->update(['slug' => $slug]);
+    }
 });
 
 Route::get('/admin/aa', function() {

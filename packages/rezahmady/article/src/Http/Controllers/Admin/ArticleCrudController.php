@@ -5,6 +5,9 @@ namespace Rezahmady\Article\Http\Controllers\Admin;
 use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Rezahmady\Article\Http\Requests\ArticleRequest;
+use Rezahmady\Filter\Models\Filter;
+use Rezahmady\Filter\Models\FilterItem;
+use Rezahmady\SettingOperation\Facades\Setting;
 
 class ArticleCrudController extends CrudController
 {
@@ -18,6 +21,7 @@ class ArticleCrudController extends CrudController
     // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Rezahmady\SettingOperation\SettingOperation;
     use DefaultPermissions;
     Const ENTITY = 'post';
 
@@ -196,6 +200,8 @@ class ArticleCrudController extends CrudController
                 'tab' => 'منابع'
             ]);
 
+            $this->getFilters();
+
             $this->crud->field('line')->type('custom_html')
             ->value('<span class="bg-warning text-warning">تیتر و شرح مختصر صفحه به صورت خودکار ایجاد می‌شود و در صورتی که تمایل دارید این مقادیر را به صورت سفارشی ایجاد کنید، از فرم زیر استفاده کنید.</span>')
             ->tab('سئو');
@@ -203,6 +209,32 @@ class ArticleCrudController extends CrudController
             $this->crud->addFields(static::getFieldsArrayForSeo());
 
         });
+    }
+
+    /**
+    * Define what happens when the Setting operation is loaded.
+    * 
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        // backpack fields
+        $filters = Filter::active()->pluck('name','id');
+        $this->crud->addFields([
+            [
+                'name'        => "filters",
+                'label'       => 'فیلتر ها',
+                'type'        => 'select2_from_array',
+                'options'     => $filters,
+                'allows_null' => false,
+                'default'     => 'one',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ]
+        ]);
     }
 
     public static function getFieldsArrayForAttributes()
@@ -372,6 +404,44 @@ class ArticleCrudController extends CrudController
                 'tab'   => 'سئو',
             ],
         ];
+    }
+
+    protected function getFilters() {
+        $filters = Setting::get("articles.filters");
+        if($filters) foreach($filters as $key => $item) {
+            $item = Filter::findOrFail($item);
+            $multiple = ($item->type == 'hasMany') ? true : false;
+            switch ($item->field) {
+                case 'select2_from_array':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'        => 'select2_from_array',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                        'wrapper'   => [ 
+                            'class'      => 'form-group col-md-6'
+                        ],
+                        'multiple' => $multiple,
+                        'allows_null' => true,
+                    ]);
+                    break;
+                case 'select_and_order':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'    => 'select_and_order',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                    ]);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
     }
 
 

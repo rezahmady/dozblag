@@ -193,8 +193,6 @@
             sidebar: true,
             profile: false,
             loadingRoom: false,
-            expiry: '',
-            remaining:null,
             currentRoom: @entangle('currentRoom'),
             navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
             set_navigation(target) {
@@ -217,44 +215,6 @@
             profileClose() {
                 this.profile = false;
             },
-            setRemaining() {
-                const diff = this.expiry - new Date(@this.expireDate).getTime();
-                this.remaining =  parseInt(diff / 1000);
-            },
-            days() {
-                return {
-                    value:this.remaining / 86400,
-                    remaining:this.remaining % 86400
-                };
-            },
-            hours() {
-                return {
-                    value:this.days().remaining / 3600,
-                    remaining:this.days().remaining % 3600
-                };
-            },
-            minutes() {
-                return {
-                    value:this.hours().remaining / 60,
-                    remaining:this.hours().remaining % 60
-                };
-            },
-            seconds() {
-                return {
-                    value:this.minutes().remaining,
-                };
-            },
-            format(value) {
-                return ("0" + parseInt(value)).slice(-2)
-            },
-            time(){
-                return {
-                    days:this.format(this.days().value),
-                    hours:this.format(this.hours().value),
-                    minutes:this.format(this.minutes().value),
-                    seconds:this.format(this.seconds().value),
-                }
-            },
             init() {
                 this.hiddenLoader();
                 if(this.currentRoom) {
@@ -263,14 +223,33 @@
                 window.addEventListener('room-set', event => {
                     this.loadingRoom = false;
                 })
-                
-                    // this.setRemaining()
-                // setInterval(() => {
-                //     this.expiry = new Date(@this.expireDate);
-                //     console.log(this.expiry)
-                //     this.setRemaining();
-                // }, 1000);
             },
+        }
+    }
+
+    function starRating(){
+        return {
+            rating: 0,
+            hoverRating: 0,
+            ratings: [
+                {'amount': 1, 'label':'بسیار بد'},
+                {'amount': 2, 'label':'بد'},
+                {'amount': 3, 'label':'متوسط'},
+                {'amount': 4, 'label':'خوب'},
+                {'amount': 5, 'label':'عالی'}
+            ],
+            rate(amount) {
+                if (this.rating == amount) {
+                    this.rating = 0;
+                }
+                else this.rating = amount;
+            },
+            currentLabel() {
+                let r = this.rating;
+                if (this.hoverRating != this.rating) r = this.hoverRating;
+                let i = this.ratings.findIndex(e => e.amount == r);
+                if (i >=0) {return this.ratings[i].label;} else {return ''};     
+            }
         }
     }
 
@@ -338,6 +317,7 @@
             },
         }
     }
+
     function CreateMessage() {
         return {
             voice_holder: false,
@@ -358,6 +338,21 @@
             },
             toggle_buttons() {
                 this.buttons_holder = ! this.buttons_holder;
+            },
+            rating: 0,
+            hoverRating: 0,
+            ratings: [{'amount': 1, 'label':'Terrible'}, {'amount': 2, 'label':'Bad'}, {'amount': 3, 'label':'Okay'}, {'amount': 4, 'label':'Good'}, {'amount': 5, 'label':'Great'}],
+            rate(amount) {
+                if (this.rating == amount) {
+                    this.rating = 0;
+                }
+                else this.rating = amount;
+            },
+            currentLabel() {
+                let r = this.rating;
+                if (this.hoverRating != this.rating) r = this.hoverRating;
+                let i = this.ratings.findIndex(e => e.amount == r);
+                if (i >=0) {return this.ratings[i].label;} else {return ''};     
             }
         }
     }

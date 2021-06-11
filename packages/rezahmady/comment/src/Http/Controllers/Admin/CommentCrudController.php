@@ -124,8 +124,8 @@ class CommentCrudController extends CrudController
             ],
             [
                 'name' => 'module_id',
-                'value' => 2,
-                'type' => 'hidden',
+                'label' => 'پست id',
+                'type' => 'number',
             ],
             [
                 'name' => 'parent_id',
@@ -280,8 +280,23 @@ class CommentCrudController extends CrudController
         // backpack fields
         CRUD::addFields([
             [
-                'name' => 'success-created',
-                'label' => 'متن پیام ارسال موفق نظر',
+                'name' => 'doctor-comment-info',
+                'label' => 'متن توضیحی ارسال نظر برای پزشک',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'doctor-success-created',
+                'label' => 'متن پیام ارسال موفق نظر برای پزشک',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'doctor-success-accepted',
+                'label' => 'متن پیام نظر (بازخورد برای پزشک) تایید شده',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'blog-success-created',
+                'label' => 'متن پیام ارسال موفق نظر برای پست',
                 'type' => 'textarea',
             ],
         ]);

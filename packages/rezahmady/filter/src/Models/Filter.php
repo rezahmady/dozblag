@@ -24,9 +24,13 @@ class Filter extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'parent_id', 'status', 'module', 'slug', 'type', 'field'];
+    protected $fillable = ['name', 'parent_id', 'status', 'module', 'slug', 'type', 'field', 'extras'];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $fakeColumns = ['extras'];
+    protected $casts = [
+        'extras' => 'object',
+    ];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -68,7 +72,7 @@ class Filter extends Model
 
     public function path()
     {
-        return '/';
+        return route('filter.page',[$this->slug]);
     }
 
     /*
@@ -88,6 +92,11 @@ class Filter extends Model
     }
 
     public function items()
+    {
+        return $this->hasMany(FilterItem::class);
+    }
+
+    public function filterItems()
     {
         return $this->hasMany(FilterItem::class);
     }

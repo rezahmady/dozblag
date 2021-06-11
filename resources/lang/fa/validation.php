@@ -135,6 +135,7 @@ return [
         "shahrestan" => "شهر",
         "featured_item" => "پست ویژه",
         "discount"  => 'کدتخفیف',
+        "score"     => 'امتیاز',
         "slug"             => "آدرس صفحه",
         "medical_folder.*.photo" => 'تصویر مدرک',
         "medical_folder.*.title" => 'عنوان مدرک',

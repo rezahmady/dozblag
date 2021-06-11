@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Rezahmady\Chat\Models\Room;
+use Rezahmady\Comment\Models\Comment;
 use Spatie\Permission\Traits\HasRoles;
 use Rezahmady\Payment\Models\Invoice;
 use Rezahmady\Payment\Models\Transaction;
@@ -151,6 +152,11 @@ class User extends Authenticatable
         }
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'module_id')->with('childrenRecursive')->where('parent_id', null);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -164,7 +170,7 @@ class User extends Authenticatable
 
     public function path()
     {
-        return url('/');
+        return route('doctor.show', $this->id);
     }
 
     public function getPageLink()
@@ -178,6 +184,13 @@ class User extends Authenticatable
             return '<a class="btn btn-sm btn-link" href="'.$this->getPageLink().'" target="_blank">'.
                 '<i class="la la-eye"></i> نمایش</a>';
         }
+        return '';
+    }
+
+    public function getLoginAsButton($crud = false)
+    {
+        return '<a class="btn btn-sm btn-link" href="'.url('/admin/user/loginAsUser', $this->id).'" target="_blank">'.
+            '<i class="la la-key"></i> ورود</a>';
         return '';
     }
 

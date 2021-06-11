@@ -38,4 +38,6 @@ Route::group([
     Route::get('article/comment/{comment:id}/approvedComment', [\Rezahmady\Comment\Http\Controllers\Admin\CommentCrudController::class, 'approvedComment']);
     Route::get('article/comment/{comment:id}/rejectComment', [\Rezahmady\Comment\Http\Controllers\Admin\CommentCrudController::class, 'rejectComment']);
     Route::crud('user/doctor/comment', \Rezahmady\Comment\Http\Controllers\Admin\CommentDoctorCrudController::class);
+    Route::get('user/comment/{comment:id}/approvedComment', [\Rezahmady\Comment\Http\Controllers\Admin\CommentDoctorCrudController::class, 'approvedComment']);
+    Route::get('user/comment/{comment:id}/rejectComment', [\Rezahmady\Comment\Http\Controllers\Admin\CommentDoctorCrudController::class, 'rejectComment']);
 });

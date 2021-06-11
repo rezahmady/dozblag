@@ -52,7 +52,7 @@
             </div>
             <div class="blog-single-top-holder position-relative">
                 {{-- @can('page update')
-                    <a class="button kt-modal-button button-info btn-setting mb-5" style="top:20px;right:20px" href="{{ url("/admin/widget/edit?iframe=true#bnr") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loader"></i> محتوا </a>
+                    <a class="mb-5 button kt-modal-button button-info btn-setting" style="top:20px;right:20px" href="{{ url("/admin/widget/edit?iframe=true#bnr") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loader"></i> محتوا </a>
                 @endcan --}}
                 <h1 class="blog-single-title" itemprop="name headline">{{ $post->title }}</h1>
             </div>
@@ -130,15 +130,15 @@
                                         </div>
                                     @endif
                                     <!-- /Tags -->
-                                    <div class="blog-goto-comments clearfix mb-3">
+                                    <div class="clearfix mb-3 blog-goto-comments">
                                         <span>
                                             در بحث‌‌ پیرامون این مقاله شرکت کنید!                        </span>
                                         <a href="#blog-comments" class="button button-default">ارسال دیدگاه</a>
                                     </div>
                                     
-                                    <div class="row mb-5">
+                                    <div class="mb-5 row">
                                         <!-- Telegram -->
-                                        <div class="col-md-6 col-sm-6 pr-md-1 mb-3">
+                                        <div class="mb-3 col-md-6 col-sm-6 pr-md-1">
                                             <a href="https://t.me/garrin" class="blog-single-social-box blog-single-social-box-telegram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                                                 <div class="blog-single-social-box-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -153,7 +153,7 @@
                                         <!-- /Telegram -->
 
                                         <!-- Instagram -->
-                                        <div class="col-md-6 col-sm-6 pl-md-1 mb-3">
+                                        <div class="mb-3 col-md-6 col-sm-6 pl-md-1">
                                             <a href="https://www.instagram.com/f" class="blog-single-social-box blog-single-social-box-instagram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                                                 <div class="blog-single-social-box-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -171,7 +171,7 @@
 
                                     
                                     
-                                    {{-- <div class="author-widget clearfix">
+                                    {{-- <div class="clearfix author-widget">
                                         <h4 class="section-title bottom-dashed-border">درباره نویسنده</h4>
                                         
                                         <div class="card-body">
@@ -191,7 +191,7 @@
 
                                     <!-- Latest Posts -->
                                     <hr>
-                                    {{-- <h4 class="section-title mt-3">مطالب مشابه </h4>
+                                    {{-- <h4 class="mt-3 section-title">مطالب مشابه </h4>
                                     <div class="card post-widget rounded-3xl">
                                         <div class="">
                                             <ul class="latest-posts">
@@ -270,7 +270,7 @@
                         
                             <!-- Blog Sidebar -->
                             <div class="col-lg-3 col-md-3 sidebar-right theiaStickySidebar">
-                                <div class="blog-info clearfix">
+                                <div class="clearfix blog-info">
                                     <div class="post-left">
                                         <ul>
                                         
@@ -279,7 +279,7 @@
                                     </div>
                                 </div>     
                                 <div class="sharethis-sticky-share-buttons"></div>
-                                <div class="blog-share clearfix sticky">
+                                <div class="sticky clearfix blog-share">
                                     <div class="card-body">
                                         <livewire:article.share-holder :view="'theme::partials.blog.share-holder'" :article="$post" />
                                     </div>
@@ -301,7 +301,7 @@
                     </div>
                 </div>
             </div>
-            <livewire:comment.comment-holder :post="$post" :view="'theme::partials.comment.blog-comments'"/>
+            <livewire:comment.comment-holder :module="$post" :view="'theme::partials.comment.blog-comments'"/>
         </div>
     </div>		
     <!-- /Page Content -->

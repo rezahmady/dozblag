@@ -92,6 +92,6 @@ class Subscribtion extends Component
 
     public function render()
     {
-        return view('theme::modules.subscribtion.index')->layout('theme::layouts.app-state');;
+        return view('theme::modules.subscribtion.index')->layout('theme::layouts.app-state');
     }
 }

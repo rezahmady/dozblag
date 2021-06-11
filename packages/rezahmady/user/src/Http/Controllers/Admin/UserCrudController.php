@@ -71,6 +71,7 @@ class UserCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->addButtonFromModelFunction('line', 'open', 'getOpenButton', 'ending');
+        $this->crud->addButtonFromModelFunction('line', 'open', 'getLoginAsButton', 'ending');
         $this->crud->addColumns([
             [
                 'name'  => 'name',
@@ -384,7 +385,7 @@ class UserCrudController extends CrudController
         return $templates_array;
     }
 
-    protected function fetchResources()
+    protected function fetchResource()
     {
         return $this->fetch([
             'model' => Resource::class, // required

@@ -18,7 +18,7 @@ class CommentDoctorCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -74,7 +74,7 @@ class CommentDoctorCrudController extends CrudController
             ]
         ]);
 
-        $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');
+        // $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');
 
         /*
         |--------------------------------------------------------------------------
@@ -124,8 +124,8 @@ class CommentDoctorCrudController extends CrudController
             ],
             [
                 'name' => 'module_id',
-                'value' => 2,
-                'type' => 'hidden',
+                'label' => 'پزشک id',
+                'type' => 'number',
             ],
             [
                 'name' => 'parent_id',
@@ -230,22 +230,22 @@ class CommentDoctorCrudController extends CrudController
             [
                 // run a function on the CRUD model and show its return value
                 'name'  => 'module_id',
-                'label' => 'عنوان مقاله', // Table column heading
+                'label' => 'پزشک', // Table column heading
                 'type'  => 'model_function',
                 'function_name' => 'getModuleParameter', // the method in your Model
-                'function_parameters' => ['title'], // pass one/more parameters to that method
+                'function_parameters' => ['name'], // pass one/more parameters to that method
                 // 'limit' => 100, // Limit the number of characters shown
             ],
-            [
-                // any type of relationship
-                'name'         => 'parent', // name of relationship method in the model
-                'type'         => 'relationship',
-                'label'        => 'در پاسخ به', // Table column heading
-                // OPTIONAL
-                // 'entity'    => 'tags', // the method that defines the relationship in your Model
-                'attribute' => 'body', // foreign key attribute that is shown to user
-                // 'model'     => App\Models\Category::class, // foreign key model
-            ],
+            // [
+            //     // any type of relationship
+            //     'name'         => 'parent', // name of relationship method in the model
+            //     'type'         => 'relationship',
+            //     'label'        => 'در پاسخ به', // Table column heading
+            //     // OPTIONAL
+            //     // 'entity'    => 'tags', // the method that defines the relationship in your Model
+            //     'attribute' => 'body', // foreign key attribute that is shown to user
+            //     // 'model'     => App\Models\Category::class, // foreign key model
+            // ],
             [
                 'name' => 'body',
                 'label' => 'نظر',
@@ -265,7 +265,7 @@ class CommentDoctorCrudController extends CrudController
 
         $this->crud->addButtonFromModelFunction('line', 'reject', 'rejectComment', 'beginning');
         $this->crud->addButtonFromModelFunction('line', 'approved', 'approvedComment', 'beginning');
-        $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');
+        // $this->crud->addButtonFromModelFunction('line', 'reply', 'goToComment', 'beginning');
 
     }
 
@@ -280,8 +280,23 @@ class CommentDoctorCrudController extends CrudController
         // backpack fields
         CRUD::addFields([
             [
-                'name' => 'success-created',
-                'label' => 'متن پیام ارسال موفق نظر',
+                'name' => 'doctor-comment-info',
+                'label' => 'متن توضیحی ارسال نظر برای پزشک',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'doctor-success-created',
+                'label' => 'متن پیام ارسال موفق نظر برای پزشک',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'doctor-success-accepted',
+                'label' => 'متن پیام نظر (بازخورد برای پزشک) تایید شده',
+                'type' => 'textarea',
+            ],
+            [
+                'name' => 'blog-success-created',
+                'label' => 'متن پیام ارسال موفق نظر برای پست',
                 'type' => 'textarea',
             ],
         ]);

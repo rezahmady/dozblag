@@ -14,6 +14,7 @@
  * User Routes
  */
 
+use Illuminate\Support\Facades\Auth;
 use Rezahmady\User\Http\Controllers\Api\DoctorController;
 use Rezahmady\User\Http\Controllers\Api\UserController;
 use Rezahmady\User\Http\Controllers\AuthController;
@@ -69,6 +70,7 @@ Route::group([
     Route::crud('permission', \Rezahmady\User\Http\Controllers\Admin\PermissionCrudController::class);
     Route::crud('role', \Rezahmady\User\Http\Controllers\Admin\RoleCrudController::class);
     Route::crud('user', \Rezahmady\User\Http\Controllers\Admin\UserCrudController::class);
+    Route::get('user/loginAsUser/{user:id}', [\Rezahmady\User\Http\Controllers\AuthController::class, 'loginOperatorAsUser']);
     // Route::post('/resource/inline/create/modal', [ResourceCrudController::class, 'setupInlineCreateOperation'])->name('resources-inline-create');
     // Route::post('/resource/inline/create', [ResourceCrudController::class, 'storeInlineCreate'])->name('resources-inline-create-save');
 });

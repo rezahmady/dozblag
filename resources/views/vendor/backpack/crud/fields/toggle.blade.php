@@ -8,6 +8,7 @@
 @include('crud::fields.inc.wrapper_start')
     @include('crud::fields.inc.translatable_icon')
     <div class="checkbox">
+        <label class="d-block">{!! $field['label'] !!}</label>
         <label class="switch">
             <input type="hidden" name="{{ $field['name'] }}" value="0">
             <input type="checkbox" 
@@ -28,7 +29,7 @@
 
             >
             <span class="slider round"></span>
-        </label><span>{!! $field['label'] !!}</span>
+        </label>
 
         {{-- HINT --}}
         @if (isset($field['hint']))

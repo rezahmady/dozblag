@@ -45,16 +45,40 @@ trait ResourceTemplates
 
     protected function getFilters($template) {
         $filters = Setting::get("resources.template_{$template}_filters");
+
         if($filters) foreach($filters as $key => $item) {
             $item = Filter::findOrFail($item);
-            $this->crud->addField([
-                'name'    => "filter_{$item->slug}",
-                'label'   => $item->name,
-                'type'    => 'select_and_order',
-                'fake'    => true,
-                'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
-                'tab' => 'فیلترها',
-            ]);
+            $multiple = ($item->type == 'hasMany') ? true : false;
+            switch ($item->field) {
+                case 'select2_from_array':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'        => 'select2_from_array',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                        'wrapper'   => [ 
+                            'class'      => 'form-group col-md-6'
+                        ],
+                        'multiple' => $multiple,
+                        'allows_null' => true,
+                    ]);
+                    break;
+                case 'select_and_order':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'    => 'select_and_order',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                    ]);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }
     }
 

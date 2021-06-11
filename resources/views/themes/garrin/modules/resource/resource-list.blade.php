@@ -29,16 +29,16 @@
 
                     <!-- Search Filter -->
                     <div class="card search-filter">
-                        <div class="card-header d-flex justify-between">
-                            <h4 class="card-title font-weight-bold line-e mb-0"><i class="la la-filter"></i> فیلتر ها</h4>
+                        <div class="justify-between card-header d-flex">
+                            <h4 class="mb-0 card-title font-weight-bold line-e"><i class="la la-filter"></i> فیلتر ها</h4>
                             @if ($filterShow)
                             <small class="filter-remove-btn font-weight-bold" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
                             @endif
                         </div>
-                        <div class="card-body p-0">
+                        <div class="p-0 card-body">
                             
-                            <div class="filter-widget p-0 mb-0" x-data="{items: true}">
-                                <h4 class="font-weight-bold d-flex justify-between" x-on:click="items = !items" x-bind:class="{ 'active': items }">
+                            <div class="p-0 mb-0 filter-widget" x-data="{items: true}">
+                                <h4 class="justify-between font-weight-bold d-flex" x-on:click="items = !items" x-bind:class="{ 'active': items }">
                                     <span>موقعیت</span>
                                     <i class="la" x-bind:class="{'la-plus' : !items, 'la-minus' : items}"></i>
                                 </h4>
@@ -46,7 +46,16 @@
                                     <div class="form-group">
                                         <label class="control-label font-weight-bold">استان</label>
                                     
-                                        <select id="ostan" class="form-control select">
+                                        <select id="ostan" class="form-control select"
+                                        x-data
+                                        x-ref="ostan"
+                                        x-init="
+                                        $($refs.ostan).on('select2:select', function (e) {
+                                            var data = $($refs.ostan).select2('val');
+                                            @this.set('filter.ostan', data);
+                                        });
+                                        "
+                                        >
                                             <option>-- انتخاب استان --</option>
                                             @foreach ($ostans as $key => $item)
                                                 <option @if ($filter['ostan'] == $key) selected @endif value="{{$key}}">{{$item}}</option>
@@ -55,10 +64,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label font-weight-bold">شهرستان</label>
-                                        <select id="shahrestan" class="form-control select">
+                                        <select id="shahrestan" class="form-control select"
+                                        x-data
+                                        x-ref="shahrestan"
+                                        x-init="
+                                        $($refs.shahrestan).on('select2:select', function (e) {
+                                            var data = $($refs.shahrestan).select2('val');
+                                            @this.set('filter.shahrestan', data);
+                                        });
+                                        ">
                                             <option>-- انتخاب شهرستان --</option>
                                             @foreach ($shahrestans as $key => $item)
-                                                <option @if ($filter['shahrestan'] == $item) selected @endif value="{{$key}}">{{$item}}</option>
+                                                <option @if ($filter['shahrestan'] == $key) selected @endif value="{{$key}}">{{$item}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -75,9 +92,10 @@
 
                     @if (sizeOf($items) < 1)
                         <div>
-                            <h3 class="text-center p-3">رکوردی وجود ندارد</h3>
+                            <img class="d-block" style="width:150px; margin:20px auto;" src="{{asset('/uploads/images/themes/garrin/page-not-found.svg')}}">
+                            <h3 class="p-3 text-center">رکوردی وجود ندارد</h3>
                             @if ($filterShow)
-                            <small class="filter-remove-btn font-weight-bold m-auto text-center d-block" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
+                            <small class="m-auto text-center filter-remove-btn font-weight-bold d-block" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
                             @endif
                         </div>
                     @endif
@@ -92,10 +110,10 @@
                                 <div class="doc-info-left">
                                     <div class="">
                                         <a href="{{route('resource.show', $item->slug)}}" class="avatar avatar-xl">
-                                            <img src="{{$item->getProfile()}}" class="avatar-img rounded" alt="{{ $item->name }}">
+                                            <img src="{{$item->getProfile()}}" class="rounded avatar-img" alt="{{ $item->name }}">
                                         </a>
                                     </div>
-                                    <div class="doc-info-cont pl-3">
+                                    <div class="pl-3 doc-info-cont">
                                         <h4 class="doc-name">{{ $item->name }}</h4>
                                         <p class="doc-speciality">{{ $item->caption }}</p>       
                                     </div>
@@ -147,16 +165,7 @@
     document.addEventListener("turbolinks:load", function() {
         $(document).ready(function () {
             $('#ostan').select2();
-            $('#ostan').on('select2:select', function (e) {
-                var data = $('#ostan').select2('val');
-                @this.set('filter.ostan', data);
-            });
             $('#shahrestan').select2();
-            $('#shahrestan').on('select2:select', function (e) {
-                var data = $('#shahrestan').select2('val');
-                @this.set('filter.shahrestan', data);
-            });
-
             $('.filter-holder').niceScroll({
                 autohidemode:'leave',
                 cursorborder:'none',

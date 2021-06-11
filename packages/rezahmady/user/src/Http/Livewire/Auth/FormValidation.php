@@ -2,6 +2,7 @@
 
 namespace Rezahmady\User\Http\Livewire\Auth;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -36,22 +37,36 @@ class FormValidation extends Component
         // $this->validate();
 
         if ($this->validation_code == session('validation_code')) {
-            session()->forget('validation_code');
-            $userdata = array(
-                'mobile'     => $this->user->mobile,
-                'password'  => $this->validation_code
-            );
-
-            if (Auth::attempt($userdata, true)) {
-                if(session('link')) {
-                    $url = session('link');
-                    session()->forget('link');
-                    return redirect()->to($url);
-                }
-                return redirect()->to('/');
+            
+            // $userdata = array(
+            //     'mobile'     => $this->user->mobile,
+            //     'password'  => $this->validation_code
+            // );
+            $user = User::where('mobile', $this->user->mobile)->first();
+            if($user) {
+                Auth::loginUsingId($user->id);
             } else {
-                session()->flash('error', 'کد فعال سازی را اشتباه وارد کرده اید. لطفا دوباره سعی کنید');
+                session()->flash('error', 'سشن به اتمام رسیده مجدد تلاش کنید');
             }
+            session()->forget('validation_code');
+            
+            if(session('link')) {
+                $url = session('link');
+                session()->forget('link');
+                return redirect()->to($url);
+            }
+            return redirect()->to('/');
+
+            // if (Auth::attempt($userdata, true)) {
+            //     if(session('link')) {
+            //         $url = session('link');
+            //         session()->forget('link');
+            //         return redirect()->to($url);
+            //     }
+            //     return redirect()->to('/');
+            // } else {
+            //     session()->flash('error', 'کد فعال سازی را اشتباه وارد کرده اید. لطفا دوباره سعی کنید');
+            // }
             // Auth::loginUsingId($this->user->id);
         } else {
             session()->flash('error', 'کد فعال سازی را اشتباه وارد کرده اید. لطفا دوباره سعی کنید');

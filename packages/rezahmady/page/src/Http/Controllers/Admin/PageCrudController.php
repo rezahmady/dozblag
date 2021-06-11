@@ -186,6 +186,20 @@ class PageCrudController extends CrudController
             // 'disabled' => 'disabled'
         ]);
 
+        $this->crud->addField([
+            'name' => 'show',
+            'label' => 'نمایش در منو <br>',
+            'type' => 'toggle',
+            'default' => true,
+            // 'hint' => trans('backpack::pagemanager.page_slug_hint'),
+            'wrapperAttributes' => [
+                'class' => 'form-group col-md-6',
+            ],
+            'fake' => true,
+            'tab' => 'تنظیمات',
+            // 'disabled' => 'disabled'
+        ]);
+
         // filename
         $path = theme_path("/modules/pages/$template");
         if(!File::isDirectory($path)) File::makeDirectory($path, 0777, true, true);

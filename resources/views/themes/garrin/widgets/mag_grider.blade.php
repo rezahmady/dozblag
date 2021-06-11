@@ -39,9 +39,9 @@
                     @foreach ($posts as $item)
                     <div class="card flex-fill position-relative">
                         <div class="blog-image card-img-top">
-                            <a href="{{$item->path()}}"><img class="img-fluid img-kashi-right" src="{{url($item->image)}}" alt="{{$item->title}}"></a>
+                            <a href="{{ $item->path() }}"><img class="img-fluid img-kashi-right" src="{{url($item->image)}}" alt="{{$item->title}}"></a>
                         </div>
-                        <a href="{{$item->path()}}" class="blog-content grid-blog p-3">
+                        <a href="{{ $item->path() }}" class="blog-content grid-blog p-3">
                             <h3 class="blog-title">{{$item->title}}</h3>
                         </a>
                         <div class="dark-gradient"></div>

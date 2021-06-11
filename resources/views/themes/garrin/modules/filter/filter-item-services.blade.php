@@ -6,8 +6,13 @@
                 <div class="post-show-top-widget-box">
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
-                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a rel="category" data-wpel-link="internal">پزشکان</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <i class="fa fa-home blog-item-popular"></i>
+                            <a href="{{$filterItem->filter->path()}}" rel="category" data-wpel-link="internal">{{$filterItem->filter->name}}</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a href="{{$filterItem->path()}}" rel="category" data-wpel-link="internal">{{$filterItem->name}}</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a rel="category" data-wpel-link="internal">{{$filterItem->services_title}}</a>
                         </div>
                     </div>
                 </div>
@@ -54,18 +59,27 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('theme::partials.filters')
                         </div>
                     </div>
                     <!-- /Search Filter -->
 
                 </div>
-
                 <div class="col-md-12 col-lg-8 col-xl-9 position-relative">
-
+                    <div class="pb-2 mb-3">
+                        <h3 class="mb-0 card-title font-weight-bold line-e">
+                            مشاوره آنلاین با بهترین متخصص {{ $filterItem->name }}
+                        </h3>
+                    </div>
+                    {{-- <div class="card rounded-3xl">
+                        <div class="card-body" style="padding: 0 26px;">
+                            <ul class="nav nav-tabs nav-tabs-top">
+                                <li class="nav-item"><a class="nav-link active" href="#top-tab2" data-toggle="tab">مشاوره</a></li>
+                                <li class="nav-item"><a class="nav-link " href="#top-tab3" data-toggle="tab">اطلاعات</a></li>
+                            </ul>
+                        </div>
+                    </div> --}}
                     @if (sizeOf($doctors) < 1)
                         <div>
-                            <img class="d-block" style="width:150px; margin:20px auto;" src="{{asset('/uploads/images/themes/garrin/page-not-found.svg')}}">
                             <h3 class="p-3 text-center">رکوردی وجود ندارد</h3>
                             @if ($filterShow)
                             <small class="m-auto text-center filter-remove-btn font-weight-bold d-block" wire:click="setNullFilterArray()">پاک کردن فیلترها</small>
@@ -83,7 +97,7 @@
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
                                         <a href={{route('doctor.show', ['user' => $doctor->id])}}" class="avatar avatar-xxl">
-                                            <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" alt="{{$doctor->name}}">
+                                            <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" alt="User Image">
                                         </a>
                                     </div>
                                     <div class="pl-3 doc-info-cont">

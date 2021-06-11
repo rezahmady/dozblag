@@ -139,17 +139,13 @@ trait UserTemplates
         
         $this->crud->addFields([
             [
-                'type' => 'hidden',
-                'name' => 'resource_template_h',
-                'value' => 'hospital',
-            ],
-            [
                 'type' => "relationship",
                 'label' => 'مراکز فعالیت',
                 'name' => 'resource', // the method on your model that defines the relationship
                 'ajax' => true,
-                'fake'  => true,
                 'tab'   => 'محل ها',
+                'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
+                'minimum_input_length' => 0, // minimum characters to type before querying results
                 // 'inline_create' => true, // assumes the URL will be "/admin/category/inline/create"
                 // 'inline_create' => [ // specify the entity in singular
                 //     'entity' => 'resource', // the entity in singular
@@ -164,7 +160,7 @@ trait UserTemplates
 
             [   // relationship
                 'type' => "relationship",
-                'name' => 'ostan', // the method on your model that defines the relationship
+                'name' => 'ostan_id', // the method on your model that defines the relationship
                 'ajax' => false,
                 'fake' => true,
                 'wrapper'      => [
@@ -180,7 +176,7 @@ trait UserTemplates
             ],
             [   // relationship
                 'type' => "relationship",
-                'name' => 'shahrestan', // the method on your model that defines the relationship
+                'name' => 'shahrestan_id', // the method on your model that defines the relationship
                 'ajax' => true,
                 'fake' => true,
                 // OPTIONALS:
@@ -197,7 +193,7 @@ trait UserTemplates
                 // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
                  'data_source' => url("api/shahrestan"), // url to controller search function (with /{id} should return model)
                  'minimum_input_length' => 0, // minimum characters to type before querying results
-                 'dependencies'         => ['ostan'], // when a dependency changes, this select2 is reset to null
+                 'dependencies'         => ['ostan_id'], // when a dependency changes, this select2 is reset to null
                  'include_all_form_fields'  => true, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
             [
@@ -501,9 +497,6 @@ trait UserTemplates
                     # code...
                     break;
             }
-            
-
-            
         }
     }
 }

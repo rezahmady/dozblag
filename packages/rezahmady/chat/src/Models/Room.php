@@ -5,11 +5,13 @@ namespace Rezahmady\Chat\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Rezahmady\Comment\Models\Comment;
 use Rezahmady\Subscribtion\Models\Subscribtion;
 use Rezahmady\User\Models\User;
 
 class Room extends Model
 {
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
     use HasFactory, CrudTrait;
 
     /**
@@ -73,6 +75,11 @@ class Room extends Model
     public function subscribtion()
     {
         return $this->belongsTo(Subscribtion::class, 'extras->subscribtion_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasOne(Comment::class, 'extras->room_id');
     }
 
     /*

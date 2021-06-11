@@ -16,7 +16,7 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['parent_id', 'user_id', 'body', 'module', 'module_id', 'name', 'email', 'score', 'extras', 'status'];
+    protected $fillable = ['parent_id', 'user_id', 'body', 'module', 'module_id', 'name', 'email', 'score', 'extras', 'status', 'extras->room_id'];
     protected $fakeColumns = ['extras'];
     protected $casts = [
         // 'status'  => 'boolean',
@@ -80,7 +80,7 @@ class Comment extends Model
     public function approvedComment()
     {
         if ($this->status !=1) {
-            return '<a class="btn btn-sm btn-success" href="/admin/article/comment/'.$this->id.'/approvedComment">'.
+            return '<a class="btn btn-sm btn-success" href="/admin/'.strtolower($this->module).'/comment/'.$this->id.'/approvedComment">'.
                 'تایید</a>';
         }
     }
@@ -88,7 +88,7 @@ class Comment extends Model
     public function rejectComment()
     {
         if ($this->status !=2) {
-            return '<a class="btn btn-sm btn-danger" href="/admin/article/comment/'.$this->id.'/rejectComment">'.
+            return '<a class="btn btn-sm btn-danger" href="/admin/'.strtolower($this->module).'/comment/'.$this->id.'/rejectComment">'.
                 'رد</a>';
         }
     }
@@ -96,7 +96,7 @@ class Comment extends Model
     public function goToComment()
     {
         if ($this->status == 1) {
-            $model = "\\Rezahmady\\Article\\Models\\".$this->module;
+            $model = "\\Rezahmady\\".$this->module."\\Models\\".$this->module;
             $module = $model::findOrFail($this->module_id);
             $route = $module->path();
             return '<a target="_blank" class="btn btn-sm btn-info" href="'.$route.'#comment_'.$this->id.'">'.

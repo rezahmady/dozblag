@@ -21,7 +21,7 @@
                         <div class="card flex-fill rounded-3xl">
                             <div class=" p-3">
                                 <h3 class="blog-title">{{$item->name}}</h3>
-                                <p class="mb-0 comment-text">{!! $item->content !!}</p>
+                                <div class="mb-0 comment-text" style="height: 96px">{!! $item->content !!}</div>
                                 <div class="home-comment-rating">
                                     <span> <i class="fa fa-stethoscope pr-3"></i>مشاوره <strong>{{$item->filter}}</strong></span>
                                     <div class="rating">

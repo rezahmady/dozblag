@@ -26,7 +26,7 @@
                         <div class="speicality-img">
                             <img src="{{url($image)}}" class="img-fluid" alt="Speciality">
                         </div>
-                        <p>{{$item->name}}</p>
+                        <a href="{{ $item->path() }}">{{$item->name}}</a>
                     </div>
                     <!-- /Slider Item --> 
                     @endforeach                                       

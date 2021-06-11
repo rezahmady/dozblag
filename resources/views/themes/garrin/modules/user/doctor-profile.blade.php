@@ -3,7 +3,7 @@
         use Rezahmady\SettingOperation\Setting;
     @endphp
     <div class="modal-alpine show " x-show="modal" style="display: flow-root;background-color: rgb(88 88 88 / 50%);" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  position-relative" role="document" x-on:click.away="closeModal()">
+        <div class="modal-dialog position-relative" role="document" x-on:click.away="closeModal()">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" x-text="subscribtion.name"></h5>
@@ -36,7 +36,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer justify-between" style="background: aliceblue;">
+                <div class="justify-between modal-footer" style="background: aliceblue;">
                     <div>هزینه قابل پرداخت : <span x-text="getAmount()"></span></div>
                     <div>
                         <button class="btn btn-success" x-on:click="$wire.payment(subscribtion.id)" type="button" data-original-title="" title="">پرداخت</button>
@@ -86,10 +86,10 @@
                             <div class="card-body">
                                 <div class="doctor-widget">
                                     <div class="doc-info-right">
-                                        <div class="doc-info-cont pl-3">
+                                        <div class="pl-3 doc-info-cont">
                                             <h4 class="doc-name">{{ $doctor->name }}</h4>
-                                            <p class="doc-speciality">{{ $doctor->getSpecilty() }}</p>
-                                            <span class="pb-3 pt-2 d-block"></span>
+                                            <a href="{{$doctor->speciltyFilter->path()}}" class="doc-speciality">{{ $doctor->getSpecilty() }}</a>
+                                            <span class="pt-2 pb-3 d-block"></span>
                                             <div class="clini-infos">
                                                 <ul>
                                                     <li> نظام پزشکی: <span class="value">{{$doctor->medical_code}}</span></li>
@@ -106,7 +106,7 @@
                         <!-- /Doctor Widget -->
 
                         <!-- Tab Menu -->
-                        <nav class="user-tabs mb-4">
+                        <nav class="mb-4 user-tabs">
                             <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#doc_overview" data-toggle="tab"> سوابق </a>
@@ -122,7 +122,7 @@
                         <!-- /Tab Menu -->
 
                         <!--  محتوای تب -->
-                        <div class="tab-content pt-0">
+                        <div class="pt-0 tab-content">
 
                             <!-- Overview Content -->
                             <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
@@ -132,7 +132,7 @@
                                         <!-- About Details -->
                                         <div class="widget about-widget">
                                             <h4 class="section-title"> درباره من </h4>
-                                            <div class="card p-3 rounded-3xl ">
+                                            <div class="p-3 card rounded-3xl ">
                                                 {!! $doctor->bio !!}
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@
                                                                 <div class="before-circle"></div>
                                                             </div>
                                                             <div class="experience-content">
-                                                                <div class="timeline-content card p-3">
+                                                                <div class="p-3 timeline-content card">
                                                                     <a href="#/" class="name"> {{$item['name']}} </a>
                                                                     <div>{{$item['place']}}</div>
                                                                     <span class="time">{{$item['date']}}</span>
@@ -192,7 +192,7 @@
                                                                 <div class="before-circle"></div>
                                                             </div>
                                                             <div class="experience-content">
-                                                                <div class="timeline-content card p-3">
+                                                                <div class="p-3 timeline-content card">
                                                                     <a href="#/" class="name">{{$item['name']}}</a>
                                                                     <span class="time">{{$item['duration']}}</span>
                                                                 </div>
@@ -218,7 +218,7 @@
                                                                 <div class="before-circle"></div>
                                                             </div>
                                                             <div class="experience-content">
-                                                                <div class="timeline-content card p-3">
+                                                                <div class="p-3 timeline-content card">
                                                                     <p class="exp-year">{{$item['date']}}</p>
                                                                     <h4 class="exp-title">{{$item['name']}}</h4>
                                                                     <p>{{$item['description']}}</p>
@@ -245,73 +245,17 @@
                                 @if ($clinics)
                                     @foreach ($clinics as $item)
                                     <!-- Location List -->
-                                    <div class="location-list card p-3 bg-cover-05">
-                                        <div class="row">
-
-                                            <!-- Clinic Content -->
-                                            <div class="col-md-6">
-                                                <div class="clinic-content">
-                                                    <h4 class="clinic-name"><a href="#">{{$item->name}}</a></h4>
-                                                    <p class="doc-speciality">{{$item->caption}}</p>
-                                                    {{-- <div class="rating">
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <span class="d-inline-block average-rating">(4)</span>
-                                                    </div> --}}
-                                                    <div class="clinic-details mb-0">
-                                                        <h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> {{$item->address}}</a></h5>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery2">
-                                                                    <img src="/assets/garrin/img/features/feature-01.jpg" alt="Feature Image">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery2">
-                                                                    <img src="/assets/garrin/img/features/feature-02.jpg" alt="Feature Image">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery2">
-                                                                    <img src="/assets/garrin/img/features/feature-03.jpg" alt="Feature Image">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery2">
-                                                                    <img src="/assets/garrin/img/features/feature-04.jpg" alt="Feature Image">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <div class="p-3 location-list card bg-cover-05">
+                                        <div class="doc-info-left">
+                                            <div class="">
+                                                <a href="{{route('resource.show', $item->slug)}}" class="avatar avatar-xl">
+                                                    <img src="{{$item->getProfile()}}" class="rounded avatar-img" alt="{{ $item->name }}">
+                                                </a>
                                             </div>
-                                            <!-- /Clinic Content -->
-
-                                            <!-- Clinic Timing -->
-                                            <div class="col-md-6">
-                                                @php
-                                                    $options = json_decode($item->options);
-                                                @endphp
-                                                @if ($options)
-                                                <div class="clinic-timing">
-                                                    @foreach ($options as $option)
-                                                    <div>
-                                                        <p class="timings-days">
-                                                            <span>{{$option->day}}</span>
-                                                        </p>
-                                                        <p class="timings-times">
-                                                            <span>{{$option->start}} - {{$option->end}}</span>
-                                                        </p>
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <!-- /Clinic Timing -->
-
+                                            <a href="{{route('resource.show', $item->slug)}}" class="pl-3 doc-info-cont">
+                                                <h4 class="doc-name">{{ $item->name }}</h4>
+                                                <p class="doc-speciality">{{ $item->caption }}</p>       
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- /Location List -->
@@ -326,155 +270,7 @@
                             <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
 
                                 <!-- Review Listing -->
-                                <div class="widget review-listing">
-                                    <ul class="comments-list">
-
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">ریچارد ویلسون</span>
-                                                            <span class="comment-date">نظر داده شده 2 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- /Comment List -->
-
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">تراویس تریمبل</span>
-                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- /Comment List -->
-
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">تراویس تریمبل</span>
-                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- /Comment List -->
-
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">تراویس تریمبل</span>
-                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- /Comment List -->
-
-                                        <!-- Comment List -->
-                                        <li>
-                                            <div class="comment card p-3">
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <img class="avatar avatar-sm rounded-circle comment-avatar" alt="User Image" src="/assets/garrin/img/patients/patient2.jpg">
-                                                        <div class="inline-block">
-                                                            <span class="comment-author">تراویس تریمبل</span>
-                                                        <span class="comment-date">نظر داده شده 4 روز پیش</span>
-                                                        </div>
-                                                        <div class="review-count rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="comment-content">
-                                                        سادگی نام چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط کاربردی می باشد
-                                                    </p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- /Comment List -->
-
-                                    </ul>
-
-                                    <!-- Show All -->
-                                    <div class="all-feedback text-center">
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            نمایش همگی فیدبک ها <strong>(167)</strong>
-                                        </a>
-                                    </div>
-                                    <!-- /Show All -->
-
-                                </div>
+                                <livewire:comment.comment-holder :module="$doctor" :view="'theme::partials.comment.doctor-comments'"/>
                                 <!-- /Review Listing -->
                             </div>
                             <!-- /Reviews Content -->
@@ -485,9 +281,9 @@
 
                 </div>
                 <div class="col-md-4">
-                    @if (backpack_user()->getRoom($doctor->id))
+                    @if (auth()->check() and backpack_user()->getRoom($doctor->id))
                     <div class="widget about-widget position-relative">
-                        <div class="card p-3 bg-cover-09">
+                        <div class="p-3 card bg-cover-09">
                             <h4 class="section-title"> مشاوره </h4>
                             <p>
                                 می توانید از اینجا وارد گفت و گو با پزشک شوید
@@ -503,7 +299,7 @@
                     @else
                     <!-- About Details -->
                     <div class="widget about-widget position-relative">
-                        <div class="card p-3 bg-cover-09">
+                        <div class="p-3 card bg-cover-09">
                             <h4 class="section-title"> پلن های مشاوره </h4>
                             <p>
                                 یکی از پلن های زیر را انتخاب کنید
@@ -514,7 +310,7 @@
                                 x-on:click="@this.selectSubscribtion({{$item->id}})"
                                 >
                                 <div class="subscribtion-card-body">
-                                    <div class="d-flex justify-between">
+                                    <div class="justify-between d-flex">
                                         <h5 class="card-title fw-800">{{$item->name}}</h5>
                                         <div class="subscribtion-custom">
                                             @if ($item->extras->amount_before_discount)

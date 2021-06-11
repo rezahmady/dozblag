@@ -36,7 +36,7 @@ class RoomSidebar extends Component
     }
 
     public function getMedicalFolder() {
-        if(backpack_user()->template != 'customer') {
+        if(backpack_user()->template != 'customer' and isset(User::find($this->room->user_id)->extras->medical_folder)) {
             $this->medical_folder = json_decode(User::find($this->room->user_id)->extras->medical_folder, true);
         }
     }
