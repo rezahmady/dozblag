@@ -80,6 +80,11 @@ class Resource extends Model
     {
         return $this->shahrestan->name ?? '';
     }
+    
+    public function path()
+    {
+        return route('resource.show',$this->slug);
+    }
 
     /*
     |--------------------------------------------------------------------------

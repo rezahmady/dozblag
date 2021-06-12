@@ -1,12 +1,12 @@
 <section class="section section-doctor">
     <div class="container-fluid">
         <!-- Section Header -->
-        <div class="section-header text-left d-flex justify-between position-relative">
+        <div class="justify-between text-left section-header d-flex position-relative">
             @can('page update')
-                <a class="btn btn-setting mb-5" x-on:click="setwidget('{{$widget->name}}')" style="top:-30px;right:0;" href="{{ url("/admin/widget/$widget->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
+                <a class="mb-5 btn btn-setting" x-on:click="setwidget('{{$widget->name}}')" style="top:-30px;right:0;" href="{{ url("/admin/widget/$widget->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
             @endcan
             <h2>{{$widget->resource_title}}</h2>
-            <div class="view-all text-right">
+            <div class="text-right view-all">
                 <a href="{{$widget->button_link}}" class="btn btn-more">{{$widget->button_label}}</a>
             </div>
         </div>
@@ -22,13 +22,13 @@
                     @foreach ($resources as $item)
                     <!-- Resource Widget -->
                     <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03" style="background-position:right">
-                        <div class="avatar avatar-xxl d-block mr-3">
-                            <img src="{{$item->getProfile()}}" class="avatar-img mt-3 rounded-circle" alt="{{$item->name}}">
+                        <div class="mr-3 avatar avatar-xxl d-block">
+                            <img src="{{$item->getProfile()}}" class="mt-3 avatar-img rounded-circle" alt="{{$item->name}}">
                         </div>
                         <div class="card-body">
-                            <div class="doctor-widget mb-3">
+                            <div class="mb-3 doctor-widget">
                                 <div class="doc-info-left">
-                                    <div class="doc-info-cont pl-3">
+                                    <div class="pl-3 doc-info-cont">
                                         <h4 class="doc-name">{{$item->name}}</h4>
                                         <p class="doc-speciality">{{$item->caption}}</p>
                                     </div>
@@ -51,7 +51,6 @@
 
 <script>
     window.addEventListener('contentChanged:{{$widget->name}}', event => {
-        console.log('update doctor widget')
         $('.resource-slider').slick({
             dots: false,
             autoplay: false,

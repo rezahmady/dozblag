@@ -15,7 +15,7 @@
             }
         </style>
         <!-- Home Banner -->
-        <livewire:widgets.custom :widget="widget('home_search')" :view="'theme::widgets.home_search'" />
+        <livewire:widgets.search :widget="widget('home_search')" :view="'theme::widgets.home_search'" />
         <!-- /Home Banner -->
     
         <!-- Services gariin -->
