@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ConsultationAdded;
 use App\Events\DisplayAdminMenu;
+use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
+use App\Notifications\Operator\NewRoom;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;

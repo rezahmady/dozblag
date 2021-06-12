@@ -9,6 +9,8 @@ use Rezahmady\Payment\Models\Invoice;
 use Rezahmady\Payment\Traits\HasPayment;
 use Alert;
 use App\Events\ConsultationAdded;
+use App\Models\User;
+use App\Notifications\Operator\NewRoom;
 use Rezahmady\Chat\Models\Room;
 
 class Subscribtion extends Model
@@ -80,6 +82,7 @@ class Subscribtion extends Model
         ]);
 
         broadcast(new ConsultationAdded($room->id))->toOthers();
+        
     }
 
     public function callbackPayment($status, $message)

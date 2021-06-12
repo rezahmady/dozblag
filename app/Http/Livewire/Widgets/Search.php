@@ -59,7 +59,7 @@ class Search extends Component
 
     public function submit()
     {
-        
+        //
     }
 
 
@@ -69,8 +69,8 @@ class Search extends Component
             $searchTerm = '%'. $this->searchTerm .'%';
             $this->users = User::where('template', 'doctor')->where('name', 'like', $searchTerm)->take(4)->get();
             $this->resources = Resource::where('name', 'like', $searchTerm)->take(4)->get();
-            $this->filters = FilterItem::where('name', 'like', $searchTerm)->take(4)->get();
-            $this->mags = Article::where('title', 'like', $searchTerm)->take(4)->get();
+            $this->filters = FilterItem::where('slug', '!=', 'services')->where('name', 'like', $searchTerm)->take(4)->get();
+            $this->mags = Article::where('title', 'like', $searchTerm)->published()->take(4)->get();
         } else {
             $this->users = $this->resources = $this->filters = $this->mags = null;
         }
