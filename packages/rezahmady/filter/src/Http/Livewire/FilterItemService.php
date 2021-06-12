@@ -14,7 +14,7 @@ class FilterItemService extends Component
 
     public $filters = [];
 
-    public $filter = [];
+    public $filterarray = [];
 
     public $filterShow;
 
@@ -36,15 +36,15 @@ class FilterItemService extends Component
 
     public function loadList() {
 
-        $filter = [];
+        $filterarray = [];
         
         $query = ['template' => 'doctor'];
 
         $objects = $this->filterItem->doctors();// User::where($query);
 
-        if(!empty($this->filter["gender"])){
+        if(!empty($this->filterarray["gender"])){
             $filter = [];
-            foreach ($this->filter["gender"] as $key => $value) {
+            foreach ($this->filterarray["gender"] as $key => $value) {
                 if($value) array_push($filter,$key);
             }
             if(!empty($filter)) $objects->whereIn('extras->gender', $filter );
@@ -66,9 +66,9 @@ class FilterItemService extends Component
     public function addFilters($objects)
     {
         foreach($this->filters as $key => $filter) {
-            if(!empty($this->filter["{$filter->slug}"])){
+            if(!empty($this->filterarray["{$filter->slug}"])){
                 $filterValues = [];
-                foreach ($this->filter["{$filter->slug}"] as $key => $value) {
+                foreach ($this->filterarray["{$filter->slug}"] as $key => $value) {
                     if($value) array_push($filterValues,$key);
                 }
 
@@ -98,7 +98,7 @@ class FilterItemService extends Component
 
     public function setNullFilterArray()
     {
-        $this->filter = [];
+        $this->filterarray = [];
     }
 
 

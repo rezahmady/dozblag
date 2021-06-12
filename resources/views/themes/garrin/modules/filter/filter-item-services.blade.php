@@ -47,13 +47,13 @@
                                 <div class="filter-holder" x-show="items">
                                     <div>
                                         <label class="custom_check">
-                                            <input type="checkbox"  wire:model="filter.gender.mail">
+                                            <input type="checkbox"  wire:model="filterarray.gender.mail">
                                             <span class="checkmark"></span> پزشک آقا
                                         </label>
                                     </div>
                                     <div>
                                         <label class="custom_check">
-                                            <input type="checkbox" wire:model="filter.gender.fmail" >
+                                            <input type="checkbox" wire:model="filterarray.gender.fmail" >
                                             <span class="checkmark"></span> پزشک خانم
                                         </label>
                                     </div>

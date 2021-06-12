@@ -9,6 +9,7 @@ use Rezahmady\Filter\Http\Livewire\Widgets\FilterItem;
 use Rezahmady\Filter\Models\FilterItem as ModelsFilterItem;
 use App\Models\User;
 use Rezahmady\Filter\Http\Livewire\FilterItemPage;
+use Rezahmady\Filter\Http\Livewire\FilterItemService;
 use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Resource\Models\Resource;
 
@@ -24,6 +25,7 @@ class AddonServiceProvider extends ServiceProvider
     {
         Livewire::component('widgets.filter-item', FilterItem::class);
         Livewire::component('rezahmady.filter.http.livewire.filter-item-page', FilterItemPage::class);
+        Livewire::component('rezahmady.filter.http.livewire.filter-item-service', FilterItemService::class);
         $this->resolveModelsEloquent();
     }
 
