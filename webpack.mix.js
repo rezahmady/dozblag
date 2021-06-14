@@ -24,7 +24,7 @@ mix.styles([
     'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.css',
     'resources/views/themes/garrin/assets/css/style.css',
     // 'public/assets/garrin/css/custom.css',
-], 'public/assets/garrin/css/theme.css');
+], 'public/assets/garrin/css/theme.css').version();
 
 // mix.postCss("public/assets/garrin/css/theme.css", "public/assets/garrin/css/theme-production.css", [
 //     require("postcss-combine-duplicated-selectors"),
@@ -37,10 +37,10 @@ mix.scripts([
     'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.js',
     'resources/views/themes/garrin/assets/js/slick.js',
     'resources/views/themes/garrin/assets/js/script.js',
-], 'public/assets/garrin/js/theme.js');
+], 'public/assets/garrin/js/theme.js').version();
 
-mix.js("resources/js/app.js", "public/assets/js");
-mix.js("resources/js/chat.js", "public/assets/js");
+mix.js("resources/js/app.js", "public/assets/js").version();
+mix.js("resources/js/chat.js", "public/assets/js").version();
 //     .postCss("resources/css/app.css", "public/assets/css", [
 
 //         require("tailwindcss"),

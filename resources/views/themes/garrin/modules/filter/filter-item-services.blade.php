@@ -64,7 +64,7 @@
                     <!-- /Search Filter -->
 
                 </div>
-                <div class="col-md-12 col-lg-8 col-xl-9 position-relative">
+                <div class="col-md-12 col-lg-8 col-xl-9 position-relative doctor-widgets-holder">
                     <div class="pb-2 mb-3">
                         <h3 class="mb-0 card-title font-weight-bold line-e">
                             مشاوره آنلاین با بهترین متخصص {{ $filterItem->name }}

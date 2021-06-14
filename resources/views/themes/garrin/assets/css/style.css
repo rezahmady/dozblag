@@ -11782,3 +11782,9 @@ span.success {
     display: flex;
     padding: 10px;
 }
+
+@media only screen and (max-width:768px) {
+    .doctor-widgets-holder .card {
+        background-position: bottom;
+    }
+}

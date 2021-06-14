@@ -61,7 +61,7 @@
 
                 </div>
 
-                <div class="col-md-12 col-lg-8 col-xl-9 position-relative">
+                <div class="col-md-12 col-lg-8 col-xl-9 position-relative doctor-widgets-holder">
 
                     @if (sizeOf($doctors) < 1)
                         <div>
