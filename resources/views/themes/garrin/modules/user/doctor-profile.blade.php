@@ -81,7 +81,7 @@
                         <!-- Doctor Widget -->
                         <div class="card card-vertical doctor-widget-holder bg-cover-06">
                             <div class="">
-                                <img width="300px" src="{{$doctor->getProfile()}}" class="img-fluid img-frame-02" alt="User Image">
+                                <img width="300px" src="{{$doctor->getProfile()}}" style="background: white; @if (!$doctor->profile) padding: 10px; @endif " class="img-fluid img-frame-02" alt="{{ $doctor->name }}">
                             </div>
                             <div class="card-body">
                                 <div class="doctor-widget">

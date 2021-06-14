@@ -97,7 +97,7 @@
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
                                         <a href={{route('doctor.show', ['user' => $doctor->id])}}" class="avatar avatar-xxl">
-                                            <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" alt="User Image">
+                                            <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" style="background: aliceblue;" alt="{{ $doctor->name }}">
                                         </a>
                                     </div>
                                     <div class="pl-3 doc-info-cont">
