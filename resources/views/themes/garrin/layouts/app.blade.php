@@ -35,10 +35,10 @@
 		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
 	</head>
 	<body>
+        {!! theme_option('custom_html') !!}
 
 		<!-- Main Wrapper -->
 		<div class="main-wrapper">
-
 			<!-- Header -->
 			<livewire:partials.header />
 			<!-- /Header -->

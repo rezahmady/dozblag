@@ -47,6 +47,14 @@ class ThemeOptions
                 'fake'  => true,
                 'tab'   => 'اصلی',
             ],
+            [ // textarea
+                'name'  => 'custom_html',
+                'label' => 'html اختصاصی',
+                'hint'  => 'در ورود اطلاعات دقت کنید',
+                'type'  => 'textarea',
+                'fake'  => true,
+                'tab'   => 'اصلی',
+            ],
         ]);
 
         // image

@@ -35,6 +35,7 @@
 		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
 	</head>
 	<body>
+        {!! theme_option('custom_html') !!}
         <style>
             .chat-holder {
                 border: none;
