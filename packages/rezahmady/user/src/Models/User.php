@@ -205,7 +205,15 @@ class User extends Authenticatable
     
     public function getProfile()
     {
-        $src = $this->extras->profile ?? 'assets/garrin/img/user.svg';
+        $image = 'assets/garrin/img/user.svg';
+        if($this->template == 'doctor') {
+            if($this->extras->gender == 'fmail') {
+                $image = '/uploads/images/themes/garrin/doctor-woman.svg';
+            } else {
+                $image = '/uploads/images/themes/garrin/doctor-man.svg';
+            }
+        }
+        $src = $this->extras->profile ?? $image;
         return asset($src);
     }
 
