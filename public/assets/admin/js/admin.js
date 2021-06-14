@@ -6,9 +6,7 @@ if (window.location.search === '?iframe=true') {
     // $('#saveActions').css({ position: 'fixed', bottom: '0' });
     // $('#saveActions').css({ background: '#fff' });
     document.querySelector("#saveActions").addEventListener('click', function() {
-        setTimeout(() => {
-            parent.$('[data-lity-close]').trigger('click');
-        }, 1500);
+        parent.$('[data-lity-close]').trigger('click');
     })
 } else {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
