@@ -21390,7 +21390,7 @@ nav.navigation ul li a.active::before {
 
 .modal-content {
     position: relative;
-    background-color: black;
+    background-color: white;
     margin: auto;
     padding: 0;
     width: 90%;

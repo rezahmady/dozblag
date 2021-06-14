@@ -11,6 +11,7 @@ use Alert;
 use App\Events\ConsultationAdded;
 use App\Models\User;
 use App\Notifications\Operator\NewRoom;
+use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
 use Rezahmady\Chat\Models\Room;
 
 class Subscribtion extends Model
@@ -83,6 +84,13 @@ class Subscribtion extends Model
 
         broadcast(new ConsultationAdded($room->id))->toOthers();
         
+        // operator
+        User::where('template', 'operator')->where('extras->telegram_user_id', '!=', null)->get()->each(function($user) use($room) {
+            $user->notify(new NewRoom($room));
+        });
+
+        // doctor
+        User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first()->notify(new DoctorNewRoom($room));
     }
 
     public function callbackPayment($status, $message)

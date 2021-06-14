@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Rezahmady\Chat\Events\RoomStarted;
 use Rezahmady\Chat\Models\Chat;
+use App\Notifications\Customer\StartRoom;
 
 class CreateMessage extends Component
 {
@@ -108,6 +109,10 @@ class CreateMessage extends Component
             ]);
             broadcast(new RoomStarted($this->room->id))->toOthers();
             $this->emitUp('room-started');
+            // customer
+            if(isset($this->room->user->extras->telegram_user_id)) {
+                $this->room->user->notify(new StartRoom($room));
+            }
         } else {
             $this->room->update([
                 'operator_id' => auth()->id(),
@@ -128,6 +133,10 @@ class CreateMessage extends Component
         broadcast(new RoomStarted($this->room->id))->toOthers();
         $this->emitUp('room-started');
         $this->status = 'chat';
+        // customer
+        if(isset($this->room->user->extras->telegram_user_id)) {
+            $this->room->user->notify(new StartRoom($room));
+        }
     }
 
     public function cancelArchive()

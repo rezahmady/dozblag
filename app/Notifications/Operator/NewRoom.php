@@ -45,14 +45,13 @@ class NewRoom extends Notification
             // Optional recipient user id.
             ->to($notifiable->extras->telegram_user_id)
             // Markdown supported.
-            ->content("یک گفت و گوی جدید ایجاد شد.\n
-            گرین
+            ->content("یک گفت و گوی جدید ایجاد شد.
             ")
             // (Optional) Blade template for the content.
             // ->view('notification', ['url' => $url])
             
             // (Optional) Inline Buttons
-            ->button('ورود به چت', $url);
+            ->button('ورود به گفت و گو', $url);
     }
 
     /**

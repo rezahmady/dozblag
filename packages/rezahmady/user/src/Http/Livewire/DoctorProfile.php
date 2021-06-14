@@ -111,7 +111,7 @@ class DoctorProfile extends Component
 
         if(!auth()->check())
         {
-            session(['link' => url()->current()]);
+            session(['paymentLink' => url()->previous()]);
             return redirect()->to(route('auth.login'));
         }
 

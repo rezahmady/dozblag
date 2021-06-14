@@ -11,14 +11,16 @@ class StartRoom extends Notification
 {
     use Queueable;
 
+    public $room;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Room $room)
     {
-        //
+        $this->room = $room;
     }
 
     /**
@@ -29,7 +31,23 @@ class StartRoom extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return [TelegramChannel::class];
+    }
+
+    public function toTelegram($notifiable)
+    {
+        $url = route('chatyno.show', md5($this->room->id));
+
+        return TelegramMessage::create()
+            // Optional recipient user id.
+            ->to($notifiable->extras->telegram_user_id)
+            // Markdown supported.
+            ->content("به سوال شما پاسخ داده شد. از طریق لینک زیر وارد گفت و گو با پزشک شوید")
+            // (Optional) Blade template for the content.
+            // ->view('notification', ['url' => $url])
+            
+            // (Optional) Inline Buttons
+            ->button('ورود به گفت و گو', $url);
     }
 
     /**

@@ -49,8 +49,12 @@ class FormValidation extends Component
                 session()->flash('error', 'سشن به اتمام رسیده مجدد تلاش کنید');
             }
             session()->forget('validation_code');
-            
-            if(session('link')) {
+
+            if(session('paymentLink')) {
+                $url = session('paymentLink');
+                session()->forget('paymentLink');
+                return redirect()->to($url);
+            } elseif(session('link')) {
                 $url = session('link');
                 session()->forget('link');
                 return redirect()->to($url);
