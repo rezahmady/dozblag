@@ -52,6 +52,9 @@ class ThemeOptions
                 'label' => 'html اختصاصی',
                 'hint'  => 'در ورود اطلاعات دقت کنید',
                 'type'  => 'textarea',
+                'wrapper'      => [
+                    'class'  => "form-group col-12 ltr"
+                ],
                 'fake'  => true,
                 'tab'   => 'اصلی',
             ],
