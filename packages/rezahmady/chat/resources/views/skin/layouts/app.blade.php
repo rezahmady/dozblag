@@ -18,12 +18,6 @@
     <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
     @livewireStyles
     <script src="{{ mix('/assets/js/chat.js') }}"></script>
-    <link rel="manifest" href="{{url('/manifest.json')}}" />
-    <script type="module">
-        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-        const el = document.createElement('pwa-update');
-        document.body.appendChild(el);
-    </script>
     
     <!-- Soho css -->
     <link rel="stylesheet" href="{{asset('packages/chatino/js/vendor/calamansijs/calamansi.min.css')}}">
