@@ -100,7 +100,7 @@
                                             <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" style="background: aliceblue;" alt="{{ $doctor->name }}">
                                         </a>
                                     </div>
-                                    <div class="pl-3 doc-info-cont">
+                                    <div class="pl-3 doc-info-cont mb-3">
                                         <h4 class="doc-name">{{ $doctor->name }}</h4>
                                         <p class="doc-speciality">{{ $doctor->getSpecilty() }}</p>
                                         <div class="clini-infos">

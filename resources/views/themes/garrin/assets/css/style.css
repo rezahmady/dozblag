@@ -11787,3 +11787,7 @@ span.success {
         background-position: bottom;
     }
 }
+
+.bg-position-right {
+    background-position: right !important;
+}

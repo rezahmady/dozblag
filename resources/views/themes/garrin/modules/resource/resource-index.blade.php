@@ -34,7 +34,7 @@ use Rezahmady\SettingOperation\Setting;
 
                     @foreach ($items as $item)
                     <!-- Doctor Widget -->
-                    <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03" style="background-position:right" width="240px">
+                    <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03 bg-position-right" width="240px">
                         <div class="avatar avatar-xxl d-block mr-3">
                             <img src="{{$item->getProfile()}}" class="avatar-img mt-3 rounded-circle" alt="{{$item->name}}">
                         </div>

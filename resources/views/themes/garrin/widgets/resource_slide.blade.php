@@ -21,7 +21,7 @@
 
                     @foreach ($resources as $item)
                     <!-- Resource Widget -->
-                    <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03" style="background-position:right">
+                    <div class="card card-vertical doctor-widget-holder resource-widget-holder bg-cover-03 bg-position-right">
                         <div class="mr-3 avatar avatar-xxl d-block">
                             <img src="{{$item->getProfile()}}" class="mt-3 avatar-img rounded-circle" alt="{{$item->name}}">
                         </div>
