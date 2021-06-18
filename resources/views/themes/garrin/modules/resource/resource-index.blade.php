@@ -9,8 +9,9 @@ use Rezahmady\SettingOperation\Setting;
                 <div class="post-show-top-widget-box">
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
-                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a rel="category" data-wpel-link="internal">بانک سلامت</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
+                            <a rel="category" data-wpel-link="internal">بانک سلامت</a>
                         </div>
                     </div>
                 </div>

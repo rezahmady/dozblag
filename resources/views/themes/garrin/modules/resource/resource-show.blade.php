@@ -17,12 +17,13 @@
                 <div class="post-show-top-widget-box">
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
-                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a href="{{route('resource.all')}}" rel="category" data-wpel-link="internal">بانک سلامت</a>
-                                <i class="fa fa-chevron-left blog-item-popular"></i>
-                                <a href="{{route('resource.list', $resource)}}"  rel="category" data-wpel-link="internal">{{ trans('rezahmady.resource::resource.function_name.'.$resource->template)}}</a>
-                                <i class="fa fa-chevron-left blog-item-popular"></i>
-                                <a  rel="category" data-wpel-link="internal">{{$resource->name}}</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
+                            <a href="{{route('resource.all')}}" rel="category" data-wpel-link="internal">بانک سلامت</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a href="{{route('resource.list', $resource)}}"  rel="category" data-wpel-link="internal">{{ trans('rezahmady.resource::resource.function_name.'.$resource->template)}}</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a  rel="category" data-wpel-link="internal">{{$resource->name}}</a>
                         </div>
                     </div>
                 </div>

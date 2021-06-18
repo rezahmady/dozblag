@@ -19,7 +19,7 @@ Version      : 1.3
             var $this = Sidemenu;
             $('.main-nav a').on('click', function(e) {
                 if ($(this).parent().hasClass('has-submenu')) {
-                    // e.preventDefault();
+                    e.preventDefault();
                 }
                 if (!$(this).hasClass('submenu')) {
                     $('ul', $(this).parents('ul:first')).slideUp(350);

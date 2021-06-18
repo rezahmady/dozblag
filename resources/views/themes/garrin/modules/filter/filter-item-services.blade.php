@@ -7,7 +7,7 @@
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
                             <i class="fa fa-chevron-left blog-item-popular"></i>
-                            <i class="fa fa-home blog-item-popular"></i>
+                            <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
                             <a href="{{$filterItem->filter->path()}}" rel="category" data-wpel-link="internal">{{$filterItem->filter->name}}</a>
                             <i class="fa fa-chevron-left blog-item-popular"></i>
                             <a href="{{$filterItem->path()}}" rel="category" data-wpel-link="internal">{{$filterItem->name}}</a>

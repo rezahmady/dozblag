@@ -55,10 +55,11 @@
                 <div class="post-show-top-widget-box">
                     <div class="blog-single-categories-holder">
                         <div class="blog-single-categories">
-                            <i class="fa fa-chevron-left blog-item-popular"></i><i class="fa fa-home blog-item-popular"></i>
-                                <a href="{{route('doctor.list')}}" rel="category" data-wpel-link="internal">پزشکان</a>
-                                <i class="fa fa-chevron-left blog-item-popular"></i>
-                                <a  rel="category" data-wpel-link="internal">{{$doctor->name}}</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
+                            <a href="{{route('doctor.list')}}" rel="category" data-wpel-link="internal">پزشکان</a>
+                            <i class="fa fa-chevron-left blog-item-popular"></i>
+                            <a  rel="category" data-wpel-link="internal">{{$doctor->name}}</a>
                         </div>
                     </div>
                 </div>
