@@ -10,12 +10,13 @@
 
 		<!-- Favicons -->
         <link rel="icon" type="image/png" href="{{ theme_option('favicon') }}">
-        <link rel="manifest" href="manifest.json" />
+        <link rel="manifest" href="{{url('/manifest.json')}}" />
         <script type="module">
             import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
             const el = document.createElement('pwa-update');
             document.body.appendChild(el);
         </script>
+        {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall@latest/dist/pwa-install.min.js"></script> --}}
         <!-- Links of CSS files -->
         @livewireStyles
         <link rel="stylesheet" href="{{ asset('/packages/line-awesome/css/line-awesome.min.css') }}" />

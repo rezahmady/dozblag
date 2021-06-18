@@ -10,7 +10,7 @@
 
 		<!-- Favicons -->
         <link rel="icon" type="image/png" href="{{ theme_option('favicon') }}">
-        <link rel="manifest" href="manifest.json" />
+        <link rel="manifest" href="{{url('/manifest.json')}}" />
         <script type="module">
             import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
             const el = document.createElement('pwa-update');
