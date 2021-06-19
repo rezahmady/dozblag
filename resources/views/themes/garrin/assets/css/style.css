@@ -2995,6 +2995,7 @@ html.menu-opened body {
     border-radius: 100%;
     width: 150px;
     background: #fff;
+    margin: auto;
 }
 
 .speicality-img img {

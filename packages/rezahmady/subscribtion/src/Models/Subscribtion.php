@@ -90,7 +90,11 @@ class Subscribtion extends Model
         });
 
         // doctor
-        User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first()->notify(new DoctorNewRoom($room));
+        $doctor = User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first();
+        if($doctor)
+        {
+            $doctor->notify(new DoctorNewRoom($room));
+        }
     }
 
     public function callbackPayment($status, $message)
