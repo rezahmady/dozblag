@@ -54,7 +54,6 @@
 <!-- Examples -->
 {{-- <script src="{{ asset('/packages/chatino/js/vendor/RTLText.module.js') }}" defer></script> --}}
 <script src="{{asset('packages/alpinejs/alpine.min.js')}}" defer></script>
-<script src="{{asset('packages/chatino/js/vendor/recorder/app.js')}}" defer></script>
 @livewireScripts
 @stack('scripts')
 

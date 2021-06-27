@@ -21612,6 +21612,7 @@ img.hover-shadow {
 
 .calamansi-skin--ayon {
     padding-top: 0;
+    z-index: 0 !important;
 }
 
 .message-item.outgoing-message .message-sender {

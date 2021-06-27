@@ -27,22 +27,17 @@
                 </div>
             </div>
             @else
-            <div x-data="VoiceRecorder()" >
-                <div id="voiceHolder" x-ref="voiceHolder" x-show.transition="voice_holder" >
-                    <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
-                        <i class="fa fa-pause voice-btn player-btn-pause"></i>
-                    </button>
-                    <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
-                        <i class="fa fa-stop voice-btn player-btn-stop"></i>
-                    </button>
-                    
-                    <div class="wave-holder" dir="ltr">
-                        <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
-                    </div>
-                    <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
-                        <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
-                    </button>
+            <div id="voiceHolder" x-ref="voiceHolder" x-show.transition="voice_holder" >
+                <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
+                    <i class="fa fa-stop voice-btn player-btn-stop"></i>
+                </button>
+                
+                <div class="wave-holder" dir="ltr">
+                    <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
                 </div>
+                <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
+                    <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
+                </button>
             </div>
             <style>
                 .w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {

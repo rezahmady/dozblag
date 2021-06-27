@@ -321,6 +321,8 @@
         return {
             buttons_holder: false,
             content: '',
+            isUploading: false,
+            progress: 0,
             open_buttons() {
                 this.buttons_holder = true;
             },
@@ -344,20 +346,11 @@
                 if (this.hoverRating != this.rating) r = this.hoverRating;
                 let i = this.ratings.findIndex(e => e.amount == r);
                 if (i >=0) {return this.ratings[i].label;} else {return ''};     
-            }
-        }
-    }
-
-    function VoiceRecorder() {
-        return {
+            },
             voice_holder: false,
-            isUploading: false,
-            progress: 0,
-            gumStream,
-            rec,
-            input,
-            audioContext,
-            URL,
+            input: false,
+            audioContext: false,
+            URL: false,
             init() {
                 this.URL = window.URL || window.webkitURL;
             },
@@ -397,16 +390,16 @@
                     this.audioContext = new AudioContext();
 
                     /*  assign to gumStream for later use  */
-                    this.gumStream = stream;
+                    $gumStream = stream;
                     /* use the stream */
                     input = this.audioContext.createMediaStreamSource(stream);
                     /* 
                         Create the Recorder object and configure to record mono sound (1 channel)
                         Recording 2 channels  will double the file size
                     */
-                    this.rec = new Recorder(input, { numChannels: 1 })
+                    $rec = new Recorder(input, { numChannels: 1 })
                     //start the recording process
-                    this.rec.record()
+                    $rec.record()
                     console.log("Recording started");
                 }).catch(function(err) {
                     //enable the record button if getUserMedia() fails
@@ -415,48 +408,36 @@
             },
             pauseRecording() {
                 console.log("pauseButton clicked rec.recording=", rec.recording);
-                if (this.rec.recording) {
+                if ($rec.recording) {
                     //pause
-                    this.rec.stop();
+                    $rec.stop();
                     pauseButton.innerHTML = "Resume";
                 } else {
                     //resume
-                    this.rec.record()
+                    $rec.record()
                     pauseButton.innerHTML = "Pause";
 
                 }
             },
             stopRecording() {
                 console.log("stopButton clicked");
-
-                //disable the stop button, enable the record too allow for new recordings
-                // stopButton.disabled = true;
-                // recordButton.disabled = false;
-                // pauseButton.disabled = true;
-
-                //reset button just in case the recording is stopped while paused
-                // pauseButton.innerHTML = "Pause";
-
                 //tell the recorder to stop the recording
-                this.rec.stop();
+                $rec.stop();
 
                 //stop microphone access
-                this.gumStream.getAudioTracks()[0].stop();
+                $gumStream.getAudioTracks()[0].stop();
 
                 //create the wav blob and pass it on to createDownloadLink
-                this.rec.exportWAV(this.createDownloadLink);
+                $rec.exportWAV(this.createDownloadLink);
             },
             deleteRecording() {
                 //tell the recorder to stop the recording
-                this.rec.stop();
+                $rec.stop();
 
                 //stop microphone access
-                this.gumStream.getAudioTracks()[0].stop();
+                $gumStream.getAudioTracks()[0].stop();
                 var recordingsList = document.getElementById("voiceHolder");
                 recordingsList.innerHTML = `
-                    <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
-                        <i class="fa fa-pause voice-btn player-btn-pause"></i>
-                    </button>
                     <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
                         <i class="fa fa-stop voice-btn player-btn-stop"></i>
                     </button>
@@ -551,6 +532,12 @@
                     }
                 });
             }
+        }
+    }
+
+    function VoiceRecorder() {
+        return {
+           
         }
     }
     
