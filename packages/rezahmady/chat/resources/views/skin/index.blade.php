@@ -187,7 +187,6 @@
 
 <script>
 
-    
     function data() {
         return {
             sidebar: true,
@@ -320,18 +319,8 @@
 
     function CreateMessage() {
         return {
-            voice_holder: false,
             buttons_holder: false,
             content: '',
-            isUploading: false,
-            progress: 0,
-            open_voice() {
-                this.buttons_holder = false;
-                this.voice_holder = true;
-            },
-            close_voice() {
-                this.voice_holder = false;
-            },
             open_buttons() {
                 this.buttons_holder = true;
             },
@@ -355,6 +344,212 @@
                 if (this.hoverRating != this.rating) r = this.hoverRating;
                 let i = this.ratings.findIndex(e => e.amount == r);
                 if (i >=0) {return this.ratings[i].label;} else {return ''};     
+            }
+        }
+    }
+
+    function VoiceRecorder() {
+        return {
+            voice_holder: false,
+            isUploading: false,
+            progress: 0,
+            gumStream,
+            rec,
+            input,
+            audioContext,
+            URL,
+            init() {
+                this.URL = window.URL || window.webkitURL;
+            },
+            open_voice() {
+                this.buttons_holder = false;
+                this.voice_holder = true;
+            },
+            close_voice() {
+                this.voice_holder = false;
+            },
+            startRecording() {
+                console.log("recordButton clicked");
+                /*
+                    Simple constraints object, for more advanced audio features see
+                    https://addpipe.com/blog/audio-constraints-getusermedia/
+                */
+               //webkitURL is deprecated but nevertheless
+                
+
+                // shim for AudioContext when it's not avb. 
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+
+                var constraints = { audio: true, video: false }
+
+                /*
+                    We're using the standard promise based getUserMedia() 
+                    https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+                */
+                navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+                    console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+                    /*
+                        create an audio context after getUserMedia is called
+                        sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+                        the sampleRate defaults to the one set in your OS for your playback device
+
+                    */
+                    this.audioContext = new AudioContext();
+
+                    /*  assign to gumStream for later use  */
+                    this.gumStream = stream;
+                    /* use the stream */
+                    input = this.audioContext.createMediaStreamSource(stream);
+                    /* 
+                        Create the Recorder object and configure to record mono sound (1 channel)
+                        Recording 2 channels  will double the file size
+                    */
+                    this.rec = new Recorder(input, { numChannels: 1 })
+                    //start the recording process
+                    this.rec.record()
+                    console.log("Recording started");
+                }).catch(function(err) {
+                    //enable the record button if getUserMedia() fails
+                    console.log(err);
+                });
+            },
+            pauseRecording() {
+                console.log("pauseButton clicked rec.recording=", rec.recording);
+                if (this.rec.recording) {
+                    //pause
+                    this.rec.stop();
+                    pauseButton.innerHTML = "Resume";
+                } else {
+                    //resume
+                    this.rec.record()
+                    pauseButton.innerHTML = "Pause";
+
+                }
+            },
+            stopRecording() {
+                console.log("stopButton clicked");
+
+                //disable the stop button, enable the record too allow for new recordings
+                // stopButton.disabled = true;
+                // recordButton.disabled = false;
+                // pauseButton.disabled = true;
+
+                //reset button just in case the recording is stopped while paused
+                // pauseButton.innerHTML = "Pause";
+
+                //tell the recorder to stop the recording
+                this.rec.stop();
+
+                //stop microphone access
+                this.gumStream.getAudioTracks()[0].stop();
+
+                //create the wav blob and pass it on to createDownloadLink
+                this.rec.exportWAV(this.createDownloadLink);
+            },
+            deleteRecording() {
+                //tell the recorder to stop the recording
+                this.rec.stop();
+
+                //stop microphone access
+                this.gumStream.getAudioTracks()[0].stop();
+                var recordingsList = document.getElementById("voiceHolder");
+                recordingsList.innerHTML = `
+                    <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
+                        <i class="fa fa-pause voice-btn player-btn-pause"></i>
+                    </button>
+                    <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
+                        <i class="fa fa-stop voice-btn player-btn-stop"></i>
+                    </button>
+                    
+                    <div class="wave-holder" dir="ltr">
+                        <img class="player-gif-wave" src="/packages/chatino/media/img/sound.gif">
+                    </div>
+                    <button class="btn btn-floating" x-on:click="deleteRecording();close_voice()" type="button">
+                        <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
+                    </button>
+                `;
+            },
+            createDownloadLink(blob) {
+                var recordingsList = document.getElementById("voiceHolder");
+                var url = this.URL.createObjectURL(blob);
+                var au = document.createElement('audio');
+                var holder = document.createElement('div');
+                var link = document.createElement('a');
+                var send = document.createElement('button');
+                var trash = document.createElement('button');
+
+
+
+                //name of .wav file to use during upload and download (without extendion)
+                var filename = new Date().toISOString();
+
+                //add controls to the <audio> element
+                au.controls = true;
+                au.style.display = 'none';
+                au.style.margin = 'auto';
+                au.src = url;
+
+                // trash
+                trash.setAttribute('class', 'btn btn-floating');
+                trash.setAttribute('x-on:click', 'close_voice();deleteRecording();');
+                trash.innerHTML = '<i class="fa fa-trash-o voice-btn player-btn-trash"></i>';
+
+
+
+                //save to disk link
+                link.setAttribute('class', 'btn btn-floating');
+                link.href = url;
+                link.download = filename + ".wav"; //download forces the browser to donwload the file using the  filename
+                link.innerHTML = '<i class="fa fa-download voice-btn player-btn-stop"></i>';
+
+
+
+
+                // holder
+                holder.setAttribute('class', 'wave-holder');
+                holder.appendChild(au);
+
+
+                var formdata = new FormData();
+                formdata.append('audio-blob', blob);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/upload/voice',
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+
+                        // button
+                        send.setAttribute('class', 'btn btn-primary btn-floating');
+                        send.setAttribute('x-on:click', `$wire.saveVoice('${data.filename}');close_voice()`);
+                        send.innerHTML = '<i class="fa fa-send"></i>';
+
+
+                        recordingsList.innerHTML = '';
+                        recordingsList.appendChild(trash);
+                        // recordingsList.appendChild(link);
+                        recordingsList.appendChild(holder);
+                        recordingsList.appendChild(send);
+                        // window.dispatchEvent('playAudio');
+                        // new GreenAudioPlayer('.wave-holder');
+                        GreenAudioPlayer.init({
+                            selector: '.wave-holder', // inits Green Audio Player on each audio container that has class "player"
+                            stopOthersOnPlay: true,
+                            // showDownloadButton: true
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        //error message 
+                    }
+                });
             }
         }
     }

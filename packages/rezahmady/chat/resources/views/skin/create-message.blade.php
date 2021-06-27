@@ -2,7 +2,7 @@
     x-on:livewire-upload-start="isUploading = true"
     x-on:livewire-upload-finish="isUploading = false;"
     x-on:livewire-upload-error="isUploading = false"
-    x-on:livewire-upload-progress="progress = $event.detail.progress; isUploading = ($event.detail.progress == 100) ? false : true">
+    x-on:livewire-upload-progress="progress = ($event.detail.progress == 100) ? 0 : $event.detail.progress; isUploading = ($event.detail.progress == 100) ? false : true">
 
     @if ($status === 'chat')
         @if ($photos)
@@ -27,20 +27,22 @@
                 </div>
             </div>
             @else
-            <div id="voiceHolder" x-ref="voiceHolder" x-show="voice_holder" >
-                <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
-                    <i class="fa fa-pause voice-btn player-btn-pause"></i>
-                </button>
-                <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
-                    <i class="fa fa-stop voice-btn player-btn-stop"></i>
-                </button>
-                
-                <div class="wave-holder" dir="ltr">
-                    <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
+            <div x-data="VoiceRecorder()" >
+                <div id="voiceHolder" x-ref="voiceHolder" x-show.transition="voice_holder" >
+                    <button x-on:click="pauseRecording()" class="btn btn-floating" type="button">
+                        <i class="fa fa-pause voice-btn player-btn-pause"></i>
+                    </button>
+                    <button x-on:click="stopRecording()" class="btn btn-floating" type="button">
+                        <i class="fa fa-stop voice-btn player-btn-stop"></i>
+                    </button>
+                    
+                    <div class="wave-holder" dir="ltr">
+                        <img class="player-gif-wave" src="{{asset('packages/chatino/media/img/sound.gif')}}">
+                    </div>
+                    <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
+                        <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
+                    </button>
                 </div>
-                <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
-                    <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
-                </button>
             </div>
             <style>
                 .w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
@@ -96,7 +98,6 @@
             <button wire:click="cancelArchive()" class="btn btn-primary" type="submit">
                 خارج کردن از بایگانی
             </button>
-
         </div>
     </div>
     @elseif($status === 'start') 
