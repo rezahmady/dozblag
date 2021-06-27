@@ -1,8 +1,8 @@
 <div class="chat-footer" x-data="CreateMessage()"
     x-on:livewire-upload-start="isUploading = true"
-    x-on:livewire-upload-finish="isUploading = false; progress = 0 "
+    x-on:livewire-upload-finish="isUploading = false;"
     x-on:livewire-upload-error="isUploading = false"
-    x-on:livewire-upload-progress="progress = $event.detail.progress">
+    x-on:livewire-upload-progress="progress = $event.detail.progress; isUploading = ($event.detail.progress == 100) ? false : true">
 
     @if ($status === 'chat')
         @if ($photos)
@@ -55,14 +55,14 @@
             </style>
             
             <div x-show.transition="isUploading" class="w3-light-grey">
-                <div class="w3-green" x-bind:style="`height:8px;width: ${progress}%`"></div>
+                <div class="w3-green" x-bind:style="`height:4px;width: ${progress}%`"></div>
             </div>
             <form x-ref="div" wire:submit.prevent="submit"  id="ta-frame">
                 
                 <textarea autofocus id="textarea" x-ref="ta" wire:keydown.enter.prevent="submit" x-on:keydown="autosize($refs.div,$refs.ta)" wire:model.defer="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
         
                 <div class="form-buttons p-relative">
-                    <div class="buttons_holder" x-show.transition="buttons_holder" x-on:click.away="close_buttons()">
+                    <div class="buttons_holder" x-show.transition="buttons_holder" x-on:click.away="close_buttons()" x-on:click="close_buttons()">
 
                         <form wire:submit.prevent="savePhotos">
                             <button class="mb-1 btn btn-light btn-floating button-wrapper" type="submit">
