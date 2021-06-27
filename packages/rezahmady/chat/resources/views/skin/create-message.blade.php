@@ -54,9 +54,9 @@
             <div x-show.transition="isUploading" class="w3-light-grey">
                 <div class="w3-green" x-bind:style="`height:4px;width: ${progress}%`"></div>
             </div>
-            <form x-ref="div" wire:submit.prevent="submit"  id="ta-frame">
+            <form x-ref="div"   id="ta-frame">
                 
-                <textarea autofocus id="textarea" x-ref="ta" wire:keydown.enter.prevent="submit" x-on:keydown="autosize($refs.div,$refs.ta)" wire:model.defer="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
+                <textarea autofocus id="textarea" x-on:keydown.enter.prevent="send_text()" x-ref="ta" x-on:keydown="autosize($refs.div,$refs.ta)" x-model="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
         
                 <div class="form-buttons p-relative">
                     <div class="buttons_holder" x-show.transition="buttons_holder" x-on:click.away="close_buttons()" x-on:click="close_buttons()">
@@ -80,7 +80,7 @@
                     <button class="btn btn-light btn-floating" x-on:click="toggle_buttons()" type="button">
                         <i class="fa fa-angle-up"></i>
                     </button>
-                    <button class="btn btn-primary btn-floating" type="submit">
+                    <button class="btn btn-primary btn-floating" x-on:click.prevent="send_text()">
                         <i class="fa fa-send"></i>
                     </button>
                 </div>
@@ -120,12 +120,12 @@
     </div>
     @endif
 
+    <script>
+        // window.addEventListener('playAudio', event => {
+        //     GreenAudioPlayer.init({
+        //         selector: '.player', // inits Green Audio Player on each audio container that has class "player"
+        //         stopOthersOnPlay: true
+        //     });
+        // })
+    </script>
 </div>
-<script>
-    window.addEventListener('playAudio', event => {
-        GreenAudioPlayer.init({
-            selector: '.player', // inits Green Audio Player on each audio container that has class "player"
-            stopOthersOnPlay: true
-        });
-    })
-</script>

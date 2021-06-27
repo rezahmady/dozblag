@@ -5,11 +5,12 @@ namespace Rezahmady\Chat\Http\Livewire;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Rezahmady\Chat\Events\MessageAdded;
 use Rezahmady\Chat\Models\Room as RoomModel;
 use Rezahmady\Chat\Http\Livewire\Traits\WithAudience;
 use Rezahmady\Chat\Events\MessageSeen;
 use Rezahmady\Chat\Events\MessageSeenResponse;
-
+use Rezahmady\Chat\Models\Chat;
 
 class Index extends Component
 {
@@ -103,6 +104,22 @@ class Index extends Component
     public function roomStarted() {
         $this->expireDate = $this->currentRoom->extras['expire_date'];
         $this->dispatchBrowserEvent('room-set-time', ['expire_date'=> $this->expireDate ]);
+    }
+
+    public function submit($body)
+    {
+        $message = Chat::create([
+            'user_id'    => auth()->id(),
+            'body'       => $body,
+            'room_id'    => $this->currentRoom->id,
+        ]);
+            
+        $this->emit('message-added', $message->id);
+
+        $sender = auth()->id();
+        
+        broadcast(new MessageAdded($this->currentRoom->id, $message->id, $sender))->toOthers();        
+
     }
 
     public function prependMessage()

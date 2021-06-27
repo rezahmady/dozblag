@@ -323,6 +323,12 @@
             content: '',
             isUploading: false,
             progress: 0,
+            body: '',
+            send_text() {
+                var text = this.body;
+                this.body = '';
+                @this.submit(text);
+            },
             open_buttons() {
                 this.buttons_holder = true;
             },
