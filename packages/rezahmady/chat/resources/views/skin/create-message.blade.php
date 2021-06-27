@@ -1,4 +1,9 @@
-<div class="chat-footer" x-data="CreateMessage()">
+<div class="chat-footer" x-data="CreateMessage()"
+    x-on:livewire-upload-start="isUploading = true"
+    x-on:livewire-upload-finish="isUploading = false; progress = 0 "
+    x-on:livewire-upload-error="isUploading = false"
+    x-on:livewire-upload-progress="progress = $event.detail.progress">
+
     @if ($status === 'chat')
         @if ($photos)
             <div class="preview_holder">
@@ -36,6 +41,21 @@
                 <button class="btn btn-floating" x-on:click="close_voice();deleteRecording();" type="button">
                     <i class="fa fa-trash-o voice-btn player-btn-trash"></i>
                 </button>
+            </div>
+            <style>
+                .w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
+                    color: #000!important;
+                    background-color: #f1f1f1!important;
+                }
+
+                .w3-green, .w3-hover-green:hover {
+                    color: #fff!important;
+                    background-color: #4CAF50!important;
+                }
+            </style>
+            
+            <div x-show.transition="isUploading" class="w3-light-grey">
+                <div class="w3-green" x-bind:style="`height:8px;width: ${progress}%`"></div>
             </div>
             <form x-ref="div" wire:submit.prevent="submit"  id="ta-frame">
                 

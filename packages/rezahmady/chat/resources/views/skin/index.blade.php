@@ -323,6 +323,8 @@
             voice_holder: false,
             buttons_holder: false,
             content: '',
+            isUploading: false,
+            progress: 0,
             open_voice() {
                 this.buttons_holder = false;
                 this.voice_holder = true;
