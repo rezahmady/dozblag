@@ -21397,6 +21397,10 @@ nav.navigation ul li a.active::before {
     max-width: 1200px;
 }
 
+.gallery-modal .modal-content {
+    background-color: inherit;
+}
+
 
 /* The Close Button */
 
@@ -21650,3 +21654,9 @@ img.hover-shadow {
     line-height: 1;
     font-size: 14px;
 }
+
+background-color: white;
+font-size: 14px;
+
+}
+!

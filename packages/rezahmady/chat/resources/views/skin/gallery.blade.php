@@ -13,7 +13,7 @@
         @endforeach
     </div>
       
-    <div x-show="modal" class="gallery-modal">
+    <div x-show.transition="modal" class="gallery-modal">
         <span class="gallery-close cursor" x-on:click="closeModal()">&times;</span>
         <div class="modal-content">
             @foreach ($photos as $key => $file)

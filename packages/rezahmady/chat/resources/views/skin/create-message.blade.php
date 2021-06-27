@@ -42,7 +42,7 @@
                 <textarea autofocus id="textarea" x-ref="ta" wire:keydown.enter.prevent="submit" x-on:keydown="autosize($refs.div,$refs.ta)" wire:model.defer="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
         
                 <div class="form-buttons p-relative">
-                    <div class="buttons_holder" x-show="buttons_holder" x-on:click.away="close_buttons()">
+                    <div class="buttons_holder" x-show.transition="buttons_holder" x-on:click.away="close_buttons()">
 
                         <form wire:submit.prevent="savePhotos">
                             <button class="mb-1 btn btn-light btn-floating button-wrapper" type="submit">

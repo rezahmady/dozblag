@@ -4,7 +4,7 @@
         @can('page update')
             <a class="btn btn-setting mb-5" x-on:click="setwidget('{{$widget->name}}')" style="top:-35px;right:0;" href="{{ url("/admin/widget/$widget->id/edit?iframe=true") }}" data-lity ><i class="fa fa-cog" wire:loading.class="loading"></i></a>
         @endcan
-	<div class="st-panel" x-show="open" x-on:click.away="open = false" x-on:click="open = false">
+	<div class="st-panel" x-show.transition="open" x-on:click.away="open = false" x-on:click="open = false">
 		<div class="grid">
             @php
                 $items = json_decode($widget->contact_list);

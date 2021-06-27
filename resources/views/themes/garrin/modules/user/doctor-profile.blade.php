@@ -3,7 +3,7 @@
         use Rezahmady\SettingOperation\Setting;
     @endphp
     <div class="modal-alpine show " x-show="modal" style="display: flow-root;background-color: rgb(88 88 88 / 50%);" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog position-relative" role="document" x-on:click.away="closeModal()">
+        <div class="modal-dialog position-relative" x-show.transition="modal" role="document" x-on:click.away="closeModal()">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" x-text="subscribtion.name"></h5>
