@@ -106,20 +106,17 @@ class Index extends Component
         $this->dispatchBrowserEvent('room-set-time', ['expire_date'=> $this->expireDate ]);
     }
 
-    public function submit($body)
+    public function submit($text, $key)
     {
         $message = Chat::create([
             'user_id'    => auth()->id(),
-            'body'       => $body,
+            'body'       => $text,
             'room_id'    => $this->currentRoom->id,
         ]);
-            
-        $this->emit('message-added', $message->id);
-
+        $this->prependMessage();
+        $this->dispatchBrowserEvent('synceLocalMessage', ['key' => $key]);
         $sender = auth()->id();
-        
-        broadcast(new MessageAdded($this->currentRoom->id, $message->id, $sender))->toOthers();        
-
+        broadcast(new MessageAdded($this->currentRoom->id, $message->id, $sender))->toOthers();
     }
 
     public function prependMessage()
@@ -137,6 +134,11 @@ class Index extends Component
         $this->emit('rerenderCreateMessage', $this->currentRoom);
         $this->dispatchBrowserEvent('scrollToBottom');
         $this->dispatchBrowserEvent('room-set');
+        $payload = [
+            'messageId' => $this->currentRoom->latestMessage->id,
+            'sender' => $this->audience->id
+        ];
+        $this->seenMessages($payload);
     }
 
     public function cancelChat() {

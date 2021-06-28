@@ -1,4 +1,7 @@
-<div class="layout" id="app" x-data="data()"  x-init="init()">
+<div class="layout" id="app" x-data="data()"  x-init="init()"
+    @add-message.window="addMessage($event.detail.key, $event.detail.text)"
+    @remove-message.window="removeMessage($event.detail.key)"
+>
     <!-- disconnected modal -->
     <div class="modal fade show" wire:offline id="disconnected" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -63,16 +66,6 @@
                     </a>
                 </li>
                 @endif
-                {{-- <li>
-                    <a href="#" data-toggle="modal" data-target="#editProfileModal">
-                        <i class="ti-pencil"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#settingModal">
-                        <i class="ti-settings"></i>
-                    </a>
-                </li> --}}
                 <li class="lofout-button">
                     <a href="{{route('home')}}">
                         <i class="ti-power-off"></i>
@@ -192,11 +185,47 @@
             sidebar: true,
             profile: false,
             loadingRoom: false,
+            messages : [],
             currentRoom: @entangle('currentRoom'),
             navigation_target: localStorage.getItem("navigation-target") ?? 'chats',
             set_navigation(target) {
                 localStorage.setItem("navigation-target", target);
                 this.navigation_target = target;
+            },
+            addMessage(key,text) {
+                var today=new Date(key);
+                var h=today.getHours();
+                var m=today.getMinutes();
+                var time = h+':'+m;
+                this.messages.push({ key , text, time });
+                this.addLocalMessageToView();
+            },
+            removeMessage(key) {
+                this.messages = this.messages.filter(item => item.key !== key)
+                this.addLocalMessageToView();
+            },
+            addLocalMessageToView() {
+                this.messages.forEach(message => {
+                    var div = document.getElementById('messages-holder');
+                    div.innerHTML += `
+                    <div class="message-item">
+                        <div class="message-content">
+                            ${message.text}
+                        </div>
+                        <div class="message-action">
+                        ${message.time} <i class="ti-time"></i>
+                        </div>
+                    </div>
+                    `;
+                    var chat_body = $('.layout .content .chat .chat-body');
+                    if (chat_body.length > 0) {        
+                        chat_body.scrollTop(chat_body.get(0).scrollHeight, -1).niceScroll({
+                            cursorcolor: 'rgba(66, 66, 66, 0.20)',
+                            cursorwidth: "4px",
+                            cursorborder: '0px'
+                        });
+                    }
+                });
             },
             setRoom() {
                 this.sidebar = false;
@@ -324,11 +353,24 @@
             isUploading: false,
             progress: 0,
             body: '',
-            send_text() {
+            localMessages : {},
+            init() {
+                console.log('init new')
+            },
+            send_text(dispatch) {
                 var text = this.body;
                 this.body = '';
-                @this.submit(text);
+                var key = Date.now();
+                dispatch('add-message', { key,text })
+                @this.submit(text, key);
             },
+            init(dispatch) {
+                this.URL = window.URL || window.webkitURL;
+                window.addEventListener('synceLocalMessage', event => {
+                    dispatch('remove-message', { key : event.detail.key})
+                })
+            },
+            messages: [],
             open_buttons() {
                 this.buttons_holder = true;
             },
@@ -357,9 +399,6 @@
             input: false,
             audioContext: false,
             URL: false,
-            init() {
-                this.URL = window.URL || window.webkitURL;
-            },
             open_voice() {
                 this.buttons_holder = false;
                 this.voice_holder = true;
@@ -540,12 +579,6 @@
             }
         }
     }
-
-    function VoiceRecorder() {
-        return {
-           
-        }
-    }
     
     function autosize(div,ta) {
         setTimeout(function() {
@@ -607,12 +640,6 @@
     })
 
     window.addEventListener('scrollToBottom', event => {
-        // location.href = '#'
-        // var element = document.getElementById("messages-holder");
-        // element.scrollIntoView({
-        //     block: "end",
-        //     behavior: "smooth"
-        // });
         var chat_body = $('.layout .content .chat .chat-body');
         if (chat_body.length > 0) {        
             chat_body.scrollTop(chat_body.get(0).scrollHeight, -1).niceScroll({
@@ -621,11 +648,6 @@
                 cursorborder: '0px'
             });
         }
-        // if (document.getElementById("textarea")) {
-        //     setTimeout(function() { document.getElementById("textarea").focus() }, 2000);
-        // }
-        // console.log('scrollToBottom');
-
     })
 
     document.addEventListener('DOMContentLoaded', function () {

@@ -84,6 +84,16 @@
                 
             @endforeach
         @endforeach
+
+        {{-- <template x-if="messages" x-for="message in messages" :key="message.key" >
+            <div class="message-item">
+                <div class="message-content" x-text="message.text">
+                </div>
+                <div class="message-action">
+                    <span x-text="message.time"></span> <i class="ti-time"></i>
+                </div>
+            </div>
+        </template> --}}
         
     </div>
 </div>

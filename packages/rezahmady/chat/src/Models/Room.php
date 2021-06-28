@@ -88,16 +88,22 @@ class Room extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function resetRoom()
+    {
+        return '<a class="btn btn-sm btn-link" href="/admin/reset-room/'.$this->id.'">'.
+            '<i class="la la-redo-alt"></i>تمدید</a>';
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
 
-    public function setExtrasAttribute($value)
-    {
-        $this->attributes['extras'] = $value ? $value->toJson() : json_encode([]);
-    }
+    // public function setExtrasAttribute($value)
+    // {
+    //     $this->attributes['extras'] = $value ? $value->toJson() : json_encode([]);
+    // }
 
     public function getExtrasAttribute($value)
     {

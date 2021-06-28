@@ -1,4 +1,5 @@
 <div class="chat-footer" x-data="CreateMessage()"
+    x-init="init($dispatch)"
     x-on:livewire-upload-start="isUploading = true"
     x-on:livewire-upload-finish="isUploading = false;"
     x-on:livewire-upload-error="isUploading = false"
@@ -56,7 +57,7 @@
             </div>
             <form x-ref="div"   id="ta-frame">
                 
-                <textarea autofocus id="textarea" x-on:keydown.enter.prevent="send_text()" x-ref="ta" x-on:keydown="autosize($refs.div,$refs.ta)" x-model="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
+                <textarea autofocus id="textarea" x-on:keydown.enter.prevent="send_text($dispatch)" x-ref="ta" x-on:keydown="autosize($refs.div,$refs.ta)" x-model="body" class="textarea" rows='1' placeholder="متن پیام..." x-text="content" ></textarea>
         
                 <div class="form-buttons p-relative">
                     <div class="buttons_holder" x-show.transition="buttons_holder" x-on:click.away="close_buttons()" x-on:click="close_buttons()">
@@ -80,7 +81,7 @@
                     <button class="btn btn-light btn-floating" x-on:click="toggle_buttons()" type="button">
                         <i class="fa fa-angle-up"></i>
                     </button>
-                    <button class="btn btn-primary btn-floating" x-on:click.prevent="send_text()">
+                    <button class="btn btn-primary btn-floating" x-on:click.prevent="send_text($dispatch)">
                         <i class="fa fa-send"></i>
                     </button>
                 </div>
