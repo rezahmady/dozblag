@@ -29,20 +29,23 @@
                             x-ref="voice_{{$message->id}}"
                             x-init="
 
-                            new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
-                                skin: '/packages/chatino/js/vendor/calamansijs/skins/ayon',
-                                playlists: {
-                                    'Classics': [
-                                        {
-                                            source: '{{url(config('rezahmady.chat.uploud_voice_path').$message->body)}}',
-                                        }
-                                    ],
-                                },
-                                defaultAlbumCover: '{{$message->user->getProfile()}}',
-                            });
+                            setTimeout(function() { 
+                                new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
+                                    skin: '/packages/chatino/js/vendor/calamansijs/skins/ayon',
+                                    playlists: {
+                                        'Classics': [
+                                            {
+                                                source: '{{url(config('rezahmady.chat.uploud_voice_path').$message->body)}}',
+                                            }
+                                        ],
+                                    },
+                                    defaultAlbumCover: '{{$message->user->getProfile()}}',
+                                });
 
-                            $dispatch('scrollToBottom');
-                            "
+                                $dispatch('scrollToBottom');
+                                
+                            
+                            }, 2000);"
                             >
                                 در حال پردازش پلیر ...
                             </div>
