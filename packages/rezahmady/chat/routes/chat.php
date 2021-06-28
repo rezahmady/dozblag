@@ -41,5 +41,6 @@ Route::group([
 ], function () {
     Route::crud('room', RoomCrudController::class);
     Route::crud('chat', ChatCrudController::class);
+    Route::get('reset-room/{room}', [RoomCrudController::class, 'resetRoom']);
     // Route::get('chats', Index::class)->name('chat.index');
 });

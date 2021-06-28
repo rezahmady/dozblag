@@ -8,6 +8,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Rezahmady\Chat\Events\ConsultationAdded;
 use Rezahmady\Chat\Models\Room;
+use Rezahmady\Subscribtion\Models\Subscribtion;
+use Alert;
 
 /**
  * Class RoomCrudController
@@ -18,10 +20,10 @@ class RoomCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore;}
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate;}
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use DefaultPermissions;
     Const ENTITY = 'chat';
     /**
@@ -81,8 +83,11 @@ class RoomCrudController extends CrudController
                 // 'entity'    => 'tags', // the method that defines the relationship in your Model
                 // 'attribute' => 'name', // foreign key attribute that is shown to user
                 // 'model'     => App\Models\Category::class, // foreign key model
-             ],
+             ]
         ]);
+
+        
+        $this->crud->addButtonFromModelFunction('line', 'reset', 'resetRoom', 'beginning');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -153,6 +158,40 @@ class RoomCrudController extends CrudController
                 'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
                 // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
+            [   // 1-n relationship
+                'label'       => "اشتراک", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'subscribtion_id', // the column that contains the ID of that connected entity
+                'entity'      => 'subscribtion', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/subscribtion"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "Rezahmady\Subscribtion\Models\subscribtion", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [
+                'name'       => 'remaining_duration',
+                'type'       => 'number',
+                'prefix'       => '<i class="la la-clock"></i>',
+                'label'      => 'محدودیت زمانی',
+                'suffix'     => 'دقیقه',
+                'fake'       => true,
+                'wrapper'    => [
+                    'class'  => 'col-md-6'
+                ]
+            ],
+            [
+                'name'       => 'expire_date',
+                'type'       => 'hidden',
+                'fake'       => true,
+                'value'      => null
+            ]
 
         ]);
 
@@ -171,34 +210,162 @@ class RoomCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(RoomRequest::class);
+
+        CRUD::addFields([
+            [   // 1-n relationship
+                'label'       => "کاربر", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'user_id', // the column that contains the ID of that connected entity
+                'entity'      => 'user', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/users"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [   // 1-n relationship
+                'label'       => "پزشک", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'doctor_id', // the column that contains the ID of that connected entity
+                'entity'      => 'doctor', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/doctors"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [   // 1-n relationship
+                'label'       => "اپراتور", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'operator_id', // the column that contains the ID of that connected entity
+                'entity'      => 'operator', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/operators"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "App\Models\User", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [   // 1-n relationship
+                'label'       => "اشتراک", // Table column heading
+                'type'        => "select2_from_ajax",
+                'name'        => 'subscribtion_id', // the column that contains the ID of that connected entity
+                'entity'      => 'subscribtion', // the method that defines the relationship in your Model
+                'attribute'   => "name", // foreign key attribute that is shown to user
+                'data_source' => url("api/subscribtion"), // url to controller search function (with /{id} should return model)
+
+                // OPTIONAL
+                // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+                'placeholder'             => "انتخاب کنید", // placeholder for the select
+                'minimum_input_length'    => 0, // minimum characters to type before querying results
+                'model'                   => "Rezahmady\Subscribtion\Models\subscribtion", // foreign key model
+                // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+                'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+                // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            ],
+            [
+                'name'       => 'remaining_duration',
+                'type'       => 'number',
+                'prefix'       => '<i class="la la-clock"></i>',
+                'label'      => 'محدودیت زمانی',
+                'suffix'     => 'دقیقه',
+                'fake'       => true,
+                'wrapper'    => [
+                    'class'  => 'col-md-6'
+                ]
+            ],
+            [
+                'name'       => 'expire_date',
+                'type'       => 'hidden',
+                'fake'       => true,
+                'value'      => $this->crud->getCurrentEntry()->expire_date
+            ]
+
+        ]);
+
+        $this->crud->addSaveAction([
+            'name' => 'save_action_and_reset',
+            'redirect' => function($crud, $request, $itemId) {
+                return $crud->route;
+            }, // what's the redirect URL, where the user will be taken after saving?
+        
+            // OPTIONAL:
+            'button_text' => 'ذخیره و تمدید', // override text appearing on the button
+            // You can also provide translatable texts, for example:
+            // 'button_text' => trans('backpack::crud.save_action_one'),
+            'visible' => function($crud) {
+                return true;
+            }, // customize when this save action is visible for the current operation
+            'referrer_url' => function($crud, $request, $itemId) {
+                return $crud->route;
+            }, // override http_referrer_url
+            'order' => 1, // change the order save actions are in
+        ]);
     }
+
     public function store()
     {
-        // do something before validation, before save, before everything; for example:
-        // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
-    // $this->crud->removeField('password_confirmation');
-
-    // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
-    // This is done by stripping the request of all inputs that do NOT match Backpack fields for this
-    // particular operation. This is an added security layer, to protect your database from malicious
-    // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
-    // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
-
-    // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate
-    // the request directly to add or remove request parameters, you can also do that.
-    // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
-    // you want it to apply to all CRUDs, or inside a particular CrudController:
-        // $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
-    // The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
-    // So you can manipulate the request and add any request variable you'd like.
-    // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
-    // $this->crud->getRequest()->request->remove('password_confirmation');
+        $subscribtion = Subscribtion::find($this->crud->getRequest()->subscribtion_id);
+        
+        if ($this->crud->getRequest()->remaining_duration == null) {
+            $this->crud->getRequest()->request->remove('remaining_duration');
+            $this->crud->getRequest()->request->add(['remaining_duration'=> $subscribtion->extras->limit_duration]);
+        }
 
         $response = $this->traitStore();
         $id = $this->crud->getCurrentEntry()->id;
-        event(new ConsultationAdded());
+        event(new ConsultationAdded(Room::find($id)));
+        
+        broadcast(new ConsultationAdded(Room::find($id)))->toOthers();
 
         return $response;
+    }
+
+
+    public function update()
+    {
+        $subscribtion = Subscribtion::find($this->crud->getRequest()->subscribtion_id);
+        
+        if ($this->crud->getRequest()->remaining_duration == null) {
+            $this->crud->getRequest()->request->remove('remaining_duration');
+            $this->crud->getRequest()->request->add(['remaining_duration'=> $subscribtion->extras->limit_duration]);
+        }
+        
+        if($this->crud->getRequest()->save_action === "save_action_and_reset") {
+            $this->crud->getRequest()->request->add(['expire_date'=> null]);
+            $this->crud->getRequest()->request->remove('operation_id');
+            $this->crud->getRequest()->request->add(['operation_id'=> null]);
+        }
+        $response = $this->traitUpdate();
+        return $response;
+    }
+
+    public function resetRoom(Room $room)
+    {
+        $room->update([
+            'extras->expire_date' => null,
+            'operation_id' => null,
+            'extras->remaining_duration' => $room->subscribtion->extras->limit_duration
+        ]);
+        Alert::success("گفت‌و‌گو تمدید شد")->flash();
+        return redirect()->to($this->crud->route);
     }
 }

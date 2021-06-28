@@ -15,6 +15,7 @@
  */
 
 use Rezahmady\Subscribtion\Http\Controllers\Admin\SubscribtionCrudController;
+use Rezahmady\Subscribtion\Http\Controllers\Api\SubscribtionController;
 use Rezahmady\Subscribtion\Http\Livewire\Subscribtion;
 
 Route::group([
@@ -23,6 +24,10 @@ Route::group([
     ),
 ], function() {
     Route::middleware('auth')->get('subscribtion', Subscribtion::class)->name('subscribtion.view');
+
+    Route::group(['prefix'=>'api'], function(){
+        Route::get('/subscribtion', [SubscribtionController::class, 'subscribtion']);
+    });
 });
 
 

@@ -33,37 +33,6 @@ class Messages extends Component
         $this->messages = $this->room->messages()->orderBy('created_at', 'desc')->get();
     }
 
-    public function rerenderMessages($id) {
-        $this->room = Room::findOrFail($id);
-        $this->messages = $this->room->messages()->orderBy('created_at', 'desc')->get();
-        $this->emitUp('ShowRoom');
-    }
-
-    public function prependMessageFromBroadcasting($payload)
-    {
-        $this->prependMessage($payload['messageId']);
-        $this->seenFromBroadcasting($payload);
-    }
-
-    public function prependMessage($id)
-    {
-        $this->messages = $this->room->messages->reverse();
-        $this->dispatchBrowserEvent('scrollTo', ['hash' => "message-{$id}"]);
-    }
-
-    public function seenFromBroadcasting($payload)
-    {
-        $messages = $this->room->messages()
-        ->where('id', '<=', $payload['messageId'])
-        ->where('user_id', $payload['sender'])
-        ->update([
-            'seen' => 1
-        ]);
-
-        broadcast(new MessageSeenResponse($this->room->id, $payload['messageId'], $payload['sender']))->toOthers();
-
-    }
-
     /**
      * Get the view / contents that represent the component.
      *
