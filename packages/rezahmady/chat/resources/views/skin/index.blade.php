@@ -358,11 +358,13 @@
                 console.log('init new')
             },
             send_text(dispatch) {
-                var text = this.body;
-                this.body = '';
-                var key = Date.now();
-                dispatch('add-message', { key,text })
-                @this.submit(text, key);
+                if(this.body != '') {
+                    var text = this.body;
+                    this.body = '';
+                    var key = Date.now();
+                    dispatch('add-message', { key,text })
+                    @this.submit(text, key);
+                }
             },
             init(dispatch) {
                 this.URL = window.URL || window.webkitURL;
