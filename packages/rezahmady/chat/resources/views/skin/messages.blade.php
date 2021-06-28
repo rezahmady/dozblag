@@ -28,6 +28,7 @@
                                 x-data
                             x-ref="voice_{{$message->id}}"
                             x-init="
+
                             new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
                                 skin: '/packages/chatino/js/vendor/calamansijs/skins/ayon',
                                 playlists: {
@@ -41,6 +42,7 @@
                             });
 
                             $dispatch('scrollToBottom');
+                            "
                             >
                                 در حال پردازش پلیر ...
                             </div>
