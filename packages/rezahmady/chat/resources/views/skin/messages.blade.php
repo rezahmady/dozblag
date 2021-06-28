@@ -28,10 +28,7 @@
                                 x-data
                             x-ref="voice_{{$message->id}}"
                             x-init="
-
-                            setTimeout(function() { 
-                                
-                                new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
+                            new Calamansi(document.querySelector('#mediPlayer_{{$message->id}}'), {
                                 skin: '/packages/chatino/js/vendor/calamansijs/skins/ayon',
                                 playlists: {
                                     'Classics': [
@@ -42,8 +39,8 @@
                                 },
                                 defaultAlbumCover: '{{$message->user->getProfile()}}',
                             });
-                            
-                            }, 3000);"
+
+                            $dispatch('scrollToBottom');
                             >
                                 در حال پردازش پلیر ...
                             </div>
