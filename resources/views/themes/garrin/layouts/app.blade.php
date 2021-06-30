@@ -6,13 +6,14 @@
         <meta name="keywords" content="@yield('meta_keywords', theme_option('meta_keywords'))" >
         <meta name="description" content="@yield('meta_description', theme_option('meta_description'))">
         <meta name="author" content="Reza Ahmadi Sabzevar">
+        <meta http-equiv="origin-trial" content="AgkruLcBqv/ofyNe+qNo1wL+x0hjaxtzqmkcK110waLMg10Hyfl5yYFdnYLm687rkJMMW0HTkBXXrw5R2bHEfAsAAABqeyJvcmlnaW4iOiJodHRwczovL2dhcmlpbi5jb206NDQzIiwiZmVhdHVyZSI6IldlYkFwcExpbmtDYXB0dXJpbmciLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
 		<title>@yield('meta_title') | {{ theme_option('meta_title') }}</title>
 
 		<!-- Favicons -->
         <link rel="icon" type="image/png" href="{{ theme_option('favicon') }}">
         <link rel="manifest" href="{{url('/manifest.json')}}" />
         <script type="module">
-            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+            import '/pwaupdate.js';
             const el = document.createElement('pwa-update');
             document.body.appendChild(el);
         </script>

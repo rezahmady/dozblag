@@ -67,7 +67,7 @@
                                 <span class="label">
                                     <i class="fa fa-photo"></i>
                                 </span>
-                                <input type="file" wire:model="photos" multiple id="upload" class="upload-box" placeholder="">
+                                <input type="file" wire:model="photos" multiple id="upload" class="upload-box" accept="image/x-png,image/jpeg,image/gif">
                             </button>
                         </form>
 

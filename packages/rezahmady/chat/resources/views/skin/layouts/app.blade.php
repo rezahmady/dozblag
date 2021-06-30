@@ -8,11 +8,57 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>پلت فرم گفت و گو و بحث</title>
+    <meta http-equiv="origin-trial" content="AgkruLcBqv/ofyNe+qNo1wL+x0hjaxtzqmkcK110waLMg10Hyfl5yYFdnYLm687rkJMMW0HTkBXXrw5R2bHEfAsAAABqeyJvcmlnaW4iOiJodHRwczovL2dhcmlpbi5jb206NDQzIiwiZmVhdHVyZSI6IldlYkFwcExpbmtDYXB0dXJpbmciLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
     <link rel="stylesheet" href="{{asset('packages/chatino/css/lity.css')}}" >
     {{-- <script src="https://unpkg.com/wavesurfer.js"></script> --}}
     <script src="{{asset('packages/chatino/js/vendor/green-audio-player.min.js')}}" defer></script>
     <script src="{{asset('packages/chatino/js/vendor/recorder/recorder.js')}}" ></script>
     <script src="/packages/chatino/js/vendor/jquery.min.js" ></script>
+    {{-- <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase-messaging.js" defer></script> --}}
+
+      <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script defer>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyBEEI9LBfnspWNjUOu0L4zJCzVC-PUByUU",
+            authDomain: "react-lesson-c7038.firebaseapp.com",
+            databaseURL: "https://react-lesson-c7038.firebaseio.com",
+            projectId: "react-lesson-c7038",
+            storageBucket: "react-lesson-c7038.appspot.com",
+            messagingSenderId: "652673181841",
+            appId: "1:652673181841:web:44ecc7e7c42cba1e7ef730"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        // Get registration token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken({ vapidKey: 'BMg0EGK11H7ySQLwJJnj07H8-F7-Zm4HKcAukizdHrFAl0BIxnI3MfUDsPRyPTQBxoeJOqjKsDKekTKs7xrmBkU' }).then((currentToken) => {
+        if (currentToken) {
+            // Send the token to your server and update the UI if necessary
+            // console.log(currentToken)
+            // ...
+        } else {
+            // Show permission request UI
+            console.log('No registration token available. Request permission to generate one.');
+            // ...
+        }
+        }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+        // ...
+        });
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload);
+        // ...
+        });
+      </script>
     <!-- Favicon -->
     {{-- <link rel="icon" href="dist/media/img/favicon.png" type="image/png"> --}}
     <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
@@ -20,7 +66,7 @@
     <script src="{{ mix('/assets/js/chat.js') }}"></script>
     <link rel="manifest" href="{{url('/manifest2.json')}}" defer />
         <script type="module">
-            import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+            import '/pwaupdate.js';
             const el = document.createElement('pwa-update');
             document.body.appendChild(el);
         </script>
