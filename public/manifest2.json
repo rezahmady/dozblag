@@ -1,0 +1,27 @@
+{
+    "dir": "rtl",
+    "lang": "fa",
+    "name": "مشاوره گرین",
+    "short_name": "مشاوره گرین",
+    "scope": "/",
+    "display": "standalone",
+    "start_url": "https://gariin.com/doctorConsulation?pwa=true",
+    "background_color": "#313842",
+    "theme_color": "#3db16b",
+    "description": "خدمات آنلاین پزشکی",
+    "orientation": "any",
+    "related_applications": [],
+    "prefer_related_applications": "false",
+    "url": "https://gariin.com/doctorConsulation?pwa=true",
+    "generated": true,
+    "screenshots": [],
+    "icons": [{
+            "src": "/uploads/images/themes/garrin/chatyno-icon/pwa-192x192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/uploads/images/themes/garrin/chatyno-icon/pwa-512x512.png",
+            "sizes": "512x512"
+        }
+    ]
+}
