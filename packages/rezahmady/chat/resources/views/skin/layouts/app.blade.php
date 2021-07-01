@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>پلت فرم گفت و گو و بحث</title>
     <meta http-equiv="origin-trial" content="AgkruLcBqv/ofyNe+qNo1wL+x0hjaxtzqmkcK110waLMg10Hyfl5yYFdnYLm687rkJMMW0HTkBXXrw5R2bHEfAsAAABqeyJvcmlnaW4iOiJodHRwczovL2dhcmlpbi5jb206NDQzIiwiZmVhdHVyZSI6IldlYkFwcExpbmtDYXB0dXJpbmciLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
-    <link rel="web-app-origin-association" href="/web-app-origin-association">
+    <link rel="web-app-origin-association" href="/web-app-origin-association.json">
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <link rel="stylesheet" href="{{asset('packages/chatino/css/lity.css')}}" >
     {{-- <script src="https://unpkg.com/wavesurfer.js"></script> --}}

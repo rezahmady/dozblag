@@ -7,7 +7,7 @@
         <meta name="description" content="@yield('meta_description', theme_option('meta_description'))">
         <meta name="author" content="Reza Ahmadi Sabzevar">
         <meta http-equiv="origin-trial" content="AgkruLcBqv/ofyNe+qNo1wL+x0hjaxtzqmkcK110waLMg10Hyfl5yYFdnYLm687rkJMMW0HTkBXXrw5R2bHEfAsAAABqeyJvcmlnaW4iOiJodHRwczovL2dhcmlpbi5jb206NDQzIiwiZmVhdHVyZSI6IldlYkFwcExpbmtDYXB0dXJpbmciLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
-        <link rel="web-app-origin-association" href="/web-app-origin-association">
+        <link rel="web-app-origin-association" href="/web-app-origin-association.json">
         <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 		<title>@yield('meta_title') | {{ theme_option('meta_title') }}</title>
 
