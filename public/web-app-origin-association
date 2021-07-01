@@ -1,0 +1,18 @@
+{
+    "web_apps": [
+        {
+            "manifest": "https://gariin.com/manifest2.json",
+            "details": {
+                "paths": ["/doctorConsulation", "/doctorConsulation/*"],
+                "exclude_paths": []
+            }
+        },
+        {
+            "manifest": "https://gariin.com/manifest.json",
+            "details": {
+                "paths": [],
+                "exclude_paths": ["/doctorConsulation", "/doctorConsulation/*"]
+            }
+        }
+    ]
+}

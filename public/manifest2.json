@@ -15,6 +15,7 @@
     "url": "https://gariin.com/doctorConsulation?pwa=true",
     "generated": true,
     "screenshots": [],
+    "capture_links": "existing-client-navigate",
     "url_handlers": [{
         "origin": "https://gariin.com"
     }],
