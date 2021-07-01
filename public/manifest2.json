@@ -15,6 +15,9 @@
     "url": "https://gariin.com/doctorConsulation?pwa=true",
     "generated": true,
     "screenshots": [],
+    "url_handlers": [{
+        "origin": "https://gariin.com"
+    }],
     "icons": [{
             "src": "/uploads/images/themes/garrin/chatyno-icon/pwa-192x192.png",
             "sizes": "192x192"
