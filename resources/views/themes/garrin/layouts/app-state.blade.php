@@ -10,7 +10,7 @@
         <link rel="web-app-origin-association" href="/web-app-origin-association.json">
         <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 		<title>@yield('meta_title') | {{ theme_option('meta_title') }}</title>
-
+        <meta name="turbolinks-cache-control" content="no-cache">
 		<!-- Favicons -->
         <link rel="icon" type="image/png" href="{{ theme_option('favicon') }}">
         <link rel="manifest" href="{{url('/manifest.json')}}" />

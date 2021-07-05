@@ -86,9 +86,15 @@
         }
     });
 
+    // document.addEventListener("turbolinks:before-cache", function() {
+    //     if ($('.doctor-slider').length > 0) {
+    //         $('.doctor-slider').slick('unslick')
+    //     }
+    // })
+
     document.addEventListener("turbolinks:load", function() {
         if ($('.doctor-slider').length > 0) {
-            $('.doctor-slider').slick({
+            $('.doctor-slider').not('.slick-initialized').slick({
                 dots: false,
                 autoplay: true,
                 infinite: true,
@@ -117,6 +123,7 @@
                     }
                 ],
             });
-        }
+        }        
     })
+
 </script>

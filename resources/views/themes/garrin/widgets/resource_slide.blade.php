@@ -90,9 +90,15 @@
             ],
         });
     });
+    
+    // document.addEventListener("turbolinks:before-cache", function() {
+    //     if ($('.resource-slider').length > 0) {
+    //         $('.resource-slider').slick('unslick')
+    //     }
+    // })
 
     document.addEventListener("turbolinks:load", function() {
-        $('.resource-slider').slick({
+        $('.resource-slider').not('.slick-initialized').slick({
             dots: false,
             autoplay: false,
             infinite: true,

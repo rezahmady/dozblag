@@ -76,9 +76,15 @@
         }
     });
 
+    // document.addEventListener("turbolinks:before-cache", function() {
+    //     if ($('.comment-slider').length > 0) {
+    //         $('.comment-slider').slick('unslick')
+    //     }
+    // })
+
     document.addEventListener("turbolinks:load", function() {
         if ($('.comment-slider').length > 0) {
-            $('.comment-slider').slick({
+            $('.comment-slider').not('.slick-initialized').slick({
                 // centerMode: true,
                 centerPadding: '60px',
                 rtl: true,

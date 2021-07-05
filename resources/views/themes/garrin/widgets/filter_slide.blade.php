@@ -86,9 +86,15 @@
         }
     });
 
+    // document.addEventListener("turbolinks:before-cache", function() {
+    //     if ($('.specialities-slider').length > 0) {
+    //         $('.specialities-slider').slick('unslick')
+    //     }
+    // })
+
     document.addEventListener("turbolinks:load", function() {
         if ($('.specialities-slider').length > 0) {
-            $('.specialities-slider').slick({
+            $('.specialities-slider').not('.slick-initialized').slick({
                 dots: true,
                 autoplay: false,
                 infinite: true,

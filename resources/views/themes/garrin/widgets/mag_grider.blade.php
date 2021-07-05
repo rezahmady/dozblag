@@ -143,9 +143,15 @@
         }
     });
 
+    // document.addEventListener("turbolinks:before-cache", function() {
+    //     if ($('.mag-slider').length > 0) {
+    //         $('.mag-slider').slick('unslick')
+    //     }
+    // })
+
     document.addEventListener("turbolinks:load", function() {
         if ($('.mag-slider').length > 0) {
-            $('.mag-slider').slick({
+            $('.mag-slider').not('.slick-initialized').slick({
                 dots: false,
                 infinite: true,
                 // fade: true,
