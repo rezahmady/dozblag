@@ -76,7 +76,7 @@
             
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="@if(sizeOf($packages)) col-md-8  @else col-md-12 @endif">
                     <div clas="card-body pt-0">
 
                         <!-- Doctor Widget -->
@@ -284,6 +284,7 @@
 
 
                 </div>
+                @if (sizeOf($packages))
                 <div class="col-md-4">
                     @if (auth()->check() and backpack_user()->getRoom($doctor->id))
                     <div class="widget about-widget position-relative">
@@ -338,6 +339,7 @@
                     <!-- /About Details -->
                     @endif
                 </div>
+                @endif
             </div>
         </div>
     </div>
