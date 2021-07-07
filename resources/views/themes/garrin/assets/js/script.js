@@ -7,6 +7,11 @@ Version      : 1.3
 (function($) {
     "use strict";
 
+
+    // Sidebar
+
+
+
     // Textarea Text Count
 
     var maxLength = 100;
