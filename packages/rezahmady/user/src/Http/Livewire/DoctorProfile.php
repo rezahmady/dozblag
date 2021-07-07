@@ -55,7 +55,7 @@ class DoctorProfile extends Component
 
         $this->services = $this->doctor->servicesFilter();
 
-        $this->packages = Subscribtion::active()->get();
+        $this->packages = $user->getDoctorSubscribtion();
 
         $this->subscribtion = Subscribtion::active()->first()->toArray();
 

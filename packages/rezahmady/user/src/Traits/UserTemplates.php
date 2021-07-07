@@ -5,6 +5,7 @@ namespace Rezahmady\User\Traits;
 use Rezahmady\Filter\Models\Filter;
 use Rezahmady\Filter\Models\FilterItem;
 use Rezahmady\SettingOperation\Setting;
+use Rezahmady\Subscribtion\Models\Subscribtion;
 
 trait UserTemplates
 {
@@ -113,6 +114,19 @@ trait UserTemplates
                 'tab'     => 'تخصصی',
                 'fake'  => true,
                 'store_in' => 'extras',
+            ],
+            [
+                'name'    => "doctor_subscribtion",
+                'label'   => "اشتراک ها",
+                'type'        => 'select2_from_array',
+                'fake'    => true,
+                'options' => Subscribtion::active()->get()->pluck('name','id')->toArray(),
+                'wrapper'   => [ 
+                    'class'      => 'form-group col-md-6'
+                 ], 
+                'tab'     => 'تخصصی',
+                'allows_multiple' => true,
+                'allows_null' => true,
             ],
             [
                 'name'    => 'bio',
@@ -511,7 +525,7 @@ trait UserTemplates
                         'wrapper'   => [ 
                             'class'      => 'form-group col-md-6'
                         ],
-                        'multiple' => $multiple,
+                        'allows_multiple' => $multiple,
                         'allows_null' => true,
                     ]);
                     break;

@@ -157,6 +157,15 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'module_id')->with('childrenRecursive')->where('parent_id', null);
     }
 
+    public function getDoctorSubscribtion()
+    {
+        return Subscribtion::get()->filter(function($subs) {
+            if(isset($this->extras->doctor_subscribtion))
+                return in_array($subs->id, $this->extras->doctor_subscribtion) ;
+            return false;
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
