@@ -45,7 +45,7 @@
                                 <li class="color-second"><i class="far fa-clock"></i> {{$firstItem->date()}}</li>
                             </ul>
                             <h3 class="blog-title"><a href="{{$firstItem->path()}}">{{$firstItem->title}}</a></h3>
-                            <p class="mb-0">{{\Illuminate\Support\Str::limit($firstItem->description, 300)}}</p>
+                            <p class="mb-0">{!! \Illuminate\Support\Str::limit($firstItem->description, 300) !!}</p>
                         </div>
                     </div>
                 @endif
@@ -79,7 +79,7 @@
                                         <li class="color-second"><i class="far fa-clock"></i> {{$item->date()}}</li>
                                     </ul>
                                     <h3 class="blog-title"><a href="{{$item->path()}}">{{$item->title}}</a></h3>
-                                    <p class="mb-0">{{\Illuminate\Support\Str::limit($item->description, 125)}}</div>
+                                    <p class="mb-0">{!! \Illuminate\Support\Str::limit($item->description, 125) !!}</div>
                             </div>
                             <!-- /Blog Post -->
                         </div>
