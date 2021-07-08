@@ -26,7 +26,7 @@ class ResourceRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'slug' => 'unique:articles,slug,'.\Request::get('id'),
+            'slug' => 'unique:resources,slug,'.\Request::get('id'),
         ];
     }
 

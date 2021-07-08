@@ -78,7 +78,7 @@ class Resource extends Model
 
     public function getShahrestan()
     {
-        return $this->shahrestan->name ?? '';
+        return $this->extras->shahrestan->name ?? '';
     }
     
     public function path()
@@ -99,7 +99,7 @@ class Resource extends Model
 
     public function shahrestan()
     {
-        return $this->belongsTo(Shahrestan::class, 'shahrestan_id');
+        return $this->belongsTo(Shahrestan::class, 'extras->shahrestan_id');
     }
 
     public function users()
@@ -121,5 +121,14 @@ class Resource extends Model
     public function getLimitCaptionAttribute()
     {
         return Str::limit($this->caption, self::LIMIT );
+    }
+
+    public function getSlugOrNameAttribute()
+    {
+        if ($this->slug != '') {
+            return $this->slug;
+        }
+
+        return $this->name;
     }
 }
