@@ -53,7 +53,7 @@ class DoctorList extends Component
         
         $objects = $this->addFilters($objects);
         
-        if(round($objects->count()/$this->pp,false) < $this->page) {
+        if(round($objects->count() < ($this->page-1)*$this->pp)) {
             $this->page = 1;
         }
  
