@@ -191,79 +191,32 @@
                                     </div> --}}
 
                                     <!-- Latest Posts -->
+
+                                    @if ($similarPosts)
                                     <hr>
-                                    {{-- <h4 class="mt-3 section-title">مطالب مشابه </h4>
+                                    <h4 class="mt-3 section-title">مطالب مشابه </h4>
                                     <div class="card post-widget rounded-3xl">
                                         <div class="">
                                             <ul class="latest-posts">
+                                                @foreach ($similarPosts as $item)
                                                 <li>
                                                     <div class="post-thumb">
-                                                        <a href="blog-details.html">
-                                                            <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-01.jpg" alt="">
+                                                        <a href="{{ $item->path() }}">
+                                                            <img class="img-fluid" src="{{ url($item->image) }}" alt="{{$item->name}}">
                                                         </a>
                                                     </div>
                                                     <div class="post-info">
                                                         <h4>
-                                                            <a href="blog-details.html"> سؤال - بازدید از کلینیک به راحتی </a>
+                                                            <a href="{{ $item->path() }}">{{ \Illuminate\Support\Str::limit($item->title, 40) }}</a>
                                                         </h4>
-                                                        <p>4 مهر 1399</p>
+                                                        <p>{{$item->date()}}</p>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="post-thumb">
-                                                        <a href="blog-details.html">
-                                                            <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-02.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="post-info">
-                                                        <h4>
-                                                            <a href="blog-details.html"> فواید رزرو آنلاین پزشک چیست؟ </a>
-                                                        </h4>
-                                                        <p>3 مهر 1399</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="post-thumb">
-                                                        <a href="blog-details.html">
-                                                            <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-03.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="post-info">
-                                                        <h4>
-                                                            <a href="blog-details.html"> مزایای مشاوره با پزشک آنلاین </a>
-                                                        </h4>
-                                                        <p>3 مهر 1399</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="post-thumb">
-                                                        <a href="blog-details.html">
-                                                            <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-04.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="post-info">
-                                                        <h4>
-                                                            <a href="blog-details.html"> 5 دلیل عالی برای استفاده از یک دکتر آنلاین </a>
-                                                        </h4>
-                                                        <p>2 مهر 1399</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="post-thumb">
-                                                        <a href="blog-details.html">
-                                                            <img class="img-fluid" src="assets/garrin/img/blog/blog-thumb-05.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="post-info">
-                                                        <h4>
-                                                            <a href="blog-details.html"> برنامه زمان بندی قرار ملاقات پزشک آنلاین </a>
-                                                        </h4>
-                                                        <p>1 مهر 1399</p>
-                                                    </div>
-                                                </li>
+                                                @endforeach
                                             </ul>
                                         </div>
-                                    </div> --}}
+                                    </div>
+                                    @endif
                                      <!-- /Latest Posts -->
 
                                 </div>

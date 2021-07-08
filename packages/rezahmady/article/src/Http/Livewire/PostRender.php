@@ -13,6 +13,8 @@ class PostRender extends Component
 
     public $author;
 
+    public $similarPosts;
+
     public function mount(Article $article)
     {
         $this->post = $article->withFakes();
@@ -26,6 +28,10 @@ class PostRender extends Component
         }
 
         $this->cats = array_reverse($catsArray);
+
+        $this->similarPosts = Article::whereHas('tags', function ($q) use ($article) {
+            return $q->whereIn('name', $article->tags->pluck('name')); 
+        })->where('id', '!=', $article->id)->published()->get();
 
         $this->author = $article->user->withFakes();
 
