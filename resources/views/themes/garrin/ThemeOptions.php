@@ -61,19 +61,31 @@ class ThemeOptions
         ]);
 
         // image
-        CRUD::addField([
-            'label'        => "تصویر لوگو",
-            'name'         => 'logo',
-            'fake'  => true,
-            'type' => 'image',
-            'crop' => true, // set to true to allow cropping, false to disable
-            'aspect_ratio' => 0, // omit or set to 0 to allow any aspect ratio
-            // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-            'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-            'wrapper'      => [
-                'class'  => "form-group col-12 ltr"
+        CRUD::addFields([
+            [
+                'label'        => "تصویر لوگو",
+                'name'         => 'logo',
+                'fake'  => true,
+                'type' => 'image',
+                'crop' => true, // set to true to allow cropping, false to disable
+                'aspect_ratio' => 0, // omit or set to 0 to allow any aspect ratio
+                // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+                'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+                'wrapper'      => [
+                    'class'  => "form-group col-12 ltr"
+                ],
+                'tab'          => 'هدر',
             ],
-            'tab'          => 'هدر',
+            [
+                'label'        => "فاو آیکن",
+                'name'         => 'favicon',
+                'fake'  => true,
+                'type' => 'browse',
+                'wrapper'      => [
+                    'class'  => "form-group col-12 ltr"
+                ],
+                'tab'          => 'هدر',
+            ]
         ]);
 
         CRUD::addFields([
