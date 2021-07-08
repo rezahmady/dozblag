@@ -44,7 +44,9 @@ trait AutomaticServiceProvider
         
         if ($this->packageDirectoryExistsAndIsNotEmpty('resources/views')) {
             // Load published views
-            $this->loadViewsFrom($this->publishedViewsPath(), $this->vendorNameDotPackageName());
+            if($this->publishedViewsDirectoryExistsAndIsNotEmpty()) {
+                $this->loadViewsFrom($this->publishedViewsPath(), $this->vendorNameDotPackageName());
+            };
 
             // Fallback to package views
             $this->loadViewsFrom($this->packageViewsPath(), $this->vendorNameDotPackageName());
@@ -211,5 +213,14 @@ trait AutomaticServiceProvider
         }
 
         return false;
+    }
+
+    protected function publishedViewsDirectoryExistsAndIsNotEmpty()
+    {
+        // check if directory exists
+        if (!is_dir($this->publishedViewsPath())) {
+            return false;
+        }
+        return true;
     }
 }
