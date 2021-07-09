@@ -10,6 +10,10 @@ use Rezahmady\Chat\Events\ConsultationAdded;
 use Rezahmady\Chat\Models\Room;
 use Rezahmady\Subscribtion\Models\Subscribtion;
 use Alert;
+use App\Models\User;
+use App\Notifications\Doctor\AsighnRoom;
+use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
+use App\Notifications\Operator\NewRoom;
 
 /**
  * Class RoomCrudController
@@ -271,7 +275,6 @@ class RoomCrudController extends CrudController
                 'entity'      => 'subscribtion', // the method that defines the relationship in your Model
                 'attribute'   => "name", // foreign key attribute that is shown to user
                 'data_source' => url("api/subscribtion"), // url to controller search function (with /{id} should return model)
-
                 // OPTIONAL
                 // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
                 'placeholder'             => "انتخاب کنید", // placeholder for the select
@@ -332,9 +335,24 @@ class RoomCrudController extends CrudController
 
         $response = $this->traitStore();
         $id = $this->crud->getCurrentEntry()->id;
-        event(new ConsultationAdded(Room::find($id)));
+
+        $room = Room::find($id);
+
+        event(new ConsultationAdded($room));
         
-        broadcast(new ConsultationAdded(Room::find($id)))->toOthers();
+        broadcast(new ConsultationAdded($room))->toOthers();
+
+        // operator
+        User::where('template', 'operator')->where('extras->telegram_user_id', '!=', null)->get()->each(function($user) use($room) {
+            $user->notify(new NewRoom($room));
+        });
+
+        // doctor
+        $doctor = User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first();
+        if($doctor)
+        {
+            $doctor->notify(new DoctorNewRoom($room));
+        }
 
         return $response;
     }
@@ -343,8 +361,18 @@ class RoomCrudController extends CrudController
     public function update()
     {
         $subscribtion = Subscribtion::find($this->crud->getRequest()->subscribtion_id);
+
+        // notify doctor
+        if((int) $this->crud->entry->doctor_id !== (int) $this->crud->getRequest()->doctor_id) {
+            // doctor
+            $doctor = User::where('id', $this->crud->getRequest()->doctor_id)->where('extras->telegram_user_id', '!=', null)->first();
+            if($doctor)
+            {
+                $doctor->notify(new AsighnRoom(Room::find($this->crud->entry->id)));
+            }
+        }
         
-        if ($this->crud->getRequest()->remaining_duration == null) {
+        if ($subscribtion and $this->crud->getRequest()->remaining_duration == null) {
             $this->crud->getRequest()->request->remove('remaining_duration');
             $this->crud->getRequest()->request->add(['remaining_duration'=> $subscribtion->extras->limit_duration]);
         }

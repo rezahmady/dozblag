@@ -6,6 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
+use NotificationChannels\Telegram\TelegramMessage;
+use Rezahmady\Chat\Models\Room;
 
 class AsighnRoom extends Notification
 {
@@ -16,11 +19,10 @@ class AsighnRoom extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Room $room)
     {
-        //
+        $this->room = $room;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -29,7 +31,23 @@ class AsighnRoom extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return [TelegramChannel::class];
+    }
+
+    public function toTelegram($notifiable)
+    {
+        $url = route('chatyno.show', md5($this->room->id));
+
+        return TelegramMessage::create()
+            // Optional recipient user id.
+            ->to($notifiable->extras->telegram_user_id)
+            // Markdown supported.
+            ->content("یک گفت و گو به شما منتقل شد.")
+            // (Optional) Blade template for the content.
+            // ->view('notification', ['url' => $url])
+            
+            // (Optional) Inline Buttons
+            ->button('ورود به چت', $url);
     }
 
     /**
