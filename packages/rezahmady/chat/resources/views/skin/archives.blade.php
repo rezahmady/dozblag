@@ -1,4 +1,4 @@
-<div class="sidebar-body">
+<div class="sidebar-body position-relative">
     <ul class="list-group list-group-flush users-list">
         @foreach ($rooms as $room)
         <li class="list-group-item" wire:click="setRoom({{$room->id}})" x-on:click="setRoom({{$room->id}})">
@@ -14,4 +14,7 @@
         </li>
         @endforeach
     </ul>
+    <div wire:loading wire:target="searchArchiveTerm" class="loader-holder">
+        <div  class="loader-spiner-01"></div>
+    </div>
 </div>

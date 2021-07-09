@@ -25,6 +25,12 @@ class Index extends Component
 
     public $expireDate;
     
+    public $searchChatTerm;
+
+    public $searchArchiveTerm;
+
+    public $searchSuggestTerm;
+    
     public $unseenNewConsoltation = 0;
 
     protected $listeners = [
@@ -54,6 +60,8 @@ class Index extends Component
     {
         $this->unseenNewConsoltation = 0;
     }
+
+    public function search(){}
 
     public function dehydrate()
     {

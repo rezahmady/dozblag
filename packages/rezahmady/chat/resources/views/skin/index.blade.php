@@ -78,7 +78,35 @@
 
     <!-- content -->
     <div class="content">
+<style>
+.loader-holder {
+    width: 100%;
+    background: #373e48;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
 
+.loader-holder .loader-spiner-01 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 45%;
+}
+
+.loader-spiner-01 {
+    border: 5px solid #313842;
+    border-radius: 50%;
+    border-top: 5px solid #ffffff;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+}
+</style>
         <!-- sidebar group -->
         <div class="sidebar-group menu" :class="{ 'active': sidebar === true }" >
 
@@ -87,10 +115,10 @@
                 <header>
                     <span>گفت و  گو ها</span>
                 </header>
-                <form action="#">
-                    <input type="text" class="form-control" placeholder="جستجوی چت">
+                <form wire:submit.prevent="search">
+                    <input wire:model.debounce.2000="searchChatTerm" type="text" class="form-control" placeholder="جستجوی چت">
                 </form>
-                <x-chat-rooms />
+                <x-chat-rooms :searchTerm="$searchChatTerm" />
             </div>
             <!-- ./ Chats sidebar -->
             @if (backpack_user()->hasTemplate('operator'))
@@ -99,10 +127,10 @@
                 <header>
                     <span>پذیرش نشده</span>
                 </header>
-                <form action="#">
-                    <input type="text" class="form-control" placeholder="جستجوی چت">
+                <form wire:submit.prevent="search">
+                    <input wire:model.debounce.2000="searchSuggestTerm" type="text" class="form-control" placeholder="جستجوی چت">
                 </form>
-                <x-chat-suggestions />
+                <x-chat-suggestions :searchTerm="$searchSuggestTerm" />
             </div>
             <!-- ./ Friends sidebar -->
             @endif
@@ -113,10 +141,10 @@
                 <header>
                     <span>آرشیو</span>
                 </header>
-                <form action="#">
-                    <input type="text" class="form-control" placeholder="جستجو در آرشیو">
+                <form wire:submit.prevent="search">
+                    <input wire:model.debounce.2000="searchArchiveTerm" type="text" class="form-control" placeholder="جستجو در آرشیو">
                 </form>
-                <x-chat-archives />
+                <x-chat-archives :searchTerm="$searchArchiveTerm" />
             </div>
             <!-- ./ Stars sidebar -->
             @endif

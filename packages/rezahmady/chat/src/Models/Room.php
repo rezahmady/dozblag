@@ -67,6 +67,24 @@ class Room extends Model
         return $this->belongsTo(User::class, 'operator_id');
     }
 
+    public function audience()
+    {
+        if(auth()->user()->template === 'customer') {
+            if($this->doctor_id) {
+                return $this->doctor();
+            }
+            return $this->operator();
+        } else {
+            if($this->user_id !== auth()->id()) {
+                return $this->user();
+            }
+            if($this->operator_id) {
+                return $this->operator();
+            }
+            return $this->doctor();
+        }
+    }
+
     public function latestMessage()
     {
         return $this->hasOne(Chat::class)->latest();

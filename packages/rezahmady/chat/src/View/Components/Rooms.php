@@ -10,19 +10,16 @@ class Rooms extends Component
 
     public $rooms;
 
+    public $searchTerm;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($searchTerm)
     {
-        $id = auth()->id();
-        $this->rooms = Room::where('user_id',$id)
-        ->with('latestMessage')
-        ->orWhere('doctor_id', $id)
-        ->orWhere('operator_id', $id)
-        ->get()->sortByDesc('latestMessage.created_at');
+        $this->searchTerm = $searchTerm;
     }
     
     /**
@@ -32,6 +29,25 @@ class Rooms extends Component
      */
     public function render()
     {
+        if(strlen($this->searchTerm) > 0) {
+            $searchTerm = '%'. $this->searchTerm .'%';
+            $id = auth()->id();
+            $this->rooms = Room::where('user_id',$id)
+            ->orWhere('doctor_id', $id)
+            ->orWhere('operator_id', $id)
+            ->whereHas('audience', function ($query) use ($searchTerm) {
+                $query->where('name', 'like', $searchTerm);
+            })
+            ->with('latestMessage')
+            ->get()->sortByDesc('latestMessage.created_at');
+        } else {
+            $id = auth()->id();
+            $this->rooms = Room::where('user_id',$id)
+            ->with('latestMessage')
+            ->orWhere('doctor_id', $id)
+            ->orWhere('operator_id', $id)
+            ->get()->sortByDesc('latestMessage.created_at');
+        }
         return view('rezahmady.chat::skin.rooms');
     }
 }
