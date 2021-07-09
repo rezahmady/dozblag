@@ -98,7 +98,9 @@
                                                 <ul>
                                                     <li> نظام پزشکی: <span class="value">{{$doctor->medical_code}}</span></li>
                                                     <li>تجربه: <span class="value">{{$doctor->experience}} سال</span> </li>
-                                                    <li>تعداد مشاوره: <span class="value">{{$doctor->rooms->count()}} سوال (از {{verta($doctor->created_at)->formatDifference()}} )</span> </li>
+                                                    @if ($doctor->rooms->count())
+                                                    <li>تعداد مشاوره: <span class="value">{{$doctor->rooms->count()}} سوال (از {{verta($doctor->created_at)->formatDifference()}} تا کنون)</span> </li>
+                                                    @endif
                                                 </ul>
                                             </div>
 
