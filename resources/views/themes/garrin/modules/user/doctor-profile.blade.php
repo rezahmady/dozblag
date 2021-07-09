@@ -98,7 +98,7 @@
                                                 <ul>
                                                     <li> نظام پزشکی: <span class="value">{{$doctor->medical_code}}</span></li>
                                                     <li>تجربه: <span class="value">{{$doctor->experience}} سال</span> </li>
-                                                    {{-- <li>تعداد مشاوره: <span class="value">11664 سوال (در مدت 1 سال و 10 ماه )</span> </li> --}}
+                                                    <li>تعداد مشاوره: <span class="value">{{$doctor->rooms->count()}} سوال (از {{verta($doctor->created_at)->formatDifference()}} )</span> </li>
                                                 </ul>
                                             </div>
 
