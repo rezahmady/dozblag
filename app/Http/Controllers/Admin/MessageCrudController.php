@@ -227,6 +227,19 @@ class MessageCrudController extends CrudController
                                 return '<i class=" la la-circle-o"></i>';
                             }
                         ]);
+                    } elseif(isset($field['attrs']['type']) and $field['attrs']['type'] === 'file') {
+                        $this->crud->addColumn([
+                            'name' => $field['id'],
+                            'label' => $field['config']['label'],
+                            'type'     => 'closure',
+                            'function' => function($entry) use ($values, $key) {
+                                if(is_array(getimagesize(url($values[$key])))) {
+                                    return "<img src='".url($values[$key])."' width='150px' />";
+                                } else {
+                                    return '<a href="'.url($values[$key]).'">دانلود <i class="la la-download"></i></a>';
+                                }
+                            }
+                        ]);
                     } elseif(isset($values[$key])) {
                         $this->crud->addColumn([
                             'name' => $field['id'],

@@ -15,7 +15,7 @@
     <div class="filter-controls">
        <input type="text" class="form-control mb-3" id="control-filter" placeholder="جستجو فیلد ..." />
     </div>
-    <div class="formeo-editor"
+    <div class="formeo-editor" dir="ltr"
     ></div>
 @include('crud::fields.inc.wrapper_end')
 

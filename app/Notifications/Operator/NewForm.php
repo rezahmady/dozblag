@@ -2,23 +2,28 @@
 
 namespace App\Notifications\Operator;
 
+use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class NewForm extends Notification
 {
     use Queueable;
+
+    public $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Message $message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -29,7 +34,24 @@ class NewForm extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return [TelegramChannel::class];
+    }
+
+    public function toTelegram($notifiable)
+    {
+        $url = url('/admin/message/'.$this->message->id.'/show');
+
+        return TelegramMessage::create()
+            // Optional recipient user id.
+            ->to($notifiable->extras->telegram_user_id)
+            // Markdown supported.
+            ->content("تکمیل فرم توسط کاربر.
+            ")
+            // (Optional) Blade template for the content.
+            // ->view('notification', ['url' => $url])
+            
+            // (Optional) Inline Buttons
+            ->button('مشاهده', $url);
     }
 
     /**

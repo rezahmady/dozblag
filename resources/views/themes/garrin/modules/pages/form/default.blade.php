@@ -180,7 +180,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('form.save', $data['entity']->id) }}" method="POST">
+            <form action="{{ route('form.save', $data['entity']->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div id="form"></div>
@@ -207,6 +207,6 @@
                 const renderer = new FormeoRenderer(options)
                 setTimeout(function(){ 
                     renderer.render(data)
-                }, 3000);
+                }, 0);
     </script>
 @endpush
