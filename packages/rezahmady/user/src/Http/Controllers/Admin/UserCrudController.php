@@ -289,6 +289,9 @@ class UserCrudController extends CrudController
                 'name'  => 'email',
                 'label' => trans('rezahmady.user::permissionmanager.email'),
                 'type'  => 'email',
+                'attributes' => [
+                    'autocomplete' => 'new-password',
+                ],
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],
@@ -298,6 +301,9 @@ class UserCrudController extends CrudController
                 'name'  => 'password',
                 'label' => trans('rezahmady.user::permissionmanager.password'),
                 'type'  => 'password',
+                'attributes' => [
+                    'autocomplete' => 'new-password',
+                ],
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],

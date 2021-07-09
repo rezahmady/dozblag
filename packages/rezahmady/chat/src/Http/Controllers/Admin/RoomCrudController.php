@@ -169,7 +169,7 @@ class RoomCrudController extends CrudController
                 'entity'      => 'subscribtion', // the method that defines the relationship in your Model
                 'attribute'   => "name", // foreign key attribute that is shown to user
                 'data_source' => url("api/subscribtion"), // url to controller search function (with /{id} should return model)
-
+                'fake'        => true,
                 // OPTIONAL
                 // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
                 'placeholder'             => "انتخاب کنید", // placeholder for the select
@@ -275,6 +275,7 @@ class RoomCrudController extends CrudController
                 'entity'      => 'subscribtion', // the method that defines the relationship in your Model
                 'attribute'   => "name", // foreign key attribute that is shown to user
                 'data_source' => url("api/subscribtion"), // url to controller search function (with /{id} should return model)
+                'fake'        => true,
                 // OPTIONAL
                 // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
                 'placeholder'             => "انتخاب کنید", // placeholder for the select

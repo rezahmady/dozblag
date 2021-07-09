@@ -139,5 +139,6 @@ return [
         "slug"             => "آدرس صفحه",
         "medical_folder.*.photo" => 'تصویر مدرک',
         "medical_folder.*.title" => 'عنوان مدرک',
+        'subscribtion_id'  => 'اشتراک'
     ],
 ];

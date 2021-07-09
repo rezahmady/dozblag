@@ -61,7 +61,7 @@
                             </div>
                             <form wire:submit.prevent="send_mobile">
                                 <div class="form-group form-focus">
-                                    <input type="text" dir="ltr" wire:submit.prevent="send_mobile" autocomplete="off" wire:model.defer="mobile" class="form-control floating">
+                                    <input type="text" dir="ltr" wire:submit.prevent="send_mobile" autocomplete="new-password" wire:model.defer="mobile" class="form-control floating">
                                     <label class="focus-label">موبایل</label>
                                     @error('mobile') <span class="error">{{ $message }}</span> @enderror
                                 </div>
