@@ -49,7 +49,7 @@ class Tag extends Model
 
     public function path()
     {
-        return url('/tags/'.$this->slug);
+        return route('tag.site.show',$this->slug);
     }
 
     /*

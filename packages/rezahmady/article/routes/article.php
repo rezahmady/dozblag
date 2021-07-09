@@ -15,6 +15,7 @@
  */
 
 use Rezahmady\Article\Http\Livewire\PostRender;
+use Rezahmady\Article\Http\Livewire\TagRender;
 
 Route::group([
     'middleware'=> array_merge(
@@ -24,6 +25,9 @@ Route::group([
     Route::get('mag/{article:slug}/{subs?}', PostRender::class)
         ->where(['article' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*'])
         ->name('article');
+
+    Route::get('tag/{tag:slug}', TagRender::class)
+        ->name('tag.site.show');
 });
 
 
