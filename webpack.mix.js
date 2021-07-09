@@ -26,6 +26,10 @@ mix.styles([
     // 'public/assets/garrin/css/custom.css',
 ], 'public/assets/garrin/css/theme.css').version();
 
+mix.styles([
+    'public/packages/chatino/css/soho.min.css',
+], 'public/packages/chatino/css/chat.css').version();
+
 // mix.postCss("public/assets/garrin/css/theme.css", "public/assets/garrin/css/theme-production.css", [
 //     require("postcss-combine-duplicated-selectors"),
 // ]);

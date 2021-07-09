@@ -92,9 +92,9 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #424242;
+    color: #fff;
     text-align: left;
-    background-color: #fff
+    background-color: #49525f
 }
 
 [tabindex="-1"]:focus {
@@ -19296,8 +19296,6 @@ a.btn:hover[href="#previous"] {
 }
 
 body {
-    background-color: #f2f8f8;
-    font-family: Nunito, sans-serif;
     font-size: 14px
 }
 
@@ -21112,14 +21110,28 @@ nav.navigation ul li a.active::before {
 }
 
 .loader-spiner-01 {
-    border: 5px solid #f3f3f3;
+    border: 3px solid #313842;
     border-radius: 50%;
-    border-top: 5px solid #3db16b;
-    width: 50px;
-    height: 50px;
+    border-top: 3px solid #3db16b;
+    width: 40px;
+    height: 40px;
     margin: auto;
     -webkit-animation: spin .8s linear infinite;
-    /* Safari */
+    animation: spin .8s linear infinite;
+}
+
+.loader-holder .loader-spiner-01 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20px;
+    border: 3px solid #313842;
+    border-radius: 50%;
+    border-top: 3px solid #3db16b;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    -webkit-animation: spin .8s linear infinite;
     animation: spin .8s linear infinite;
 }
 
@@ -21150,9 +21162,19 @@ nav.navigation ul li a.active::before {
     left: 0;
     right: 0;
     top: 0;
-    background: #f2f8f8;
+    background: #49525f;
     bottom: 0;
     z-index: 15;
+}
+
+.loader-holder {
+    width: 100%;
+    background: #373e48;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .loading-holder .empty-chat-holder {

@@ -74,7 +74,7 @@
         </script>
     <!-- Soho css -->
     <link rel="stylesheet" href="{{asset('packages/chatino/js/vendor/calamansijs/calamansi.min.css')}}">
-    <link rel="stylesheet" href="/packages/chatino/css/soho.min.css">
+    <link rel="stylesheet" href="{{mix('/packages/chatino/css/chat.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('packages/chatino/css/green-audio-player.min.css')}}">
 </head>
 <body class="rtl">

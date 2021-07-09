@@ -78,35 +78,6 @@
 
     <!-- content -->
     <div class="content">
-<style>
-.loader-holder {
-    width: 100%;
-    background: #373e48;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-}
-
-.loader-holder .loader-spiner-01 {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 45%;
-}
-
-.loader-spiner-01 {
-    border: 5px solid #313842;
-    border-radius: 50%;
-    border-top: 5px solid #ffffff;
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    -webkit-animation: spin .8s linear infinite;
-    animation: spin .8s linear infinite;
-}
-</style>
         <!-- sidebar group -->
         <div class="sidebar-group menu" :class="{ 'active': sidebar === true }" >
 
