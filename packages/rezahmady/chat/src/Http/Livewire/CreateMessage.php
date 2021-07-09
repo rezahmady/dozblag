@@ -46,7 +46,7 @@ class CreateMessage extends Component
             $this->status = 'end';
         } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
             $this->status = 'suggest';
-        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and auth()->user()->template === 'doctor'){
+        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and (auth()->user()->template != 'customer')){
             $this->status = 'start';
         }elseif($room->status === 'archive') {
             $this->status = 'archive';
@@ -65,7 +65,7 @@ class CreateMessage extends Component
             $this->status = 'end';
         } elseif($room->operator === null and $room->user->template === 'customer' and auth()->user()->template === 'operator'){
             $this->status = 'suggest';
-        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and auth()->user()->template === 'doctor'){
+        } elseif($room->user->template === 'customer' and $room->extras['expire_date'] == null and (auth()->user()->template != 'customer')){
             $this->status = 'start';
         }elseif($room->status === 'archive') {
             $this->status = 'archive';

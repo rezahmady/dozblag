@@ -16,6 +16,9 @@
                         @else
                         <a wire:click.prevent="archiveChat()" href="#" class="dropdown-item">اضافه کردن به بایگانی</a>
                         @endif
+                        @if((new Carbon\Carbon) <  $room->extras['expire_date'])
+                        <a wire:click.prevent="endChat()" href="#" class="dropdown-item">اتمام گفت و گو</a>
+                        @endif
                     @endif
                     @if (backpack_user()->hasTemplate('operator'))
                     <a href="{{ url("/admin/room/$room->id/edit?iframe=true") }}" data-lity  class="dropdown-item">ویرایش و انتقال گفتگو</a>

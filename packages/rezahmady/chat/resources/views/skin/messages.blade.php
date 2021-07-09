@@ -107,6 +107,8 @@
         window.Livewire.emit('refreshRooms')
     }).listen('\\Rezahmady\\Chat\\Events\\RoomStarted', (e) => {
         window.Livewire.emit('room-started')
+    }).listen('\\Rezahmady\\Chat\\Events\\RoomEnded', (e) => {
+        window.Livewire.emit('room-end')
     });
 
     Echo.channel('private-chat.{{$room->id}}.user.{{auth()->id()}}')

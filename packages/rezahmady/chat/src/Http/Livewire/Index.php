@@ -10,6 +10,7 @@ use Rezahmady\Chat\Models\Room as RoomModel;
 use Rezahmady\Chat\Http\Livewire\Traits\WithAudience;
 use Rezahmady\Chat\Events\MessageSeen;
 use Rezahmady\Chat\Events\MessageSeenResponse;
+use Rezahmady\Chat\Events\RoomEnded;
 use Rezahmady\Chat\Models\Chat;
 
 class Index extends Component
@@ -62,6 +63,7 @@ class Index extends Component
     public function closeRoom()
     {
         $this->emit('rerenderCreateMessage', $this->currentRoom);
+        $this->dispatchBrowserEvent('room-set-time', ['expire_date'=> $this->currentRoom->extras['expire_date'] ]);
     }
 
     public function setUsersHere($users) 
@@ -151,9 +153,19 @@ class Index extends Component
     }
 
     public function archiveChat() {
-        $this->currentRoom->update(['status' => 'archive']);
+        $this->currentRoom->update(['status' => 'end']);
         $this->emit('rerenderCreateMessage',$this->currentRoom);
     }
+
+    public function endChat() {
+        $this->currentRoom->update([
+            'status' => 'end',
+            'extras->expire_date' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        $this->dispatchBrowserEvent('room-set-time', ['expire_date'=> $this->currentRoom->extras['expire_date'] ]);
+        broadcast(new RoomEnded($this->currentRoom->id))->toOthers();
+    }
+
     public function cancelArchive() {
         $this->currentRoom->update(['status' => 'chat']);
         $this->emit('rerenderCreateMessage',$this->currentRoom);
