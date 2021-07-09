@@ -59,7 +59,7 @@ class Room extends Component
             return <<<'blade'
                 <div style="width:100%;position:relative">
                     <div class="container p-3 empty-chat-holder" >
-                        <img  class="empty-chat-img" src="{{url('/packages/chatino/media/img/consultation-empty.svg')}}" >
+                        <img  class="empty-chat-img" src="{{url('/packages/chatino/media/img/chat.png')}}" >
                         <p class="empty-chat-text">برای ادامه یکی از گفتگو ها را انتخاب کنید</p>
                     </div>
                 </div>
