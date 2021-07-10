@@ -45,7 +45,7 @@
     <!-- /Breadcrumb -->
     <!-- Page Content -->
     <div class="content blog-single ">
-        
+        <meta property="article:published_time" content="{{$post->date()}}">
         <div class="blog-single" itemscope="" itemtype="http://schema.org/Article">
             <meta itemprop="mainEntityOfPage" content="{{ $post->path() }}">
             <div class="blog-single-image-holder" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">

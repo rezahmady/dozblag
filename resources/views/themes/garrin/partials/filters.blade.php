@@ -1,6 +1,6 @@
 @foreach ($filters as $filter)
     <div class="filter-widget p-0 mb-0" >
-        <div class="filter-widget p-0 mb-0" x-data="{items: false}" x-ref="{{$filter->slug}}">
+        <div class="filter-widget p-0 mb-0" x-data="{items: false}" x-init="() => { if($(window).width() >= 991) {items = true} }" x-ref="{{$filter->slug}}">
             <h4 class="font-weight-bold d-flex justify-between" x-on:click="items = !items" x-bind:class="{ 'active': items }">
                 <span>{{$filter->name}}</span>
                 <i class="la" x-bind:class="{'la-plus' : !items, 'la-minus' : items}"></i>
