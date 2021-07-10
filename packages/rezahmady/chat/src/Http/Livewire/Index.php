@@ -144,11 +144,13 @@ class Index extends Component
         $this->emit('rerenderCreateMessage', $this->currentRoom);
         $this->dispatchBrowserEvent('scrollToBottom');
         $this->dispatchBrowserEvent('room-set');
-        $payload = [
-            'messageId' => $this->currentRoom->latestMessage->id,
-            'sender' => $this->audience->id
-        ];
-        $this->seenMessages($payload);
+        if($this->currentRoom->latestMessage) {
+            $payload = [
+                'messageId' => $this->currentRoom->latestMessage->id,
+                'sender' => $this->audience->id
+            ];
+            $this->seenMessages($payload);
+        }
     }
 
     public function cancelChat() {
