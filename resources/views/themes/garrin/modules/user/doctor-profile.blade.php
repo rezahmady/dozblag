@@ -72,9 +72,6 @@
     <!-- Page Content -->
     <div class="content">
         <div class="container">
-
-            
-
             <div class="row">
                 <div class="@if(sizeOf($packages)) col-md-8  @else col-md-12 @endif">
                     <div clas="card-body pt-0">
@@ -283,8 +280,6 @@
 
                         </div>
                     </div>
-
-
                 </div>
                 @if (sizeOf($packages))
                 <div class="col-md-4">
@@ -323,7 +318,11 @@
                                             @if ($item->extras->amount_before_discount)
                                             <span class="price-strike">{{number_format($item->extras->amount_before_discount)}} تومان</span>
                                             @endif
+                                            @if ($item->amount === 0)
+                                            <span class="price">رایگان</span>
+                                            @else
                                             <span class="price">{{number_format($item->amount)}} تومان</span>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -363,7 +362,12 @@
                     return (new Intl.NumberFormat('fa-IR', { maximumSignificantDigits: 3 }).format(this.subscribtion.amount));
                 },
                 openModal() {
-                    this.modal = true;
+                    console.log(this.subscribtion.amount)
+                    if(this.subscribtion.amount === 0) {
+                        @this.payment(this.subscribtion.id);
+                    } else {
+                        this.modal = true;
+                    }
                 },
                 closeModal() {
                     this.modal = false;

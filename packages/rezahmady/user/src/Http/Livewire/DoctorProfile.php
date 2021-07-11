@@ -2,11 +2,15 @@
 
 namespace Rezahmady\User\Http\Livewire;
 
+use App\Events\ConsultationAdded;
 use App\Http\Livewire\Traits\WithAlert;
 use Livewire\Component;
 use App\Models\User;
+use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
+use App\Notifications\Operator\NewRoom;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Rezahmady\Chat\Models\Room;
 use Rezahmady\Payment\Models\Discount;
 use Rezahmady\SettingOperation\Facades\Setting;
 use Rezahmady\Subscribtion\Models\Subscribtion;
@@ -84,6 +88,15 @@ class DoctorProfile extends Component
        
     }
 
+    public function enrolement() {
+       
+        if(!auth()->check())
+        {
+            session(['paymentLink' => url()->previous()]);
+            return redirect()->to(route('auth.login'));
+        }
+    }
+
     function rules() {
         return [
             'discount'  => 'required|exists:discounts,name',
@@ -118,23 +131,53 @@ class DoctorProfile extends Component
         $invoice = $subscribtion->invoice()->where('user_id', backpack_user()->id)->where('amount', $subscribtion->amount)->notsettled()->first();
         
         $amount = ($this->discount_id) ? Discount::find($this->discount_id)->applayDiscount($subscribtion->amount) : $subscribtion->amount;
-        if(!$invoice) {
-            $invoice = $subscribtion->invoice()->create([
-                'user_id' => backpack_user()->id,
-                'amount'  => $amount,
-                'discount_id' => $this->discount_id,
-            ]);
-        } elseif($this->discount_id) {
-            $invoice->update([
-                'discount_id' => $this->discount_id,
-            ]);
-        }
-        
-        $invoiceId = $invoice->id;
-        $selected_driver = $this->driver;
-        session()->put('doctor_id', $this->doctor->id);
 
-        return redirect()->to("/payment/$selected_driver/$invoiceId");
+        if($amount > 100) {
+            if(!$invoice) {
+                $invoice = $subscribtion->invoice()->create([
+                    'user_id' => backpack_user()->id,
+                    'amount'  => $amount,
+                    'discount_id' => $this->discount_id,
+                ]);
+            } elseif($this->discount_id) {
+                $invoice->update([
+                    'discount_id' => $this->discount_id,
+                ]);
+            }
+
+            $invoiceId = $invoice->id;
+            $selected_driver = $this->driver;
+            session()->put('doctor_id', $this->doctor->id);
+    
+            return redirect()->to("/payment/$selected_driver/$invoiceId");
+        } else {
+            $room = Room::create([
+                'user_id' => backpack_user()->id,
+                'doctor_id' => $this->doctor->id,
+                'extras->subscribtion_id' => $subscribtion->id,
+                'extras->remaining_duration' => $subscribtion->extras->limit_duration,
+                'extras->expire_date' => null,
+            ]);
+    
+            backpack_user()->subscribtions()->save($subscribtion, [
+                'room_id'     => $room->id,
+                'doctor_id'   => $this->doctor->id,
+            ]);
+    
+            broadcast(new ConsultationAdded($room->id))->toOthers();
+            
+            // operator
+            User::where('template', 'operator')->where('extras->telegram_user_id', '!=', null)->get()->each(function($user) use($room) {
+                $user->notify(new NewRoom($room));
+            });
+    
+            // doctor
+            $doctor = User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first();
+            if($doctor)
+            {
+                $doctor->notify(new DoctorNewRoom($room));
+            }
+        }
     }
 
     public function dehydrate()
