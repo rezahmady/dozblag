@@ -156,9 +156,8 @@ class ArticleCrudController extends CrudController
                         'justify',
                         'emoji',
                         'find',
+                        'font',
                         // 'templates',
-                        'divarea',
-                        'div'
                     ],
                     'options' => [
                         'language' => 'fa',
