@@ -248,6 +248,17 @@ class ArticleCrudController extends CrudController
                     'placeholder' => 'عنوان پست را اینجا بنویسید',
                     'class'       => 'form-control form-control-lg'
                 ],
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'tab'   => 'مشخصات',
+            ],
+            [
+                'name' => 'caption',
+                'label' => 'کپشن',
+                'type' => 'text',
+                'attributes' => [
+                    'placeholder' => 'عنوان انگلیسی مطلب برای ساخت لینک',
+                    'class'       => 'form-control'
+                ],
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],
@@ -263,7 +274,7 @@ class ArticleCrudController extends CrudController
                 'entity'    => 'user', // the method that defines the relationship in your Model
                 'model'     => "App\Models\User", // foreign key model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-                'default'   => 1, // set the default value of the select2
+                'default'   => auth()->id(), // set the default value of the select2
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],

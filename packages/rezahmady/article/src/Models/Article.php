@@ -25,7 +25,7 @@ class Article extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['slug', 'title', 'content', 'image', 'status', 'featured','user_id', 'extras', 'like', 'dislike', 'whatsapp', 'telegram'];
+    protected $fillable = ['slug', 'title', 'caption', 'content', 'image', 'status', 'featured','user_id', 'extras', 'like', 'dislike', 'whatsapp', 'telegram'];
     protected $fakeColumns = ['extras'];
     // protected $hidden = [];
     // protected $dates = [];
@@ -53,7 +53,7 @@ class Article extends Model
     {
         return [
             'slug' => [
-                'source' => 'slug_or_title',
+                'source' => 'slug_or_caption_or_title',
             ],
         ];
     }
@@ -145,10 +145,14 @@ class Article extends Model
     */
 
     // The slug is created automatically from the "title" field if no slug exists.
-    public function getSlugOrTitleAttribute()
+    public function getSlugOrCaptionOrTitleAttribute()
     {
         if ($this->slug != '') {
             return $this->slug;
+        }
+
+        if ($this->caption != '') {
+            return $this->caption;
         }
 
         return $this->title;
