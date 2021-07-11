@@ -157,7 +157,7 @@
                     <div class="card-body">
                         <ul class="tags">
                             @foreach ($tags as $tag)
-                                <li><a href="{{url('/tags/'.$tag['slug'])}}" class="tag">{{$tag['name']}}</a></li>
+                                <li><a href="{{url('/tag/'.$tag['slug'])}}" class="tag">{{$tag['name']}}</a></li>
                             @endforeach
                         </ul>
                     </div>
