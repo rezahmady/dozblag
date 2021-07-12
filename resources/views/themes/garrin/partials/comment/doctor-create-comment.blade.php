@@ -61,7 +61,7 @@
                 <textarea rows="3" wire:model.defer="body" class="form-control comment-textarea"></textarea>
                 @error('body') <span class="error">{{ $message }}</span> @enderror
             </div>
-            <div wire:model.defer="score" x-data="starRating()" class="flex items-center justify-center w-full h-screen">
+            <div wire:model.defer="score" class="flex items-center justify-center w-full h-screen">
                 
                 <div class="rating-holder d-flex w-100">
                     <div class="p-2 " style="flex-basis: 40%;">
@@ -73,7 +73,7 @@
                         </template>
                     </div>
                     <div class="m-0" dir="ltr" style="flex-basis: 60%;">
-                        <template x-for="(star, index) in ratings" :key="index">
+                        <template x-for="(star, index) in stars" :key="index">
                             <i class="fa fa-star"
                             @click="rate(star.amount);$dispatch('input', star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating"
                             :class="{'text-gray-600': hoverRating >= star.amount, 'filled': rating >= star.amount && hoverRating >= star.amount}"

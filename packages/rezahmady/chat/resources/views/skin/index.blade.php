@@ -254,32 +254,6 @@
         }
     }
 
-    function starRating(){
-        return {
-            rating: 0,
-            hoverRating: 0,
-            ratings: [
-                {'amount': 1, 'label':'بسیار بد'},
-                {'amount': 2, 'label':'بد'},
-                {'amount': 3, 'label':'متوسط'},
-                {'amount': 4, 'label':'خوب'},
-                {'amount': 5, 'label':'عالی'}
-            ],
-            rate(amount) {
-                if (this.rating == amount) {
-                    this.rating = 0;
-                }
-                else this.rating = amount;
-            },
-            currentLabel() {
-                let r = this.rating;
-                if (this.hoverRating != this.rating) r = this.hoverRating;
-                let i = this.ratings.findIndex(e => e.amount == r);
-                if (i >=0) {return this.ratings[i].label;} else {return ''};     
-            }
-        }
-    }
-
     function timerCounterDown() {
         return {
             expiry: '',
@@ -383,7 +357,13 @@
             },
             rating: 0,
             hoverRating: 0,
-            ratings: [{'amount': 1, 'label':'Terrible'}, {'amount': 2, 'label':'Bad'}, {'amount': 3, 'label':'Okay'}, {'amount': 4, 'label':'Good'}, {'amount': 5, 'label':'Great'}],
+            stars: [
+                {'amount': 1, 'label':'بسیار بد'},
+                {'amount': 2, 'label':'بد'},
+                {'amount': 3, 'label':'متوسط'},
+                {'amount': 4, 'label':'خوب'},
+                {'amount': 5, 'label':'عالی'}
+            ],
             rate(amount) {
                 if (this.rating == amount) {
                     this.rating = 0;
@@ -393,9 +373,22 @@
             currentLabel() {
                 let r = this.rating;
                 if (this.hoverRating != this.rating) r = this.hoverRating;
-                let i = this.ratings.findIndex(e => e.amount == r);
-                if (i >=0) {return this.ratings[i].label;} else {return ''};     
+                let i = this.stars.findIndex(e => e.amount == r);
+                if (i >=0) {return this.stars[i].label;} else {return ''};     
             },
+            // ratings: [{'amount': 1, 'label':'Terrible'}, {'amount': 2, 'label':'Bad'}, {'amount': 3, 'label':'Okay'}, {'amount': 4, 'label':'Good'}, {'amount': 5, 'label':'Great'}],
+            // rate(amount) {
+            //     if (this.rating == amount) {
+            //         this.rating = 0;
+            //     }
+            //     else this.rating = amount;
+            // },
+            // currentLabel() {
+            //     let r = this.rating;
+            //     if (this.hoverRating != this.rating) r = this.hoverRating;
+            //     let i = this.ratings.findIndex(e => e.amount == r);
+            //     if (i >=0) {return this.ratings[i].label;} else {return ''};     
+            // },
             voice_holder: false,
             input: false,
             audioContext: false,
