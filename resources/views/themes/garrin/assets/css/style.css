@@ -11792,3 +11792,47 @@ span.success {
 .bg-position-right {
     background-position: right !important;
 }
+
+.list-style-red {
+    padding: 0 13px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border-radius: 20px;
+    background: #fb2941;
+    box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);
+    width: max-content
+}
+
+.list-style-blue {
+    padding: 0 13px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border-radius: 20px;
+    background: #00bfd6;
+    box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);
+    width: max-content
+}
+
+.list-style-green {
+    padding: 0 13px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border-radius: 20px;
+    background: #14ce2b;
+    box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);
+    width: max-content
+}
+
+.list-style-gray {
+    padding: 0 13px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border-radius: 20px;
+    background: #797878;
+    box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);
+    width: max-content
+}
