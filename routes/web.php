@@ -71,7 +71,7 @@ Route::get('download', function(Request $request)
 });
 
 Route::get('{modelPage}/{subs?}', PageRender::class)
-->where(['modelPage' => '^(((?=(?!admin)(?!doctor)(?!mag)(?!auth)(?!profile))(?=(?!\/)).))*$', 'subs' => '.*'])
+->where(['modelPage' => '^(((?=(?!admin)(?!doctor)(?!auth)(?!profile))(?=(?!\/)).))*$', 'subs' => '.*'])
 ->name('page');
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
