@@ -42,6 +42,43 @@ trait ResourceTemplates
         ]);
         $this->getFilters('hospital');
     }
+    
+    private function doctorBuilding() {
+        $this->getFilters('doctorBuilding');
+    }
+
+    private function laboratory() {
+        $this->getFilters('laboratory');
+    }
+
+    private function radiology() {
+        $this->getFilters('radiology');
+    }
+
+    private function mri() {
+        $this->getFilters('mri');
+    }
+
+    private function sonography() {
+        $this->getFilters('sonography');
+    }
+
+    private function CTScan() {
+        $this->getFilters('CTScan');
+    }
+
+    private function physiotherapy() {
+        $this->getFilters('physiotherapy');
+    }
+
+    private function drugstore() {
+        $this->getFilters('drugstore');
+    }
+
+
+    private function doctor() {
+        $this->getFilters('doctor');
+    }
 
     protected function getFilters($template) {
         $filters = Setting::get("resources.template_{$template}_filters");

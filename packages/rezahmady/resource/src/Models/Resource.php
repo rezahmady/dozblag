@@ -11,6 +11,7 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Rezahmady\SettingOperation\Setting;
 
 class Resource extends Model
 {
@@ -69,10 +70,8 @@ class Resource extends Model
 
     public function getProfile()
     {
-        if($this->extras->profile) {
-            
-        }
-        $src = $this->extras->profile ?? "uploads/images/themes/garrin/{$this->template}.jpg";
+        ;
+        $src = $this->extras->profile ?? Setting::get("resources.template_{$this->template}_default_img") ?? '';
         return asset($src);
     }
 

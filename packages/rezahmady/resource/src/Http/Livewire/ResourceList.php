@@ -125,8 +125,15 @@ class ResourceList extends Component
 
     public function render()
     {
-        return view("theme::modules.resource.{$this->resource->template}-list", [
-            'items' => $this->loadList()->paginate($this->pp),
-        ]);
+        try {
+            return view("theme::modules.resource.{$this->resource->template}-list", [
+                'items' => $this->loadList()->paginate($this->pp),
+            ]);
+        } catch (\Throwable $th) {
+            return view("theme::modules.resource.resource-list", [
+                'items' => $this->loadList()->paginate($this->pp),
+            ]);
+        }
+        
     }
 }

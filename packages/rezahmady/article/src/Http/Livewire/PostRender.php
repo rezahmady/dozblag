@@ -19,6 +19,10 @@ class PostRender extends Component
     {
         $this->post = $article->withFakes();
 
+        if($this->post->login_require and !auth()->check()) {
+            session(['link' => url()->current()]);
+            return redirect()->to(route('auth.login'));
+        }
         $cats = $article->pages;
 
         $catsArray = [];

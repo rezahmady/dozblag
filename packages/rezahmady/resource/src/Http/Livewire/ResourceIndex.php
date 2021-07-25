@@ -37,7 +37,7 @@ class ResourceIndex extends Component
         $templates = $this->getTemplates();
 
         foreach ($templates as $template) {
-            $templates_array[$template->name] = trans('backpack::permissionmanager.function_name.'.$template->name);
+            $templates_array[$template->name] = trans('rezahmady.resource::resource.function_name.'.$template->name);
         }
 
         return $templates_array;

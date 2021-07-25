@@ -15,6 +15,15 @@ return [
     'function_name' => [
         'hospital' => 'بیمارستان',
         'clinic' => 'کلینیک',
+        'doctorBuilding' => 'ساختمان‌پزشکان',
+        'laboratory' => 'آزمایشگاه',
+        'radiology' => 'رادیولوژی',
+        'mri' => 'ام‌آر‌آی',
+        'sonography' => 'سونوگرافی',
+        'CTScan' => 'سی‌تی‌اسکن',
+        'physiotherapy' => 'فیزیوتراپی',
+        'drugstore' => 'داروخانه',
+        'doctor' => 'پزشک',
     ],
 
 ];
