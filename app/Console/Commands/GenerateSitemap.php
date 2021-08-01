@@ -28,7 +28,7 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        SitemapGenerator::create(url('/'))
+        SitemapGenerator::create(config('app.url'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'mag') {
                 return $url;
@@ -37,7 +37,7 @@ class GenerateSitemap extends Command
         })
         ->writeToFile(public_path('/sitemap/posts_sitemap.xml'));
 
-        SitemapGenerator::create(url('/'))
+        SitemapGenerator::create(config('app.url'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'doctor') {
                 return $url;
@@ -46,7 +46,7 @@ class GenerateSitemap extends Command
         })
         ->writeToFile(public_path('/sitemap/doctors_sitemap.xml'));
         
-        SitemapGenerator::create(url('/'))
+        SitemapGenerator::create(config('app.url'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'resource') {
                 return $url;
@@ -55,7 +55,7 @@ class GenerateSitemap extends Command
         })
         ->writeToFile(public_path('/sitemap/resources_sitemap.xml'));
 
-        SitemapGenerator::create(url('/'))
+        SitemapGenerator::create(config('app.url'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'tag') {
                 return $url;
@@ -64,7 +64,7 @@ class GenerateSitemap extends Command
         })
         ->writeToFile(public_path('/sitemap/tags_sitemap.xml'));
         
-        SitemapGenerator::create(url('/'))
+        SitemapGenerator::create(config('app.url'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) !== 'resource' and $url->segment(1) !== 'mag' and $url->segment(1) !== 'doctor' and $url->segment(1) !== 'doctorConsultation' and $url->segment(1) !== 'admin' and $url->segment(1) !== 'auth' and $url->segment(1) !== 'profile' and $url->segment(1) !== 'tag') {
                 return $url;
