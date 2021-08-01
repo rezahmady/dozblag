@@ -31,6 +31,8 @@ class GenerateSitemap extends Command
     {
         try {
 
+            Log::info('start generate sitemap');
+
             SitemapGenerator::create(config('app.url'))
             ->hasCrawled(function (Url $url) {
                 if ($url->segment(1) === 'mag') {
