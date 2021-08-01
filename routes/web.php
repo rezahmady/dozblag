@@ -43,10 +43,11 @@ Route::get('/admin/aa', function() {
 
 Route::get('/admin/generate-sitemap', function() {
     SitemapIndex::create()
-    ->add('/sitemap/pages_sitemap.xml')
     ->add('/sitemap/posts_sitemap.xml')
     ->add('/sitemap/doctors_sitemap.xml')
     ->add('/sitemap/resources_sitemap.xml')
+    ->add('/sitemap/tags_sitemap.xml')
+    ->add('/sitemap/pages_sitemap.xml')
     ->writeToFile(public_path('sitemap.xml'));
 });
 
