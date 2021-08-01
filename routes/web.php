@@ -1,15 +1,12 @@
 <?php
 
-use App\Http\Controllers\FormController;
-use App\Http\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
-use App\Models\User;
-use App\Services\Telegram\Telegram;
 use Rezahmady\Filter\Models\FilterItem;
 use Rezahmady\Page\Http\Livewire\PageRender;
+use Spatie\Sitemap\SitemapIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +39,15 @@ Route::get('/admin/aa', function() {
     $time = date('r');
     echo "data: {$time}\n\n";
     flush();
+});
+
+Route::get('/admin/generate-sitemap', function() {
+    SitemapIndex::create()
+    ->add('/sitemap/pages_sitemap.xml')
+    ->add('/sitemap/posts_sitemap.xml')
+    ->add('/sitemap/doctors_sitemap.xml')
+    ->add('/sitemap/resources_sitemap.xml')
+    ->writeToFile(public_path('sitemap.xml'));
 });
 
 // At the top of the file.

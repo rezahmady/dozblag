@@ -7,9 +7,9 @@ use Rezahmady\Payment\Models\Invoice;
 trait HasPayment
 {
 
-    abstract public static function callbackPayment($status, $message);
+    abstract public function callbackPayment($status, $message);
 
-    abstract public static function runAfterSettled(Invoice $invoice);
+    abstract public function runAfterSettled(Invoice $invoice);
     
     public function invoice()
     {
