@@ -6,6 +6,7 @@
 /public/uploads
 /public/vendor
 /public/sitemap.xml
+/public/sitemap/*
 /public/livewire
 /storage/*.key
 /storage/

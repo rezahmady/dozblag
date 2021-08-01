@@ -28,15 +28,7 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        // modify this to your own needs
-        SitemapGenerator::create(config('app.url'))
-            ->writeToFile(public_path('sitemap/sitemap.xml'));
-
-            
-        // SitemapGenerator::create(url('/mag'))->getSitemap()->writeToFile(public_path('posts_sitemap.xml'));
-        // SitemapGenerator::create(url('/doctor'))->getSitemap()->writeToFile(public_path('/sitemap/doctors_sitemap.xml'));
-        // SitemapGenerator::create(url('/resource'))->getSitemap()->writeToFile(public_path('/sitemap/resources_sitemap.xml'));
-        SitemapGenerator::create(url('/mag'))
+        SitemapGenerator::create(url('/'))
         ->hasCrawled(function (Url $url) {
             if ($url->segment(1) === 'mag') {
                 return $url;
@@ -44,5 +36,41 @@ class GenerateSitemap extends Command
             return;        
         })
         ->writeToFile(public_path('/sitemap/posts_sitemap.xml'));
+
+        SitemapGenerator::create(url('/'))
+        ->hasCrawled(function (Url $url) {
+            if ($url->segment(1) === 'doctor') {
+                return $url;
+            }
+            return;        
+        })
+        ->writeToFile(public_path('/sitemap/doctors_sitemap.xml'));
+        
+        SitemapGenerator::create(url('/'))
+        ->hasCrawled(function (Url $url) {
+            if ($url->segment(1) === 'resource') {
+                return $url;
+            }
+            return;        
+        })
+        ->writeToFile(public_path('/sitemap/resources_sitemap.xml'));
+
+        SitemapGenerator::create(url('/'))
+        ->hasCrawled(function (Url $url) {
+            if ($url->segment(1) === 'tag') {
+                return $url;
+            }
+            return;        
+        })
+        ->writeToFile(public_path('/sitemap/tags_sitemap.xml'));
+        
+        SitemapGenerator::create(url('/'))
+        ->hasCrawled(function (Url $url) {
+            if ($url->segment(1) !== 'resource' and $url->segment(1) !== 'mag' and $url->segment(1) !== 'doctor' and $url->segment(1) !== 'doctorConsultation' and $url->segment(1) !== 'admin' and $url->segment(1) !== 'auth' and $url->segment(1) !== 'profile' and $url->segment(1) !== 'tag') {
+                return $url;
+            }
+            return;        
+        })
+        ->writeToFile(public_path('/sitemap/pages_sitemap.xml'));
     }
 }
