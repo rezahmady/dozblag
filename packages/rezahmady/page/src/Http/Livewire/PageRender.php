@@ -42,7 +42,9 @@ class PageRender extends Component
         // ddd($items->where('name', 'like', '%'.$this->search.'%'));
         $this->data['items'] = $items->paginate($max_item);
         // children
-        $this->data['children'] = $this->modelPage->children()->paginate($this->modelPage->max_item);
+        $this->data['children'] = $this->modelPage->children()->orderBy('lft')->paginate($this->modelPage->max_item);
+
+        // dd($this->modelPage->children()->orderBy('lft')->get());
 
         $this->data['form'] = $this->data['entity']['form'];
 
