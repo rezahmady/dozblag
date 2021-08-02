@@ -64,7 +64,7 @@
         {{-- <div class="chat-holder" x-show="chatShow" x-on:click="chatShow = false">
             <iframe class="responsive-iframe" src="{{ route('chatyno.index') }}?iframe=true"></iframe>
         </div> --}}
-        @if (auth()->check() and auth()->user()->hasSubscribtion())
+        @if (auth()->check() and auth()->user()->getActiveRoom())
         <a target="_blank" href="{{ route('chatyno.show', md5(auth()->user()->getActiveRoom()->id)) }}" class="main-wrapper top-banner">
             <i class="la la-bell"></i>
             <p>
