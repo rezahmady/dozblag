@@ -345,14 +345,22 @@ class RoomCrudController extends CrudController
 
         // operator
         User::where('template', 'operator')->where('extras->telegram_user_id', '!=', null)->get()->each(function($user) use($room) {
-            $user->notify(new NewRoom($room));
+            try {
+                $user->notify(new NewRoom($room));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         });
 
         // doctor
         $doctor = User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first();
         if($doctor)
         {
-            $doctor->notify(new DoctorNewRoom($room));
+            try {
+                $doctor->notify(new DoctorNewRoom($room));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
 
         return $response;
@@ -369,7 +377,11 @@ class RoomCrudController extends CrudController
             $doctor = User::where('id', $this->crud->getRequest()->doctor_id)->where('extras->telegram_user_id', '!=', null)->first();
             if($doctor)
             {
-                $doctor->notify(new AsighnRoom(Room::find($this->crud->entry->id)));
+                try {
+                    $doctor->notify(new AsighnRoom(Room::find($this->crud->entry->id)));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
             }
         }
         

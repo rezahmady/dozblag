@@ -111,7 +111,11 @@ class CreateMessage extends Component
             $this->emitUp('room-started');
             // customer
             if(isset($this->room->user->extras->telegram_user_id)) {
-                $this->room->user->notify(new StartRoom($this->room));
+                try {
+                    $this->room->user->notify(new StartRoom($this->room));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
             }
         } else {
             $this->room->update([
@@ -135,7 +139,11 @@ class CreateMessage extends Component
         $this->status = 'chat';
         // customer
         if(isset($this->room->user->extras->telegram_user_id)) {
-            $this->room->user->notify(new StartRoom($this->room));
+            try {
+                $this->room->user->notify(new StartRoom($this->room));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
     }
 

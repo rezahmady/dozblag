@@ -86,14 +86,22 @@ class Subscribtion extends Model
         
         // operator
         User::where('template', 'operator')->where('extras->telegram_user_id', '!=', null)->get()->each(function($user) use($room) {
-            $user->notify(new NewRoom($room));
+            try {
+                $user->notify(new NewRoom($room));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         });
 
         // doctor
         $doctor = User::where('id', session()->get('doctor_id'))->where('extras->telegram_user_id', '!=', null)->first();
         if($doctor)
         {
-            $doctor->notify(new DoctorNewRoom($room));
+            try {
+                $doctor->notify(new DoctorNewRoom($room));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
     }
 
