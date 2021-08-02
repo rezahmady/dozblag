@@ -44,7 +44,7 @@
 		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
 	</head>
 	<body>
-        @if (auth()->check() and auth()->user()->hasSubscribtion())
+        @if (auth()->check() and auth()->user()->getActiveRoom())
         <a target="_blank" href="{{ route('chatyno.show', md5(auth()->user()->getActiveRoom()->id)) }}" class="main-wrapper top-banner">
             <i class="la la-bell"></i>
             <p>
