@@ -7,7 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>پلت فرم گفت و گو و بحث</title>
+    <title>پلت فرم مشاوره پزشکی</title>
     <meta http-equiv="origin-trial" content="AgkruLcBqv/ofyNe+qNo1wL+x0hjaxtzqmkcK110waLMg10Hyfl5yYFdnYLm687rkJMMW0HTkBXXrw5R2bHEfAsAAABqeyJvcmlnaW4iOiJodHRwczovL2dhcmlpbi5jb206NDQzIiwiZmVhdHVyZSI6IldlYkFwcExpbmtDYXB0dXJpbmciLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
     <link rel="web-app-origin-association" href="/web-app-origin-association.json">
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
@@ -68,7 +68,7 @@
     <script src="{{ mix('/assets/js/chat.js') }}"></script>
     <link rel="manifest" href="{{url('/manifest2.json')}}" defer />
         <script type="module">
-            import '/pwaupdate.js';
+            import '{{url("/pwaupdate.js")}}';
             const el = document.createElement('pwa-update');
             document.body.appendChild(el);
         </script>
