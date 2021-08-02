@@ -238,6 +238,13 @@ class User extends Authenticatable
         })->first();
     }
 
+    public function getActiveRoom()
+    {
+        return $this->rooms()->where(function($q) {
+            $q->where('extras->expire_date', '>=', Carbon::now())->orWhere('extras->expire_date', null);
+        })->first();
+    }
+
     public function getRoomMd5Id($doctor) {
         return md5($this->getRoom($doctor)->id);
     }

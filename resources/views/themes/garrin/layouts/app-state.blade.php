@@ -64,9 +64,17 @@
         {{-- <div class="chat-holder" x-show="chatShow" x-on:click="chatShow = false">
             <iframe class="responsive-iframe" src="{{ route('chatyno.index') }}?iframe=true"></iframe>
         </div> --}}
-
+        @if (auth()->check() and auth()->user()->hasSubscribtion())
+        <a target="_blank" href="{{ route('chatyno.show', md5(auth()->user()->getActiveRoom()->id)) }}" class="main-wrapper top-banner">
+            <i class="la la-bell"></i>
+            <p>
+                شما یک گفت و گوی در جریان دارید وارد محیط گفت و گو شوید 
+                <button class="go-to-chat">بزن بریم!</button>
+            </p>
+        </a>
+        @endif
 		<!-- Main Wrapper -->
-		<div class="main-wrapper">
+		<div class="main-wrapper position-relative">
 
             {{ $slot }}
 

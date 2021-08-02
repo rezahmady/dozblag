@@ -11962,3 +11962,29 @@ span.success {
         margin-top: 10px;
     }
 }
+
+.main-wrapper.top-banner {
+    background: currentColor;
+    display: flex;
+    justify-content: center;
+}
+
+.main-wrapper.top-banner i {
+    font-size: 30px;
+    color: red;
+    line-height: 1;
+    text-align: center;
+    padding: 17px 5px;
+}
+
+.main-wrapper.top-banner p {
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin: 0;
+}
+
+.main-wrapper.top-banner .go-to-chat {
+    padding: 5px 15px;
+    background-color: #3db16b;
+}
