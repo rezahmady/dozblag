@@ -249,7 +249,21 @@ class ArticleCrudController extends CrudController
                     'class'  => "form-group col-md-6"
                 ],
                 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-            ]
+            ],
+            [   // Browse
+                'name'  => "telegram_link",
+                'label' => 'لینک تلگرام',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [   // Browse
+                'name'  => "instagram_link",
+                'label' => 'لینک اینستاگرام',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
         ]);
     }
 
