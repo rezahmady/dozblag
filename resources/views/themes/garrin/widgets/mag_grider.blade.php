@@ -1,6 +1,5 @@
-<section class="section section-blogs static-show">
+<section class="section section-blogs static-show mag-slider-holder">
     <div class="container-fluid">
-
         <!-- Section Header -->
         <div class="section-header text-left d-flex justify-between position-relative">
             @can('page update')
@@ -13,7 +12,6 @@
         </div>
         <!-- /Section Header -->
 
-
         @php
             $posts = Rezahmady\Article\Models\Article::where('status', 'PUBLISHED')->latest()->get()->take(5);
         @endphp
@@ -21,27 +19,12 @@
         <div class="row blog-grid-row">
             <div class="col-md-6 col-lg-6 col-sm-12">
 
-                {{-- <!-- Blog Post -->
-                <div class="card flex-fill position-relative">
-                    <div class="blog-image card-img-top">
-                        <a href="{{$posts[0]->path()}}"><img class="img-fluid img-kashi-right" src="{{url($posts[0]->image)}}" alt="{{$posts[0]->title}}"></a>
-                    </div>
-                    <a href="{{$posts[0]->path()}}" class="blog-content grid-blog p-3">
-                        <h3 class="blog-title">{{$posts[0]->title}}</h3>
-                    </a>
-                    <div class="dark-gradient"></div>
-                </div>
-                <!-- /Blog Post --> --}}
-
                 <!-- Blog Post -->
-                <div class="mag-slider" dir="rtl">
+                <div class="mag-slider pt-2 pb-2" dir="rtl">
 
                     @foreach ($posts as $item)
-                    <div class="card flex-fill position-relative">
-                        <div class="blog-image card-img-top">
-                            <a href="{{ $item->path() }}"><img class="img-fluid img-kashi-right" src="{{url($item->image)}}" alt="{{$item->title}}"></a>
-                        </div>
-                        <a href="{{ $item->path() }}" class="blog-content grid-blog p-3">
+                    <div class="card flex-fill position-relative img-kashi-slide" style="background-image: url('{{url($item->image)}}');">
+                        <a href="{{$item->path()}}" class="blog-content grid-blog p-3">
                             <h3 class="blog-title">{{$item->title}}</h3>
                         </a>
                         <div class="dark-gradient"></div>
@@ -54,13 +37,10 @@
 
             <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
                         <!-- Blog Post -->
-                        <div class="card flex-fill position-relative">
-                            <div class="blog-image card-img-top">
-                                <a href="{{$posts[1]->path()}}"><img class="img-fluid img-kashi-left" src="{{url($posts[1]->image)}}" alt="{{$posts[1]->title}}"></a>
-                            </div>
+                        <div class="card flex-fill position-relative img-kashi"style="background-image: url('{{url($posts[1]->image)}}');">
                             <a href="{{$posts[1]->path()}}" class="blog-content grid-blog p-3">
                                 <h3 class="blog-title">{{$posts[1]->title}}</h3>
                             </a>
@@ -69,13 +49,10 @@
                         <!-- /Blog Post -->
     
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
                         <!-- Blog Post -->
-                        <div class="card flex-fill position-relative">
-                            <div class="blog-image card-img-top">
-                                <a href="{{$posts[2]->path()}}"><img class="img-fluid img-kashi-left" src="{{url($posts[2]->image)}}" alt="{{$posts[2]->title}}"></a>
-                            </div>
+                        <div class="card flex-fill position-relative img-kashi" style="background-image: url('{{url($posts[2]->image)}}');">
                             <a href="{{$posts[2]->path()}}" class="blog-content grid-blog p-3">
                                 <h3 class="blog-title">{{$posts[2]->title}}</h3>
                             </a>
@@ -86,13 +63,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
                         <!-- Blog Post -->
-                        <div class="card flex-fill position-relative">
-                            <div class="blog-image card-img-top">
-                                <a href="{{$posts[3]->path()}}"><img class="img-fluid img-kashi-left" src="{{url($posts[3]->image)}}" alt="{{$posts[3]->title}}"></a>
-                            </div>
+                        <div class="card flex-fill position-relative img-kashi" style="background-image: url('{{url($posts[3]->image)}}');">
                             <a href="{{$posts[3]->path()}}" class="blog-content grid-blog p-3">
                                 <h3 class="blog-title">{{$posts[3]->title}}</h3>
                             </a>
@@ -101,13 +75,10 @@
                         <!-- /Blog Post -->
     
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
                         <!-- Blog Post -->
-                        <div class="card flex-fill position-relative">
-                            <div class="blog-image card-img-top">
-                                <a href="{{$posts[4]->path()}}"><img class="img-fluid img-kashi-left" src="{{url($posts[4]->image)}}" alt="{{$posts[4]->title}}"></a>
-                            </div>
+                        <div class="card flex-fill position-relative img-kashi"style="background-image: url('{{url($posts[4]->image)}}');">
                             <a href="{{$posts[4]->path()}}" class="blog-content grid-blog p-3">
                                 <h3 class="blog-title">{{$posts[4]->title}}</h3>
                             </a>
@@ -142,12 +113,6 @@
             });
         }
     });
-
-    // document.addEventListener("turbolinks:before-cache", function() {
-    //     if ($('.mag-slider').length > 0) {
-    //         $('.mag-slider').slick('unslick')
-    //     }
-    // })
 
     document.addEventListener("turbolinks:load", function() {
         if ($('.mag-slider').length > 0) {

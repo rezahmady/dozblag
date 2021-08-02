@@ -10923,6 +10923,22 @@ input[type="submit"] {
     box-shadow: 4px 5px 0px 0 rgb(0 0 0 / 9%)
 }
 
+.mag-slider-holder .img-kashi {
+    background-size: cover;
+    height: 200px;
+    background-position: center
+}
+
+.mag-slider-holder .img-kashi.card {
+    margin-bottom: 0 !important;
+}
+
+.mag-slider-holder .img-kashi-slide {
+    background-size: cover;
+    height: 416px;
+    background-position: center
+}
+
 img.img-fluid.img-kashi-left {
     height: 200px;
 }
