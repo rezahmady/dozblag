@@ -36,7 +36,7 @@ class Comment extends Model
 
     public function getModule()
     {
-        $model = "\\Rezahmady\\User\\Models\\$this->module";
+        $model = "\\Rezahmady\\$this->module\\Models\\$this->module";
         return $this->belongsTo($model,'module_id', 'id');
     }
     
