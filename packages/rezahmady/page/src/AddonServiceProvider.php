@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 use Rezahmady\Page\Models\Page;
+use Rezahmady\Page\Http\Livewire\PageRender;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class AddonServiceProvider extends ServiceProvider
 
         Livewire::component('widgets.page-group', ListGroup::class);
         Livewire::component('widgets.page-grouped', ListGrouped::class);
+        Livewire::component('rezahmady.page.http.livewire.page-render', PageRender::class);
 
         Paginator::useBootstrap();
 
