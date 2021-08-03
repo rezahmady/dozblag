@@ -14,7 +14,7 @@ class PageRender extends Component
     // public $search;
 
     public ModelsPage $modelPage;
-    public $data = [];
+    protected $data = [];
 
     public function register()
     {
