@@ -14,7 +14,7 @@ class PageRender extends Component
     // public $search;
 
     public ModelsPage $modelPage;
-    public $pagedata = [];
+    protected $pagedata = [];
 
     public function register()
     {
@@ -45,6 +45,8 @@ class PageRender extends Component
         $this->pagedata['children'] = $this->modelPage->children()->orderBy('lft')->paginate($this->modelPage->max_item);
 
         $this->pagedata['form'] = $this->pagedata['entity']['form'];
+        
+        return $this->pagedata;
 
     }
 
@@ -61,12 +63,12 @@ class PageRender extends Component
     public function render()
     {
         
-        $this->register();
+        $pagedata = $this->register();
         $filename = ($this->modelPage->filename) ? $this->modelPage->filename : 'default';
         if (!$this->modelPage)
         {
             abort(404, 'Please go back to our <a href="'.url('').'">homepage</a>.');
         }
-        return view('theme::modules.pages.'.$this->modelPage->template.'.'.$filename, $this->pagedata)->layout('theme::layouts.app');
+        return view('theme::modules.pages.'.$this->modelPage->template.'.'.$filename, $pagedata)->layout('theme::layouts.app');
     }
 }
