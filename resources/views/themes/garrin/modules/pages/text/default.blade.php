@@ -1,1 +1,1 @@
-{!! $data['entity']['content'] !!}
+{!! $pagedata['entity']['content'] !!}

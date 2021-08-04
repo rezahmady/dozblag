@@ -160,8 +160,8 @@
     
     <div class="container p-3">
         <div class="section-title">
-            <h2>{{ $data['title'] }}</h2>
-            {!! $data['entity']->description !!}
+            <h2>{{ $pagedata['title'] }}</h2>
+            {!! $pagedata['entity']->description !!}
         </div>
 
         <div class="contact-form">
@@ -180,7 +180,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('form.save', $data['entity']->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('form.save', $pagedata['entity']->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div id="form"></div>
