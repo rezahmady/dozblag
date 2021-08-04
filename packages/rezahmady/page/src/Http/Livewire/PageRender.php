@@ -14,14 +14,14 @@ class PageRender extends Component
     // public $search;
 
     public ModelsPage $modelPage;
-    protected $pagedata = [];
+    protected $data = [];
 
     public function register()
     {
         $this->modelPage = $this->modelPage->withFakes();
 
-        $this->pagedata['title'] = $this->modelPage->title;
-        $this->pagedata['entity'] = $this->modelPage->withFakes();
+        $this->data['title'] = $this->modelPage->title;
+        $this->data['entity'] = $this->modelPage->withFakes();
         // items
         $items = $this->modelPage->itemInChildren();
         $items = collect($items);
@@ -33,21 +33,18 @@ class PageRender extends Component
                 if(sizeof($tags) >= 15) break;
             }
         }
-        $this->pagedata['tags'] = $tags;
-        // dd($this->pagedata['entity']);
+        $this->data['tags'] = $tags;
+        // dd($this->data['entity']);
         // if($this->search !== null and $this->search !== '') {
         //     $items = $items->where('name', 'LIKE', '%'.$this->search.'%');
         // }
         $max_item = $this->modelPage->max_item ?? 12;
         // ddd($items->where('name', 'like', '%'.$this->search.'%'));
-        $this->pagedata['items'] = $items->sortBy('created_at', false, true)->paginate($max_item);
+        $this->data['items'] = $items->sortBy('created_at', false, true)->paginate($max_item);
         // children
-        $this->pagedata['children'] = $this->modelPage->children()->orderBy('lft')->paginate($this->modelPage->max_item);
+        $this->data['children'] = $this->modelPage->children()->orderBy('lft')->paginate($this->modelPage->max_item);
 
-        $this->pagedata['form'] = $this->pagedata['entity']['form'];
-        
-        return $this->pagedata;
-
+        $this->data['form'] = $this->data['entity']['form'];
     }
 
     public function mount()
@@ -63,12 +60,13 @@ class PageRender extends Component
     public function render()
     {
         
-        $pagedata = $this->register();
+        $this->register();
         $filename = ($this->modelPage->filename) ? $this->modelPage->filename : 'default';
         if (!$this->modelPage)
         {
             abort(404, 'Please go back to our <a href="'.url('').'">homepage</a>.');
         }
-        return view('theme::modules.pages.'.$this->modelPage->template.'.'.$filename, $pagedata)->layout('theme::layouts.app');
+        // dd($this->data);
+        return view('theme::modules.pages.'.$this->modelPage->template.'.'.$filename, $this->data)->layout('theme::layouts.app');
     }
 }
