@@ -136,7 +136,7 @@ class DoctorProfile extends Component
             if(!$invoice) {
                 $invoice = $subscribtion->invoice()->create([
                     'user_id' => backpack_user()->id,
-                    'amount'  => $amount,
+                    'amount'  => $amount*10,
                     'discount_id' => $this->discount_id,
                 ]);
             } elseif($this->discount_id) {
