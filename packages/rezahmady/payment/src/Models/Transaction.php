@@ -38,7 +38,7 @@ class Transaction extends Model
 
     public function getAmountBrowse()
     {
-        echo number_format($this->amount);
+        echo number_format($this->amount/10);
     }
 
     public function getUserBrowse()
