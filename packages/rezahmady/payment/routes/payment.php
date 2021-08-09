@@ -22,8 +22,8 @@ use Rezahmady\Payment\Http\Controllers\PaymentController;
 
 Route::group([
     'middleware'=> array_merge(
-    	(array) config('backpack.base.web_middleware', 'web'),
-    ),
+    	(array) config('backpack.base.web_middleware', 'web')
+    )
 ], function() {
     Route::middleware('payment-configs')->get('/payment/{driver}/{invoice}', [PaymentController::class, 'payment']);
     Route::middleware('payment-configs')->any('/callback', [PaymentController::class,'callback'])->name('payment.callback');

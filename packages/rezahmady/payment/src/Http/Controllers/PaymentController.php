@@ -42,12 +42,12 @@ class PaymentController extends Controller
 
     public function callback(Request $request)
     {
-        if($request->Status === "OK") {
+        if($request->Status or $request->status) {
 
             // You need to verify the payment to ensure the invoice has been paid successfully.
             // We use transaction id to verify payments
             // It is a good practice to add invoice amount as well.
-            $transaction_id = $request->Authority;
+            $transaction_id = $request->Authority ?? $request->id;
 
             $transaction = Transaction::where('transactionId', $transaction_id)->first();
      
@@ -81,7 +81,8 @@ class PaymentController extends Controller
             }
         } else {
             
-            $transaction_id = $request->Authority;
+            $transaction_id = $request->Authority ?? $request->id;
+            
             $transaction = Transaction::where('transactionId', $transaction_id)->first();
 
             try {
@@ -96,8 +97,6 @@ class PaymentController extends Controller
                 $message = $exception->getMessage();
                 return $transaction->invoice->invoiceable->callbackPayment($request->Status, $message);
             }
-            
-            
         }
     }
 }
