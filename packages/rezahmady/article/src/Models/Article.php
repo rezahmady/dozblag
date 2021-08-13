@@ -160,7 +160,7 @@ class Article extends Model
 
     public function getWhatsappContentAttribute()
     {
-        return $this->title.'%0a%0a'.$this->description.'%0a%0a'.$this->path();
+        return $this->title.'%0a%0a'.strip_tags($this->description).'%0a%0a'.$this->path();
     }
 
     public function getExtrasAttribute($value)
