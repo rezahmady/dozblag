@@ -37,6 +37,7 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js' defer ></script>
         <script src="{{asset('assets/garrin/js/plugins/select2/js/select2.min.js')}}" defer></script>
         <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
+        <script src="{{ asset('/packages/formeo/formeo.min.js') }}"></script>
         <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
         @livewireScripts
         <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>

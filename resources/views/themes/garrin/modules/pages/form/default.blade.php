@@ -192,21 +192,21 @@
 </section>
 
 @push('custom-script')
-    <script src="/packages/formeo/formeo.min.js"></script>
     <script >
-        
-                data = JSON.parse(@json($form));
-                
-                const options = {
-                    renderContainer: '#form',
-                    svgSprite: 'https://draggable.github.io/formeo/assets/img/formeo-sprite.svg',
-                    dataType: 'json',
-                    formData: data
-                }
-                                
-                const renderer = new FormeoRenderer(options)
-                setTimeout(function(){ 
-                    renderer.render(data)
-                }, 0);
+        document.addEventListener("turbolinks:load", function() {
+            data = JSON.parse(@json($form));
+            
+            const options = {
+                renderContainer: '#form',
+                svgSprite: 'https://draggable.github.io/formeo/assets/img/formeo-sprite.svg',
+                dataType: 'json',
+                formData: data
+            }
+                            
+            const renderer = new FormeoRenderer(options)
+            setTimeout(function(){ 
+                renderer.render(data)
+            }, 0);
+        })
     </script>
 @endpush

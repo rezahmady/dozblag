@@ -35,6 +35,7 @@
 		<script src="{{ mix('/assets/js/app.js') }}"></script>
         <script src="{{ asset('/packages/lity/lity.min.js') }}" defer ></script>
         <script src="{{asset('assets/garrin/js/plugins/select2/js/select2.min.js')}}" defer></script>
+        <script src="{{ asset('/packages/formeo/formeo.min.js') }}"></script>
         <script src="{{asset('assets/garrin/js/plugins/theia-sticky-sidebar/ResizeSensor.js')}}" defer></script>
         <script src="{{asset('assets/garrin/js/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}" defer></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js' defer ></script>
