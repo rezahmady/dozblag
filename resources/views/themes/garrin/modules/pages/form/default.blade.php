@@ -204,9 +204,7 @@
             }
                             
             const renderer = new FormeoRenderer(options)
-            setTimeout(function(){ 
-                renderer.render(data)
-            }, 0);
+            renderer.render(data)
         })
     </script>
 @endpush
