@@ -53,7 +53,7 @@ class SubscribtionCrudController extends CrudController
             ],
             [
                 'name'  => 'amount',
-                'label'     => 'قیمت <small>(تومان)</small>',
+                'label'     => 'قیمت <small>(ریال)</small>',
                 'type'  => 'model_function',
                 'function_name' => 'getAmount'
             ],
@@ -193,7 +193,7 @@ class SubscribtionCrudController extends CrudController
             [
                 'name'    => 'amount_before_discount',
                 'prefix'  => '<i class="la la-dollar"></i>',
-                'suffix'  => 'تومان',
+                'suffix'  => 'ریال',
                 'type'    => 'text',
                 'label'   => 'قیمت پیش از تخفیف',
                 'fake'    => true,
@@ -204,7 +204,7 @@ class SubscribtionCrudController extends CrudController
             [
                 'name'    => 'amount',
                 'prefix'  => '<i class="la la-dollar"></i>',
-                'suffix'  => 'تومان',
+                'suffix'  => 'ریال',
                 'type'    => 'text',
                 'label'   => 'قیمت',
                 'wrapper'      => [

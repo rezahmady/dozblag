@@ -60,7 +60,7 @@ class InvoiceCrudController extends CrudController
             ],
             [
                 'name'          => 'amount',
-                'label'         => 'مبلغ <small>(تومان)</small>',
+                'label'         => 'مبلغ <small>(ریال)</small>',
                 'type'          => 'model_function',
                 'function_name' => 'getAmountBrowse',
             ],

@@ -140,7 +140,7 @@ class DiscountCrudController extends CrudController
                 'label'   => 'به',
                 'options' => [
                     'PERCENT' => 'درصد',
-                    'EQUAL' => 'تومان',
+                    'EQUAL' => 'ریال',
                 ],
                 'wrapper'      => [
                     'class'  => "form-group col-md-2"
@@ -149,7 +149,7 @@ class DiscountCrudController extends CrudController
             [
                 'name'    => 'limit',
                 'prefix'  => '<i class="la la-dollar"></i>',
-                'suffix'   => 'تومان',
+                'suffix'   => 'ریال',
                 'type'    => 'text',
                 'label'   => 'تا سقف',
                 'wrapper'      => [

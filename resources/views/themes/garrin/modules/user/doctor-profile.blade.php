@@ -316,12 +316,12 @@
                                         <h5 class="card-title fw-800">{{$item->name}}</h5>
                                         <div class="subscribtion-custom">
                                             @if ($item->extras->amount_before_discount)
-                                            <span class="price-strike">{{number_format($item->extras->amount_before_discount)}} تومان</span>
+                                            <span class="price-strike">{{number_format($item->extras->amount_before_discount/10)}} تومان</span>
                                             @endif
                                             @if ($item->amount === 0)
                                             <span class="price">رایگان</span>
                                             @else
-                                            <span class="price">{{number_format($item->amount)}} تومان</span>
+                                            <span class="price">{{number_format($item->amount/10)}} تومان</span>
                                             @endif
                                         </div>
 

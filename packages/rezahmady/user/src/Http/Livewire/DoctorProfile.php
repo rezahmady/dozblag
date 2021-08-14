@@ -128,7 +128,7 @@ class DoctorProfile extends Component
             return redirect()->to(route('auth.login'));
         }
 
-        $invoice = $subscribtion->invoice()->where('user_id', backpack_user()->id)->where('amount', $subscribtion->amount*10)->notsettled()->first();
+        $invoice = $subscribtion->invoice()->where('user_id', backpack_user()->id)->where('amount', $subscribtion->amount)->notsettled()->first();
         
         $amount = ($this->discount_id) ? Discount::find($this->discount_id)->applayDiscount($subscribtion->amount) : $subscribtion->amount;
 
@@ -136,7 +136,7 @@ class DoctorProfile extends Component
             if(!$invoice) {
                 $invoice = $subscribtion->invoice()->create([
                     'user_id' => backpack_user()->id,
-                    'amount'  => $amount*10,
+                    'amount'  => $amount,
                     'discount_id' => $this->discount_id,
                 ]);
             } elseif($this->discount_id) {
