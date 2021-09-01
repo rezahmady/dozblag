@@ -5,6 +5,7 @@ namespace Rezahmady\Article;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Rezahmady\Article\Http\Livewire\ShareHolder;
+use Rezahmady\Article\Http\Livewire\TagRender; 
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,7 @@ class AddonServiceProvider extends ServiceProvider
     public function moduleBoot() : void
     {
         Livewire::component('article.share-holder', ShareHolder::class);
+        Livewire::component('rezahmady.article.http.livewire.tag-render', TagRender::class);
     }
 
     public function menuBuilder($menu)
