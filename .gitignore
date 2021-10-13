@@ -8,6 +8,7 @@
 /public/sitemap.xml
 /public/sitemap/*
 /public/livewire
+/public/.well-known
 /storage/*.key
 /storage/
 /tests/
