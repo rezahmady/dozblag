@@ -264,6 +264,17 @@ class ArticleCrudController extends CrudController
                     'class'  => "form-group col-md-6"
                 ],
             ],
+            [
+                'name' => 'default_image',
+                'label' => 'تصویر شاخص پیش‌فرض',
+                'type' => 'browse',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
         ]);
     }
 

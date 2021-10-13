@@ -35,7 +35,7 @@
                                 <!-- Blog Post -->
                                 <div class="card flex-fill rounded-3xl">
                                     <div class="blog-image card-img-top">
-                                        <a href="{{$item->path()}}"><img class="img-fluid" src="{{asset($item->image)}}" alt="{{$item->title}}"></a>
+                                        <a href="{{$item->path()}}"><img class="img-fluid" src="{{asset($item->getImage())}}" alt="{{$item->title}}"></a>
                                     </div>
                                     <div class="p-3 blog-content grid-blog">
                                         <ul class="entry-meta meta-item">

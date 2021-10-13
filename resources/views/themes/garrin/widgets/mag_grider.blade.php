@@ -23,7 +23,7 @@
                 <div class="mag-slider pt-2 pb-2" dir="rtl">
 
                     @foreach ($posts as $item)
-                    <div class="card flex-fill position-relative img-kashi-slide" style="background-image: url('{{url($item->image)}}');">
+                    <div class="card flex-fill position-relative img-kashi-slide" style="background-image: url('{{url($item->getImage())}}');">
                         <a href="{{$item->path()}}" class="blog-content grid-blog p-3">
                             <h3 class="blog-title">{{$item->title}}</h3>
                         </a>

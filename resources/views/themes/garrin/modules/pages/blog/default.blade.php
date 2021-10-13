@@ -21,7 +21,6 @@
                         </div>
                         <h1 class="blog-title">{{$title}}</h1>
                         <p class="mb-0">{!! $entity->description!!}</p>
-                        
                     </div>
                 </div>
             </div>
@@ -33,7 +32,7 @@
                     @endphp
                     <div class="card flex-fill rounded-3xl">
                         <div class="blog-image card-img-top">
-                            <a href="{{$firstItem->path()}}"><img class="img-fluid" src="{{asset($firstItem->image)}}" alt="{{$firstItem->title}}"></a>
+                            <a href="{{$firstItem->path()}}"><img class="img-fluid" src="{{asset($firstItem->getImage())}}" alt="{{$firstItem->title}}"></a>
                         </div>
                         <div class="blog-content grid-blog p-3">
                             <ul class="entry-meta meta-item">
@@ -57,7 +56,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
             
-                <div class="row blog-grid-row">               
+                <div class="row blog-grid-row">
                     @foreach ($items as $item)
                         @if (!$loop->first)
                         @php
@@ -67,7 +66,7 @@
                             <!-- Blog Post -->
                             <div class="card flex-fill rounded-3xl">
                                 <div class="blog-image card-img-top">
-                                    <a href="{{$item->path()}}"><img class="img-fluid" src="{{$item->image}}" alt="{{$item->title}}"></a>
+                                    <a href="{{$item->path()}}"><img class="img-fluid" src="{{$item->getImage()}}" alt="{{$item->title}}"></a>
                                 </div>
                                 <div class="blog-content grid-blog p-3">
                                     <ul class="entry-meta meta-item">

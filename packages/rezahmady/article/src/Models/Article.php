@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rezahmady\Comment\Models\Comment;
 use Rezahmady\Page\Models\Page;
 use App\Traits\ModelCommonMethods;
+use Rezahmady\SettingOperation\Setting;
 
 class Article extends Model
 {
@@ -92,6 +93,11 @@ class Article extends Model
         $status = ($this->status == 'PUBLISHED') ? 'نمایش' : 'پیش نمایش';
         return '<a class="btn btn-sm btn-link" href="'.$this->getPageLink().'" target="_blank">'.
             '<i class="la la-eye"></i> '.$status.'</a>';
+    }
+
+    public function getImage()
+    {
+        return $this->image ?? Setting::get('articles.default_image');
     }
 
     /*

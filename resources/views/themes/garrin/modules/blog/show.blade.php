@@ -49,7 +49,7 @@
         <div class="blog-single" itemscope="" itemtype="http://schema.org/Article">
             <meta itemprop="mainEntityOfPage" content="{{ $post->path() }}">
             <div class="blog-single-image-holder" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
-                <img itemprop="url" alt="{{ $post->title }}" src="{{ url('/'.$post->image) }}">
+                <img itemprop="url" alt="{{ $post->title }}" src="{{ url('/'.$post->getImage()) }}">
             </div>
             <div class="blog-single-top-holder position-relative">
                 {{-- @can('page update')
@@ -202,7 +202,7 @@
                                                 <li>
                                                     <div class="post-thumb">
                                                         <a href="{{ $item->path() }}">
-                                                            <img class="img-fluid" src="{{ url($item->image) }}" alt="{{$item->name}}">
+                                                            <img class="img-fluid" src="{{ url($item->getImage()) }}" alt="{{$item->name}}">
                                                         </a>
                                                     </div>
                                                     <div class="post-info">
