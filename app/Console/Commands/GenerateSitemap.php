@@ -59,19 +59,21 @@ class GenerateSitemap extends Command
                 return;        
             })
             ->writeToFile(public_path('/sitemap/resources_sitemap.xml'));
-    
-            SitemapGenerator::create(config('app.url'))
-            ->hasCrawled(function (Url $url) {
-                if ($url->segment(1) === 'tag') {
-                    return $url;
-                }
-                return;        
-            })
-            ->writeToFile(public_path('/sitemap/tags_sitemap.xml'));
             
             SitemapGenerator::create(config('app.url'))
             ->hasCrawled(function (Url $url) {
-                if ($url->segment(1) !== 'resource' and $url->segment(1) !== 'mag' and $url->segment(1) !== 'doctor' and $url->segment(1) !== 'doctorConsultation' and $url->segment(1) !== 'admin' and $url->segment(1) !== 'auth' and $url->segment(1) !== 'profile' and $url->segment(1) !== 'tag') {
+                if (
+                    $url->segment(1) !== 'resource' 
+                    and $url->segment(1) !== 'mag' 
+                    and $url->segment(1) !== 'doctor' 
+                    and $url->segment(1) !== 'doctorConsultation' 
+                    and $url->segment(1) !== 'admin' 
+                    and $url->segment(1) !== 'auth' 
+                    and $url->segment(1) !== 'profile'
+                    and $url->segment(1) !== 'tag'
+                    and ($url->segment(1) !== 'section' and $url->segment(1) !== 'services')
+                    and ($url->segment(1) !== 'section' and $url->segment(1) !== 'paraclinical')
+                ) {
                     return $url;
                 }
                 return;        
