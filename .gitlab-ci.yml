@@ -1,18 +1,19 @@
 before_script:
   - echo "Before script"
-  - ls
   # - cd /www/wwwroot/gariin.com
 building:
   stage: build
   script:
     - git reset --hard
     - git pull origin master
-    - composer install
-    - cp .env.example .env
-    - php artisan key:generate
+    # - composer install
+    # - cp .env.example .env
+    # - php artisan key:generate
     # - php artisan migrate --seed
     - php artisan cache:clear
     - php artisan config:clear
+    - php artisan view:cache
+    # - php art
     # - php artisan storage:link
     - sudo chown -R www:www /www/wwwroot/gariin.com/
     - find /www/wwwroot/gariin.com -type f -exec chmod 664 {} \;
@@ -25,6 +26,9 @@ building:
 #     - php ./vendor/bin/phpunit
 deploying:
   stage: deploy
+  image: composer:latest
+  only:
+        - master
   script:
     - echo "Deployed"
     # - php artisan queue:restart #if you use queue
