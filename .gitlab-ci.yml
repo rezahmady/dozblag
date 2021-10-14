@@ -20,15 +20,17 @@ building:
     - find /www/wwwroot/gariin.com -type d -exec chmod 775 {} \;
     - chgrp -R www-data storage bootstrap/cache
     - chmod -R ug+rwx storage bootstrap/cache
+  tags:
+    - php
 # testing:
 #   stage: test
 #   script:
 #     - php ./vendor/bin/phpunit
 deploying:
   stage: deploy
-  # image: composer:latest
-  # only:
-  #       - master
+  image: composer:latest
+  only:
+        - master
   script:
     - echo "Deployed"
     # - php artisan queue:restart #if you use queue
