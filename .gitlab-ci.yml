@@ -31,4 +31,3 @@ deploying:
         - master
   script:
     - echo "Deployed"
-    # - php artisan queue:restart #if you use queue
