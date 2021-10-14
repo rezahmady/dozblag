@@ -2,7 +2,6 @@ before_script:
   - echo "Before script"
   # - cd /www/wwwroot/gariin.com
 building:
-  image: php
   stage: build
   script:
     - git reset --hard
@@ -11,9 +10,9 @@ building:
     # - cp .env.example .env
     # - php artisan key:generate
     # - php artisan migrate --seed
-    - php artisan cache:clear
-    - php artisan config:clear
-    - php artisan view:cache
+    # - php artisan cache:clear
+    # - php artisan config:clear
+    # - php artisan view:cache
     # - php art
     # - php artisan storage:link
     - sudo chown -R www:www /www/wwwroot/gariin.com/
