@@ -1,7 +1,7 @@
 before_script:
   - echo "Before script"
   - ls
-  - cd /www/wwwroot/gariin.com
+  # - cd /www/wwwroot/gariin.com
 building:
   stage: build
   script:
