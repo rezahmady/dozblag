@@ -1,15 +1,16 @@
 before_script:
   - echo "Before script"
-  - cd /www/wwwroot/gariin.com #your project path
+  - ls
+  - cd /www/wwwroot/gariin.com
 building:
   stage: build
   script:
     - git reset --hard
     - git pull origin master
     - composer install
-    # - cp .env.example .env
-    # - php artisan key:generate
-    - php artisan migrate --seed
+    - cp .env.example .env
+    - php artisan key:generate
+    # - php artisan migrate --seed
     - php artisan cache:clear
     - php artisan config:clear
     # - php artisan storage:link
