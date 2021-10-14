@@ -28,7 +28,7 @@ building:
 #     - php ./vendor/bin/phpunit
 deploying:
   stage: deploy
-  image: composer:latest
+  image: php
   only:
         - master
   script:
