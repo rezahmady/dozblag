@@ -10,9 +10,9 @@ building:
     # - cp .env.example .env
     # - php artisan key:generate
     # - php artisan migrate --seed
-    - /www/server/php/74/bin/php artisan cache:clear
-    - /www/server/php/74/bin/php artisan config:clear
-    - /www/server/php/74/bin/php artisan view:cache
+    - php artisan cache:clear
+    - php artisan config:clear
+    - php artisan view:cache
     # - php art
     # - php artisan storage:link
     - sudo chown -R www:www /www/wwwroot/gariin.com/
@@ -26,9 +26,9 @@ building:
 #     - php ./vendor/bin/phpunit
 deploying:
   stage: deploy
-  image: composer:latest
-  only:
-        - master
+  # image: composer:latest
+  # only:
+  #       - master
   script:
     - echo "Deployed"
     # - php artisan queue:restart #if you use queue
