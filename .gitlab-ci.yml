@@ -15,11 +15,11 @@ building:
     # - php artisan view:cache
     # - php art
     # - php artisan storage:link
-    - sudo chown -R www:www /www/wwwroot/gariin.com/
-    - find /www/wwwroot/gariin.com -type f -exec chmod 664 {} \;
-    - find /www/wwwroot/gariin.com -type d -exec chmod 775 {} \;
-    - chgrp -R www-data storage bootstrap/cache
-    - chmod -R ug+rwx storage bootstrap/cache
+    # - sudo chown -R www:www /www/wwwroot/gariin.com/
+    # - find /www/wwwroot/gariin.com -type f -exec chmod 664 {} \;
+    # - find /www/wwwroot/gariin.com -type d -exec chmod 775 {} \;
+    # - chgrp -R www-data storage bootstrap/cache
+    # - chmod -R ug+rwx storage bootstrap/cache
 # testing:
 #   stage: test
 #   script:
