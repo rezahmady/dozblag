@@ -118,7 +118,7 @@
         
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn rounded-3xl" href="{{route('doctor.show', ['user' => $doctor->id])}}">مشاهده پروفایل</a>
+                                        <a class="apt-btn rounded-3xl" href="{{route('doctor.show', ['user' => $doctor->id])}}">مشاوره با پزشک</a>
                                     </div>
                                 </div>
                             </div>
