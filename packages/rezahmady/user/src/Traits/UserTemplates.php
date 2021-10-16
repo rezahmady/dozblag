@@ -136,6 +136,14 @@ trait UserTemplates
                 'fake'  => true,
                 'store_in' => 'extras',
             ],
+            [ // Text
+                'name'  => 'slug',
+                'label' => 'آدرس صفحه',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'hint'  => 'درصورت خالی گذاشتن به طور خودکار از روی نام و تخصص پزشک ساخته می شود',
+                'tab'   => 'سئو',
+            ],
             // [   // Table
             //     'name'            => 'services',
             //     'label'           => 'خدمات در مطب',

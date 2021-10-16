@@ -14,7 +14,6 @@
  * User Routes
  */
 
-use Illuminate\Support\Facades\Auth;
 use Rezahmady\User\Http\Controllers\Api\DoctorController;
 use Rezahmady\User\Http\Controllers\Api\UserController;
 use Rezahmady\User\Http\Controllers\AuthController;
@@ -34,7 +33,7 @@ Route::group([
 
     Route::group(['prefix'=>'doctor','as'=>'doctor.'], function() {
         Route::get('/', DoctorList::class)->name('list'); 
-        Route::get('/{user:id}', DoctorProfile::class)->name('show'); 
+        Route::get('/{user:slug}', DoctorProfile::class)->name('show');
     });
      
     

@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Rezahmady\Chat\Models\Room;
 use Rezahmady\Comment\Models\Comment;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,7 +23,7 @@ use Rezahmady\Subscribtion\Models\Subscribtion;
 class User extends Authenticatable
 {
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
-    use HasFactory, Notifiable, HasRoles, CrudTrait,SetJsonMutator;
+    use Sluggable, SluggableScopeHelpers, HasFactory, Notifiable, HasRoles, CrudTrait,SetJsonMutator;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +36,7 @@ class User extends Authenticatable
         'email',
         'password',
         'template',
+        'slug',
         'extras',
         'extras->gender',
         'extras->bio',
@@ -172,6 +175,20 @@ class User extends Authenticatable
     |--------------------------------------------------------------------------
     */
 
+        /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable() :array
+    {
+        return [
+            'slug' => [
+                'source' => 'name_and_specilty',
+            ],
+        ];
+    }
+
     public function username()
     {
         return 'mobile';
@@ -179,12 +196,12 @@ class User extends Authenticatable
 
     public function path()
     {
-        return route('doctor.show', $this->id);
+        return route('doctor.show', $this->slug);
     }
 
     public function getPageLink()
     {
-        return url('doctor/'.$this->id);
+        return url('doctor/'.$this->slug);
     }
 
     public function getOpenButton()
@@ -259,7 +276,10 @@ class User extends Authenticatable
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-
+    public function getNameAndSpeciltyAttribute()
+    {
+        return 'دکتر '.$this->name.' متخصص '.$this->getSpecilty();
+    }
 
     /*
     |--------------------------------------------------------------------------

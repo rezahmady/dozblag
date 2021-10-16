@@ -331,7 +331,7 @@ class UserCrudController extends CrudController
                     'class'  => "form-group col-12 ltr"
                 ],
                 'tab'   => 'مشخصات فردی',
-            ]
+            ],
         ]);
 
         $this->useTemplate($template);
