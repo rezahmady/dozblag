@@ -38,7 +38,7 @@
                                 </div>
                     
                             </div>
-                            <a class="apt-btn" href="{{$item->getPageLink()}}">گفتگوی متنی با پزشک</a>
+                            <a class="apt-btn" href="{{$item->getPageLink()}}">مشاوره با پزشک</a>
                         </div>
                     </div>
                     <!-- /Doctor Widget -->
