@@ -96,12 +96,12 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <a href={{route('doctor.show', ['user' => $doctor->id])}}" class="avatar avatar-xxl">
+                                        <a href={{$doctor->path()}}" class="avatar avatar-xxl">
                                             <img src="{{$doctor->getProfile()}}" class="avatar-img rounded-circle" style="background: aliceblue;" alt="{{ $doctor->name }}">
                                         </a>
                                     </div>
                                     <div class="pl-3 doc-info-cont mb-3">
-                                        <a href="{{route('doctor.show', ['user' => $doctor->id])}}"><h4 class="doc-name">{{ $doctor->name }}</h4></a>
+                                        <a href="{{$doctor->path()}}"><h4 class="doc-name">{{ $doctor->name }}</h4></a>
                                         <p class="doc-speciality">{{ $doctor->getSpecilty() }}</p>
                                         <div class="clini-infos">
                                             <ul>
@@ -131,7 +131,7 @@
         
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn rounded-3xl" href="{{route('doctor.show', ['user' => $doctor->id])}}">مشاوره با پزشک</a>
+                                        <a class="apt-btn rounded-3xl" href="{{$doctor->path()}}">مشاوره با پزشک</a>
                                     </div>
                                 </div>
                             </div>
