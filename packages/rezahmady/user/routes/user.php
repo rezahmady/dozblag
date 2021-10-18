@@ -11,6 +11,11 @@
 */
 
 /**
+ * redirect routes
+ */
+
+include('redirect.php');
+/**
  * User Routes
  */
 
