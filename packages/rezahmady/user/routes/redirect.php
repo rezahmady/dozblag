@@ -1,33 +1,33 @@
 <?php
 
 Route::get('/doctor/45', function() {
-    return redirect()->to(url('/doctor/دکتر-امیر-سلیمانی-متخصص-سلامت-پوست-مو-و-زیبایی-کلینیک-کاشت-مو-و-ابرو-آفرینش'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%A7%D9%85%DB%8C%D8%B1-%D8%B3%D9%84%DB%8C%D9%85%D8%A7%D9%86%DB%8C-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%D8%B3%D9%84%D8%A7%D9%85%D8%AA-%D9%BE%D9%88%D8%B3%D8%AA-%D9%85%D9%88-%D9%88-%D8%B2%DB%8C%D8%A8%D8%A7%DB%8C%DB%8C-%DA%A9%D9%84%DB%8C%D9%86%DB%8C%DA%A9-%DA%A9%D8%A7%D8%B4%D8%AA-%D9%85%D9%88-%D9%88-%D8%A7%D8%A8%D8%B1%D9%88-%D8%A2%D9%81%D8%B1%DB%8C%D9%86%D8%B4'));
 });
 
 Route::get('/doctor/43', function() {
-    return redirect()->to(url('/doctor/دکتر-زهره-سعادتمند-متخصص-زنان-و-زایمان'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%B2%D9%87%D8%B1%D9%87-%D8%B3%D8%B9%D8%A7%D8%AF%D8%AA%D9%85%D9%86%D8%AF-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%D8%B2%D9%86%D8%A7%D9%86-%D9%88-%D8%B2%D8%A7%DB%8C%D9%85%D8%A7%D9%86'));
 });
 
 Route::get('/doctor/27', function() {
-    return redirect()->to(url('/doctor/کارشناس-و-مشاور-کرونا-ویروس'));
+    return redirect()->to(url('/doctor/%DA%A9%D8%A7%D8%B1%D8%B4%D9%86%D8%A7%D8%B3-%D9%88-%D9%85%D8%B4%D8%A7%D9%88%D8%B1-%DA%A9%D8%B1%D9%88%D9%86%D8%A7-%D9%88%DB%8C%D8%B1%D9%88%D8%B3'));
 });
 
 Route::get('/doctor/26', function() {
-    return redirect()->to(url('/doctor/دکتر-سید-احسان-دریاباری-متخصص-طب-کودک-و-نوزاد'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%B3%DB%8C%D8%AF-%D8%A7%D8%AD%D8%B3%D8%A7%D9%86-%D8%AF%D8%B1%DB%8C%D8%A7%D8%A8%D8%A7%D8%B1%DB%8C-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%D8%B7%D8%A8-%DA%A9%D9%88%D8%AF%DA%A9-%D9%88-%D9%86%D9%88%D8%B2%D8%A7%D8%AF'));
 });
 
 Route::get('/doctor/21', function() {
-    return redirect()->to(url('/doctor/دکتر-حسین-رسول-پناه-متخصص-سلامت-پوست-مو-و-زیبایی'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%AD%D8%B3%DB%8C%D9%86-%D8%B1%D8%B3%D9%88%D9%84-%D9%BE%D9%86%D8%A7%D9%87-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%D8%B3%D9%84%D8%A7%D9%85%D8%AA-%D9%BE%D9%88%D8%B3%D8%AA-%D9%85%D9%88-%D9%88-%D8%B2%DB%8C%D8%A8%D8%A7%DB%8C%DB%8C'));
 });
 
 Route::get('/doctor/20', function() {
-    return redirect()->to(url('/doctor/دکتر-حسین-نداف-نیا-متخصص-ژنتیک'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%AD%D8%B3%DB%8C%D9%86-%D9%86%D8%AF%D8%A7%D9%81-%D9%86%DB%8C%D8%A7-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%DA%98%D9%86%D8%AA%DB%8C%DA%A9'));
 });
 
 Route::get('/doctor/18', function() {
-    return redirect()->to(url('/doctor/دکتر-غلامرضا-بابامحمدی-پزشکی-عمومی'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%BA%D9%84%D8%A7%D9%85%D8%B1%D8%B6%D8%A7-%D8%A8%D8%A7%D8%A8%D8%A7%D9%85%D8%AD%D9%85%D8%AF%DB%8C-%D9%BE%D8%B2%D8%B4%DA%A9%DB%8C-%D8%B9%D9%85%D9%88%D9%85%DB%8C'));
 });
 
 Route::get('/doctor/12', function() {
-    return redirect()->to(url('/doctor/دکتر-رضا-خاقانی-متخصص-داخلی-و-غدد'));
+    return redirect()->to(url('/doctor/%D8%AF%DA%A9%D8%AA%D8%B1-%D8%B1%D8%B6%D8%A7-%D8%AE%D8%A7%D9%82%D8%A7%D9%86%DB%8C-%D9%85%D8%AA%D8%AE%D8%B5%D8%B5-%D8%AF%D8%A7%D8%AE%D9%84%DB%8C-%D9%88-%D8%BA%D8%AF%D8%AF'));
 });
