@@ -26,14 +26,12 @@ class AddonServiceProvider extends ServiceProvider
         Eventy::addFilter('page-renderpage-items', function($argc) {
             $page = $argc['page'];
             $items = $argc['items'];
-            
             if($page->slug == 'mag') {
                 $uncategorizedArticles = Article::published()->whereDoesntHave('pages')->get();
                 $items = collect($items);
                 $items = $items->merge($uncategorizedArticles);
             }
-            dd($items);
-            return $items;
+            return collect($items);
         }, 20, 1);
     }
 
