@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\WithAlert;
 use Rezahmady\Page\Models\Page as ModelsPage;
 use Livewire\WithPagination;
 use Livewire\Component;
+use Rezahmady\Article\Models\Article;
 
 class PageRender extends Component
 {
@@ -19,12 +20,18 @@ class PageRender extends Component
     public function register()
     {
         $this->modelPage = $this->modelPage->withFakes();
-
+        
         $this->data['title'] = $this->modelPage->title;
         $this->data['entity'] = $this->modelPage->withFakes();
         // items
         $items = $this->modelPage->itemInChildren();
-        $items = collect($items);
+
+        if($this->modelPage->slug == 'mag') {
+            $uncategorizedArticles = Article::published()->whereDoesntHave('pages')->get();
+            $items = collect($items);
+            $items = $items->merge($uncategorizedArticles);
+        }
+        
         $tags = [];
         if($this->modelPage->template == 'blog')
         {
