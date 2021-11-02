@@ -85,11 +85,11 @@
                                 <div class="doctor-widget">
                                     <div class="doc-info-right">
                                         <div class="pl-3 doc-info-cont">
-                                            <h4 class="doc-name">{{ $doctor->name }}</h4>
+                                            <h1 class="doc-name">{{ $doctor->name }}</h1>
                                             @php
                                                 $path = ($doctor->speciltyFilter) ? $doctor->speciltyFilter->path() : '';
                                             @endphp
-                                            <a href="{{$path}}" class="doc-speciality">{{ $doctor->getSpecilty() }}</a>
+                                            <h2><a href="{{$path}}" class="doc-speciality">{{ $doctor->getSpecilty() }}</a></h2>
                                             <span class="pt-2 pb-3 d-block"></span>
                                             <div class="clini-infos">
                                                 <ul>
