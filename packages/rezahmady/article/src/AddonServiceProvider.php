@@ -5,7 +5,9 @@ namespace Rezahmady\Article;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Rezahmady\Article\Http\Livewire\ShareHolder;
-use Rezahmady\Article\Http\Livewire\TagRender; 
+use Rezahmady\Article\Http\Livewire\TagRender;
+use Rezahmady\Article\Models\Article;
+use TorMorten\Eventy\Facades\Events as Eventy;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,20 @@ class AddonServiceProvider extends ServiceProvider
     {
         Livewire::component('article.share-holder', ShareHolder::class);
         Livewire::component('rezahmady.article.http.livewire.tag-render', TagRender::class);
+
+        // hooks
+        Eventy::addFilter('page-renderpage-items', function($argc) {
+            $page = $argc['page'];
+            $items = $argc['items'];
+            
+            if($page->slug == 'mag') {
+                $uncategorizedArticles = Article::published()->whereDoesntHave('pages')->get();
+                $items = collect($items);
+                $items = $items->merge($uncategorizedArticles);
+            }
+            dd($items);
+            return $items;
+        }, 20, 1);
     }
 
     public function menuBuilder($menu)

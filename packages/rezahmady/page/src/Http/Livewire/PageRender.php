@@ -7,6 +7,7 @@ use Rezahmady\Page\Models\Page as ModelsPage;
 use Livewire\WithPagination;
 use Livewire\Component;
 use Rezahmady\Article\Models\Article;
+use TorMorten\Eventy\Facades\Events as Eventy;
 
 class PageRender extends Component
 {
@@ -26,11 +27,9 @@ class PageRender extends Component
         // items
         $items = $this->modelPage->itemInChildren();
 
-        if($this->modelPage->slug == 'mag') {
-            $uncategorizedArticles = Article::published()->whereDoesntHave('pages')->get();
-            $items = collect($items);
-            $items = $items->merge($uncategorizedArticles);
-        }
+        // dd( $this->modelPage);
+
+        $items = Eventy::filter('page-renderpage-items', ['items' => $items,'page' => $this->modelPage]);
         
         $tags = [];
         if($this->modelPage->template == 'blog')
