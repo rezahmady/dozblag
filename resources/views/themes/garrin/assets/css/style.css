@@ -3864,6 +3864,14 @@ html.menu-opened body {
     font-size: 14px;
 }
 
+.flexmasonry-item {
+    padding: 4px;
+}
+
+.flexmasonry-item .card {
+    margin: 0 !important;
+}
+
 .doctor-widget .average-rating {
     font-size: 14px;
     font-weight: 500;
