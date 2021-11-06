@@ -271,15 +271,16 @@
             }
         }
 
-        var $root = $('html, body');
-
-        $('a[href^="#"]').click(function() {
-            console.log($.attr(this, 'href'));
-            $root.animate({
-                scrollTop: $($.attr(this, 'href')).offset().top
-            }, 500);
-
-            return false;
-        });
+        document.addEventListener('turbolinks:load', function () {
+           
+            var $root = $('html, body');
+    
+            $('a[href^="#"]').click(function() {
+                $root.animate({
+                    scrollTop: $($.attr(this, 'href')).offset().top
+                }, 500);
+                return false;
+            });
+        })
     </script>
 </div>
