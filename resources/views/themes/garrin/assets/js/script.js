@@ -7,13 +7,6 @@ Version      : 1.3
 (function($) {
     "use strict";
 
-
-    // Sidebar
-
-
-
-    // Textarea Text Count
-
     var maxLength = 100;
     $('#review_desc').on('keyup change', function() {
         var length = $(this).val().length;

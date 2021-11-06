@@ -22,6 +22,7 @@ mix.styles([
     'resources/views/themes/garrin/assets/plugins/fontawesome/css/fontawesome.min.css',
     'resources/views/themes/garrin/assets/plugins/fontawesome/css/all.min.css',
     'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.css',
+    'resources/views/themes/garrin/assets/flexmasonry/flexmasonry.css',
     'resources/views/themes/garrin/assets/css/style.css',
     // 'public/assets/garrin/css/custom.css',
 ], 'public/assets/garrin/css/theme.css').version();
@@ -40,6 +41,7 @@ mix.scripts([
     'resources/views/themes/garrin/assets/plugins/bootstrap-rtl/js/bootstrap.min.js',
     'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.js',
     'resources/views/themes/garrin/assets/js/slick.js',
+    'resources/views/themes/garrin/assets/flexmasonry/flexmasonry.js',
     'resources/views/themes/garrin/assets/js/script.js',
 ], 'public/assets/garrin/js/theme.js').version();
 

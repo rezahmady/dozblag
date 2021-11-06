@@ -56,13 +56,13 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
             
-                <div class="row blog-grid-row">
+                <div class="row blog-grid-row flexmasonry-grid">
                     @foreach ($items as $item)
                         @if (!$loop->first)
                         @php
                             $item = $item->withFakes();
                         @endphp
-                        <div class="col-md-6 col-sm-12">
+                        <div class="">
                             <!-- Blog Post -->
                             <div class="card flex-fill rounded-3xl">
                                 <div class="blog-image card-img-top">
@@ -87,7 +87,7 @@
                 </div>
                 
                 <!-- Blog Pagination -->
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-md-12">
                         {{ $items->links('theme::partials.pagination') }}
                     </div>
@@ -171,5 +171,48 @@
 
 
     </div>
+
+    <script>
+
+        document.addEventListener('turbolinks:load', function () {
+            FlexMasonry.destroyAll();
+            setTimeout(() => {
+                FlexMasonry.init('.flexmasonry-grid',{
+                    responsive: true,
+                    breakpointCols: {
+                        'min-width: 1500px':2,
+                        'min-width: 1200px': 2,
+                        'min-width: 992px': 2,
+                        'min-width: 768px': 2,
+                        'min-width: 576px': 1,
+                    },
+                    numCols: 2,
+                });
+            }, 200);
+        })
+
+        window.addEventListener('dehydrate-components', event => {
+            FlexMasonry.destroyAll()
+        })
+            
+
+        window.addEventListener('updated-components', event => {
+            setTimeout(() => {
+                FlexMasonry.init('.flexmasonry-grid',{
+                    responsive: true,
+                    breakpointCols: {
+                        'min-width: 1500px':2,
+                        'min-width: 1200px': 2,
+                        'min-width: 992px': 2,
+                        'min-width: 768px': 2,
+                        'min-width: 576px': 1,
+                    },
+                    numCols: 2,
+                });
+            }, 200);
+            
+        })
+
+    </script>
     
 </div>	
