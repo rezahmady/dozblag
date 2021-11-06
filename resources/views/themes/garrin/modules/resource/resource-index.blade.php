@@ -65,44 +65,46 @@ use Rezahmady\SettingOperation\Setting;
     
     <script>
         document.addEventListener("turbolinks:load", function() {
-            $('.resource-slider').slick({
-                dots: false,
-                autoplay: false,
-                infinite: true,
-                rtl: true,
-                // centerMode: true,
-                variableWidth: false,
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                responsive: [{
-                        breakpoint: 928,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 3
+            if ($('.resource-slider').length > 0) {
+                $('.resource-slider').slick({
+                    dots: false,
+                    autoplay: false,
+                    infinite: true,
+                    rtl: true,
+                    // centerMode: true,
+                    variableWidth: false,
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    responsive: [{
+                            breakpoint: 928,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '40px',
+                                slidesToShow: 3
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '40px',
+                                slidesToShow: 2
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '40px',
+                                slidesToShow: 1
+                            }
                         }
-                    },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ],
-            });
+                    ],
+                });
+            }
         })
     </script>
 </div>
