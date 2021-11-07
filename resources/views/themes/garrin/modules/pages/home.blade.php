@@ -1,4 +1,4 @@
-<div x-data="state()" x-init="init()">
+<div x-data="home_state()" x-init="init()">
     <!-- Header -->
     <livewire:partials.header />
     <!-- /Header -->
@@ -67,8 +67,15 @@
     <livewire:partials.footer />
     <!-- /Footer -->
     <script>
-        function state() {
+        function home_state() {
             return {
+                search: false,
+                hidden_search() {
+                    this.search = false;
+                },
+                show_search() {
+                    this.search = true;
+                },
                 widget: @entangle('widget'),
                 setwidget(widget) {
                     this.widget = widget;

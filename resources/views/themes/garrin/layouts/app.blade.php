@@ -55,7 +55,7 @@
         </a>
         @endif
 		<!-- Main Wrapper -->
-		<div class="main-wrapper">
+		<div class="main-wrapper" x-data="state()" x-init="init()">
 			<!-- Header -->
 			<livewire:partials.header />
 			<!-- /Header -->
@@ -65,7 +65,6 @@
 			<!-- Footer -->
 			<livewire:partials.footer />
 			<!-- /Footer -->
-
 	    </div>
 	   <!-- /Main Wrapper -->
         @stack('custom-script')

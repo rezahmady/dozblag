@@ -36,5 +36,19 @@
     </div>
     <!-- /Footer Bottom -->
     <livewire:widgets.custom :widget="widget('contact_icon')" :view="'theme::widgets.footer.contact_icon'" />
-
+    <livewire:widgets.search :widget="widget('home_search')" :view="'theme::widgets.header_search'" />
+    <script>
+        function state() {
+            return {
+                search: false,
+                hidden_search() {
+                    this.search = false;
+                },
+                show_search() {
+                    this.search = true;
+                },
+                init() {}
+            }
+        }
+    </script>
 </footer>

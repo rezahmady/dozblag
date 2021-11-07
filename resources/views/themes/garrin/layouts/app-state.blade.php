@@ -75,7 +75,7 @@
         </a>
         @endif
 		<!-- Main Wrapper -->
-		<div class="main-wrapper position-relative">
+		<div class="main-wrapper position-relative"  x-data="state()" x-init="init()">
 
             {{ $slot }}
 

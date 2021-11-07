@@ -22,7 +22,9 @@
             <livewire:widgets.menu :widget="widget('main_menu')" :view="'theme::widgets.menu.main_menu'" />
         </div>
         <ul class="nav header-navbar-rht">
-            
+            <li class="nav-item hidden-mobile chat-icon">
+                <button type="button" x-on:click.privent="show_search()" class="button button-chat kt-modal-button kt-login-button" ><i class="la la-search"></i></button>
+            </li>
             @auth
             <li class="c-header__btn dropdown nav-item">
                 <a class="c-header__btn-login dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
