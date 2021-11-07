@@ -61,18 +61,8 @@ class PageRender extends Component
     public function dehydrate()
     {
         $this->dehydrateWithAlert();
-    }
-
-    public function updatedPage($value)
-    {
-        $this->dispatchBrowserEvent('updated-components');
-    }
-
-    public function hydratePage($value)
-    {
         $this->dispatchBrowserEvent('dehydrate-components');
     }
-
     
     public function render()
     {

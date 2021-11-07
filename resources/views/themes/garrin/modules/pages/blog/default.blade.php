@@ -192,11 +192,7 @@
         })
 
         window.addEventListener('dehydrate-components', event => {
-            FlexMasonry.destroyAll()
-        })
-            
-
-        window.addEventListener('updated-components', event => {
+            FlexMasonry.destroyAll();
             setTimeout(() => {
                 FlexMasonry.init('.flexmasonry-grid',{
                     responsive: true,
@@ -210,7 +206,6 @@
                     numCols: 2,
                 });
             }, 200);
-            
         })
 
     </script>
