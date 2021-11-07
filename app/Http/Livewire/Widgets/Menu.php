@@ -76,7 +76,7 @@ class Menu extends Component
         //Recursive Step: make a list with child lists
         $output = $start;
         foreach ($array as $subArray) {
-            if($subArray['extras']['show']) {
+            if(isset($subArray['extras']['show']) and $subArray['extras']['show']) {
                 $has_child = (empty($subArray['children_recursive'])) ? '' : ' <i class="fas fa-chevron-down"></i> ';
                 $li_class = (empty($subArray['children_recursive'])) ? '' : 'has-submenu';
                 $output .= '<li class="'.$li_class.'"><a href="'.url($subArray['slug']).'" >
