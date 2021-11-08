@@ -33,7 +33,6 @@
         "rezahmady/filter": "dev-master",
         "rezahmady/page": "dev-master",
         "rezahmady/payment": "dev-master",
-        "rezahmady/product": "dev-master",
         "rezahmady/profile": "dev-master",
         "rezahmady/resource": "dev-master",
         "rezahmady/setting-operation": "^1.0",
@@ -41,7 +40,9 @@
         "rezahmady/subscribtion": "dev-master",
         "rezahmady/user": "dev-master",
         "shetabit/payment": "^4.0",
-        "sopamo/laravel-filepond": "^0.5.0"
+        "sopamo/laravel-filepond": "^0.5.0",
+        "spatie/laravel-sitemap": "^5.9",
+        "tormjens/eventy": "^0.8.0"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
@@ -96,77 +97,70 @@
     "repositories": {
         "rezahmady/payment": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/payment",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\payment",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/subscribtion": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/subscribtion",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\subscribtion",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/profile": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/profile",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\profile",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/chat": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/chat",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\chat",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/resource": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/resource",
-            "options": {
-                "symlink": true
-            }
-        },
-        "rezahmady/product": {
-            "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/product",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\resource",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/filter": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/filter",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\filter",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/page": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/page",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\page",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/user": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/user",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\user",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/comment": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/comment",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\comment",
             "options": {
                 "symlink": true
             }
         },
         "rezahmady/article": {
             "type": "path",
-            "url": "C:\\Users\\10\\Desktop\\projects\\gariin.test\\packages/rezahmady/article",
+            "url": "D:\\projects\\laravel\\gariin\\packages\\rezahmady\\article",
             "options": {
                 "symlink": true
             }
