@@ -5,12 +5,11 @@
 
 <?php 
 use App\Services\Menu;
-use Illuminate\Support\Facades\Cache;
-$menu = cache()->remember('admin-menu', 60*60*24, function () {
-    return Menu::create(function($menu) {
-        event('admin.menu.build', $menu);
-    })->render();
-});
+use TorMorten\Eventy\Facades\Events as Eventy;
+
+$menu = Menu::create(function($menu) {
+            Eventy::action('admin-menu-build', $menu);
+        })->render();
 ?>
 
 {!! $menu !!}

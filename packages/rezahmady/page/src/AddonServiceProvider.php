@@ -12,6 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 use Rezahmady\Page\Models\Page;
 use Rezahmady\Page\Http\Livewire\PageRender;
+use TorMorten\Eventy\Facades\Eventy;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -55,11 +56,9 @@ class AddonServiceProvider extends ServiceProvider
                 ]
             );
         });
-    }
 
-    public function menuBuilder($menu)
-    {
-        if(backpack_user()->can('page list')){
+        Eventy::addAction('admin-menu-build', function($menu) { 
+            if(backpack_user()->can('page list')){
             
                 $menu->add('pages', trans('rezahmady.page::page.page_menu_title') , '#' , 500 , 'file');
                 $menu->add('pages.list', trans('rezahmady.page::page.page_all') , backpack_url('page') , 510, 'file');
@@ -75,7 +74,7 @@ class AddonServiceProvider extends ServiceProvider
                     $menu->add('pages.form', trans('rezahmady.page::page.page_create_form') , backpack_url('page/create?template=form') , 560, 'clipboard');
                 if(backpack_user()->can('page create link'))
                     $menu->add('pages.link', trans('rezahmady.page::page.page_create_link') , backpack_url('page/create?template=link') , 570, 'link');
-        } 
-
+            } 
+        }, 20, 1);
     }
 }

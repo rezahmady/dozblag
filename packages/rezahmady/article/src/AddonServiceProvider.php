@@ -33,14 +33,13 @@ class AddonServiceProvider extends ServiceProvider
             }
             return collect($items);
         }, 20, 1);
-    }
 
-    public function menuBuilder($menu)
-    {
-        if(backpack_user()->can('post manage')) {
-            $menu->add('articles', trans('rezahmady.article::article.article_menu_label') ,'#' , 400, 'newspaper-o');
-            $menu->add('articles.list', trans('rezahmady.article::article.article_plural') , backpack_url('article') , 410, 'newspaper-o');
-            $menu->add('articles.tag', trans('rezahmady.article::article.tag_plural') , backpack_url('tag') , 420, 'tag');
-        }
+        Eventy::addAction('admin-menu-build', function($menu) { 
+            if(backpack_user()->can('post manage')) {
+                $menu->add('articles', trans('rezahmady.article::article.article_menu_label') ,'#' , 400, 'newspaper-o');
+                $menu->add('articles.list', trans('rezahmady.article::article.article_plural') , backpack_url('article') , 410, 'newspaper-o');
+                $menu->add('articles.tag', trans('rezahmady.article::article.tag_plural') , backpack_url('tag') , 420, 'tag');
+            }
+        }, 20, 1);
     }
 }

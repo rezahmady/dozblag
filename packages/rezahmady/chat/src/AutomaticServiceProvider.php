@@ -66,9 +66,6 @@ trait AutomaticServiceProvider
         }
 
         $this->moduleBoot();
-        view()->composer('*', function ($view){ 
-            Event::listen('admin.menu.build', function($menu){ $this->menuBuilder($menu); });
-        }); 
     }
 
     /**

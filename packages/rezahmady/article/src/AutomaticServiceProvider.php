@@ -3,6 +3,7 @@
 namespace Rezahmady\Article;
 
 use Illuminate\Support\Facades\Event;
+use TorMorten\Eventy\Facades\Events as Eventy;
 
 /**
  * This trait automatically loads package stuff, if they're present
@@ -65,9 +66,6 @@ trait AutomaticServiceProvider
         }
 
         $this->moduleBoot();
-        view()->composer('*', function ($view){ 
-            Event::listen('admin.menu.build', function($menu){ $this->menuBuilder($menu); });
-        });
     }
 
     /**

@@ -21,6 +21,7 @@ use Rezahmady\Chat\Http\Middleware\RoomMiddleware;
 use Rezahmady\Chat\Models\Chat;
 use Rezahmady\Chat\Models\Room as ModelsRoom;
 use Rezahmady\User\Models\User;
+use TorMorten\Eventy\Facades\Eventy;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -49,6 +50,12 @@ class AddonServiceProvider extends ServiceProvider
         // resolve model relations
         $this->resolveRelationUsing();
         $this->app['router']->aliasMiddleware('room', RoomMiddleware::class);
+
+        Eventy::addAction('admin-menu-build', function($menu) { 
+            if(backpack_user()->can('chat list')) {
+                $menu->add('chats', trans('rezahmady.chat::chat.room_menu_label') , backpack_url('room') , 300, 'comments');
+            }
+        }, 20, 1);
     }
 
     public function resolveRelationUsing()
@@ -60,12 +67,5 @@ class AddonServiceProvider extends ServiceProvider
         User::resolveRelationUsing('messages', function ($Model) {
             return $Model->hasMany(Chat::class);
         });
-    }
-
-    public function menuBuilder($menu)
-    {
-        if(backpack_user()->can('chat list')) {
-            $menu->add('chats', trans('rezahmady.chat::chat.room_menu_label') , backpack_url('room') , 300, 'comments');
-        }
     }
 }

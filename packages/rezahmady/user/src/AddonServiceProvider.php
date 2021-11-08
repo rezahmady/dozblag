@@ -10,6 +10,7 @@ use Rezahmady\User\Http\Livewire\Auth\Login;
 use Rezahmady\User\Http\Livewire\DoctorList;
 use Rezahmady\User\Http\Livewire\DoctorProfile;
 use Rezahmady\User\Http\Livewire\Widgets\ListUser;
+use TorMorten\Eventy\Facades\Eventy;
 
 class AddonServiceProvider extends ServiceProvider
 {
@@ -29,11 +30,9 @@ class AddonServiceProvider extends ServiceProvider
         Livewire::component('rezahmady.user.http.livewire.auth.login', Login::class);
         Livewire::component('rezahmady.user.http.livewire.doctor-list', DoctorList::class);
         Livewire::component('rezahmady.user.http.livewire.doctor-profile', DoctorProfile::class);
-    }
 
-    public function menuBuilder($menu)
-    {
-        if(backpack_user()->can('user manage')){
+        Eventy::addAction('admin-menu-build', function($menu) { 
+            if(backpack_user()->can('user manage')){
             
                 $menu->add('users', ' مدیریت کاربران', '#' , 100 , 'users');
                 $menu->add('users.user', trans('backpack::permissionmanager.users') , backpack_url('user') , 110, 'user');
@@ -42,6 +41,6 @@ class AddonServiceProvider extends ServiceProvider
                 if(backpack_user()->can('permission manage'))
                     $menu->add('users.permission', trans('backpack::permissionmanager.permission_plural') , backpack_url('permission') , 130, 'key');
         } 
-
+        }, 20, 1);
     }
 }
