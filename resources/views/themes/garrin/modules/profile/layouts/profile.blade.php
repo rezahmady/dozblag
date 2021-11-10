@@ -49,7 +49,7 @@
         <a target="_blank" href="{{ route('chatyno.show', md5(auth()->user()->getActiveRoom()->id)) }}" class="main-wrapper top-banner">
             <i class="la la-bell"></i>
             <p>
-                شما یک گفت و گوی در جریان دارید وارد محیط گفت و گو شوید 
+                شما یک گفت و گوی در جریان دارید وارد محیط گفت و گو شوید
                 <button class="go-to-chat">بزن بریم!</button>
             </p>
         </a>
@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                             <!-- Profile Sidebar -->
-                            <x-rezahmady.profile.sidebar/>
+                            <x-profile.sidebar/>
                             <!-- /Profile Sidebar -->
                         </div>
                         <div class="col-md-7 col-lg-8 col-xl-9">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-            </div>		
+            </div>
             <!-- /Page Content -->
 
 			<!-- Footer -->

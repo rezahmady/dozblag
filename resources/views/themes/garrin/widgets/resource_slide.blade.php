@@ -13,7 +13,7 @@
         <!-- /Section Header -->
         <div class="">
             @php
-                $resources = Rezahmady\Resource\Models\Resource::take(10)->get();
+                $resources = Modules\Resource\Models\Resource::take(10)->get();
             @endphp
 
             <div class="col-lg-12">
@@ -33,7 +33,7 @@
                                         <p class="doc-speciality">{{$item->caption}}</p>
                                     </div>
                                 </div>
-                    
+
                             </div>
                             <div class="clinic-show">
                                 <a class="apt-btn" href="{{route('resource.show', $item->slug)}}">اطلاعات تماس</a>
@@ -42,7 +42,7 @@
                     </div>
                     <!-- /Resource Widget -->
                     @endforeach
-    
+
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
             ],
         });
     });
-    
+
     // document.addEventListener("turbolinks:before-cache", function() {
     //     if ($('.resource-slider').length > 0) {
     //         $('.resource-slider').slick('unslick')

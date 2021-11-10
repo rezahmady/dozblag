@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Events\ConsultationAdded;
-use App\Events\DisplayAdminMenu;
 use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
 use App\Notifications\Operator\NewRoom;
 use Illuminate\Auth\Events\Registered;
@@ -36,7 +35,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         // Event::listen('revisionable.*', function($model, $revisions) {
-        //     // Do something with the revisions or the changed model. 
+        //     // Do something with the revisions or the changed model.
         //     dd($model, $revisions);
         // });
     }

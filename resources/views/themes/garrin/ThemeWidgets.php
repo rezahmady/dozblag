@@ -157,7 +157,7 @@ class ThemeWidgets
                 // optional
                 'new_item_label'  => 'افزودن شبکه اجتماعی جدید', // customize the text of the button
             ],
-           
+
         ]);
     }
 
@@ -344,7 +344,7 @@ class ThemeWidgets
                  'label' => "دسته فیلتر",
                  'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                  'entity' => 'relationBelongsTo', // the method that defines the relationship in your Model
-                 'model' => "Rezahmady\Filter\Models\Filter", // foreign key Eloquent model
+                 'model' => "Modules\Filter\Models\Filter", // foreign key Eloquent model
                  'placeholder' => "انتخاب کنید...", // placeholder for the select2 input
             ],
             [   // relationship
@@ -356,7 +356,7 @@ class ThemeWidgets
                 'label' => "فیلترها",
                 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
                 'entity' => 'relationHasMany', // the method that defines the relationship in your Model
-                'model' => "Rezahmady\Filter\Models\FilterItem", // foreign key Eloquent model
+                'model' => "Modules\Filter\Models\FilterItem", // foreign key Eloquent model
                 'placeholder' => "انتخاب کنید ...", // placeholder for the select2 input
                 'wrapper'      => [
                     'class'  => "form-group col-md-6"
@@ -369,7 +369,7 @@ class ThemeWidgets
                  'dependencies'         => ['filter'], // when a dependency changes, this select2 is reset to null
                  'include_all_form_fields'  => true, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
             ],
-            
+
         ]);
     }
 
@@ -624,7 +624,7 @@ class ThemeWidgets
 
         ]);
     }
-    
+
     public function widget_resource_slide()
     {
         CRUD::addFields([
@@ -766,7 +766,7 @@ class ThemeWidgets
     {
         $templates_array = [];
 
-        $templates_trait = new \ReflectionClass('Rezahmady\User\Traits\UserTemplates');
+        $templates_trait = new \ReflectionClass('Modules\User\Traits\UserTemplates');
         $templates = $templates_trait->getMethods(\ReflectionMethod::IS_PRIVATE);
 
         if (! count($templates)) {

@@ -1,0 +1,12 @@
+{
+    "Article": true,
+    "User": true,
+    "Comment": true,
+    "Page": true,
+    "Profile": true,
+    "Filter": true,
+    "Payment": true,
+    "Resource": true,
+    "Subscribtion": true,
+    "Chat": true
+}

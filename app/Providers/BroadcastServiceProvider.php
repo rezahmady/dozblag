@@ -15,7 +15,5 @@ class BroadcastServiceProvider extends ServiceProvider
     public function boot()
     {
         Broadcast::routes();
-
-        require base_path('/packages/rezahmady/chat/routes/channels.php');
     }
 }

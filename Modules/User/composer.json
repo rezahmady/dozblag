@@ -1,0 +1,28 @@
+{
+    "name": "rezahmady/user-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reza Ahmadi Sabzevar",
+            "email": "ahmadireza15@gmail.com"
+        }
+    ],
+    "type": "laravel-module",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "spatie/laravel-permission": "^3.0",
+        "staudenmeir/eloquent-json-relations": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\User\\": ""
+        }
+    }
+}

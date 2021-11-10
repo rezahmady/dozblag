@@ -6,9 +6,9 @@ use App\Http\Livewire\Traits\WidgetRender;
 use App\Models\User;
 use App\Models\Widget;
 use Livewire\Component;
-use Rezahmady\Article\Models\Article;
-use Rezahmady\Filter\Models\FilterItem;
-use Rezahmady\Resource\Models\Resource;
+use Modules\Article\Models\Article;
+use Modules\Filter\Models\FilterItem;
+use Modules\Resource\Models\Resource;
 
 class Search extends Component
 {

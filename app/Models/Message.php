@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Rezahmady\Page\Models\Page;
+use Modules\Page\Models\Page;
 
 class Message extends Model
 {
@@ -45,7 +45,7 @@ class Message extends Model
             case '0':
                 $status = '<span class="badge badge-warning center">خوانده نشده</span>';
                 break;
-            
+
             default:
                 # code...
                 break;
@@ -66,7 +66,7 @@ class Message extends Model
             case 'form':
                 $status = 'تکمیل فرم';
                 break;
-            
+
             default:
                 # code...
                 break;

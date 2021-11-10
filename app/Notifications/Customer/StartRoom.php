@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
-use Rezahmady\Chat\Models\Room;
+use Modules\Chat\Models\Room;
 
 class StartRoom extends Notification
 {
@@ -48,7 +48,7 @@ class StartRoom extends Notification
             ->content("به سوال شما پاسخ داده شد. از طریق لینک زیر وارد گفت و گو با پزشک شوید")
             // (Optional) Blade template for the content.
             // ->view('notification', ['url' => $url])
-            
+
             // (Optional) Inline Buttons
             ->button('ورود به گفت و گو', $url);
     }

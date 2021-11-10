@@ -1,0 +1,518 @@
+<?php
+
+namespace Modules\Article\Http\Controllers\Admin;
+
+use App\Traits\DefaultPermissions;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Modules\Article\Http\Requests\ArticleRequest;
+use Modules\Filter\Models\Filter;
+use Modules\Filter\Models\FilterItem;
+use Rezahmady\SettingOperation\Facades\Setting;
+
+class ArticleCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Rezahmady\SettingOperation\SettingOperation;
+    use DefaultPermissions;
+    Const ENTITY = 'post';
+
+    public function setup()
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | BASIC CRUD INFORMATION
+        |--------------------------------------------------------------------------
+        */
+        $this->crud->setModel(\Modules\Article\Models\Article::class);
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin').'/article');
+        $this->crud->setEntityNameStrings(trans('general.article_singular'), trans('general.article_plural'));
+
+        /*
+        |--------------------------------------------------------------------------
+        | PERMISSIONS
+        |--------------------------------------------------------------------------
+        */
+        $this->setPermissions();
+
+        /*
+        |--------------------------------------------------------------------------
+        | LIST OPERATION
+        |--------------------------------------------------------------------------
+        */
+        $this->crud->operation('list', function () {
+
+            $this->crud->addButtonFromModelFunction('line', 'open', 'getOpenButton', 'beginning');
+
+            $this->crud->addColumn([
+                'name' => 'title',
+                'label' => trans('validation.attributes.title')
+            ]);
+
+            $this->crud->addColumn([
+                'name' => 'status',
+                'type' => 'model_function',
+                'function_name' => 'getStatusBrowse',
+                'label' => trans('general.article.status')
+            ]);
+
+            $this->crud->addColumn([
+                'name' => 'tags',
+                'label' => trans('general.tag_plural'),
+                'visibleInTable'  => false,
+                'visibleInModal'  => true,
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | FILTER
+            |--------------------------------------------------------------------------
+            */
+
+            $this->crud->addFilter([
+                'name'  => 'status',
+                'type'  => 'dropdown',
+                'label' => 'وضعیت انتشار'
+            ], [
+                'PUBLISHED' => 'منتشر شده',
+                'DRAFT' => 'عدم انتشار'
+            ], function($value) { // if the filter is active
+                return$this->crud->addClause('where', 'status', $value);
+            });
+
+            $this->crud->addFilter([ // select2_multiple filter
+                'name' => 'tags',
+                'type' => 'select2_multiple',
+                'label'=> trans('general.tag_plural')
+            ], function () {
+                return \Modules\Article\Models\Tag::all()->keyBy('id')->pluck('name', 'id')->toArray();
+            }, function ($values) { // if the filter is active
+                $this->crud->query = $this->crud->query->whereHas('tags', function ($q) use ($values) {
+                    foreach (json_decode($values) as $key => $value) {
+                        if ($key == 0) {
+                            $q->where('tags.id', $value);
+                        } else {
+                            $q->orWhere('tags.id', $value);
+                        }
+                    }
+                });
+            });
+        });
+
+        /*
+        |--------------------------------------------------------------------------
+        | CREATE & UPDATE OPERATIONS
+        |--------------------------------------------------------------------------
+        */
+        $this->crud->operation(['create', 'update'], function () {
+            $this->crud->setValidation(ArticleRequest::class);
+            $this->crud->setOperationSetting('contentClass', 'col-md-12 bold-labels');
+            $this->crud->addFields(static::getFieldsArrayForAttributes());
+
+            $this->crud->addFields([
+                [
+                    'name'        => 'description',
+                    'label'       => trans('validation.attributes.description'),
+                    'type'    => 'summernote',
+                    'options' => [
+                        'toolbar' => [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                    ],
+                    'placeholder' => 'خلاصه ای از مطلب',
+                    'fake'        =>   true,
+                    'tab'         => 'محتوا',
+                ],
+                // [
+                //     'name' => 'content',
+                //     'label' => trans('validation.attributes.content'),
+                //     'type' => 'summernote',
+                //     'placeholder' => 'محتوای خود را در اینجا بنویسید',
+                //     'tab'   => 'محتوا',
+                // ],
+                [   // WYSIWYG Editor
+                    'name'  => 'content',
+                    'label' => trans('validation.attributes.content'),
+                    'type'  => 'ckeditor',
+                    'placeholder' => 'محتوای خود را در اینجا بنویسید',
+                    'tab'   => 'محتوا',
+                    'extra_plugins' => [
+                        'autolink',
+                        'colorbutton',
+                        'justify',
+                        'emoji',
+                        'find',
+                        'font',
+                        // 'templates',
+                    ],
+                    'options' => [
+                        'language' => 'fa',
+                        "stylesSet" => [
+                            [ "name" => "پس زمینه آبی", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "background: aliceblue;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "پس زمینه زرد", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "background: #feffaf;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "پس زمینه قرمز", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "background: #fff0f0;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "پس زمینه سبز", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "background: #dfffd7;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "پس زمینه سبز", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "background: #dfffd7;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "حاشیه نقطه ای آبی", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "border: 2px dotted #20c0f3;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "حاشیه نقطه ای قرمز", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "border: 2px dotted red;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => "حاشیه نقطه ای سبز", "element" => "div", "attributes" => ["class" => "bg-blue", "style" => "border: 2px dotted #1bbf19;padding: 15px;font-size: 17px;border-radius: 20px;"]],
+                            [ "name" => " لیست استایل قرمز", "element" => "span", "attributes" => ["class" => "list-style-red", "style" => "padding: 0 13px;color: #fff;display: inline-block;text-align: center;border-radius: 20px;background: #fb2941;box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);width:max-content"]],
+                            [ "name" => " لیست استایل آبی", "element" => "span", "attributes" => ["class" => "list-style-blue", "style" => "padding: 0 13px;color: #fff;display: inline-block;text-align: center;border-radius: 20px;background: #00bfd6;box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);width:max-content"]],
+                            [ "name" => " لیست استایل سبز", "element" => "span", "attributes" => ["class" => "list-style-green", "style" => "padding: 0 13px;color: #fff;display: inline-block;text-align: center;border-radius: 20px;background: #14ce2b;box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);width:max-content"]],
+                            [ "name" => " لیست استایل خاکستری تیره", "element" => "span", "attributes" => ["class" => "list-style-gray", "style" => "padding: 0 13px;color: #fff;display: inline-block;text-align: center;border-radius: 20px;background: #797878;box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);width:max-content"]],
+                            [ "name" => " دکمه", "element" => "div", "attributes" => ["class" => "btn-consultation", "style" => "padding: 5px 10px;color: #fff;margin: auto;display: block;text-align: center;border-radius: 20px;background: #fb2941;box-shadow: 4px 5px 0 0 rgb(0 0 0 / 9%);width:max-content"]],
+                        ],
+                        // "disallowedContent" => false,
+                        "allowedContent" => true
+                        // 'skin'     => 'office2013',
+                    ]
+                ],
+            ]);
+
+
+            $this->crud->addField([
+                'name'  => 'list',
+                'type'  => 'table',
+                'label' => 'فهرست',
+                'entity_singular' => 'فهرست',
+                'columns' => [
+                    'hook'  => 'لنگر (#)',
+                    'label'  => 'عنوان',
+                ],
+                'min' => 0,
+                'max' => 30,
+                'fake' => true,
+                'tab' => 'فهرست'
+            ]);
+
+
+            $this->crud->addField([
+                'name'  => 'resources',
+                'type'  => 'table',
+                'label' => 'منابع',
+                'entity_singular' => 'منبع',
+                'columns' => [
+                    'hook'  => 'لنگر',
+                    'label'  => 'عنوان',
+                    'link'  => 'لینک',
+                ],
+                'min' => 0,
+                'max' => 30,
+                'fake' => true,
+                'tab' => 'منابع'
+            ]);
+
+            $this->getFilters();
+
+            $this->crud->field('line')->type('custom_html')
+            ->value('<span class="bg-warning text-warning">تیتر و شرح مختصر صفحه به صورت خودکار ایجاد می‌شود و در صورتی که تمایل دارید این مقادیر را به صورت سفارشی ایجاد کنید، از فرم زیر استفاده کنید.</span>')
+            ->tab('سئو');
+
+            $this->crud->addFields(static::getFieldsArrayForSeo());
+
+        });
+    }
+
+    /**
+    * Define what happens when the Setting operation is loaded.
+    *
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        // backpack fields
+        $filters = Filter::active()->pluck('name','id');
+        $this->crud->addFields([
+            [
+                'name'        => "filters",
+                'label'       => 'فیلتر ها',
+                'type'        => 'select2_from_array',
+                'options'     => $filters,
+                'allows_null' => false,
+                'default'     => 'one',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+            ],
+            [   // Browse
+                'name'  => "telegram_link",
+                'label' => 'لینک تلگرام',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [   // Browse
+                'name'  => "instagram_link",
+                'label' => 'لینک اینستاگرام',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [
+                'name' => 'default_image',
+                'label' => 'تصویر شاخص پیش‌فرض',
+                'type' => 'browse',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+        ]);
+    }
+
+    public static function getFieldsArrayForAttributes()
+    {
+        return [
+            [
+                'name' => 'title',
+                'label' => trans('validation.attributes.title'),
+                'type' => 'text',
+                'attributes' => [
+                    'placeholder' => 'عنوان پست را اینجا بنویسید',
+                    'class'       => 'form-control form-control-lg'
+                ],
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'tab'   => 'مشخصات',
+            ],
+            [
+                'name' => 'caption',
+                'label' => 'کپشن',
+                'type' => 'text',
+                'attributes' => [
+                    'placeholder' => 'عنوان انگلیسی مطلب برای ساخت لینک',
+                    'class'       => 'form-control'
+                ],
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'tab'   => 'مشخصات',
+            ],
+            [  // Select2
+                'label'     => "نویسنده",
+                'type'      => 'select2',
+                'name'      => 'user_id', // the db column for the foreign key
+
+                // optional
+                'entity'    => 'user', // the method that defines the relationship in your Model
+                'model'     => "App\Models\User", // foreign key model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'default'   => auth()->id(), // set the default value of the select2
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'مشخصات',
+                //  // also optional
+                // 'options'   => (function ($query) {
+                //      return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+                //  }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
+             ],
+            [
+                'name' => 'image',
+                'label' => trans('general.article.image'),
+                'type' => 'browse',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab'   => 'مشخصات',
+            ],
+            [
+                'label' => trans('general.tag_plural'),
+                'type' => 'relationship',
+                'name' => 'tags', // the method that defines the relationship in your Model
+                'entity' => 'tags', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+                'inline_create' => ['entity' => 'tag'],
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'ajax' => true,
+                'tab'   => 'مشخصات',
+            ],
+            [   // Checklist
+                'label'     => 'در کدام صفحات نمایش داده شود',
+                'type'      => 'drop_down_combo_tree',
+                'name'      => 'pages',
+                'entity'    => 'pages',
+                'scope'     => 'blogTemplate',
+                'attribute' => 'title',
+                'model'     => "Modules\Page\Models\Page",
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'attributes' => [
+                    'placeholder' => 'انتخاب کنید',
+                    'autocomplete' => 'off'
+                ],
+                'combo' => [
+                    'isMultiple'         => true,
+                    'cascadeSelect'      => true,
+                    'collapse'           => false,
+                    'selectableLastNode' => true,
+                ],
+                'pivot'     => true,
+                'tab'          => 'مشخصات',
+            ],
+            [ // Text
+                'name'  => 'status',
+                'label' => '<i class="la la-flag-o"></i> وضعیت انتشار',
+                'type'  => 'radio',
+                'options' => [
+                    "PUBLISHED" => '<span class="bg-success mb-1 d-block">
+                                پست منتشر شده و نمایش داده شود.
+                            </span>',
+                    "DRAFT" => '<span class="bg-danger mb-1 d-block">
+                                منتشر نشود.
+                            </span>',
+                ],
+                'wrapper'   => [
+                    'class'      => 'form-group col-md-6'
+                ],
+                'default' => 'PUBLISHED',
+                'tab'   => 'مشخصات',
+            ],
+            [   // Checklist
+                'label'     => 'در کدام صفحات نمایش داده شود',
+                'type'      => 'checklist_nested',
+                'name'      => 'pages',
+                'entity'    => 'pages',
+                'template'   => 'blog',
+                'attribute' => 'title',
+                'model'     => "Modules\Page\Models\Page",
+                'pivot'     => true,
+                'tab'   => 'مشخصات',
+            ],
+        ];
+    }
+
+    public static function getFieldsArrayForSeo(): array
+    {
+        return [
+            [ // Text
+                'name'  => 'meta_title',
+                'label' => 'تیتر صفحه',
+                'prefix' => '<i class="la la-pencil la-lg"></i>',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 60 حرف در این فیلد بنویسید.',
+                'type'  => 'text',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // textarea
+                'name'  => 'meta_description',
+                'label' => 'شرح مختصر',
+                'hint'  => 'پیشنهاد می‌شود حداکثر 155 حرف در این فیلد بنویسید.',
+                'type'    => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                ],
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'meta_keywords',
+                'label' => 'کلمات کلیدی',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-key la-lg"></i>',
+                'hint'  => 'این فیلد دیگر توسط گوگل پشتیبانی نمی‌شود و در بهینه‌سازی سایت شما تاثیری ندارد!',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'tab'   => 'سئو',
+            ],
+            [ // Text
+                'name'  => 'slug',
+                'label' => 'آدرس صفحه',
+                'type'  => 'text',
+                'prefix' => '<i class="la la-link la-lg"></i>',
+                'hint'  => 'درصورت خالی گذاشتن به طور خودکار از روی عنوان پست ساخته می شود',
+                'tab'   => 'سئو',
+            ],
+        ];
+    }
+
+    protected function getFilters() {
+        $filters = Setting::get("articles.filters");
+        if($filters) foreach($filters as $key => $item) {
+            $item = Filter::findOrFail($item);
+            $multiple = ($item->type == 'hasMany') ? true : false;
+            switch ($item->field) {
+                case 'select2_from_array':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'        => 'select2_from_array',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                        'wrapper'   => [
+                            'class'      => 'form-group col-md-6'
+                        ],
+                        'multiple' => $multiple,
+                        'allows_null' => true,
+                    ]);
+                    break;
+                case 'select_and_order':
+                    $this->crud->addField([
+                        'name'    => "filter_{$item->slug}",
+                        'label'   => $item->name,
+                        'type'    => 'select_and_order',
+                        'fake'    => true,
+                        'options' => FilterItem::where('filter_id', $item->id)->get()->pluck('name','id')->toArray(),
+                        'tab' => 'فیلترها',
+                    ]);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
+    }
+
+
+
+    /**
+     * Respond to AJAX calls from the select2 with entries from the Category model.
+     * @return JSON
+     */
+    // public function fetchCategory()
+    // {
+    //     return $this->fetch(\App\Models\Category::class);
+    // }
+
+    /**
+     * Respond to AJAX calls from the select2 with entries from the Tag model.
+     * @return JSON
+     */
+    public function fetchTags()
+    {
+        return $this->fetch(\Modules\Article\Models\Tag::class);
+    }
+}

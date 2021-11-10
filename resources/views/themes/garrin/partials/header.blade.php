@@ -37,20 +37,20 @@
                             <div class="c-header__profile-dropdown-user-img">
                                 <img style="border-radius:20px;" src="{{auth()->user()->getProfile()}}">
                             </div>
-                                                
+
                             <div class="c-header__profile-dropdown-user-info">
                                 <p class="c-header__profile-dropdown-user-name">{{auth()->user()->name}}</p>
                                     <span class="c-header__profile-dropdown-user-profile-link">مشاهده حساب کاربری<i class="la la-angle-left"></i></span>
                             </div>
-                                        
+
                         </div>
                         <div class="c-header__profile-dropdown-account">
-                                                                                                        
-                            <div class="c-header__profile-dropdown-account-item">                                
-                                <span class="c-header__profile-dropdown-account-item-title">نقش :</span>         
+
+                            <div class="c-header__profile-dropdown-account-item">
+                                <span class="c-header__profile-dropdown-account-item-title">نقش :</span>
                                 <span class="c-header__profile-dropdown-account-item-amount">
                                     {{-- <span class="c-header__profile-dropdown-account-item-amount-number js-dc-point">۰</span> --}}
-                                    {{trans('rezahmady.user::permissionmanager.function_name.'.backpack_user()->template)}}
+                                    {{trans('user::permissionmanager.function_name.'.backpack_user()->template)}}
                                 </span>
                             </div>
                             @if (auth()->user()->hasSubscribtion())
@@ -62,7 +62,7 @@
                                 </span>
                             </div>
                             @endif
-                        </div>                                
+                        </div>
                         <a href="{{ route('profile.dashboard') }}" class="c-header__profile-dropdown-user-profile-full-link"></a>
                     </div>
 
@@ -84,7 +84,7 @@
 
                         </div>
                         @endif
-                        
+
                         <div class="c-header__profile-dropdown-action-container">
                             <a href="{{route('auth.logout')}}" class="c-header__profile-dropdown-action c-header__profile-dropdown-action--logout js-logout-button"><i class="la la-power-off"></i>خروج از حساب کاربری</a>
                         </div>

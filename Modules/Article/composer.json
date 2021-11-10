@@ -1,0 +1,24 @@
+{
+    "name": "rezahmady/article-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reza Ahmadi Sabzevar",
+            "email": "ahmadireza15@gmail.com"
+        }
+    ],
+    "type": "laravel-module",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Article\\": ""
+        }
+    }
+}

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Widgets;
 
 use App\Http\Livewire\Traits\WidgetRender;
-use Rezahmady\Page\Models\Page;
+use Modules\Page\Models\Page;
 use App\Models\Widget;
 use Livewire\Component;
 
@@ -63,7 +63,7 @@ class Menu extends Component
                 $this->menu = $this->makeList($pages);
                 break;
         }
-        
+
         $this->dispatchBrowserEvent("contentChanged:{$this->widget->name}");
     }
 

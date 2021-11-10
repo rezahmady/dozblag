@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
-use Rezahmady\Chat\Models\Room;
+use Modules\Chat\Models\Room;
 
 class AsighnRoom extends Notification
 {
@@ -45,7 +45,7 @@ class AsighnRoom extends Notification
             ->content("یک گفت و گو به شما منتقل شد.")
             // (Optional) Blade template for the content.
             // ->view('notification', ['url' => $url])
-            
+
             // (Optional) Inline Buttons
             ->button('ورود به چت', $url);
     }

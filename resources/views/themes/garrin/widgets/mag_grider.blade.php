@@ -13,7 +13,7 @@
         <!-- /Section Header -->
 
         @php
-            $posts = Rezahmady\Article\Models\Article::where('status', 'PUBLISHED')->latest()->get()->take(5);
+            $posts = Modules\Article\Models\Article::where('status', 'PUBLISHED')->latest()->get()->take(5);
         @endphp
 
         <div class="row blog-grid-row">
@@ -30,7 +30,7 @@
                         <div class="dark-gradient"></div>
                     </div>
                     @endforeach
-    
+
                 </div>
 
             </div>
@@ -47,7 +47,7 @@
                             <div class="dark-gradient"></div>
                         </div>
                         <!-- /Blog Post -->
-    
+
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
@@ -59,7 +59,7 @@
                             <div class="dark-gradient"></div>
                         </div>
                         <!-- /Blog Post -->
-    
+
                     </div>
                 </div>
                 <div class="row">
@@ -73,7 +73,7 @@
                             <div class="dark-gradient"></div>
                         </div>
                         <!-- /Blog Post -->
-    
+
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 pt-2 pb-2">
 
@@ -85,13 +85,13 @@
                             <div class="dark-gradient"></div>
                         </div>
                         <!-- /Blog Post -->
-    
+
                     </div>
                 </div>
             </div>
 
         </div>
-        
+
     </div>
 </section>
 

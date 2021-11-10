@@ -35,7 +35,7 @@
                   color: blanchedalmond;
               ">مشاوره</h5>
                   <p class="card-text">برای دریافت مشاوره از هر یک از متخصصان مجموعه گرین کافیست پس انتخاب متخصص مورد نظر پلن متناسب با نیاز خود را انتخاب و فعال نمایید</p>
-                  
+
                   <a href="{{route('doctor.list')}}" class="card-link" style="
                   color: aqua;
               ">دریافت مشاوره</a>
@@ -44,9 +44,9 @@
         </div>
     </div>
     @endif
-    
+
     @if ($user->hasTemplate('doctor'))
-    {{-- <x-rezahmady.profile.doctor-counter-widget />
-    <x-rezahmady.profile.doctor-patients-widget /> --}}
+    {{-- <x-profile.doctor-counter-widget />
+    <x-profile.doctor-patients-widget /> --}}
     @endif
 </div>

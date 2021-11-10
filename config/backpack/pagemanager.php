@@ -5,5 +5,5 @@ return [
     'admin_controller_class' => 'App\Http\Controllers\Admin\PageCrudController',
 
     // Change this class if you wish to extend the Page model
-    'page_model_class'       => 'Rezahmady\Page\Models\Page',
+    'page_model_class'       => 'Modules\Page\Models\Page',
 ];
