@@ -21,7 +21,7 @@
                             <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
                             <a href="{{route('resource.all')}}" rel="category" data-wpel-link="internal">بانک سلامت</a>
                             <i class="fa fa-chevron-left blog-item-popular"></i>
-                            <a href="{{route('resource.list', $resource)}}"  rel="category" data-wpel-link="internal">{{ trans('rezahmady.resource::resource.function_name.'.$resource->template)}}</a>
+                            <a href="{{route('resource.list', $resource)}}"  rel="category" data-wpel-link="internal">{{ trans('resource::resource.function_name.'.$resource->template)}}</a>
                             <i class="fa fa-chevron-left blog-item-popular"></i>
                             <a  rel="category" data-wpel-link="internal">{{$resource->name}}</a>
                         </div>
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <!-- /About Details -->
-                        
+
                     </div>
 
 
@@ -99,10 +99,10 @@
                     <div class="card search-filter">
                         <div class="justify-between card-header d-flex" style="border-top: 3px solid #b1cc1a;">
                             <h4 class="mb-0 card-title font-weight-bold line-e"><i class="la la-map-marker"></i> اطلاعات تماس</h4>
-                            
+
                         </div>
                         <div class="p-0 card-body">
-                            
+
                             <div class="p-0 mb-0 filter-widget" x-data="{items: true}">
                                 <h4 class="justify-between font-weight-bold d-flex active">
                                     <span>آدرس</span>

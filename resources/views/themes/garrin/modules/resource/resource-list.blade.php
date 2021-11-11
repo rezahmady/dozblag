@@ -10,7 +10,7 @@
                             <a href="{{ url('/') }}" ><i class="fa fa-home blog-item-popular"></i></a>
                             <a href="{{route('resource.all')}}" rel="category" data-wpel-link="internal">بانک سلامت</a>
                             <i class="fa fa-chevron-left blog-item-popular"></i>
-                            <a href="{{route('resource.list', ['resource' => $resource->template])}}" rel="category" data-wpel-link="internal">{{ trans('rezahmady.resource::resource.function_name.'.$resource->template)}}</a>
+                            <a href="{{route('resource.list', ['resource' => $resource->template])}}" rel="category" data-wpel-link="internal">{{ trans('resource::resource.function_name.'.$resource->template)}}</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             @endif
                         </div>
                         <div class="p-0 card-body">
-                            
+
                             <div class="p-0 mb-0 filter-widget" x-data="{items: true}">
                                 <h4 class="justify-between font-weight-bold d-flex" x-on:click="items = !items" x-bind:class="{ 'active': items }">
                                     <span>موقعیت</span>
@@ -45,7 +45,7 @@
                                 <div class="filter-holder" x-show="items">
                                     <div class="form-group">
                                         <label class="control-label font-weight-bold">استان</label>
-                                    
+
                                         <select id="ostan" class="form-control select"
                                         x-data
                                         x-ref="ostan"
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="pl-3 doc-info-cont">
                                         <h4 class="doc-name">{{ $item->name }}</h4>
-                                        <p class="doc-speciality">{{ $item->caption }}</p>       
+                                        <p class="doc-speciality">{{ $item->caption }}</p>
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
@@ -152,8 +152,8 @@
     </div>
     <!-- /Page Content -->
 
-    <script> 
-    // Livewire.on('$refresh', () => { }) 
+    <script>
+    // Livewire.on('$refresh', () => { })
     window.addEventListener('scrollToTop', event => {
         window.scrollTo({ top: 15, left: 15, behaviour: 'smooth' })
         $(document).ready(function () {
