@@ -14,6 +14,6 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require base_path('/modules/chat/routes/channels.php');
+        require base_path('/Modules/Chat/Routes/channels.php');
     }
 }
