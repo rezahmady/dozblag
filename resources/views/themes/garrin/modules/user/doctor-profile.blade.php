@@ -2,8 +2,8 @@
     @php
         use Rezahmady\SettingOperation\Setting;
     @endphp
-    <div class="modal-alpine show " x-show="modal" style="display: flow-root;background-color: rgb(88 88 88 / 50%);" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog position-relative" x-show.transition="modal" role="document" x-on:click.away="closeModal()">
+    <div class="modal-alpine show " x-cloak x-show="modal" style="display: flow-root;background-color: rgb(88 88 88 / 50%);" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog position-relative" x-cloak x-show="modal" x-transition role="document" x-on:click.away="closeModal()">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" x-text="subscribtion.name"></h5>
@@ -257,7 +257,7 @@
                                             </div>
                                             <a href="{{route('resource.show', $item->slug)}}" class="pl-3 doc-info-cont">
                                                 <h4 class="doc-name">{{ $item->name }}</h4>
-                                                <p class="doc-speciality">{{ $item->caption }}</p>       
+                                                <p class="doc-speciality">{{ $item->caption }}</p>
                                             </a>
                                         </div>
                                     </div>
@@ -290,7 +290,7 @@
                             <p>
                                 می توانید از اینجا وارد گفت و گو با پزشک شوید
                             </p>
-                            
+
                             <a class="apt-btn consulation-btn" target="_blank" href="{{ route('chatyno.show', backpack_user()->getRoomMd5Id($doctor->id)) }}" >گفت و گوی متنی با پزشک <i class="la la-angle-left"></i></a>
                         </div>
 
@@ -306,7 +306,7 @@
                             <p>
                                 یکی از پلن های زیر را انتخاب کنید
                             </p>
-                            
+
                             @foreach ($packages as $item)
                             <div class="subscribtion-card flex-fill @if ($item->id == $subscribtion['id']) active @endif"
                                 x-on:click="@this.selectSubscribtion({{$item->id}})"
@@ -362,7 +362,6 @@
                     return (new Intl.NumberFormat('fa-IR', { maximumSignificantDigits: 3 }).format(this.subscribtion.amount));
                 },
                 openModal() {
-                    console.log(this.subscribtion.amount)
                     if(this.subscribtion.amount === 0) {
                         @this.payment(this.subscribtion.id);
                     } else {

@@ -93,41 +93,42 @@
         </div>
 
     </div>
+
+    <script>
+        window.addEventListener('contentChanged:{{$widget->name}}', event => {
+            console.log('update doctor widget')
+            if ($('.mag-slider').length > 0) {
+                $('.mag-slider').slick({
+                    dots: false,
+                    infinite: true,
+                    // fade: true,
+                    prevArrow: '<button type="button" class="la-slick-prev"><i class="la la-angle-right"></i></button>',
+                    nextArrow: '<button type="button" class="la-slick-next"><i class="la la-angle-left"></i></button>',
+                    rtl: true,
+                    autoplay: true,
+                    speed: 300,
+                    slidesToShow: 1,
+                    adaptiveHeight: false
+                });
+            }
+        });
+
+        document.addEventListener("turbolinks:load", function() {
+            if ($('.mag-slider').length > 0) {
+                $('.mag-slider').not('.slick-initialized').slick({
+                    dots: false,
+                    infinite: true,
+                    // fade: true,
+                    prevArrow: '<button type="button" class="la-slick-prev"><i class="la la-angle-right"></i></button>',
+                    nextArrow: '<button type="button" class="la-slick-next"><i class="la la-angle-left"></i></button>',
+                    rtl: true,
+                    autoplay: true,
+                    speed: 300,
+                    slidesToShow: 1,
+                    adaptiveHeight: false
+                });
+            }
+        })
+    </script>
+
 </section>
-
-<script>
-    window.addEventListener('contentChanged:{{$widget->name}}', event => {
-        console.log('update doctor widget')
-        if ($('.mag-slider').length > 0) {
-            $('.mag-slider').slick({
-                dots: false,
-                infinite: true,
-                // fade: true,
-                prevArrow: '<button type="button" class="la-slick-prev"><i class="la la-angle-right"></i></button>',
-                nextArrow: '<button type="button" class="la-slick-next"><i class="la la-angle-left"></i></button>',
-                rtl: true,
-                autoplay: true,
-                speed: 300,
-                slidesToShow: 1,
-                adaptiveHeight: false
-            });
-        }
-    });
-
-    document.addEventListener("turbolinks:load", function() {
-        if ($('.mag-slider').length > 0) {
-            $('.mag-slider').not('.slick-initialized').slick({
-                dots: false,
-                infinite: true,
-                // fade: true,
-                prevArrow: '<button type="button" class="la-slick-prev"><i class="la la-angle-right"></i></button>',
-                nextArrow: '<button type="button" class="la-slick-next"><i class="la la-angle-left"></i></button>',
-                rtl: true,
-                autoplay: true,
-                speed: 300,
-                slidesToShow: 1,
-                adaptiveHeight: false
-            });
-        }
-    })
-</script>

@@ -41,7 +41,7 @@
         <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
         @livewireScripts
         <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>
-		<script src="{{ asset('/assets/js/alpine.min.js') }}" defer></script>
+		<script src="{{ asset('/assets/js/alpine.3.5.0.min.js') }}" defer></script>
 	</head>
 	<body>
         {!! theme_option('custom_html') !!}
@@ -49,13 +49,13 @@
         <a target="_blank" href="{{ route('chatyno.show', md5(auth()->user()->getActiveRoom()->id)) }}" class="main-wrapper top-banner">
             <i class="la la-bell"></i>
             <p>
-                شما یک گفت و گوی در جریان دارید وارد محیط گفت و گو شوید 
+                شما یک گفت و گوی در جریان دارید وارد محیط گفت و گو شوید
                 <button class="go-to-chat">بزن بریم!</button>
             </p>
         </a>
         @endif
 		<!-- Main Wrapper -->
-		<div class="main-wrapper" x-data="state()" x-init="init()">
+		<div class="main-wrapper">
 			<!-- Header -->
 			<livewire:partials.header />
 			<!-- /Header -->

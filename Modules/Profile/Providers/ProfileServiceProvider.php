@@ -11,6 +11,7 @@ use Modules\Profile\Http\Controllers\Livewire\Medical;
 use Modules\Profile\View\Components\DoctorCounterWidget;
 use Modules\Profile\View\Components\DoctorPatientsWidget;
 use Modules\Profile\View\Components\Sidebar;
+use TorMorten\Eventy\Facades\Eventy as Hook;
 
 class ProfileServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,10 @@ class ProfileServiceProvider extends ServiceProvider
         Blade::component('profile.doctor-patients-widget', DoctorPatientsWidget::class);
         Livewire::component('profile.http.controllers.livewire.info', Info::class);
         Livewire::component('profile.http.controllers.livewire.medical', Medical::class);
+
+        Hook::addAction('site.header-left-content-after-search::action', function() {
+            echo view('profile::buttons.profile');
+        },15);
     }
 
     /**

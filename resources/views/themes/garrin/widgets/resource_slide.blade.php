@@ -47,94 +47,94 @@
             </div>
         </div>
     </div>
+
+    <script>
+        window.addEventListener('contentChanged:{{$widget->name}}', event => {
+            $('.resource-slider').slick({
+                dots: false,
+                autoplay: false,
+                infinite: true,
+                rtl: true,
+                // centerMode: true,
+                variableWidth: false,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                responsive: [{
+                        breakpoint: 928,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+                ],
+            });
+        });
+
+        // document.addEventListener("turbolinks:before-cache", function() {
+        //     if ($('.resource-slider').length > 0) {
+        //         $('.resource-slider').slick('unslick')
+        //     }
+        // })
+
+        document.addEventListener("turbolinks:load", function() {
+            $('.resource-slider').not('.slick-initialized').slick({
+                dots: false,
+                autoplay: false,
+                infinite: true,
+                rtl: true,
+                // centerMode: true,
+                variableWidth: false,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                responsive: [{
+                        breakpoint: 928,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+                ],
+            });
+        })
+    </script>
 </section>
-
-<script>
-    window.addEventListener('contentChanged:{{$widget->name}}', event => {
-        $('.resource-slider').slick({
-            dots: false,
-            autoplay: false,
-            infinite: true,
-            rtl: true,
-            // centerMode: true,
-            variableWidth: false,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            responsive: [{
-                    breakpoint: 928,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 1
-                    }
-                }
-            ],
-        });
-    });
-
-    // document.addEventListener("turbolinks:before-cache", function() {
-    //     if ($('.resource-slider').length > 0) {
-    //         $('.resource-slider').slick('unslick')
-    //     }
-    // })
-
-    document.addEventListener("turbolinks:load", function() {
-        $('.resource-slider').not('.slick-initialized').slick({
-            dots: false,
-            autoplay: false,
-            infinite: true,
-            rtl: true,
-            // centerMode: true,
-            variableWidth: false,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            responsive: [{
-                    breakpoint: 928,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 1
-                    }
-                }
-            ],
-        });
-    })
-</script>

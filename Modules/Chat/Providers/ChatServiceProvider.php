@@ -70,6 +70,14 @@ class ChatServiceProvider extends ServiceProvider
                 $menu->add('chats', trans('chat::chat.room_menu_label') , backpack_url('room') , 300, 'comments');
             }
         }, 20, 1);
+
+        Hook::addAction('admin.topbar-right-content::action', function() {
+            echo view('chat::buttons.admin-topbar-right');
+        });
+
+        Hook::addAction('site.header-left-content-after-search::action', function() {
+            echo view('chat::buttons.site-header-left');
+        },20);
     }
 
     public function resolveRelationUsing()

@@ -1,4 +1,4 @@
-<section class="section search-holder" x-cloak x-show.transition="search">
+<section x-data class="section search-holder" x-cloak x-show="$store.search.on" x-transition>
 
     <style>
         [x-cloak] {
@@ -19,7 +19,7 @@
         }
 
     </style>
-    <div class="close" x-on:click="hidden_search()"><i class="la la-lg la-close"></i></div>
+    <div class="close" x-on:click="$store.search.toggle()"><i class="la la-lg la-close"></i></div>
     <div class="container-fluid d-flex">
         <div class="col-12">
             <div class="banner-wrapper">
@@ -47,7 +47,7 @@
                                         <img class="rounded avatar-img" alt="{{$item->name}}" src="{{$image}}">
                                     </div>
                                     <div>
-                                        <h5 class="px-2 pt-0"><a href="{{$item->path()}}">{{$item->name}}</a></h5>
+                                        <h5 class="px-2 pt-0"><a href="{{$item->path()}}" x-data x-on:click="$store.search.toggle()">{{$item->name}}</a></h5>
                                         <div class="pl-2 color-second small">
                                             <i class="las la-folder-open"></i>
                                             <span>پزشکان</span>
@@ -113,7 +113,7 @@
                             @endif
                         </div>
                         <button type="submit" class="btn btn-accept search-btn">
-                            <i  wire:loading.remove class="fas fa-search"></i> 
+                            <i  wire:loading.remove class="fas fa-search"></i>
                             <div wire:loading>
                                 <i wire:loading class="las la-spinner spinner"></i>
                             </div>
@@ -147,5 +147,15 @@
                 });
             })
         });
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('search', {
+                on: false,
+                toggle() {
+                    console.log('search');
+                    this.on = ! this.on
+                }
+            })
+        })
     </script>
 </section>
