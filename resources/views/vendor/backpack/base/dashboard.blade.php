@@ -59,10 +59,10 @@
 @section('content')
     <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltip.js/1.3.3/tooltip.min.js" integrity="sha512-ql/3IzUzLuFdkLA2w9moj4ssGDZuvRTjRDeSEX+MnjrzjRpy1COnClBDprSR0KPWbpyxVMvjiLHgv0KFa+H8vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltip.js/1.3.3/tooltip.min.js" integrity="sha512-ql/3IzUzLuFdkLA2w9moj4ssGDZuvRTjRDeSEX+MnjrzjRpy1COnClBDprSR0KPWbpyxVMvjiLHgv0KFa+H8vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
     <!-- Alpine Core -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>--}}
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
@@ -180,47 +180,47 @@
     <div class="position-relative" x-data="widget_layout">
         <button x-ref="editbtn" x-on:click.prevent="toggle()" :class="edit ? 'btn btn-success setting-btn' : 'btn btn-secondary setting-btn' "   data-toggle="tooltip" data-placement="right" title="" :data-original-title="edit ? 'اتمام ویرایش' : 'شروع ویرایش' " data-style="zoom-in"><span class="ladda-label"><i class="la la-cog"></i></span></button>
         <div class="row grid" >
-            <div x-data="widget('1')" @widgets-updated-1.window="update_class($event.detail)" data-id="1" :class="columns" class="item">
+            <div x-data="widget('1')" @widgets-updated-1.window="update_class($event.detail, $dispatch)" data-id="1" :class="columns" class="item">
                 <div class="card text-white bg-warning bg-shining">
                     <div class="card-body">
-                        <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-user"></i></button>
+                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-user"></i></button>
                         <div class="text-value">9.823</div>
                         <div>کاربران</div>
                     </div>
 
                 </div>
             </div>
-            <div x-data="widget('2')" @widgets-updated-2.window="update_class($event.detail)" data-id="2" :class="columns" class="item">
+            <div x-data="widget('2')" @widgets-updated-2.window="update_class($event.detail, $dispatch)" data-id="2" :class="columns" class="item">
                 <div class="card text-white bg-success bg-shining">
                     <div class="card-body">
-                        <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-stethoscope"></i></button>
+                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-stethoscope"></i></button>
                         <div class="text-value">9.823</div>
                         <div>پزشکان</div>
                     </div>
 
                 </div>
             </div>
-            <div x-data="widget('3')" @widgets-updated-3.window="update_class($event.detail)" data-id="3" :class="columns" class="item">
+            <div x-data="widget('3')" @widgets-updated-3.window="update_class($event.detail, $dispatch)" data-id="3" :class="columns" class="item">
                 <div class="card text-white bg-primary bg-shining">
                     <div class="card-body">
-                        <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
+                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
                         <div class="text-value">9.823</div>
                         <div>گفت و گوها</div>
                     </div>
                 </div>
             </div>
-            <div x-data="widget('4')" @widgets-updated-4.window="update_class($event.detail)" data-id="4" :class="columns" class="item">
+            <div x-data="widget('4')" @widgets-updated-4.window="update_class($event.detail, $dispatch)" data-id="4" :class="columns" class="item">
                 <div class="card text-white bg-purple bg-shining">
                     <div class="card-body">
-                        <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
+                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
                         <div class="text-value">9.823</div>
                         <div>نظرات</div>
                     </div>
                 </div>
             </div>
-            <div x-data="widget('5')" @widgets-updated-5.window="update_class($event.detail)" data-id="5" :class="columns" class="item">
+            <div x-data="widget('5')" @widgets-updated-5.window="update_class($event.detail, $dispatch)" data-id="5" :class="columns" class="item">
                 <div class="card text-white bg-info">
-                    <div class="card-header">Card title</div>
+                    <div class=" card-header">Card title</div>
                     <div class="card-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
                 </div>
             </div>
@@ -258,6 +258,7 @@
 
         <script>
         document.addEventListener('alpine:init', () => {
+
             Alpine.data('widget_layout', function () {
                 return {
                     edit: this.$persist(false),
@@ -289,13 +290,6 @@
                         this.edit = ! this.edit
                     },
                     init() {
-                        // this.$watch(this.$store.dashboard.widgets, value => console.log(value));
-
-                        // $(document).on('widgets-updated-'+this.widget_id, function(event, instance) {
-                        //     const widget = event.detail.widget;
-                        //     console.log(widget.id, this.columns)
-                        //     this.columns = `${widget.col_lg} ${widget.col_md} ${widget.col_sm} ${widget.col_xsm}`;
-                        // });
                         const data = this.$store.dashboard.widgets.find(element => element.id == this.widget_id);
                         this.columns = `${data.col_lg} ${data.col_md} ${data.col_sm} ${data.col_xsm}`
                         const tools = document.createElement('span')
@@ -313,11 +307,12 @@
                         tools.appendChild(column)
 
                         this.$el.appendChild(tools)
+
                     },
-                    update_class(detail) {
+                    update_class(detail, dispatch) {
                         const { widget } = detail;
                         this.columns = `${widget.col_lg} ${widget.col_md} ${widget.col_sm} ${widget.col_xsm}`;
-                        console.log(detail)
+                        dispatch('updated-class')
                     }
                 }
             })
@@ -350,6 +345,16 @@
                         if (this.hoverRating !== this.rating) r = this.hoverRating;
                         let i = this.ratings.findIndex(e => e.amount === r);
                         if (i >=0) {return this.ratings[i].label;} else {return ''};
+                    },
+                    init() {
+                        this.$watch('layout_settings', value => {
+                            if(!value) {
+                                this.rating = this.hoverRating = 0;
+                            } else {
+                                const widget = this.$store.dashboard.get_widget();
+                                console.log(widget)
+                            }
+                        })
                     }
                 }
             })
@@ -436,45 +441,67 @@
                     },
                 ],
                 active_widget_id: '',
-                set_col(col, value, dispatch) {
+                get_widget() {
                     const id = this.active_widget_id;
                     const index = this.widgets.findIndex((obj => obj.id == id));
-                    this.widgets[index]['col_'+col] = value;
-                    dispatch('widgets-updated-'+id, {
-                        widget: this.widgets[index],
+                    return this.widgets[index];
+                },
+                set_col(col, value, dispatch) {
+                    this.get_widget()['col_'+col] = value;
+                    dispatch('widgets-updated-'+this.active_widget_id, {
+                        widget: this.get_widget(),
                     });
                 }
             })
 
 
+            $( document ).ready(function() {
+                // $('[data-toggle="tooltip"]').tooltip();
+                // document.getElementsByClassName("navbar-toggler").addEventListener("click", initGrid());
+            });
+
+
+
         })
 
-        $( document ).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
+        document.addEventListener('alpine:initialized', () => {
+            const grid = new Muuri('.grid', {
+                dragEnabled: true,
+                layoutOnInit: false,
+                layoutOnResize: true,
+                dragHandle: '.handle',
+                dragContainer: document.body,
+                dragSort: function () {
+                    return [grid]
+                },
+                // Layout
+                layout: {
+                    fillGaps: false,
+                    horizontal: false,
+                    alignRight: true,
+                    alignBottom: false,
+                    rounding: false
+                },
+            });
+
+            initGrid(grid);
+
+            // document.getElementsByClassName("navbar-toggler").addEventListener("click", grid.synchronize());
+            window.addEventListener('updated-class', function (e) {
+                console.log(JSON.parse(JSON.stringify(Alpine.store('dashboard').widgets)));
+                setTimeout(function(){
+                    grid.refreshItems();
+                    grid.refreshSortData();
+                    grid.synchronize();
+                    grid.layout();
+                }, 500);
+                // grid.destroy();
 
 
-            // document.getElementsByClassName("navbar-toggler").addEventListener("click", initGrid());
+            });
 
-            initGrid();
-
-            function initGrid() {
-                const grid = new Muuri('.grid', {
-                    dragEnabled: true,
-                    layoutOnInit: false,
-                    dragHandle: '.handle',
-                    dragContainer: document.body,
-                    dragSort: function () {
-                        return [grid]
-                    },
-                    // Layout
-                    layout: {
-                        fillGaps: false,
-                        horizontal: false,
-                        alignRight: true,
-                        alignBottom: false,
-                        rounding: false
-                    },
-                }).on('move', function () {
+            function initGrid(grid) {
+                grid.on('move', function () {
                     saveLayout(grid);
                 });
 
@@ -518,7 +545,7 @@
 
                 grid.sort(newItems, {layout: 'instant'});
             }
-        });
+        })
 
     </script>
 
