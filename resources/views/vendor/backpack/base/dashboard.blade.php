@@ -333,30 +333,30 @@
                         {'amount': 4, 'label': (device !== 'xsm') ? 'col-'+device+'-12' : 'col-12'},
                     ],
                     rate(amount, dispatch) {
-                        // const widget_id = this.$store.dashboard.active_widget_id;
                         const data = this.ratings.find(element => element.amount === amount);
                         if (this.rating === amount) {
                             this.rating = 0;
-                            this.$store.dashboard.set_col(this.device, '', dispatch);
+                            Alpine.store('dashboard').set_col(this.device, '', dispatch);
                         }
                         else {
                             this.rating = amount;
-                            this.$store.dashboard.set_col(this.device, data.label, dispatch);
+                            Alpine.store('dashboard').set_col(this.device, data.label, dispatch);
                         }
                     },
                     currentLabel() {
                         let r = this.rating;
                         if (this.hoverRating !== this.rating) r = this.hoverRating;
                         let i = this.ratings.findIndex(e => e.amount === r);
-                        if (i >=0) {return this.ratings[i].label;} else {return ''};
+                        if (i >=0) {return this.ratings[i].label;} else {return ''}
                     },
                     init() {
                         this.$watch('layout_settings', value => {
                             if(!value) {
                                 this.rating = this.hoverRating = 0;
                             } else {
-                                const widget = this.$store.dashboard.get_widget();
-                                console.log(widget)
+                                const widget = Alpine.store('dashboard').get_widget();
+                                const rating = this.ratings.find(element => element.label == widget[this.device]);
+                                this.rating = this.hoverRating = rating.amount;
                             }
                         })
                     }
@@ -488,20 +488,14 @@
                 },
             });
 
+            // console.log(JSON.parse(JSON.stringify(Alpine.store('dashboard').widgets)));
             initGrid(grid);
 
-            // document.getElementsByClassName("navbar-toggler").addEventListener("click", grid.synchronize());
             window.addEventListener('updated-class', function (e) {
-                console.log(JSON.parse(JSON.stringify(Alpine.store('dashboard').widgets)));
                 setTimeout(function(){
                     grid.refreshItems();
-                    grid.refreshSortData();
-                    grid.synchronize();
                     grid.layout();
                 }, 500);
-                // grid.destroy();
-
-
             });
 
             function initGrid(grid) {
