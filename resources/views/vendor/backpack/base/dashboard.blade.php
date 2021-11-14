@@ -100,7 +100,7 @@
 
         .setting-tools {
             position: absolute;
-            right: 14px;
+            right: 0;
             top: 0;
             color: #4e577f;
             z-index: 100;
@@ -108,7 +108,11 @@
             display: flex;
             background: white;
             padding: 2px;
-            border-radius: 0 5px 0 5px;
+            border-radius: 0 0 5px 5px;
+            left: 0;
+            margin: auto;
+            width: 67px;
+            justify-content: center;
         }
 
         .grid {
@@ -291,7 +295,7 @@
                     },
                     init() {
                         const data = this.$store.dashboard.widgets.find(element => element.id == this.widget_id);
-                        this.columns = `${data.col_lg} ${data.col_md} ${data.col_sm} ${data.col_xsm}`
+                        this.columns = `${data.lg} ${data.md} ${data.sm} ${data.xsm}`
                         const tools = document.createElement('span')
                         tools.setAttribute('class', 'setting-tools');
                         tools.setAttribute('x-show', `edit`);
@@ -311,7 +315,7 @@
                     },
                     update_class(detail, dispatch) {
                         const { widget } = detail;
-                        this.columns = `${widget.col_lg} ${widget.col_md} ${widget.col_sm} ${widget.col_xsm}`;
+                        this.columns = `${widget.lg} ${widget.md} ${widget.sm} ${widget.xsm}`;
                         dispatch('updated-class')
                     }
                 }
@@ -363,10 +367,10 @@
                 widgets: [
                     {
                         'id' : 1,
-                        'col_lg': 'col-lg-3',
-                        'col_md': 'col-md-3',
-                        'col_sm': 'col-sm-6',
-                        'col_xsm': 'col-12',
+                        'lg': 'col-lg-3',
+                        'md': 'col-md-3',
+                        'sm': 'col-sm-6',
+                        'xsm': 'col-12',
                         'view' : `
                             <div class="card text-white bg-warning bg-shining">
                                 <div class="card-body">
@@ -380,10 +384,10 @@
                     },
                     {
                         'id' : 2,
-                        'col_lg': 'col-lg-3',
-                        'col_md': 'col-md-3',
-                        'col_sm': 'col-sm-6',
-                        'col_xsm': 'col-12',
+                        'lg': 'col-lg-3',
+                        'md': 'col-md-3',
+                        'sm': 'col-sm-6',
+                        'xsm': 'col-12',
                         'view' : `
                             <div class="card text-white bg-success bg-shining">
                                 <div class="card-body">
@@ -397,10 +401,10 @@
                     },
                     {
                         'id' : 3,
-                        'col_lg': 'col-lg-3',
-                        'col_md': 'col-md-3',
-                        'col_sm': 'col-sm-6',
-                        'col_xsm': 'col-12',
+                        'lg': 'col-lg-3',
+                        'md': 'col-md-3',
+                        'sm': 'col-sm-6',
+                        'xsm': 'col-12',
                         'view' : `<div class="card text-white bg-primary bg-shining">
                             <div class="card-body">
                                     <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
@@ -412,10 +416,10 @@
                     },
                     {
                         'id' : 4,
-                        'col_lg': 'col-lg-3',
-                        'col_md': 'col-md-3',
-                        'col_sm': 'col-sm-6',
-                        'col_xsm': 'col-12',
+                        'lg': 'col-lg-3',
+                        'md': 'col-md-3',
+                        'sm': 'col-sm-6',
+                        'xsm': 'col-12',
                         'view' : `
                             <div class="card text-white bg-purple bg-shining">
                                 <div class="card-body">
@@ -428,10 +432,10 @@
                     },
                     {
                         'id' : 5,
-                        'col_lg': 'col-lg-6',
-                        'col_md': 'col-md-6',
-                        'col_sm': 'col-sm-12',
-                        'col_xsm': 'col-12',
+                        'lg': 'col-lg-6',
+                        'md': 'col-md-6',
+                        'sm': 'col-sm-12',
+                        'xsm': 'col-12',
                         'view' : `
                             <div class="card text-white bg-info">
                                 <div class="card-header">Card title</div>
@@ -447,7 +451,7 @@
                     return this.widgets[index];
                 },
                 set_col(col, value, dispatch) {
-                    this.get_widget()['col_'+col] = value;
+                    this.get_widget()[col] = value;
                     dispatch('widgets-updated-'+this.active_widget_id, {
                         widget: this.get_widget(),
                     });
