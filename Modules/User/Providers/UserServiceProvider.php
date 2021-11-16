@@ -2,6 +2,7 @@
 
 namespace Modules\User\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Livewire\Livewire;
@@ -9,6 +10,7 @@ use Modules\User\Http\Livewire\Auth\Login;
 use Modules\User\Http\Livewire\DoctorList;
 use Modules\User\Http\Livewire\DoctorProfile;
 use Modules\User\Http\Livewire\Widgets\ListUser;
+use Modules\User\View\Widgets\CustomersNumber;
 use TorMorten\Eventy\Facades\Eventy as Hook;
 
 class UserServiceProvider extends ServiceProvider
@@ -41,6 +43,8 @@ class UserServiceProvider extends ServiceProvider
         Livewire::component('rezahmady.user.http.livewire.auth.login', Login::class);
         Livewire::component('rezahmady.user.http.livewire.doctor-list', DoctorList::class);
         Livewire::component('rezahmady.user.http.livewire.doctor-profile', DoctorProfile::class);
+
+        Blade::component('user-widget-customers-number', CustomersNumber::class);
 
         Hook::addAction('admin-menu-build', function($menu) {
             if(backpack_user()->can('user manage')){
