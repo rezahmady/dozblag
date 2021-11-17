@@ -76,6 +76,8 @@ Route::get('download', function(Request $request)
     }
 });
 
+Route::post('/admin/api/widget', [ \App\Http\Controllers\Api\DashboardController::class, 'update_widget']);
+
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 
 

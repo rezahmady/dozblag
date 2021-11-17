@@ -68,6 +68,7 @@ return [
     // CSS files that are loaded in all pages, using Laravel's mix() helper
     'mix_styles' => [ // file_path => manifest_directory_path
         // 'css/app.css' => '',
+        '/assets/admin/css/admin.css' => '',
     ],
 
     // ------
@@ -126,7 +127,7 @@ return [
         // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
         // 'assets/js/app.js',
         'packages/backpack/base/js/bundle.js',
-        'assets/admin/js/admin.js',
+
         // 'assets/admin/js/app.js',
         // 'https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js',
 
@@ -147,7 +148,7 @@ return [
 
     // JS files that are loaded in all pages, using Laravel's mix() helper
     'mix_scripts' => [// file_path => manifest_directory_path
-        // 'js/app.js' => '',
+         '/assets/admin/js/admin.js' => '',
     ],
 
     // -------------

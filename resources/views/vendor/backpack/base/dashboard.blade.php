@@ -1,245 +1,100 @@
 @extends(backpack_view('blank'))
 {{-- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap-v4.min.css"> --}}
 @php
+    use TorMorten\Eventy\Facades\Events as Hook;
+    $widgetsArray = Hook::filter('admin-dashboard-widget::filter', []);
 
-    // $widgets['before_content'][] = [
-    //     'type'    => 'div',
-    //     'class'   => 'row',
-    //     'content' => [ // widgets
-    //         [
-    //             'type'        => 'progress',
-    //             'class'       => 'card text-white bg-success mb-2',
-    //             'value'       => '11.456',
-    //             'description' => 'کاربر ثبت نام کرده است.',
-    //             'progress'    => 57, // integer
-    //             'hint'        => 'ظرفیت باقی مانده ۱۳۰ کاربر',
-    //         ],
-    //         [
-    //             'type'        => 'progress',
-    //             'class'       => 'card text-white bg-primary mb-2',
-    //             'value'       => '11.456',
-    //             'description' => 'Registered users.',
-    //             'progress'    => 87, // integer
-    //             'hint'        => '8544 more until next milestone.',
-    //         ]
-    //     ]
-    //  ];
+    $active_board_id = sizeof($widgetsArray)+1;
 
-    use Backpack\CRUD\app\Library\Widget;
-
-
-
-
-    // alternatively, use a fluent syntax to define each widget attribute
-    // Widget::add([
-    //     'type'     => 'view',
-    //     'view'     => 'widgets.trello',
-    //     'someAttr' => 'some value',
-    // ])
-    // ->to('before_content');
-
-    // Widget::add([
-    //     'type'     => 'view',
-    //     'view'     => 'widgets.tileLayout',
-    //     'someAttr' => 'some value2',
-    // ])
-    // ->to('before_content');
-
-    // alternatively, use a fluent syntax to define each widget attribute
-    // Widget::add([
-    //     'type'     => 'view',
-    //     'view'     => 'widgets.timer-sse',
-    //     'someAttr' => 'some value',
-    // ])
-    // ->to('before_content');
-
+$x = [
+        [
+            'id'  => 3,
+            'lg'  => 'col-lg-3',
+            'md'  => 'col-md-3',
+            'sm'  => 'col-sm-6',
+            'xsm' => 'col-12',
+            'view' => '<div class="card text-white bg-primary bg-shining">
+                        <div class="card-body">
+                            <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
+                            <div class="text-value">9.823</div>
+                            <div>گفت و گوها</div>
+                        </div>
+                    </div>',
+            'active' => true,
+        ],
+        [
+            'id'  => 4,
+            'lg'  => 'col-lg-3',
+            'md'  => 'col-md-3',
+            'sm'  => 'col-sm-6',
+            'xsm' => 'col-12',
+            'view' => '<div class="card text-white bg-purple bg-shining">
+                        <div class="card-body">
+                            <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
+                            <div class="text-value">9.823</div>
+                            <div>نظرات</div>
+                        </div>
+                    </div>',
+            'active' => true,
+        ],
+        [
+            'id'  => 5,
+            'lg'  => 'col-lg-6',
+            'md'  => 'col-md-6',
+            'sm'  => 'col-sm-12',
+            'xsm' => 'col-12',
+            'view' => '<div class="card text-white bg-info">
+                        <div class=" card-header">Card title</div>
+                        <div class="card-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
+                    </div>',
+            'active' => false,
+        ],
+];
 
 @endphp
 
 @section('content')
-    <!-- Alpine Plugins -->
-    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltip.js/1.3.3/tooltip.min.js" integrity="sha512-ql/3IzUzLuFdkLA2w9moj4ssGDZuvRTjRDeSEX+MnjrzjRpy1COnClBDprSR0KPWbpyxVMvjiLHgv0KFa+H8vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
-    <!-- Alpine Core -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>--}}
-    <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
-
-    <style>
-        .bg-warning.bg-shining {
-            background-image: linear-gradient(180deg,#ffcf69,#f9c659);
-            box-shadow: rgb(255 207 105 / 51%) 0 5px 35px !important;
-            border:0 !important;
-        }
-
-        .bg-success.bg-shining {
-            box-shadow: rgb(142 213 87 / 34%) 0 5px 15px !important;
-            background-image: linear-gradient(180deg,#aae181,#89d351) !important;
-            border:0 !important;
-        }
-
-        .bg-primary.bg-shining {
-            box-shadow: rgb(87 187 213 / 34%) 0 5px 15px !important;
-            background-image: linear-gradient(180deg,#98deff,#6cc2ff) !important;
-            border:0 !important;
-        }
-
-        .bg-purple.bg-shining {
-            box-shadow: rgb(179 87 213 / 34%) 0 5px 15px !important;
-            background-image: linear-gradient(180deg,#ef98ff,#f96dfb) !important;
-            border:0 !important;
-        }
-
-        .setting-btn {
-            position: absolute;
-            left: 0;
-            top: -44px;
-        }
-
-        .setting-tools {
-            position: absolute;
-            right: 0;
-            top: 0;
-            color: #4e577f;
-            z-index: 100;
-            font-size: 16px;
-            display: flex;
-            background: white;
-            padding: 2px;
-            border-radius: 0 0 5px 5px;
-            left: 0;
-            margin: auto;
-            width: 67px;
-            justify-content: center;
-        }
-
-        .grid {
-            position: relative;
-        }
-        .item {
-            position: absolute;
-            z-index: 1;
-        }
-        .item.muuri-item-hidden {
-            z-index: 0;
-        }
-        .item.muuri-item-releasing {
-            z-index: 2;
-        }
-        .item.muuri-item-dragging {
-            z-index: 3;
-        }
-        .item.muuri-item-dragging .item-content,
-        .item.muuri-item-releasing .item-content {
-            background: #FFCDD2;
-        }
-        .handle {
-            cursor: pointer;
-        }
-        .layout-holder {
-            width: 155px;
-            justify-content: center;
-            display: flex;
-            padding: 10px;
-            font-size: 28px;
-            color: #4e577f;
-            flex-flow: wrap;
-        }
-        .layout-label {
-            font-size: 13px;
-        }
-        .layouts-holder {
-            width: 310px;
-            flex-wrap: wrap;
-            border-radius: 10px;
-        }
-
-        .layout_html {
-            position: fixed;
-            top: 0;
-            right: 0;
-            z-index: 1000;
-            left: 0;
-            margin: auto;
-            width: 100%;
-            background: #d6dce159;
-            height: 100%;
-        }
-
-        .layouts-holder {
-            width: 310px;
-            flex-wrap: wrap;
-            border-radius: 10px;
-            position: absolute;
-            right: 0;
-            left: 0;
-            margin: auto;
-            top: 20%;
-        }
-
-    </style>
 
     <div class="position-relative" x-data="widget_layout">
-        <button x-ref="editbtn" x-on:click.prevent="toggle()" :class="edit ? 'btn btn-success setting-btn' : 'btn btn-secondary setting-btn' "   data-toggle="tooltip" data-placement="right" title="" :data-original-title="edit ? 'اتمام ویرایش' : 'شروع ویرایش' " data-style="zoom-in"><span class="ladda-label"><i class="la la-cog"></i></span></button>
-        <div class="row grid" >
-            <div x-data="widget('1')" @widgets-updated-1.window="update_class($event.detail, $dispatch)" data-id="1" :class="columns" class="item">
-                <div class="card text-white bg-warning bg-shining">
-                    <div class="card-body">
-                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-user"></i></button>
-                        <div class="text-value">9.823</div>
-                        <div>کاربران</div>
-                    </div>
+        <button x-ref="editbtn" x-on:click.prevent="toggle($dispatch)" :class="edit ? 'btn btn-success setting-btn' : 'btn btn-secondary setting-btn' "   data-toggle="tooltip" data-placement="right" title="" :data-original-title="edit ? 'اتمام ویرایش' : 'شروع ویرایش' " data-style="zoom-in"><span class="ladda-label"><i class="la la-cog"></i></span></button>
 
-                </div>
+        <div class="main-board muuri">
+            <div class="row grid mainGrid">
+                @foreach($widgetsArray as $widget)
+                    @if($widget['active'])
+                        <div x-data="widget('{{$widget['id']}}')" @widgets-updated-{{$widget['id']}}.window="update_class($event.detail, $dispatch)" data-id="{{$widget['id']}}" :class="columns" class="item">
+                            <x-dynamic-component :component="$widget['view']" />
+                        </div>
+                    @endif
+                @endforeach
             </div>
-            <div x-data="widget('2')" @widgets-updated-2.window="update_class($event.detail, $dispatch)" data-id="2" :class="columns" class="item">
-                <div class="card text-white bg-success bg-shining">
-                    <div class="card-body">
-                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-stethoscope"></i></button>
-                        <div class="text-value">9.823</div>
-                        <div>پزشکان</div>
-                    </div>
 
+            <div class="all_widgets resizable" x-show="edit">
+
+                <div class="draggable resizer top" ><span></span></div>
+                <div class="row grid archiveGrid w-100 mt-5" >
+                    @foreach($widgetsArray as $widget)
+                        @if(!$widget['active'])
+                            <div x-data="widget('{{$widget['id']}}')" @widgets-updated-{{$widget['id']}}.window="update_class($event.detail, $dispatch)" data-id="{{$widget['id']}}" :class="columns" class="item">
+                                <x-dynamic-component :component="$widget['view']" />
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-            </div>
-            <div x-data="widget('3')" @widgets-updated-3.window="update_class($event.detail, $dispatch)" data-id="3" :class="columns" class="item">
-                <div class="card text-white bg-primary bg-shining">
-                    <div class="card-body">
-                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
-                        <div class="text-value">9.823</div>
-                        <div>گفت و گوها</div>
-                    </div>
-                </div>
-            </div>
-            <div x-data="widget('4')" @widgets-updated-4.window="update_class($event.detail, $dispatch)" data-id="4" :class="columns" class="item">
-                <div class="card text-white bg-purple bg-shining">
-                    <div class="card-body">
-                        <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
-                        <div class="text-value">9.823</div>
-                        <div>نظرات</div>
-                    </div>
-                </div>
-            </div>
-            <div x-data="widget('5')" @widgets-updated-5.window="update_class($event.detail, $dispatch)" data-id="5" :class="columns" class="item">
-                <div class="card text-white bg-info">
-                    <div class=" card-header">Card title</div>
-                    <div class="card-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-                </div>
+
             </div>
         </div>
 
-        <div class="layout_html" x-show="layout_settings"  >
+        <div class="layout_html" x-transition x-show="layout_settings"  >
             <div class="d-flex layouts-holder bg-gray-100" x-on:click.outside="layouts_hide()">
                 <template x-for="layout in layouts" :key="layout.id">
                     <div  x-data="layoutdata(layout.label)" class="d-flex ltr layout-holder">
                         <div class="d-block w-100 m-auto text-center"><i :class="layout.icon" class="la"></i></div>
-                        <template x-for="(star, index) in ratings" :key="index">
+                        <template x-for="star in ratings" :key="index">
                             <i class="la" @click="rate(star.amount, $dispatch)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating"
                                aria-hidden="true"
                                class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer"
-                               :class="{'la-square': (rating >= star.amount || hoverRating >= star.amount), 'la-square-o': (rating < star.amount || hoverRating < star.amount), }">
+                               :class="{'la-square': (rating >= star.amount || hoverRating >= star.amount), 'la-square-o': (rating < star.amount || hoverRating < star.amount) }">
                             </i>
 
                         </template>
@@ -260,7 +115,7 @@
 
 
 
-        <script>
+    <script>
         document.addEventListener('alpine:init', () => {
 
             Alpine.data('widget_layout', function () {
@@ -280,8 +135,9 @@
                         {'id': 3, 'label': 'sm', 'icon': 'la-tablet'},
                         {'id': 4, 'label': 'xsm', 'icon': 'la-mobile'},
                     ],
-                    toggle() {
-                        this.edit = ! this.edit
+                    toggle(dispatch) {
+                        dispatch('layout-update')
+                        this.edit = ! this.edit;
                     }
                 }
             });
@@ -305,7 +161,8 @@
                         column.setAttribute('x-on:click', `layouts_show('${this.widget_id}')`);
 
                         const move = document.createElement('i')
-                        move.setAttribute('class', 'la la-arrows handle mr-2');
+                        move.setAttribute('class', 'la handle la-arrows mr-2');
+                        // move.setAttribute('x-on:click', `set_widget('${this.widget_id}')`);
 
                         tools.appendChild(move)
                         tools.appendChild(column)
@@ -355,7 +212,7 @@
                                 this.rating = this.hoverRating = 0;
                             } else {
                                 const widget = Alpine.store('dashboard').get_widget();
-                                const rating = this.ratings.find(element => element.label == widget[this.device]);
+                                const rating = this.ratings.find(element => element.label === widget[this.device]);
                                 this.rating = this.hoverRating = rating.amount;
                             }
                         })
@@ -364,146 +221,116 @@
             })
 
             Alpine.store('dashboard', {
-                widgets: [
-                    {
-                        'id' : 1,
-                        'lg': 'col-lg-3',
-                        'md': 'col-md-3',
-                        'sm': 'col-sm-6',
-                        'xsm': 'col-12',
-                        'view' : `
-                            <div class="card text-white bg-warning bg-shining">
-                                <div class="card-body">
-                                    <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-user"></i></button>
-                                    <div class="text-value">9.823</div>
-                                    <div>کاربران</div>
-                                </div>
-
-                            </div>
-                        `,
-                    },
-                    {
-                        'id' : 2,
-                        'lg': 'col-lg-3',
-                        'md': 'col-md-3',
-                        'sm': 'col-sm-6',
-                        'xsm': 'col-12',
-                        'view' : `
-                            <div class="card text-white bg-success bg-shining">
-                                <div class="card-body">
-                                    <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-stethoscope"></i></button>
-                                    <div class="text-value">9.823</div>
-                                    <div>پزشکان</div>
-                                </div>
-
-                            </div>
-                        `,
-                    },
-                    {
-                        'id' : 3,
-                        'lg': 'col-lg-3',
-                        'md': 'col-md-3',
-                        'sm': 'col-sm-6',
-                        'xsm': 'col-12',
-                        'view' : `<div class="card text-white bg-primary bg-shining">
-                            <div class="card-body">
-                                    <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
-                                    <div class="text-value">9.823</div>
-                                    <div>گفت و گوها</div>
-                                </div>
-                            </div>
-                        `,
-                    },
-                    {
-                        'id' : 4,
-                        'lg': 'col-lg-3',
-                        'md': 'col-md-3',
-                        'sm': 'col-sm-6',
-                        'xsm': 'col-12',
-                        'view' : `
-                            <div class="card text-white bg-purple bg-shining">
-                                <div class="card-body">
-                                    <button class="btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
-                                    <div class="text-value">9.823</div>
-                                    <div>نظرات</div>
-                                </div>
-                            </div>
-                        `,
-                    },
-                    {
-                        'id' : 5,
-                        'lg': 'col-lg-6',
-                        'md': 'col-md-6',
-                        'sm': 'col-sm-12',
-                        'xsm': 'col-12',
-                        'view' : `
-                            <div class="card text-white bg-info">
-                                <div class="card-header">Card title</div>
-                                <div class="card-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-                            </div>
-                        `,
-                    },
-                ],
+                widgets: @json($widgetsArray),
                 active_widget_id: '',
                 get_widget() {
                     const id = this.active_widget_id;
-                    const index = this.widgets.findIndex((obj => obj.id == id));
+                    const index = this.widgets.findIndex((obj => obj.id === id));
                     return this.widgets[index];
                 },
                 set_col(col, value, dispatch) {
                     this.get_widget()[col] = value;
+                    this.update_widgets();
                     dispatch('widgets-updated-'+this.active_widget_id, {
                         widget: this.get_widget(),
                     });
-                }
+                },
+                set_activate(status) {
+                    this.get_widget()['active'] = status;
+                    this.update_widgets();
+                },
+                update_widgets() {
+                    axios.post('/admin/api/widget', {
+                        widget: this.get_widget()
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                },
             })
-
-
-            $( document ).ready(function() {
-                // $('[data-toggle="tooltip"]').tooltip();
-                // document.getElementsByClassName("navbar-toggler").addEventListener("click", initGrid());
-            });
-
-
-
         })
 
         document.addEventListener('alpine:initialized', () => {
-            const grid = new Muuri('.grid', {
-                dragEnabled: true,
-                layoutOnInit: false,
-                layoutOnResize: true,
-                dragHandle: '.handle',
-                dragContainer: document.body,
-                dragSort: function () {
-                    return [grid]
-                },
-                // Layout
-                layout: {
-                    fillGaps: false,
-                    horizontal: false,
-                    alignRight: true,
-                    alignBottom: false,
-                    rounding: false
-                },
-            });
 
-            // console.log(JSON.parse(JSON.stringify(Alpine.store('dashboard').widgets)));
-            initGrid(grid);
+            const main_board = document.querySelector(".main-board");
+            const itemContainers = Array.prototype.slice.call(
+                main_board.querySelectorAll(".grid")
+            );
+            const columnGrids = [];
+            let boardGrid;
 
-            window.addEventListener('updated-class', function (e) {
-                setTimeout(function(){
-                    grid.refreshItems();
-                    grid.layout();
-                }, 500);
-            });
-
-            function initGrid(grid) {
-                grid.on('move', function () {
-                    saveLayout(grid);
+            itemContainers.forEach(function(container, index) {
+                const grid = new Muuri(container, {
+                    dragEnabled: true,
+                    layoutOnInit: false,
+                    layoutOnResize: true,
+                    dragHandle: '.handle',
+                    dragContainer: document.body,
+                    dragSort: function() {
+                        return columnGrids;
+                    },
+                    // Layout
+                    layout: {
+                        fillGaps: false,
+                        horizontal: false,
+                        alignRight: true,
+                        alignBottom: false,
+                        rounding: false
+                    },
                 });
 
-                const layout = window.localStorage.getItem('layout');
+                initGrid(grid, index);
+
+                const divs = document.querySelectorAll('.navbar-toggler');
+
+                divs.forEach(el => el.addEventListener('click', event => {
+                    setTimeout(function(){
+                        grid.refreshItems();
+                        grid.layout();
+                    }, 200);
+                }));
+
+                window.addEventListener('updated-class', function (e) {
+                    setTimeout(function(){
+                        grid.refreshItems();
+                        grid.layout();
+                    }, 200);
+                });
+
+                window.addEventListener('layout-update', function () {
+                    setTimeout(function(){
+                        grid.refreshItems();
+                        grid.layout();
+                    }, 200);
+                });
+
+                columnGrids.push(grid);
+            });
+
+            function initGrid(grid, index) {
+
+                grid.on('move', function () {
+                    saveLayout(grid, index);
+                });
+
+                grid.on("dragEnd", function(item) {
+                    setTimeout(function(){
+                        grid.synchronize();
+                        grid.refreshItems();
+                        grid.layout();
+                    }, 400);
+                });
+
+                grid.on('send', function (data) {
+                    Alpine.store('dashboard').active_widget_id = data.item.getElement().getAttribute('data-id');
+                    const status = (data.toGrid._id === 1);
+                    Alpine.store('dashboard').set_activate(status);
+                });
+
+                const layout = window.localStorage.getItem('layout-'+index);
                 if (layout) {
                     loadLayout(grid, layout);
                 } else {
@@ -518,9 +345,9 @@
                 return JSON.stringify(itemIds);
             }
 
-            function saveLayout(grid) {
+            function saveLayout(grid, index) {
                 const layout = serializeLayout(grid);
-                window.localStorage.setItem('layout', layout);
+                window.localStorage.setItem('layout-'+ index, layout);
             }
 
             function loadLayout(grid, serializedLayout) {
@@ -543,8 +370,95 @@
 
                 grid.sort(newItems, {layout: 'instant'});
             }
-        })
 
+            /*Make resizable div by Hung Nguyen*/
+            function makeResizableDiv(div) {
+                const element = document.querySelector(div);
+                const resizers = document.querySelectorAll(div + ' .resizer')
+                const minimum_size = 20;
+                let original_width = 0;
+                let original_height = 0;
+                let original_x = 0;
+                let original_y = 0;
+                let original_mouse_x = 0;
+                let original_mouse_y = 0;
+                for (let i = 0;i < resizers.length; i++) {
+                    const currentResizer = resizers[i];
+                    currentResizer.addEventListener('mousedown', function(e) {
+                        e.preventDefault()
+                        original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+                        original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+                        original_x = element.getBoundingClientRect().left;
+                        original_y = element.getBoundingClientRect().top;
+                        original_mouse_x = e.pageX;
+                        original_mouse_y = e.pageY;
+                        window.addEventListener('mousemove', resize)
+                        window.addEventListener('mouseup', stopResize)
+                    })
+
+                    function resize(e) {
+                        if (currentResizer.classList.contains('bottom-right')) {
+                            const width = original_width + (e.pageX - original_mouse_x);
+                            const height = original_height + (e.pageY - original_mouse_y)
+                            if (width > minimum_size) {
+                                element.style.width = width + 'px'
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + 'px'
+                            }
+                        }
+                        else if (currentResizer.classList.contains('bottom-left')) {
+                            const height = original_height + (e.pageY - original_mouse_y)
+                            const width = original_width - (e.pageX - original_mouse_x)
+                            if (height > minimum_size) {
+                                element.style.height = height + 'px'
+                            }
+                            if (width > minimum_size) {
+                                element.style.width = width + 'px'
+                                element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+                            }
+                        }
+                        else if (currentResizer.classList.contains('top-right')) {
+                            const width = original_width + (e.pageX - original_mouse_x)
+                            const height = original_height - (e.pageY - original_mouse_y)
+                            if (width > minimum_size) {
+                                element.style.width = width + 'px'
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + 'px'
+                                element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                            }
+                        }
+                        else if (currentResizer.classList.contains('top')) {
+                            const height = original_height - (e.pageY - original_mouse_y)
+
+                            if (height > minimum_size) {
+                                element.style.height = height + 'px'
+                                element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                            }
+                        }
+                        else {
+                            const width = original_width - (e.pageX - original_mouse_x)
+                            const height = original_height - (e.pageY - original_mouse_y)
+                            if (width > minimum_size) {
+                                element.style.width = width + 'px'
+                                element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + 'px'
+                                element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                            }
+                        }
+                    }
+
+                    function stopResize() {
+                        window.removeEventListener('mousemove', resize)
+                    }
+                }
+            }
+
+            makeResizableDiv('.resizable')
+        })
     </script>
 
 

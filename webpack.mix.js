@@ -31,6 +31,10 @@ mix.styles([
     'public/packages/chatino/css/soho.min.css',
 ], 'public/packages/chatino/css/chat.css').version();
 
+mix.styles([
+    'resources/css/admin.css',
+], 'public/assets/admin/css/admin.css').version();
+
 // mix.postCss("public/assets/garrin/css/theme.css", "public/assets/garrin/css/theme-production.css", [
 //     require("postcss-combine-duplicated-selectors"),
 // ]);
@@ -47,6 +51,10 @@ mix.scripts([
 
 mix.js("resources/js/app.js", "public/assets/js").version();
 mix.js("resources/js/chat.js", "public/assets/js").version();
+mix.js([
+    "resources/js/admin.js",
+    "resources/js/custom_admin.js",
+], "public/assets/admin/js").version();
 //     .postCss("resources/css/app.css", "public/assets/css", [
 
 //         require("tailwindcss"),

@@ -1,7 +1,9 @@
 {
-    "/assets/js/app.js": "/assets/js/app.js?id=2676cd27aa0b41d31918",
-    "/assets/js/chat.js": "/assets/js/chat.js?id=64d685cfdecc67f840f8",
+    "/assets/admin/js/admin.js": "/assets/admin/js/admin.js?id=cd326e215202c8946a3c",
+    "/assets/js/app.js": "/assets/js/app.js?id=01da3e6625addccb09ad",
+    "/assets/js/chat.js": "/assets/js/chat.js?id=e817a3077578622e496a",
     "/assets/garrin/css/theme.css": "/assets/garrin/css/theme.css?id=4703c3e4942cba1d7111",
     "/packages/chatino/css/chat.css": "/packages/chatino/css/chat.css?id=12cd8e4e1644f976c5ee",
+    "/assets/admin/css/admin.css": "/assets/admin/css/admin.css?id=bef483adb25e418d4270",
     "/assets/garrin/js/theme.js": "/assets/garrin/js/theme.js?id=79308b649d17ea36c8a1"
 }
