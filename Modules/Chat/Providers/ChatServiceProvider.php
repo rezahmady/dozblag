@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Livewire\Livewire;
+use Modules\Chat\View\Widgets\RoomsNumber;
 use Modules\User\Models\User;
 use Modules\Chat\Http\Livewire\CreateMessage;
 use Modules\Chat\Http\Livewire\RoomListAudience;
@@ -60,6 +61,7 @@ class ChatServiceProvider extends ServiceProvider
         Blade::component('chat-room-sidebar', RoomSidebar::class);
         Blade::component('chat-suggestions', Suggestions::class);
         Blade::component('chat-archives', Archives::class);
+        Blade::component('chat-widget-rooms-number', RoomsNumber::class);
 
         // resolve model relations
         $this->resolveRelationUsing();
@@ -78,6 +80,25 @@ class ChatServiceProvider extends ServiceProvider
         Hook::addAction('site.header-left-content-after-search::action', function() {
             echo view('chat::buttons.site-header-left');
         },20);
+
+        /**
+         *  Admin widgets
+         *
+         */
+
+        Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
+            $widget = [
+                'id'  => 'chat-rooms-number',
+                'lg'  => 'col-lg-3',
+                'md'  => 'col-md-3',
+                'sm'  => 'col-sm-6',
+                'xsm' => 'col-12',
+                'view' => 'chat-widget-rooms-number',
+                'active' => false,
+            ];
+            array_push($widgets, $widget);
+            return $widgets;
+        }, 20, 1);
     }
 
     public function resolveRelationUsing()

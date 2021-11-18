@@ -2,12 +2,14 @@
 
 namespace Modules\Comment\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Livewire\Livewire;
 use Modules\Comment\Http\Livewire\Comment;
 use Modules\Comment\Http\Livewire\CommentHolder;
 use Modules\Comment\Http\Livewire\CreateComment;
+use Modules\Comment\View\Widgets\CommentsNumber;
 use TorMorten\Eventy\Facades\Eventy as Hook;
 
 class CommentServiceProvider extends ServiceProvider
@@ -38,6 +40,9 @@ class CommentServiceProvider extends ServiceProvider
         Livewire::component('comment.comment-holder', CommentHolder::class);
         Livewire::component('comment.create-comment', CreateComment::class);
 
+        Blade::component('comment-widget-comments-number', CommentsNumber::class);
+
+
         Hook::addAction('admin-menu-build', function($menu) {
             if(backpack_user()->can('post manage') and backpack_user()->can('comment list')) {
                 $menu->add('articles.comments', trans('comment::comment.article_comments') , backpack_url('article/comment') , 430, 'comments');
@@ -48,6 +53,25 @@ class CommentServiceProvider extends ServiceProvider
                 $menu->add('users.comments', trans('comment::comment.doctor_comment') , backpack_url('user/doctor/comment') , 140, 'comments');
             }
         }, 21, 1);
+
+        /**
+         *  Admin widgets
+         *
+         */
+
+        Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
+            $widget = [
+                'id'  => 'comment-comments-number',
+                'lg'  => 'col-lg-3',
+                'md'  => 'col-md-3',
+                'sm'  => 'col-sm-6',
+                'xsm' => 'col-12',
+                'view' => 'comment-widget-comments-number',
+                'active' => false,
+            ];
+            array_push($widgets, $widget);
+            return $widgets;
+        }, 20, 1);
     }
 
     /**

@@ -7,21 +7,7 @@
     $active_board_id = sizeof($widgetsArray)+1;
 
 $x = [
-        [
-            'id'  => 3,
-            'lg'  => 'col-lg-3',
-            'md'  => 'col-md-3',
-            'sm'  => 'col-sm-6',
-            'xsm' => 'col-12',
-            'view' => '<div class="card text-white bg-primary bg-shining">
-                        <div class="card-body">
-                            <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comments-o"></i></button>
-                            <div class="text-value">9.823</div>
-                            <div>گفت و گوها</div>
-                        </div>
-                    </div>',
-            'active' => true,
-        ],
+
         [
             'id'  => 4,
             'lg'  => 'col-lg-3',
