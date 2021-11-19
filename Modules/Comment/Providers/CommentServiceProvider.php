@@ -72,6 +72,24 @@ class CommentServiceProvider extends ServiceProvider
             array_push($widgets, $widget);
             return $widgets;
         }, 20, 1);
+
+        /**
+         *  Core Widget
+         *  monthly chart
+         */
+        Hook::addAction('widget-core-monthly-chart::action', function($chart) {
+            $v = Verta();
+            $data = [];
+            for ($key=0 ; $key<12; $key++) {
+                $v = Verta();
+                $startMonth = (array) $v->month($key)->startMonth();
+                $endMonth = (array) $v->month($key)->endMonth();
+
+                $data['comments'][$key] = (int) \Modules\Comment\Models\Comment::where('module', 'Article')
+                    ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+            }
+            $chart->dataset('نظرات', $data['comments']);
+        }, 20, 1);
     }
 
     /**

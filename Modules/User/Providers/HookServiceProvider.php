@@ -2,6 +2,7 @@
 
 namespace Modules\User\Providers;
 
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use TorMorten\Eventy\Facades\Eventy as Hook;
 
@@ -57,6 +58,29 @@ class HookServiceProvider extends ServiceProvider
 
             array_push($widgets, $widget1, $widget2);
             return $widgets;
+        }, 20, 1);
+
+        /**
+         *  Core Widget
+         *  monthly chart
+         */
+        Hook::addAction('widget-core-monthly-chart::action', function($chart) {
+            $v = Verta();
+            $data = [];
+            for ($key=0 ; $key<12; $key++) {
+                $v = Verta();
+                $startMonth = (array) $v->month($key)->startMonth();
+                $endMonth = (array) $v->month($key)->endMonth();
+
+                $data['customers'][$key] = (int) User::where('template', 'customer')
+                    ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+
+                $data['doctors'][$key] = (int) User::where('template', 'doctor')
+                    ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+            }
+            $chart
+                ->dataset('کاربران', $data['customers'])
+                ->dataset('پزشکان', $data['doctors']);
         }, 20, 1);
     }
 

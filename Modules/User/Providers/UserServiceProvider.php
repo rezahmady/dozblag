@@ -12,7 +12,7 @@ use Modules\User\Http\Livewire\DoctorProfile;
 use Modules\User\Http\Livewire\Widgets\ListUser;
 use Modules\User\View\Widgets\CustomersNumber;
 use Modules\User\View\Widgets\DoctorsNumber;
-use TorMorten\Eventy\Facades\Eventy as Hook;
+use Modules\User\View\Widgets\UsersChart;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -47,7 +47,6 @@ class UserServiceProvider extends ServiceProvider
 
         Blade::component('user-widget-customers-number', CustomersNumber::class);
         Blade::component('user-widget-doctors-number', DoctorsNumber::class);
-
     }
 
     /**

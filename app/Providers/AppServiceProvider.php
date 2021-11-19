@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\View\Widgets\MonthlyChart;
+use ConsoleTVs\Charts\Registrar as Charts;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -22,8 +25,15 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Charts $charts)
     {
         Schema::defaultStringLength(191);
+
+        $charts->register([
+            \App\Charts\MonthlyChart::class
+        ]);
+
+        Blade::component('core-widget-monthly-chart', MonthlyChart::class);
+
     }
 }

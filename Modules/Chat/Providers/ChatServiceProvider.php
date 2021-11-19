@@ -99,6 +99,24 @@ class ChatServiceProvider extends ServiceProvider
             array_push($widgets, $widget);
             return $widgets;
         }, 20, 1);
+
+        /**
+         *  Core Widget
+         *  monthly chart
+         */
+        Hook::addAction('widget-core-monthly-chart::action', function($chart) {
+            $v = Verta();
+            $data = [];
+            for ($key=0 ; $key<12; $key++) {
+                $v = Verta();
+                $startMonth = (array) $v->month($key)->startMonth();
+                $endMonth = (array) $v->month($key)->endMonth();
+
+                $data['rooms'][$key] = (int) \Modules\Chat\Models\Room::whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+
+            }
+            $chart->dataset('گفت و گوها', $data['rooms']);
+        }, 20, 1);
     }
 
     public function resolveRelationUsing()

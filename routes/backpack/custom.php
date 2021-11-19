@@ -15,7 +15,6 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     // Route::crud('category', 'CategoryCrudController');
-    Route::get('charts/weekly-users', 'Charts\WeeklyUsersChartController@response')->name('charts.weekly-users.index');
     Route::crud('theme', 'ThemeCrudController');
     Route::get('theme/{theme_folder}/activate', 'ThemeCrudController@activate');
     Route::get('theme/{theme}/rebuild', 'ThemeCrudController@rebuild');

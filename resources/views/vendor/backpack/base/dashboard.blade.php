@@ -6,41 +6,13 @@
 
     $active_board_id = sizeof($widgetsArray)+1;
 
-$x = [
-
-        [
-            'id'  => 4,
-            'lg'  => 'col-lg-3',
-            'md'  => 'col-md-3',
-            'sm'  => 'col-sm-6',
-            'xsm' => 'col-12',
-            'view' => '<div class="card text-white bg-purple bg-shining">
-                        <div class="card-body">
-                            <button class=" btn btn-transparent p-0 float-right" type="button"><i class="la la-4x la-comment"></i></button>
-                            <div class="text-value">9.823</div>
-                            <div>نظرات</div>
-                        </div>
-                    </div>',
-            'active' => true,
-        ],
-        [
-            'id'  => 5,
-            'lg'  => 'col-lg-6',
-            'md'  => 'col-md-6',
-            'sm'  => 'col-sm-12',
-            'xsm' => 'col-12',
-            'view' => '<div class="card text-white bg-info">
-                        <div class=" card-header">Card title</div>
-                        <div class="card-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</div>
-                    </div>',
-            'active' => false,
-        ],
-];
-
 @endphp
 
 @section('content')
-
+    <!-- Charting library -->
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <!-- Chartisan -->
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
     <div class="position-relative" x-data="widget_layout">
         <button x-ref="editbtn" x-on:click.prevent="toggle($dispatch)" :class="edit ? 'btn btn-success setting-btn' : 'btn btn-secondary setting-btn' "   data-toggle="tooltip" data-placement="right" title="" :data-original-title="edit ? 'اتمام ویرایش' : 'شروع ویرایش' " data-style="zoom-in"><span class="ladda-label"><i class="la la-cog"></i></span></button>
 
