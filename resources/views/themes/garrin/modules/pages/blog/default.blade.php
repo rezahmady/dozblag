@@ -50,13 +50,13 @@
                 @endif
                 <!-- /Blog Post -->
             </div>
-            
+
         </div>
-    
+
         <div class="row">
             <div class="col-lg-8 col-md-12">
-            
-                <div class="row blog-grid-row flexmasonry-grid">
+
+                <div x-data class="row blog-grid-row flexmasonry-grid">
                     @foreach ($items as $item)
                         @if (!$loop->first)
                         @php
@@ -83,9 +83,9 @@
                             <!-- /Blog Post -->
                         </div>
                         @endif
-                    @endforeach   
+                    @endforeach
                 </div>
-                
+
                 <!-- Blog Pagination -->
                 <div class="row mt-3">
                     <div class="col-md-12">
@@ -93,14 +93,14 @@
                     </div>
                 </div>
                 <!-- /Blog Pagination -->
-                
+
             </div>
-            
+
             <!-- Blog Sidebar -->
             <div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
 
                 <!-- Telegram -->
-                
+
                 {{-- <div class="search-widget mb-3" >
                     <a href="https://t.me/garrin" class="blog-single-social-box blog-single-social-box-telegram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
                         <div class="blog-single-social-box-icon">
@@ -124,12 +124,12 @@
                         @foreach ($children as $item)
                             <li><img class="cat-img" src="{{asset($item->extras['image'])}}"><a class="cat-detail" href="{{$item->path()}}">{{$item->name}} <span>({{$item->items()->count()}})</span></a></li>
                         @endforeach
-                        
+
                     </ul>
                 </div>
                 <!-- /Categories -->
                 @endif
-                
+
                 <!-- Instagram -->
                 {{-- <div class="search-widget mb-3">
                     <a href="https://www.instagram.com/f" class="blog-single-social-box blog-single-social-box-instagram" data-wpel-link="external" target="_blank" rel="nofollow external noopener">
@@ -144,7 +144,7 @@
                         <div class="blog-single-social-box-text">در <b>اینستاگرام</b><br>گرین را دنبال کنید!</div>
                     </a>
                 </div> --}}
-                
+
                 <!-- /Instagram -->
 
                 @if (sizeOf($tags))
@@ -163,10 +163,10 @@
                 </div>
                 <!-- /Tags -->
                 @endif
-                
+
             </div>
             <!-- /Blog Sidebar -->
-            
+
         </div>
 
 
@@ -174,40 +174,39 @@
 
     <script>
 
-        document.addEventListener('turbolinks:load', function () {
-            FlexMasonry.destroyAll();
-            setTimeout(() => {
-                FlexMasonry.init('.flexmasonry-grid',{
-                    responsive: true,
-                    breakpointCols: {
-                        'min-width: 1500px':2,
-                        'min-width: 1200px': 2,
-                        'min-width: 992px': 2,
-                        'min-width: 768px': 2,
-                        'min-width: 576px': 1,
-                    },
-                    numCols: 2,
-                });
-            }, 200);
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('masonry', {
+                responsive: {
+                    'min-width: 1500px':2,
+                    'min-width: 1200px': 2,
+                    'min-width: 992px': 2,
+                    'min-width: 768px': 2,
+                    'min-width: 576px': 1,
+                },
+                initMasonry(el, responsive = false) {
+                    responsive = (responsive) ? responsive : this.responsive;
+                    FlexMasonry.init( el,{
+                        responsive: true,
+                        breakpointCols: this.responsive,
+                        numCols: 2,
+                    });
+                },
+            })
         })
 
-        window.addEventListener('dehydrate-components', event => {
-            FlexMasonry.destroyAll();
-            setTimeout(() => {
-                FlexMasonry.init('.flexmasonry-grid',{
-                    responsive: true,
-                    breakpointCols: {
-                        'min-width: 1500px':2,
-                        'min-width: 1200px': 2,
-                        'min-width: 992px': 2,
-                        'min-width: 768px': 2,
-                        'min-width: 576px': 1,
-                    },
-                    numCols: 2,
-                });
-            }, 200);
+        document.addEventListener('alpine:initialized', () => {
+            window.addEventListener('dehydrate-components', event => {
+                setTimeout(() => {
+                    Alpine.store('masonry').initMasonry('.flexmasonry-grid');
+                    window.scrollTo({ top: 15, left: 15, behaviour: 'smooth' })
+                }, 200);
+            });
+
+            document.addEventListener('turbolinks:load', function () {
+                Alpine.store('masonry').initMasonry('.flexmasonry-grid');
+            })
         })
 
     </script>
-    
-</div>	
+
+</div>
