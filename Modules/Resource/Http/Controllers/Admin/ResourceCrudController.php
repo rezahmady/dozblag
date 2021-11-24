@@ -297,8 +297,32 @@ class ResourceCrudController extends CrudController
                 'tab'     => 'اطلاعات تماس',
                 'fake'  => true,
                 'store_in' => 'extras',
-                'attributes' => [
-                    'class'       => 'form-control col-md-6'
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [
+                'name'    => 'lat',
+                'prefix'  => '<i class="la la-map-marker"></i>',
+                'type'    => 'text',
+                'label'   => 'Lat',
+                'tab'     => 'اطلاعات تماس',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+            [
+                'name'    => 'lon',
+                'prefix'  => '<i class="la la-map-marker"></i>',
+                'type'    => 'text',
+                'label'   => 'Lon',
+                'tab'     => 'اطلاعات تماس',
+                'fake'  => true,
+                'store_in' => 'extras',
+                'wrapper'      => [
+                    'class'  => "form-group col-md-6"
                 ],
             ],
         ]);
