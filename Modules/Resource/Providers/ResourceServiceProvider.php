@@ -32,6 +32,7 @@ class ResourceServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         Livewire::component('resource.http.livewire.resource-list', ResourceList::class);
+        Livewire::component('modules.resource.http.livewire.resource-list', ResourceList::class);
 
         Hook::addAction('admin-menu-build', function($menu) {
             if(backpack_user()->can('user manage')){
