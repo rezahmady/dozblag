@@ -5,6 +5,7 @@ namespace Modules\Resource\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Livewire\Livewire;
+use Modules\Resource\Http\Livewire\ResourceList;
 use TorMorten\Eventy\Facades\Eventy as Hook;
 
 class ResourceServiceProvider extends ServiceProvider
