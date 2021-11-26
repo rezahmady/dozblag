@@ -49,8 +49,7 @@ class ResourceReformat extends Command
         // bio
         $resources = Resource::get();
         foreach ($resources as $resource) {
-            $resource = $resource->withFakes();
-            $bio = str_replace('font-family: IRANSans_FaNum;', '', $resource->bio);
+            $bio = str_replace('font-family: IRANSans_FaNum;', '', $resource->extras->bio);
             $resource->update([
                'extras->bio' => $bio
             ]);
