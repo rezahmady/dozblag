@@ -42,54 +42,47 @@ class GetResourcesFromPaziresh24 extends Command
 
             Log::info('start generate paziresh24.com');
 
-            $results = [] ;
-
-            $res =  \Illuminate\Support\Facades\Http::asForm()->post('https://www.paziresh24.com/api/searchV3?page=5', [
-                'route' => '/s/ir/center/?page=1'
-            ]);
-            $body = json_decode($res->body());
-
-            $totalCount = $body->totalCount;
-
-            function get_string_between($string, $start, $end){
-                $string = ' ' . $string;
-                $ini = strpos($string, $start);
-                if ($ini == 0) return '';
-                $ini += strlen($start);
-                $len = strpos($string, $end, $ini) - $ini;
-                return substr($string, $ini, $len);
-            }
-
             $allResults = [];
 
-            for($page = 1; $page<= $totalCount; $page++) {
+            for($page = 1; $page<= 25; $page++) {
 
-                $res =  \Illuminate\Support\Facades\Http::asForm()->post('https://www.paziresh24.com/api/searchV3?page=5', [
+                $res =  \Illuminate\Support\Facades\Http::asForm()->post('https://www.paziresh24.com/api/searchV3', [
                     'route' => '/s/ir/center/?page='.$page,
                 ]);
                 $resBody = json_decode($res->body());
 
-                $items = $resBody->result;
+                if(isset($resBody->result)) {
+                    $items = $resBody->result;
 
-//        foreach ($items as $item) {
-//            $client = new \Goutte\Client();
-//            $crawler = $client->request('GET', 'https://www.paziresh24.com/'.$item->slug);
-//            $crawler->filter('.wrapper_indent')->each(function ($node) use ($item) {
-//                $item->bio = $node->html();
-//            });
-//
-//            $crawler->filter('script')->each(function ($node) use ($item) {
-//                $lat = get_string_between($node->html(),'"lat":"','"');
-//                $lon = get_string_between($node->html(),'"lon":"','"');
-//                if($lat) {
-//                    $item->lat = $lat;
-//                }
-//                if($lon) {
-//                    $item->lon = $lon;
-//                }
-//            });
-//        }
+                } else {
+                    dd($resBody);
+                }
+
                 foreach ($items as $item) {
+
+                    $image = str_replace('/api/getImage/p24/search-hospitalclinic/', '', $item->image);
+
+                    if($image != 'noimage.png') {
+                        \Illuminate\Support\Facades\Storage::disk('local')->put('/uploads/images/resource/'.$image, file_get_contents('https://www.paziresh24.com'.$item->image));
+                        $image_name = '/uploads/images/resource/'.$image;
+                    }
+
+                    $client = new \Goutte\Client();
+                    $crawler = $client->request('GET', $item->center_url);
+                    $crawler->filter('.wrapper_indent')->each(function ($node) use ($item) {
+                        $item->bio = $node->html();
+                    });
+
+                    $crawler->filter('script')->each(function ($node) use ($item) {
+                        $lat = $this->get_string_between($node->html(),'"lat":"','"');
+                        $lon = $this->get_string_between($node->html(),'"lon":"','"');
+                        if($lat) {
+                            $item->lat = $lat;
+                        }
+                        if($lon) {
+                            $item->lon = $lon;
+                        }
+                    });
 
                     $template = ($item->center_id == 2) ? 'hospital' : 'clinic';
 
@@ -111,14 +104,14 @@ class GetResourcesFromPaziresh24 extends Command
                     }
 
                     $extras = [
-                        'bio' => '',
-                        'profile' => $item->image,
+                        'bio' => $item->bio ?? '',
+                        'profile' => $image_name ?? '',
                         'ostan_id' => $ostan_id,
                         'shahrestan_id' => $shahrestan_id,
                         'address' => $item->address,
                         'phone' => $item->tell,
-                        'lat' => '',
-                        'lon' => '',
+                        'lat' => $item->lat ?? '',
+                        'lon' => $item->lon ?? '',
                         'filter_services' => [],
                         'meta_title' => $item->display_name,
                         'meta_description' => '',
@@ -133,16 +126,24 @@ class GetResourcesFromPaziresh24 extends Command
                     $resource->extras = $extras;
                     $resource->save();
 
+                    $item->extras = $extras;
                 }
                 $allResults= array_merge($allResults, $items) ;
-
-                sleep(5);
             }
 
-            Log::info('save '.sizeof($allResults).' resource from '.$totalCount.' center');
+            Log::info('save '.sizeof($allResults).' resource');
 
         } catch (\Throwable $th) {
             Log::debug($th->getMessage());
         }
+    }
+
+    public function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
     }
 }
