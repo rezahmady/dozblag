@@ -49,7 +49,7 @@ class ResourceReformat extends Command
         // bio
         $resources = Resource::get();
         foreach ($resources as $resource) {
-            $style = $this->get_string_between('style="', '"', $resource->extras->bio);
+            $style = $this->get_string_between($resource->extras->bio, 'style="', '"', );
             if(strlen($style)> 2) {
                 $bio = str_replace($style, '', $resource->extras->bio);
                 $resource->update([
