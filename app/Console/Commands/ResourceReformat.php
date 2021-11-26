@@ -49,10 +49,22 @@ class ResourceReformat extends Command
         // bio
         $resources = Resource::get();
         foreach ($resources as $resource) {
-            $bio = str_replace('font-family: IRANSans_FaNum;', '', $resource->extras->bio);
-            $resource->update([
-               'extras->bio' => $bio
-            ]);
+            $style = $this->get_string_between('style="', '"', $resource->extras->bio);
+            if(strlen($style)> 2) {
+                $bio = str_replace($style, '', $resource->extras->bio);
+                $resource->update([
+                    'extras->bio' => $bio
+                ]);
+            }
         }
+    }
+
+    public function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
     }
 }
