@@ -39,12 +39,12 @@ class ResourceReformat extends Command
     public function handle()
     {
         // template
-        $resources = Resource::where('template', '!=', 'hospital')->where('name', 'like', '%یمارستان%')->get();
-        foreach ($resources as $resource) {
-            $resource->update([
-                'template' => 'hospital'
-            ]);
-        }
+//        $resources = Resource::where('template', '!=', 'hospital')->where('name', 'like', '%بیمارستان%')->get();
+//        foreach ($resources as $resource) {
+//            $resource->update([
+//                'template' => 'hospital'
+//            ]);
+//        }
 
         // bio
         $resources = Resource::get();
@@ -54,6 +54,18 @@ class ResourceReformat extends Command
                 $bio = str_replace($style, '', $resource->extras->bio);
                 $resource->update([
                     'extras->bio' => $bio
+                ]);
+            }
+        }
+
+        // address
+        $resources = Resource::get();
+        foreach ($resources as $resource) {
+            $style = $this->get_string_between($resource->extras->address, 'style="', '"', );
+            if(strlen($style)> 2) {
+                $address = str_replace($style, '', $resource->extras->address);
+                $resource->update([
+                    'extras->address' => $address
                 ]);
             }
         }
