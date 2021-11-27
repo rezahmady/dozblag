@@ -77,7 +77,7 @@ class Resource extends Model
 
     public function getShahrestan()
     {
-        return $this->extras->shahrestan->name ?? '';
+        return $this->extras->shahrestan->name ?? $this->shahrestan->name ??'';
     }
 
     public function path()
@@ -93,12 +93,12 @@ class Resource extends Model
 
     public function ostan()
     {
-        return $this->belongsTo(Ostan::class, 'extras->ostan');
+        return $this->belongsTo(Ostan::class, 'ostan_id');
     }
 
     public function shahrestan()
     {
-        return $this->belongsTo(Shahrestan::class, 'extras->shahrestan_id');
+        return $this->belongsTo(Shahrestan::class, 'shahrestan_id');
     }
 
     public function users()

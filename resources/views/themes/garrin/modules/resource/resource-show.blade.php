@@ -47,7 +47,10 @@
                         <div class="doc-info-left">
                             <div class="pl-3 doc-info-cont">
                                 <h4 class="doc-name">{{ $resource->name }}</h4>
-                                <p class="doc-speciality">{{ $resource->caption }}</p>
+                                <p class="doc-speciality">
+                                    @if($resource->caption)<span class="mr-4">{{ $resource->caption }}</span> @endif
+                                    @if($resource->ostan and $resource->shahrestan)<span><i class="la la-map-marker" ></i>{{ $resource->ostan->name }}, {{ $resource->shahrestan->name }}</span>@endif
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -58,8 +61,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div clas="card-body pt-0">
-
-                        @if ($services)
+                        @if (sizeof($services))
                         <!-- Services List -->
                         <div class="card search-filter">
                             <div class="justify-between card-header d-flex" style="border-top: 3px solid #1abbcc;">
@@ -102,7 +104,6 @@
 
                         </div>
                         <div class="p-0 card-body">
-
                             <div class="p-0 mb-0 filter-widget" x-data="{items: true}">
                                 <h4 class="justify-between font-weight-bold d-flex active">
                                     <span>آدرس</span>
@@ -119,6 +120,40 @@
                                 {{ $resource->phone }}
                                 </div>
                             </div>
+                                <style>
+                                    #map { height: 180px; }
+                                    .leaflet-popup-content {
+                                        font-family: 'iransans-ulight';
+                                        text-align: center;
+                                    }
+                                    .leaflet-bottom.leaflet-right {
+                                        display: none;
+                                    }
+
+                                </style>
+                                @if($resource->lat and $resource->lon)
+                                <div class="p-0 mb-0 filter-widget" x-data="{items: true}">
+                                    <h4 class="justify-between font-weight-bold d-flex active">
+                                        <span>نقشه</span>
+                                    </h4>
+                                    <div class="filter-holder" id="map" x-show="items">
+                                    </div>
+
+                                    <script >
+                                        document.addEventListener("turbolinks:load", function() {
+                                            var map = L.map('map').setView([{{$resource->lat}}, {{$resource->lon}}], 15);
+                                            var tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                                                attribution: 'gariin.com',
+                                                maxZoom: 18,
+                                                id: "mapbox.streets",
+                                            }).addTo(map);
+
+                                            var marker = L.marker([{{$resource->lat}}, {{$resource->lon}}]).addTo(map);
+                                            marker.bindPopup("<b>{{$resource->name}}</b><br>").openPopup();
+                                        })
+                                    </script>
+                                </div>
+                                @endif
                         </div>
                     </div>
 
@@ -131,6 +166,16 @@
     </div>
     <!-- /Page Content -->
 
+    <script>
+    </script>
+
+
+
+    <script>
+
+
+
+    </script>
 
 
 </div>

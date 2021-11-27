@@ -18,7 +18,6 @@ class ResourceShow extends Component
 
         $this->services = $this->resource->servicesFilter();
 
-        // dd($this->resource);
     }
 
     public function render()

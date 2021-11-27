@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="{{ asset('/assets/garrin/css/custom.css') }}">
         <link rel="stylesheet" href="{{ asset('/packages/noty/noty.css') }}">
         <link rel="stylesheet" href="{{ asset('/packages/noty/themes/light.css') }}">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
         @stack('custom-style')
         <!-- Links of JS files -->
         <script src="{{ mix('/assets/garrin/js/theme.js') }}" defer></script>
@@ -38,6 +39,7 @@
         <script src="{{asset('assets/garrin/js/plugins/select2/js/select2.min.js')}}" defer></script>
         <script src="{{ asset('/packages/nicescroll/nicescroll.min.js') }}" defer></script>
         <script src="{{ asset('/packages/formeo/formeo.min.js') }}"></script>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" defer></script>
         <script src="{{ asset('/assets/garrin/js/custom.js') }}" defer></script>
         @livewireScripts
         <script src="{{ asset('/assets/js/livewire-turbolinks.js') }}" data-turbolinks-eval="false" defer></script>

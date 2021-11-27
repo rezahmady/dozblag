@@ -325,6 +325,18 @@ class ResourceCrudController extends CrudController
                     'class'  => "form-group col-md-6"
                 ],
             ],
+            [
+                'name' => 'src_slug',
+                'value' => $this->crud->getCurrentEntry()->src_slug,
+                'type' => 'hidden',
+                'fake'  => true,
+            ],
+            [
+                'name' => 'src_slug',
+                'value' => $this->crud->getCurrentEntry()->src_id,
+                'type' => 'hidden',
+                'fake'  => true,
+            ],
         ]);
 
         $this->useTemplate($template);
