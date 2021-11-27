@@ -119,13 +119,30 @@ class ResourceCrudController extends CrudController
                 'type' => 'model_function',
                 'function_name' => 'getTemplateName',
             ],
+            [
+                'name' => 'status',
+                'type' => 'model_function',
+                'function_name' => 'getStatusBrowse',
+                'label' => 'وضعیت'
+            ]
         ]);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        /*
+            |--------------------------------------------------------------------------
+            | FILTER
+            |--------------------------------------------------------------------------
+            */
+
+        $this->crud->addFilter([
+            'name'  => 'status',
+            'type'  => 'dropdown',
+            'label' => 'وضعیت انتشار'
+        ], [
+            1 => 'منتشر شده',
+            0 => 'عدم انتشار'
+        ], function($value) { // if the filter is active
+            return$this->crud->addClause('where', 'status', $value);
+        });
     }
 
     /**
@@ -238,6 +255,21 @@ class ResourceCrudController extends CrudController
                 'wrapper'      => [
                     'class'  => "form-group col-12 ltr"
                 ],
+                'tab'   => 'مشخصات',
+            ],
+            [ // Text
+                'name'  => 'status',
+                'label' => '<i class="la la-flag-o"></i> وضعیت انتشار',
+                'type'  => 'radio',
+                'options' => [
+                    1 => '<span class="bg-success mb-1 d-block">
+                                منتشر شده و نمایش داده شود.
+                            </span>',
+                    0 => '<span class="bg-danger mb-1 d-block">
+                                منتشر نشود.
+                            </span>',
+                ],
+                'default' => 'PUBLISHED',
                 'tab'   => 'مشخصات',
             ],
             [   // relationship

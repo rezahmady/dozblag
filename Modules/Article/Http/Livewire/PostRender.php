@@ -71,7 +71,5 @@ class PostRender extends Component
             if($this->renderWhen()) return view('theme::modules.blog.show')->layout('theme::layouts.app');
             return  '<div></div>'; // delete
         }
-
-
     }
 }

@@ -22,7 +22,7 @@ class ResourceIndex extends Component
     public function loadTemplates()
     {
         foreach ($this->resources as $key => $value) {
-            $this->templates[$key] = Resource::where('template', $key)->take(10)->get();
+            $this->templates[$key] = Resource::where('template', $key)->published()->take(10)->get();
         }
 
     }

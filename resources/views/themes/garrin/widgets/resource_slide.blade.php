@@ -13,7 +13,7 @@
         <!-- /Section Header -->
         <div class="">
             @php
-                $resources = Modules\Resource\Models\Resource::take(10)->get();
+                $resources = Modules\Resource\Models\Resource::published()->take(10)->get();
             @endphp
 
             <div class="col-lg-12">

@@ -26,7 +26,7 @@ class Resource extends Model
 
     protected $table = 'resources';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'caption', 'template', 'slug', 'extras', 'extras->bio', 'extras->address'];
+    protected $fillable = ['name', 'caption', 'status', 'template', 'slug', 'extras', 'extras->bio', 'extras->address'];
     protected $fakeColumns = ['extras'];
     const LIMIT = 35;
     /**
@@ -59,6 +59,25 @@ class Resource extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getStatusBrowse() {
+
+        $status = null;
+
+        switch ($this->status) {
+            case 1:
+                $status = '<span class="badge badge-success center">منتشر شده</span>';
+                break;
+            case 0:
+                $status = '<span class="badge badge-danger center">عدم انتشار</span>';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        echo $status;
+    }
+
     public function getNameWithCaption() {
         echo '<span>'.$this->limitName.'</span><br><span>'.$this->limitCaption.'</span>';
     }
@@ -70,7 +89,6 @@ class Resource extends Model
 
     public function getProfile()
     {
-        ;
         $src = $this->extras->profile ?? Setting::get("resources.template_{$this->template}_default_img") ?? '';
         return asset($src);
     }
@@ -129,5 +147,16 @@ class Resource extends Model
         }
 
         return $this->name;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 1);
     }
 }

@@ -20,8 +20,24 @@ class ResourceShow extends Component
 
     }
 
+    public function renderWhen(): bool
+    {
+        if ($this->resource->status) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function render()
     {
-        return view("theme::modules.resource.resource-show");
+
+        if(auth()->check() and backpack_user()->can('post update'))
+        {
+            return view("theme::modules.resource.resource-show");
+        } else {
+            if($this->renderWhen()) return view("theme::modules.resource.resource-show");
+            return  '<div></div>'; // delete
+        }
     }
 }

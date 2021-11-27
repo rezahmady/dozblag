@@ -56,7 +56,7 @@ class ResourceList extends Component
 
         $query = ['template' => $this->resource->template];
 
-        $objects = Resource::where($query);
+        $objects = Resource::published()->where($query);
 
         if($this->filter["ostan"]){
             $filter = $this->filter["ostan"];
