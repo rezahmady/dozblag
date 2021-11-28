@@ -70,9 +70,12 @@ class GetResourcesFromPaziresh24 extends Command
 
                     if($image == 'noimage.png') {
 
-                        Resource::where('extras->src_id', $item->id)->first()->update([
-                            'extras->profile' => '',
-                        ]);
+                        $resource = Resource::where('extras->src_slug', $item->slug)->first();
+                        if($resource) {
+                            $resource->update([
+                                'extras->profile' => '',
+                            ]);
+                        }
 
                     }
 

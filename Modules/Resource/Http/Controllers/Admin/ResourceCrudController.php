@@ -364,7 +364,7 @@ class ResourceCrudController extends CrudController
                 'fake'  => true,
             ],
             [
-                'name' => 'src_slug',
+                'name' => 'src_id',
                 'value' => $this->crud->getCurrentEntry()->src_id,
                 'type' => 'hidden',
                 'fake'  => true,
