@@ -26,7 +26,9 @@ class Resource extends Model
 
     protected $table = 'resources';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'caption', 'status', 'template', 'slug', 'extras', 'extras->bio', 'extras->address'];
+    protected $fillable = ['name', 'caption', 'status', 'template', 'slug', 'extras',
+        'extras->bio', 'extras->address', 'extras->profile'
+    ];
     protected $fakeColumns = ['extras'];
     const LIMIT = 35;
     /**
