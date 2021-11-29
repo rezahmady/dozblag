@@ -4,6 +4,7 @@ namespace Modules\Payment\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Payment\Http\Middleware\PaymentConfigs;
 use TorMorten\Eventy\Facades\Eventy as Hook;
 
 class PaymentServiceProvider extends ServiceProvider
