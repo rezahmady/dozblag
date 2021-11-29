@@ -48,5 +48,5 @@ Route::group([
 });
 
 Route::get('{modelPage}/{subs?}', \Modules\Page\Http\Livewire\PageRender::class)
-    ->where(['modelPage' => '^(((?=(?!admin)(?!resource)(?!doctor)(?!auth)(?!profile))(?=(?!\/)).))*$', 'subs' => '.*'])
+    ->where(['modelPage' => '^(((?=(?!admin)(?!payment)(?!resource)(?!doctor)(?!auth)(?!profile))(?=(?!\/)).))*$', 'subs' => '.*'])
     ->name('page');
