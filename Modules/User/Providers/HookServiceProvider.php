@@ -36,7 +36,7 @@ class HookServiceProvider extends ServiceProvider
          */
 
         Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
-            $widget1 = [
+            $widget = [
                 'id'  => 'user-customers-number',
                 'lg'  => 'col-lg-3',
                 'md'  => 'col-md-3',
@@ -46,17 +46,7 @@ class HookServiceProvider extends ServiceProvider
                 'active' => true,
             ];
 
-            $widget2 = [
-                'id'  => 'user-doctors-number',
-                'lg'  => 'col-lg-3',
-                'md'  => 'col-md-3',
-                'sm'  => 'col-sm-6',
-                'xsm' => 'col-12',
-                'view' => 'user-widget-doctors-number',
-                'active' => false,
-            ];
-
-            array_push($widgets, $widget1, $widget2);
+            array_push($widgets, $widget);
             return $widgets;
         }, 20, 1);
 
@@ -74,13 +64,9 @@ class HookServiceProvider extends ServiceProvider
 
                 $data['customers'][$key] = (int) User::where('template', 'customer')
                     ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
-
-                $data['doctors'][$key] = (int) User::where('template', 'doctor')
-                    ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
             }
             $chart
-                ->dataset('کاربران', $data['customers'])
-                ->dataset('پزشکان', $data['doctors']);
+                ->dataset('کاربران', $data['customers']);
         }, 20, 1);
     }
 

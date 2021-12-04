@@ -16,7 +16,7 @@ class ThemeManagerProvider extends ServiceProvider
      */
     public function register()
     {
-        //       
+        //
     }
 
 
@@ -28,13 +28,13 @@ class ThemeManagerProvider extends ServiceProvider
     public function boot()
     {
         // Register Theme
-        $this->register_theme(); 
+        $this->register_theme();
 
         // Load helpers
         @include __DIR__.'/../Helpers/theme.php';
 
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'theme');
-        
+        $this->loadViewsFrom(__DIR__.'/../../Themes', 'theme');
+
     }
 
     private function loadDynamicMiddleware($themes_folder, $theme){
@@ -76,18 +76,18 @@ class ThemeManagerProvider extends ServiceProvider
         try{
 
             if (Schema::hasTable('themes')) {
-                
+
                 $themes_folder = config('themes.themes_folder', resource_path('views/themes'));
-                
+
                 $theme = $this->rescue(function () use ($theme_model) {
                     return $theme_model::where('active', '=', 1)->first();
                 });
-                
+
                 // share active theme name
                 $name = ($theme) ? $theme->folder : 'default';
                 define('THEME_FOLDER', $name);
                 if($theme->id) define('THEME_ID', $theme->id);
-        
+
                 // register ThemeOption class
                 include("$themes_folder/$name/ThemeOptions.php");
                 $this->app->bind('ThemeOptions', ThemeOptions::class);
@@ -95,12 +95,12 @@ class ThemeManagerProvider extends ServiceProvider
                 // register ThemeWidget class
                 include("$themes_folder/$name/ThemeWidgets.php");
                 $this->app->bind('ThemeWidgets', ThemeWidgets::class);
-    
+
                 // Share views
                 view()->share('theme', $theme);
-    
+
                 $this->loadDynamicMiddleware($themes_folder, $theme);
-    
+
                 // Make sure we have an active theme
                 if (isset($theme)) {
                     $this->loadViewsFrom($themes_folder.'/'.@$theme->folder, 'theme');
@@ -111,6 +111,6 @@ class ThemeManagerProvider extends ServiceProvider
         } catch(\Exception $e){
             return $e->getMessage();
         }
-        
+
     }
 }

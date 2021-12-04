@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'themes_folder' => resource_path('views/themes'),
+    'themes_folder' => base_path('Themes'),
 
     'assets_folder' => '/assets',
 
@@ -38,5 +38,5 @@ return [
     'models' => [
         'theme'            => \App\Models\Theme::class,
     ],
-    
+
 ];

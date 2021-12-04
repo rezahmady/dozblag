@@ -15,47 +15,11 @@ const mix = require('laravel-mix');
 
 // mix.js('resources/js/app.js', 'public/assets/admin/js')
 
-
-
-mix.styles([
-    'resources/views/themes/garrin/assets/plugins/bootstrap-rtl/css/bootstrap.min.css',
-    'resources/views/themes/garrin/assets/plugins/fontawesome/css/fontawesome.min.css',
-    'resources/views/themes/garrin/assets/plugins/fontawesome/css/all.min.css',
-    'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.css',
-    'resources/views/themes/garrin/assets/flexmasonry/flexmasonry.css',
-    'resources/views/themes/garrin/assets/css/style.css',
-    // 'public/assets/garrin/css/custom.css',
-], 'public/assets/garrin/css/theme.css').version();
-
-mix.styles([
-    'public/packages/chatino/css/soho.min.css',
-], 'public/packages/chatino/css/chat.css').version();
-
 mix.styles([
     'resources/css/admin.css',
 ], 'public/assets/admin/css/admin.css').version();
 
-// mix.postCss("public/assets/garrin/css/theme.css", "public/assets/garrin/css/theme-production.css", [
-//     require("postcss-combine-duplicated-selectors"),
-// ]);
-
-mix.scripts([
-    'resources/views/themes/garrin/assets/js/jquery.min.js',
-    'resources/views/themes/garrin/assets/js/popper.min.js',
-    'resources/views/themes/garrin/assets/plugins/bootstrap-rtl/js/bootstrap.min.js',
-    'resources/views/themes/garrin/assets/plugins/fancybox/jquery.fancybox.min.js',
-    'resources/views/themes/garrin/assets/js/slick.js',
-    'resources/views/themes/garrin/assets/flexmasonry/flexmasonry.js',
-    'resources/views/themes/garrin/assets/js/script.js',
-], 'public/assets/garrin/js/theme.js').version();
-
-mix.js("resources/js/app.js", "public/assets/js").version();
-mix.js("resources/js/chat.js", "public/assets/js").version();
 mix.js([
     "resources/js/admin.js",
     "resources/js/custom_admin.js",
 ], "public/assets/admin/js").version();
-//     .postCss("resources/css/app.css", "public/assets/css", [
-
-//         require("tailwindcss"),
-//     ]);

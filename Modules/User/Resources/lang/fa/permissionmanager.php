@@ -33,10 +33,7 @@ return [
 
     'function_name' => [
         "operator" => "اپراتور",
-        "doctor"   => "پزشک",
-        "clinic"   => "کلینیک (درمانگاه)",
-        "customer" => "مشتری",
-        "hospital" => "بیمارستان",
+        "user"     => "کاربر",
     ],
 
     'attribute'            => [

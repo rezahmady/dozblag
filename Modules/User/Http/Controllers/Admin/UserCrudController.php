@@ -83,15 +83,6 @@ class UserCrudController extends CrudController
                 'label' => trans('user::permissionmanager.mobile'),
                 'type'  => 'text',
             ],
-            [
-                // run a function on the CRUD model and show its return value
-                'name'  => 'subscribtion',
-                'label' => 'اشتراک', // Table column heading
-                'type'  => 'model_function',
-                'function_name' => 'getSubscribtionBrowse', // the method in your Model
-                // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
-                // 'limit' => 100, // Limit the number of characters shown
-            ],
             [ // n-n relationship (with pivot table)
                 'label'     => trans('user::permissionmanager.roles'), // Table column heading
                 'type'      => 'select_multiple',
@@ -144,36 +135,6 @@ class UserCrudController extends CrudController
                 });
             }
         );
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'doctor',
-            'label' => 'پزشک'
-        ],
-        false,
-        function() { // if the filter is active
-            $this->crud->addClause('where','template', 'doctor'); // apply the "active" eloquent scope
-        } );
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'customer',
-            'label' => 'مشتری'
-        ],
-        false,
-        function() { // if the filter is active
-            $this->crud->addClause('where','template', 'customer'); // apply the "active" eloquent scope
-        } );
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'operator',
-            'label' => 'اپراتور'
-        ],
-        false,
-        function() { // if the filter is active
-            $this->crud->addClause('where','template', 'operator'); // apply the "active" eloquent scope
-        } );
     }
 
     public function setupCreateOperation()

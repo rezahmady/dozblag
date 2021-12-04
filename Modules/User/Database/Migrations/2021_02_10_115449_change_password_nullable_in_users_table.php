@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResourceUserTable extends Migration
+class ChangePasswordNullableInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateResourceUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('resource_user', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('resource_id');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('password')->nullable(true)->change();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateResourceUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resource_user');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

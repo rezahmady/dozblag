@@ -42,11 +42,8 @@ class UserServiceProvider extends ServiceProvider
         Livewire::component('auth.form-login', Login::class);
         Livewire::component('rezahmady.user.http.livewire.auth.form-login', Login::class);
         Livewire::component('rezahmady.user.http.livewire.auth.login', Login::class);
-        Livewire::component('rezahmady.user.http.livewire.doctor-list', DoctorList::class);
-        Livewire::component('rezahmady.user.http.livewire.doctor-profile', DoctorProfile::class);
 
         Blade::component('user-widget-customers-number', CustomersNumber::class);
-        Blade::component('user-widget-doctors-number', DoctorsNumber::class);
     }
 
     /**

@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Javoscript\MacroableModels\Facades\MacroableModels;
 use Livewire\Livewire;
-use Modules\Resource\Models\Resource;
 use Modules\Filter\Http\Livewire\FilterItemPage;
 use Modules\Filter\Http\Livewire\FilterItemService;
 use Modules\Filter\Http\Livewire\Widgets\FilterItem;
@@ -53,16 +52,6 @@ class FilterServiceProvider extends ServiceProvider
 
 
         MacroableModels::addMacro(User::class, 'servicesFilter', function() {
-            $user = $this;
-            return Filter::findBySlug('services')->items->filter(function($filteritem) use ($user) {
-                if(isset($user->extras->filter_services))
-                    return in_array($filteritem->id, $user->extras->filter_services) ;
-                return false;
-            });
-        });
-
-
-        MacroableModels::addMacro(Resource::class, 'servicesFilter', function() {
             $user = $this;
             return Filter::findBySlug('services')->items->filter(function($filteritem) use ($user) {
                 if(isset($user->extras->filter_services))
