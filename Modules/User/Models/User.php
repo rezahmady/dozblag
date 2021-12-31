@@ -10,11 +10,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Venturecraft\Revisionable\RevisionableTrait;
+
 
 class User extends Authenticatable
 {
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
-    use HasFactory, Notifiable, HasRoles, CrudTrait,SetJsonMutator;
+    use HasFactory, Notifiable, HasRoles, CrudTrait,SetJsonMutator, RevisionableTrait;
+
+    public static function boot()
+    {
+        parent::boot();
+    }
+
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 
     /**
      * The attributes that are mass assignable.

@@ -50,6 +50,7 @@ return [
         'comment'    => 'نظرات',
         'chat'       => 'چت',
         'resource'   => 'بانک سلامت',
+        'activitylog' => 'فعالیت ها',
     ]
 
 ];

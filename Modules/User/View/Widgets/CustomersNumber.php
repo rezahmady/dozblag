@@ -16,7 +16,7 @@ class CustomersNumber extends Component
      */
     public function __construct()
     {
-        $this->customers = User::where('template', 'customer')->count();
+        $this->customers = User::count();
     }
 
     /**

@@ -66,6 +66,12 @@ class UserDatabaseSeeder extends Seeder
                 'module'    => '',
             ],
             [
+                'name'     => 'admin filemanager',
+                'guard_name'    => 'web',
+                'display_name'   => 'مدیریت فایل ها',
+                'module'    => '',
+            ],
+            [
                 'name'     => 'user manage',
                 'guard_name'    => 'web',
                 'display_name'   => 'مدیریت کاربران',
@@ -95,6 +101,66 @@ class UserDatabaseSeeder extends Seeder
                 'display_name'   => 'حذف کاربر',
                 'module'    => 'user',
             ],
+            [
+                'name'     => 'user assign role',
+                'guard_name'    => 'web',
+                'display_name'   => 'الصاق نقش به کاربر',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'role assign permission',
+                'guard_name'    => 'web',
+                'display_name'   => 'الصاق دسترسی به نقش',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'role manage',
+                'guard_name'    => 'web',
+                'display_name'   => 'مدیریت نقش',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'role create',
+                'guard_name'    => 'web',
+                'display_name'   => 'افزودن نقش',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'role update',
+                'guard_name'    => 'web',
+                'display_name'   => 'ویرایش نقش',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'role delete',
+                'guard_name'    => 'web',
+                'display_name'   => 'حذف نقش',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'permission manage',
+                'guard_name'    => 'web',
+                'display_name'   => 'مدیریت مجوز های دسترسی',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'permission create',
+                'guard_name'    => 'web',
+                'display_name'   => 'افزودن اجازه دسترسی',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'permission update',
+                'guard_name'    => 'web',
+                'display_name'   => 'ویرایش دسترسی کاربر',
+                'module'    => 'user',
+            ],
+            [
+                'name'     => 'permission delete',
+                'guard_name'    => 'web',
+                'display_name'   => 'حذف دسترسی',
+                'module'    => 'user',
+            ],
         ]);
 
         DB::table('role_has_permissions')->delete();
@@ -102,7 +168,7 @@ class UserDatabaseSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insert([
-                'role_id'   => 1,
+                'role_id'   => User::first()->id,
                 'permission_id' => $permission->id
             ]);
         }

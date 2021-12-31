@@ -3,6 +3,7 @@
 namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use TorMorten\Eventy\Facades\Events as Hook;
 
 class UserUpdateCrudRequest extends FormRequest
 {
@@ -15,6 +16,11 @@ class UserUpdateCrudRequest extends FormRequest
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
+    }
+
+    public function attributes()
+    {
+        return Hook::filter('user-validate-update-attributes', []);
     }
 
     /**
@@ -34,11 +40,14 @@ class UserUpdateCrudRequest extends FormRequest
             abort(400, 'Could not find that entry in the database.');
         }
 
-        return [
+        $rules = [
             'email'    => 'nullable|unique:'.config('permission.table_names.users', 'users').',email,'.$userId,
             'mobile'   => 'required|string|max:11|min:10|unique:'.config('permission.table_names.users', 'users').',mobile,'.$userId,
             'name'     => 'required',
             'password' => 'confirmed',
         ];
+
+
+        return Hook::filter('user-validate-update-rules', $rules);
     }
 }

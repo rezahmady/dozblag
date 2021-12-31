@@ -9,8 +9,10 @@ use Modules\User\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Modules\User\Traits\UserTemplates;
 use Modules\Resource\Models\Resource;
 use Illuminate\Support\Facades\Hash;
+use TorMorten\Eventy\Facades\Events as Hook;
 use Modules\Filter\Models\Filter;
 use App\Models\User;
+use Rezahmady\SettingOperation\Setting;
 
 class UserCrudController extends CrudController
 {
@@ -19,7 +21,10 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Rezahmady\SettingOperation\SettingOperation;
+    use \App\Traits\ReviseOperation;
+    use \App\Traits\DropzoneTrait;
     use DefaultPermissions;
     use UserTemplates;
 
@@ -47,31 +52,14 @@ class UserCrudController extends CrudController
     */
     protected function setupSettingOperation()
     {
-        // backpack fields
-        $templates = $this->getTemplatesArray();
-        $filters = Filter::active()->pluck('name','id');
-        foreach($templates as $key => $item) {
-            $this->crud->addField([   // select2_from_array
-                'name'        => "template_{$key}_filters",
-                'label'       => $item,
-                'type'        => 'select2_from_array',
-                'options'     => $filters,
-                'allows_null' => false,
-                'default'     => 'one',
-                'wrapper'   => [
-                    'class'  => "form-group col-md-6"
-                ],
-                'tab'   => 'فیلتر ها',
-                'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-            ]);
-        }
+        Hook::action('user-crud-setting-operation', $this->crud);
     }
 
     public function setupListOperation()
     {
-        $this->crud->enableExportButtons();
-        $this->crud->addButtonFromModelFunction('line', 'open', 'getOpenButton', 'ending');
-        $this->crud->addButtonFromModelFunction('line', 'open', 'getLoginAsButton', 'ending');
+        if(backpack_user()->can('user export'))
+            $this->crud->enableExportButtons();
+
         $this->crud->addColumns([
             [
                 'name'  => 'name',
@@ -135,19 +123,29 @@ class UserCrudController extends CrudController
                 });
             }
         );
+
+        Hook::action('user-crud-list-operation-after-columns', $this->crud);
     }
 
     public function setupCreateOperation()
     {
+        Hook::action('user-crud-create-operation-before-fields', $this->crud, \Request::input('template'));
         $this->addUserFields(\Request::input('template'));
+        Hook::action('user-crud-create-operation-after-fields', $this->crud, \Request::input('template'));
         $this->crud->setValidation(StoreRequest::class);
     }
 
     public function setupUpdateOperation()
     {
         $template = \Request::input('template') ?? $this->crud->getCurrentEntry()->template;
+        Hook::action('user-crud-update-operation-before-fields', $this->crud, $template);
         $this->addUserFields($template);
+        Hook::action('user-crud-update-operation-after-fields', $this->crud, $template);
         $this->crud->setValidation(UpdateRequest::class);
+    }
+
+    public function setupShowOperation() {
+        Hook::action('user-crud-show-operation', $this->crud);
     }
 
     /**
@@ -200,17 +198,22 @@ class UserCrudController extends CrudController
 
     protected function addUserFields($template = '')
     {
-        $this->crud->addField([
-            'name' => 'template',
-            'label' => trans('user::permissionmanager.template'),
-            'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
-            'type' => 'select_crud_template',
-            'options' => $this->getTemplatesArray(),
-            'value' => $template,
-            'allows_null' => false,
-        ]);
+//        $this->crud->addField([
+//            'name' => 'template',
+//            'label' => trans('user::permissionmanager.template'),
+//            'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
+//            'type' => 'select_crud_template',
+//            'options' => $this->getTemplatesArray(),
+//            'value' => $template,
+//            'allows_null' => false,
+//        ]);
 
         $this->crud->addFields([
+            [
+                'name' => 'template',
+                'type' => 'hidden',
+                'value' => 'user',
+            ],
             [
                 'name'  => 'name',
                 'prefix'  => '<i class="la la-user"></i>',
@@ -219,22 +222,6 @@ class UserCrudController extends CrudController
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],
-                'tab'   => 'مشخصات فردی',
-            ],
-            [
-                'name'  => 'gender',
-                'label' => 'جنسیت',
-                'type'        => 'select2_from_array',
-                'options' => [
-                    'mail'  => 'آقا',
-                    'fmail' => 'خانم'
-                ],
-                'allows_null' => true,
-                'fake' => true,
-                'wrapper'   => [
-                    'class'  => "form-group col-md-6"
-                ],
-                'tab'   => 'مشخصات فردی',
             ],
             [
                 'name'  => 'mobile',
@@ -244,7 +231,6 @@ class UserCrudController extends CrudController
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],
-                'tab'   => 'مشخصات فردی',
             ],
             [
                 'name'  => 'email',
@@ -256,44 +242,33 @@ class UserCrudController extends CrudController
                 'wrapper'   => [
                     'class'  => "form-group col-md-6"
                 ],
-                'tab'   => 'مشخصات فردی',
-            ],
-            [
-                'name'  => 'password',
-                'label' => trans('user::permissionmanager.password'),
-                'type'  => 'password',
-                'attributes' => [
-                    'autocomplete' => 'new-password',
-                ],
-                'wrapper'   => [
-                    'class'  => "form-group col-md-6"
-                ],
-                'tab'   => 'مشخصات فردی',
-            ],
-            [
-                'name'  => 'password_confirmation',
-                'label' => trans('user::permissionmanager.password_confirmation'),
-                'type'  => 'password',
-                'wrapper'   => [
-                    'class'  => "form-group col-md-6"
-                ],
-                'tab'   => 'مشخصات فردی',
-            ],
-            [
-                'label'        => "تصویر پروفایل",
-                'name'         => 'profile',
-                'fake'  => true,
-                'type' => 'browse',
-                // 'crop' => true, // set to true to allow cropping, false to disable
-                // 'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-                // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-                'prefix'    => '', // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-                'wrapper'      => [
-                    'class'  => "form-group col-12 ltr"
-                ],
-                'tab'   => 'مشخصات فردی',
             ],
         ]);
+        if(backpack_user()->can('admin create')) {
+            $this->crud->addFields([
+                [
+                    'name'  => 'password',
+                    'label' => trans('user::permissionmanager.password'),
+                    'type'  => 'password',
+                    'attributes' => [
+                        'autocomplete' => 'new-password',
+                    ],
+                    'wrapper'   => [
+                        'class'  => "form-group col-md-6"
+                    ],
+                    'tab' => 'دسترسی',
+                ],
+                [
+                    'name'  => 'password_confirmation',
+                    'label' => trans('user::permissionmanager.password_confirmation'),
+                    'type'  => 'password',
+                    'wrapper'   => [
+                        'class'  => "form-group col-md-6"
+                    ],
+                    'tab' => 'دسترسی',
+                ]
+            ]);
+        }
 
         $this->useTemplate($template);
     }
