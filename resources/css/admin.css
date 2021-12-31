@@ -682,3 +682,16 @@ table.dataTable thead>tr>th {
         color: #6faf29!important;
     }
 }
+
+.container-repeatable-elements .controls {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: absolute !important;
+    right: -16px;
+    left: auto !important;
+}
+
+.checkbox {
+    padding-top: 30px;
+}
