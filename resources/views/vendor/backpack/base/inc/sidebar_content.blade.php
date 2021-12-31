@@ -3,7 +3,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
 
-<?php 
+<?php
 use App\Services\Menu;
 use TorMorten\Eventy\Facades\Events as Eventy;
 
@@ -33,6 +33,7 @@ $menu = Menu::create(function($menu) {
     </ul>
 </li>
 @endcan
+@can('admin theme')
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-paint-brush"></i> قالب</a>
     <ul class="nav-dropdown-items">
@@ -41,4 +42,8 @@ $menu = Menu::create(function($menu) {
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('menu') }}'><i class='nav-icon la la-reorder'></i> منو ها</a></li>
     </ul>
 </li>
+@endcan
+
+@can('admin message')
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon la la-envelope-o'></i> صندوق پیام</a></li>
+@endcan
