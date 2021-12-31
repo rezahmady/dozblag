@@ -28,7 +28,7 @@ class HookServiceProvider extends ServiceProvider
                 if(backpack_user()->can('permission manage'))
                     $menu->add('users.permission', trans('backpack::permissionmanager.permission_plural') , backpack_url('permission') , 130, 'key');
             }
-        }, 20, 1);
+        }, 5, 1);
 
         /**
          *  Admin widgets
