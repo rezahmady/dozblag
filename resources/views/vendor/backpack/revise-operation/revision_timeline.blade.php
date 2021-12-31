@@ -5,6 +5,9 @@
         {{-- {{ Carbon\Carbon::parse($revisionDate)->isoFormat(config('backpack.base.default_date_format')) }} --}}
         @php
             $v = new Verta($revisionDate);
+
+        $fields = Rezahmady\SettingOperation\Setting::get('users.custom_fields');
+        $fields = json_decode($fields, true);
         @endphp
         {{ $v->format('Y/n/j') }}
       </h5>
@@ -13,6 +16,33 @@
     <div class="card timeline-item-wrap">
       @php
         $v = new Verta($history->created_at);
+        if($history->key === 'extras') {
+            $json_field = true;
+
+            $extra_old_value = json_decode($history->old_value, true);
+            $extra_new_value = json_decode($history->new_value, true);
+
+            $old_value = array_map('unserialize',
+            array_diff(array_map('serialize', $extra_old_value), array_map('serialize', $extra_new_value)));
+
+
+            $new_value = array_map('unserialize',
+            array_diff(array_map('serialize',$extra_new_value ), array_map('serialize',$extra_old_value )));
+
+            $values = [];
+            foreach ($new_value as $key => $value) {
+                $values[$key] = [
+                    'old' => $old_value[$key] ?? '',
+                    'new' => $value
+                ];
+            }
+            $values = \TorMorten\Eventy\Facades\Events::filter('core-revision-timeline-fields', $values);
+        } else {
+            $json_field = false;
+        }
+
+
+
       @endphp
       @if($history->key == 'created_at' && !$history->old_value)
         <div class="card-header">
@@ -22,7 +52,7 @@
       @else
         <div class="card-header">
           <strong class="time"><i class="la la-clock"></i>  {{ $v->format('H:i') }}</strong> -
-          {{ $history->userResponsible()?$history->userResponsible()->name:trans('revise-operation::revise.guest_user') }} {{ trans('revise-operation::revise.changed_the') }} {{ $history->fieldName() }}
+          {{ trans('revise-operation::revise.changed_the') }} {{ trans('backpack::revise.attributes.'.$history->fieldName()) }} {{ $history->userResponsible()?$history->userResponsible()->name:trans('revise-operation::revise.guest_user') }}
           <div class="card-header-actions">
             <form class="card-header-action" method="post" action="{{ url(\Request::url().'/'.$history->id.'/restore') }}">
               {!! csrf_field() !!}
@@ -32,14 +62,28 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.from')) }}:</div>
-            <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.to')) }}:</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6"><div class="alert alert-danger" style="overflow: hidden;">{{ $history->oldValue() }}</div></div>
-            <div class="col-md-6"><div class="alert alert-success" style="overflow: hidden;">{{ $history->newValue() }}</div></div>
-          </div>
+            @if($json_field)
+                @foreach($values as $key => $value)
+                    <div class="row">
+                        <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.from')) }} {!! $key !!}:</div>
+                        <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.to')) }} {!! $key !!}:</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"><div class="alert alert-danger" style="overflow: hidden;">{!! $value['old'] !!}</div></div>
+                        <div class="col-md-6"><div class="alert alert-success" style="overflow: hidden;">{!! $value['new'] !!}</div></div>
+                    </div>
+                @endforeach
+
+            @else
+              <div class="row">
+                <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.from')) }}:</div>
+                <div class="col-md-6">{{ mb_ucfirst(trans('revise-operation::revise.to')) }}:</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6"><div class="alert alert-danger" style="overflow: hidden;">{{ $history->oldValue() }}</div></div>
+                <div class="col-md-6"><div class="alert alert-success" style="overflow: hidden;">{{ $history->newValue() }}</div></div>
+              </div>
+            @endif
         </div>
       @endif
     </div>

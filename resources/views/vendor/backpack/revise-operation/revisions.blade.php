@@ -11,7 +11,7 @@
   $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
   $heading = $crud->getHeading() ?? $crud->entity_name_plural;
-  $subheading = $crud->getSubheading() ?? method_exists($entry, 'identifiableName') ? trans('revise-operation::revise.revisions_for').' "'.$entry->identifiableName().'"' : trans('revise-operation::revise.revisions');
+  $subheading = $crud->getSubheading() ?? method_exists($entry, 'identifiableName') ? trans('backpack::revise.revisions_for').' "'.$entry->identifiableName().'"' : trans('backpack::revise.revisions');
 @endphp
 
 @section('header')
