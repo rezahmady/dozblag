@@ -17,14 +17,15 @@ return [
          * --disable-notifications
          */
         'backpack_flags' => [
-            // '--disable-notifications'=> true,
+            '--disable-notifications'=> true,
+            '--only-db' => true,
         ],
 
         /*
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'garrin-backup'),
+        'name' => env('APP_NAME', 'cms-backup'),
 
         'source' => [
 
