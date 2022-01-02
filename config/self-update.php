@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', ''),
+    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', '0.1.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,20 +48,11 @@ return [
         ],
         'http' => [
             'type' => 'http',
-            'repository_url' => env('SELF_UPDATER_REPO_URL', ''),
-            'pkg_filename_format' => env('SELF_UPDATER_PKG_FILENAME_FORMAT', 'v_VERSION_'),
-            'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
+            'repository_url' => env('SELF_UPDATER_REPO_URL', 'https://download.rezahmadi.ir/cms'),
+            'pkg_filename_format' => env('SELF_UPDATER_PKG_FILENAME_FORMAT', 'cms-v_VERSION_'),
+            'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', storage_path('tmb')),
             'private_access_token' => env('SELF_UPDATER_HTTP_PRIVATE_ACCESS_TOKEN', ''),
-        ],
-        'gitlab' => [
-            'type' => 'github',
-            'repository_vendor' => env('SELF_UPDATER_REPO_VENDOR', ''),
-            'repository_name' => env('SELF_UPDATER_REPO_NAME', ''),
-            'repository_url' => '',
-            'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
-            'private_access_token' => env('SELF_UPDATER_GITLAB_PRIVATE_ACCESS_TOKEN', ''),
-            'use_branch' => env('SELF_UPDATER_USE_BRANCH', ''),
-        ],
+        ]
     ],
 
     /*
@@ -85,6 +76,7 @@ return [
         'storage/framework',
         'storage/logs',
         'storage/self-update',
+        'storage/backups',
         'vendor',
     ],
 

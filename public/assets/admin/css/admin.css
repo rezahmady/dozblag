@@ -695,3 +695,14 @@ table.dataTable thead>tr>th {
 .checkbox {
     padding-top: 30px;
 }
+
+.alert-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0;
+    border-radius: 0;
+    text-align: center;
+    z-index: 2000;
+}

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\UploadController;
-use Modules\Filter\Models\FilterItem;
 use Spatie\Sitemap\SitemapIndex;
 
 /*
@@ -19,26 +18,6 @@ use Spatie\Sitemap\SitemapIndex;
 */
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
-Route::get('/set-slug', function () {
-    // event(new \App\Events\SystemMessage());
-    // return 'ok';
-    // $user = App\Models\User::first();
-    // $user->notify(new App\Notifications\InvoicePaid());
-    $filteritems = FilterItem::get();
-    foreach($filteritems as $post) {
-        $slug = SlugService::createSlug(FilterItem::class, 'slug', $post->name);
-        $post->update(['slug' => $slug]);
-    }
-});
-
-Route::get('/admin/aa', function() {
-    header('Content-Type: text/event-stream');
-    header('Cache-Control: no-cache');
-
-    $time = date('r');
-    echo "data: {$time}\n\n";
-    flush();
-});
 
 Route::get('/admin/generate-sitemap', function() {
     SitemapIndex::create()
@@ -80,6 +59,8 @@ Route::get('download', function(Request $request)
 });
 
 Route::post('/admin/api/widget', [ \App\Http\Controllers\Api\DashboardController::class, 'update_widget']);
+Route::get('/admin/self-update', [ \App\Http\Controllers\Api\UpdateController::class, 'update']);
+Route::post('/admin/api/self-update/check', [ \App\Http\Controllers\Api\UpdateController::class, 'check_update']);
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 

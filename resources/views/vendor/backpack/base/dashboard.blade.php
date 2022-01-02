@@ -13,6 +13,10 @@
     <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
     <!-- Chartisan -->
     <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <div class="alert bg-danger bg-shining justify-content-between mb-0 alert-fixed-bottom" x-data="update_alert" x-show="$store.update.has_update" role="alert">
+        <span x-text="$store.update.version"></span>
+        <a href="{{url('/admin/self-update')}}" ><span class="badge badge-pill bg-danger border-warning  p-2">لطفا بروزرسانی کنید</span></a>
+    </div>
     <div class="position-relative" x-data="widget_layout">
         <button x-ref="editbtn" x-on:click.prevent="toggle($dispatch)" :class="edit ? 'btn btn-success setting-btn' : 'btn btn-secondary setting-btn' "   data-toggle="tooltip" data-placement="right" title="" :data-original-title="edit ? 'اتمام ویرایش' : 'شروع ویرایش' " data-style="zoom-in"><span class="ladda-label"><i class="la la-cog"></i></span></button>
 
@@ -75,6 +79,32 @@
 
     <script>
         document.addEventListener('alpine:init', () => {
+
+            Alpine.data('update_alert', () => ({
+                async init() {
+                    // this.has_update = true;
+                    axios.post('/admin/api/self-update/check', {})
+                        .then(function (response) {
+                            Alpine.store('update').set_data(response.data);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                },
+            }));
+
+            Alpine.store('update', {
+                version: '',
+                has_update: false,
+                set_data(data) {
+                    const { has_update, version} = data;
+                    console.log(data.has_update)
+                    if(has_update) {
+                        this.has_update = true;
+                        this.version = `نسخه ${version} در دسترس است!`;
+                    }
+                }
+            });
 
             Alpine.data('widget_layout', function () {
                 return {

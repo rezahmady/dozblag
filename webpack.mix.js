@@ -10,10 +10,6 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-// mix.setPublicPath('/resources');
-// mix.setResourceRoot('../')
-
-// mix.js('resources/js/app.js', 'public/assets/admin/js')
 
 mix.styles([
     'resources/css/admin.css',
