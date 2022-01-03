@@ -3,8 +3,6 @@
 namespace Modules\DevTools\Console;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class UpdateCommand extends Command
 {
@@ -20,7 +18,7 @@ class UpdateCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'create new release from commits.';
 
     /**
      * Create a new command instance.
@@ -37,7 +35,7 @@ class UpdateCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle() : void
     {
         $commit = $this->argument('commit');
         $version = $this->argument('version');
@@ -46,36 +44,10 @@ class UpdateCommand extends Command
         $arguments = $this->getArguments();
         $options = $this->getOptions();
 
-        $this->info("command info -> {$commit} | {$version} | head: {$head}");
-        $this->get_new_version($commit, $version, $head);
+        $this->getNewVersion($commit, $version, $head);
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['commit', InputArgument::REQUIRED, 'commit'],
-            ['version', InputArgument::REQUIRED, 'An example argument.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['head', null, InputOption::VALUE_OPTIONAL, 'An example option.', 0],
-        ];
-    }
-
-    public function get_commits(): array
+    public function getCommits(): array
     {
         $output = array();
         chdir(base_path());
@@ -108,31 +80,31 @@ class UpdateCommand extends Command
         return $history;
     }
 
-    public function get_changed_files($commit_id): array
+    public function getChangedFiles($commit_id): array
     {
         $files = [];
         chdir(base_path());
         exec("git diff-tree --no-commit-id --name-only -r ".$commit_id,$output);
         foreach($output as $line){
-            if(file_exists(base_path($line)))
+            if(file_exists(base_path($line)) and $this->can_release($line))
                 array_push($files, $line);
         }
 
         return $files;
     }
 
-    public function get_new_version($commit, $version, $head = false)
+    public function getNewVersion($commit, $version, $head = false): void
     {
-        $commits = $this->get_commits();
+        $commits = $this->getCommits();
         $files = [];
         $key = $this->searchForCommit($commit, $commits);
         if($head) {
             for ($i=0; $i <= $key; $i++) {
-                $files = array_merge($files, $this->get_changed_files($commits[$i]['hash']));
+                $files = array_merge($files, $this->getChangedFiles($commits[$i]['hash']));
             }
         } else {
             if($key !== null) {
-                $files = $this->get_changed_files($commit);
+                $files = $this->getChangedFiles($commit);
             }
         }
 
@@ -140,7 +112,7 @@ class UpdateCommand extends Command
             $files = implode(' ', array_unique($files));
             chdir(base_path());
             exec("tar.exe -a -c -f ".storage_path("/app/releases/cms-v".$version.".zip")." ".$files,$output);
-            $this->info('successful! file: '.storage_path("\app\cms-v".$version.".zip"));
+            $this->info('successful! file: '.storage_path("app\\releases\\cms-v".$version.".zip"));
         } else {
             $this->error('no file exist!');
         }
@@ -153,5 +125,16 @@ class UpdateCommand extends Command
             }
         }
         return null;
+    }
+
+    public function can_release($file): bool
+    {
+        $excepts = config('devtools.except_release');
+        foreach ($excepts as $folder) {
+            if (substr($file, 0, strlen($folder)) === $folder) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -3,7 +3,7 @@
 return [
     'name' => 'DevTools',
 
-    'except_paths' => [
+    'except_release' => [
         'Modules/DevTools'
     ],
 ];
