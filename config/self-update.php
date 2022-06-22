@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'log_events' => env('SELF_UPDATER_LOG_EVENTS', false),
+    'log_events' => env('SELF_UPDATER_LOG_EVENTS', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -146,7 +146,10 @@ return [
             //]
         ],
         'post_update' => [
-
+            'updator:core' => [
+                'class' => \App\Console\Commands\CoreUpdate::class,
+                'params' => []
+            ]
         ],
     ],
 
