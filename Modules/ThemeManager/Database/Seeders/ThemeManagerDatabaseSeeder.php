@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Modules\User\Models\Permission;
+use Kdabrow\SeederOnce\SeederOnce;
 
 class ThemeManagerDatabaseSeeder extends Seeder
 {
+    use SeederOnce;
+    
     /**
      * Run the database seeds.
      *

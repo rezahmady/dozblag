@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Kdabrow\SeederOnce\SeederOnce;
 
 class ShahrestansTableSeeder extends Seeder
 {
+    use SeederOnce;
 
     /**
      * Auto generated seed file

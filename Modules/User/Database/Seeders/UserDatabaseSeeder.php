@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Hash;
 use Modules\User\Models\Permission;
 use Modules\User\Models\Role;
 use Modules\User\Models\User;
+use Kdabrow\SeederOnce\SeederOnce;
 
 class UserDatabaseSeeder extends Seeder
 {
+    use SeederOnce;
+    
     /**
      * Run the database seeds.
      *

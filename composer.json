@@ -26,6 +26,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hekmatinasser/verta": "^1.11",
         "javoscript/laravel-macroable-models": "^1.0",
+        "kdabrow/seeder-once": "^2.2",
         "laravel-notification-channels/telegram": "^0.5.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
