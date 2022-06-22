@@ -40,11 +40,11 @@ class CoreUpdate extends Command
         // composer update
         exec('cd '.base_path().' && composer update');
 
-        // migrations
-        $this->call('migrate');
-
         // optimize
         $this->call('optimize:clear');
+
+        // migrations
+        $this->call('migrate');
 
         // cache config
         $this->call('cahe:config');
@@ -57,6 +57,12 @@ class CoreUpdate extends Command
 
         // cache events
         $this->call('cahe:event');
+
+        // seed core
+        $this->call('db:seed');
+
+        // seed modules
+        $this->call('module:seed');
 
     }
 }

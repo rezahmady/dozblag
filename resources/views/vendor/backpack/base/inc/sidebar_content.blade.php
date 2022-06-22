@@ -14,7 +14,7 @@ $menu = Menu::create(function($menu) {
 
 {!! $menu !!}
 
-@can('admin advance')
+@can('admin filemanager')
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-cogs"></i> پیشرفته</a>
     <ul class="nav-dropdown-items">

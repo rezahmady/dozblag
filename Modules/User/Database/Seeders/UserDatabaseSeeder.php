@@ -24,9 +24,7 @@ class UserDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
-        DB::table('users')->delete();
-        DB::table('users')->insert([
+        DB::table('users')->insertOrIgnore([
             'name'     => 'reza',
             'email'    => 'ahmadireza15@gmail.com',
             'password' => Hash::make('password'),
@@ -35,20 +33,18 @@ class UserDatabaseSeeder extends Seeder
 
 
         DB::table('roles')->delete();
-        DB::table('roles')->insert([
+        DB::table('roles')->insertOrIgnore([
             'name'     => 'مدیر سیستم',
             'guard_name'    => 'web',
         ]);
 
-        DB::table('model_has_roles')->delete();
-        DB::table('model_has_roles')->insert([
+        DB::table('model_has_roles')->insertOrIgnore([
             'role_id' => Role::where('name', 'مدیر سیستم')->first()->id,
             'model_type' => 'App\Models\User',
             'model_id' => User::first()->id,
         ]);
 
-        DB::table('permissions')->delete();
-        DB::table('permissions')->insert([
+        DB::table('permissions')->insertOrIgnore([
             [
                 'name'     => 'admin panel',
                 'guard_name'    => 'web',
@@ -166,11 +162,11 @@ class UserDatabaseSeeder extends Seeder
             ],
         ]);
 
-        DB::table('role_has_permissions')->delete();
         $permissions = Permission::where('module', 'user')->orWhere('module', '')->get();
 
+        
         foreach ($permissions as $permission) {
-            DB::table('role_has_permissions')->insert([
+            DB::table('role_has_permissions')->insertOrIgnore([
                 'role_id'   => User::first()->id,
                 'permission_id' => $permission->id
             ]);

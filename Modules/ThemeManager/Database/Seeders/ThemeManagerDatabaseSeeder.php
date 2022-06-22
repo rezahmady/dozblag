@@ -98,11 +98,10 @@ class ThemeManagerDatabaseSeeder extends Seeder
             ],
         ]);
 
-        // DB::table('role_has_permissions')->delete();
         $permissions = Permission::where('module', 'theme')->get();
 
         foreach ($permissions as $permission) {
-            DB::table('role_has_permissions')->insert([
+            DB::table('role_has_permissions')->insertOrIgnore([
                 'role_id'   => User::first()->id,
                 'permission_id' => $permission->id
             ]);

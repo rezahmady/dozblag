@@ -3,7 +3,7 @@
     "alias": "thememanager",
     "description": "",
     "keywords": [],
-    "priority": 0,
+    "priority": 100,
     "providers": [
         "Modules\\ThemeManager\\Providers\\ThemeManagerServiceProvider"
     ],
