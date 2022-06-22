@@ -16,7 +16,7 @@
         "backpack/revise-operation": "^1.0",
         "backpack/settings": "^3.0",
         "beyondcode/laravel-websockets": "^1.9",
-        "codedge/laravel-selfupdater": "^3.2",
+        "codedge/laravel-selfupdater": "^3.4",
         "consoletvs/charts": "^7.2",
         "cviebrock/eloquent-sluggable": "^8.0",
         "eskandari/persianrender": "^0.1.0",
