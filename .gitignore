@@ -16,6 +16,8 @@
 /resources/views/raque
 /resources/views/default
 /vendor
+/composer.lock
+/package-lock.json
 # /packages
 .env
 .env.backup
