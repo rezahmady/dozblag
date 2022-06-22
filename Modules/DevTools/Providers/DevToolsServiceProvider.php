@@ -26,7 +26,6 @@ class DevToolsServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         if ($this->app->runningInConsole()) {
             require module_path($this->moduleName, '/Routes/console.php');
