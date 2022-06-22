@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'default' => env('SELF_UPDATER_SOURCE', 'github'),
+    'default' => env('SELF_UPDATER_SOURCE', 'gitlab'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', '0.1.2'),
+    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', '0.1.1'),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ return [
         ],
         'gitlab' => [
             'type'                 => 'gitlab',
-            'repository_id'        => env('SELF_UPDATER_REPO_URL', 'https://gitlab.com/rezahmady/cms'),
+            'repository_id'        => env('SELF_UPDATER_REPO_URL', '31849646'),
             'download_path'        => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
             'private_access_token' => env('SELF_UPDATER_GITLAB_PRIVATE_ACCESS_TOKEN', ''),
         ],
