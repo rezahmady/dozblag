@@ -1,4 +1,5 @@
 {
     "User": true,
-    "DevTools": true
+    "DevTools": true,
+    "ThemeManager": true
 }

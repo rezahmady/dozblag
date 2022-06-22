@@ -1,4 +1,4 @@
-<li class='nav-item'><a target="_blank" class='nav-link' href='{{ url('/') }}'><i class='nav-icon la la-external-link'></i> نمایش وب سایت</a></li>
+
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
@@ -30,16 +30,6 @@ $menu = Menu::create(function($menu) {
         @can('admin setting')
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>تنظیمات </span></a></li>
         @endcan
-    </ul>
-</li>
-@endcan
-@can('admin theme')
-<li class="nav-item nav-dropdown">
-    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-paint-brush"></i> قالب</a>
-    <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('theme') }}'><i class='nav-icon la la-television'></i> انتخاب قالب</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('widget') }}'><i class='nav-icon la la-puzzle-piece'></i> ابزارک ها</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('menu') }}'><i class='nav-icon la la-reorder'></i> منو ها</a></li>
     </ul>
 </li>
 @endcan
