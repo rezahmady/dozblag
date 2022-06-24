@@ -61,7 +61,7 @@ return [
         // Example (load font-awesome instead of line-awesome):
         // 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css',
 
-        'packages/iransans/dist/css/fontiran.css',
+        '/assets/admin/packages/iransans/dist/css/fontiran.css',
         'assets/admin/css/admin.css'
     ],
 

@@ -30,12 +30,12 @@
 
     {{-- FIELD CSS - will be loaded in the after_styles section --}}
     @push('crud_fields_styles')
-    <link rel="stylesheet" href="/packages/formeo/formeo.min.css">
+    <link rel="stylesheet" href="/assets/admin/packages/formeo/formeo.min.css">
     @endpush
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-    <script src="/packages/formeo/formeo.min.js"></script>
+    <script src="/assets/admin/packages/formeo/formeo.min.js"></script>
         <script>
             
             function bpFieldInitFormBuilderElement(element) {
