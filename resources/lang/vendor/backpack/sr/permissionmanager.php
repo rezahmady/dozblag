@@ -1,30 +1,16 @@
 <?php
 
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Permission Manager Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used for Laravel Backpack - Permission Manager
-    | Author: Azarić Stefan <azaricstefan@yahoo.com>
-    |
-    */
-    'name'                  => 'Ime',
-    'role'                  => 'Uloga',
-    'roles'                 => 'Uloge',
-    'roles_have_permission' => 'Uloge koje imaju prava',
-    'permission_singular'   => 'Prava',
-    'permission_plural'     => 'Prava',
-    'user_singular'         => 'Korisnik',
-    'user_plural'           => 'Korisnici',
-    'email'                 => 'E-pošta',
-    'extra_permissions'     => 'Dodatne prava',
-    'password'              => 'Lozinka',
-    'password_confirmation' => 'Potvrda lozinke',
-    'user_role_permission'  => 'Korisnik uloga Prava',
-    'user'                  => 'Korisnik',
-    'users'                 => 'Korisnici',
-    'guard_type'            => 'Tip garda',
+// --------------------------------------------------------
+// This is only a pointer file, not an actual language file
+// --------------------------------------------------------
+//
+// If you've copied this file to your /resources/lang/vendor/backpack/
+// folder, please delete it, it's no use there. You need to copy/publish the
+// actual language file, from the package.
 
-];
+// If a langfile with the same name exists in the package, load that one
+if (file_exists(__DIR__.'/../../../../../permissionmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__))) {
+    return include __DIR__.'/../../../../../permissionmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__);
+}
+
+return [];

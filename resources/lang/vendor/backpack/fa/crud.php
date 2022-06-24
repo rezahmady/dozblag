@@ -16,7 +16,6 @@ return [
     // Forms
     'save_action_save_and_new'         => 'ذخیره و مورد جدید',
     'save_action_save_and_edit'        => 'ذخیره و ویرایش این مورد',
-    'save_action_save_and_preview'        => 'ذخیره و نمایش',
     'save_action_save_and_back'        => 'ذخیره و بازگشت',
     'save_action_changed_notification' => 'رفتار پیش فرض پس از ذخیره سازی تغییر کرده است.',
 
@@ -29,11 +28,6 @@ return [
     // Edit form
     'edit'                 => 'ویرایش',
     'save'                 => 'ذخیره',
-
-    // Setting form
-    'settings'           => 'تنظیمات',
-    'settingAction'      => 'ذخیره تنظیمات',
-    'settings_success'   => 'تنظیمات با موفقیت ذخیره شد',
 
     // Translatable models
     'edit_translations' => 'ترجمه',
@@ -152,8 +146,4 @@ return [
 
     // File manager
     'file_manager' => 'مدیریت پرونده',
-
-    // InlineCreateOperation
-    'related_entry_created_success' => 'آیتم مورد نظر ایجاد و انتخاب شد.',
-    'related_entry_created_error' => 'خطایی در افزودن آیتم جدید رخ داده.',
 ];

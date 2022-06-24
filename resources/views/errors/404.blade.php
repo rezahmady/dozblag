@@ -5,14 +5,12 @@
 @endphp
 
 @section('title')
-  صفحه ای یافت نشد.
+  Page not found.
 @endsection
 
 @section('description')
   @php
     $default_error_message = "Please <a href='javascript:history.back()''>go back</a> or return to <a href='".url('')."'>our homepage</a>.";
   @endphp
-  {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}
+  {!! isset($exception)? ($exception->getMessage()?e($exception->getMessage()):$default_error_message): $default_error_message !!}
 @endsection
-
-{{--@include('theme::modules.error.404')--}}

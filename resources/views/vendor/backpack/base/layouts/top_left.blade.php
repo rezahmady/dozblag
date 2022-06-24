@@ -8,10 +8,7 @@
 </head>
 
 <body class="{{ config('backpack.base.body_class') }}">
-  <div id="overlayer"></div>
-  <span class="loader">
-    <span class="loader-inner"></span>
-  </span>
+
   @include(backpack_view('inc.main_header'))
 
   <div class="app-body">
@@ -39,8 +36,6 @@
         </div>
 
     </main>
-
-    @include(backpack_view('inc.aside-menu'))
 
   </div><!-- ./app-body -->
 

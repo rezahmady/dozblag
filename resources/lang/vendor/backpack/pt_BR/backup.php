@@ -1,40 +1,16 @@
 <?php
 
-return [
+// --------------------------------------------------------
+// This is only a pointer file, not an actual language file
+// --------------------------------------------------------
+//
+// If you've copied this file to your /resources/lang/vendor/backpack/
+// folder, please delete it, it's no use there. You need to copy/publish the
+// actual language file, from the package.
 
-    /*
-    |--------------------------------------------------------------------------
-    | Backup Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the backup system.
-    | You are free to change them to anything you want to customize your views to better match your application.
-    |
-    */
+// If a langfile with the same name exists in the package, load that one
+if (file_exists(__DIR__.'/../../../../../backupmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__))) {
+    return include __DIR__.'/../../../../../backupmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__);
+}
 
-    'backup'                         => 'Backup',
-    'create_a_new_backup'            => 'Criar um novo backup',
-    'existing_backups'               => 'Backups existentes',
-    'date'                           => 'Data',
-    'file_size'                      => 'Tamanho do Arquivo',
-    'actions'                        => 'Ações',
-    'download'                       => 'Baixar',
-    'delete'                         => 'Excluir',
-    'delete_confirm'                 => 'Tem certeza que deseja excluir este backup?',
-    'delete_confirmation_title'      => 'Pronto',
-    'delete_confirmation_message'    => 'Backup excluído com sucesso.',
-    'delete_error_title'             => 'Erro',
-    'delete_error_message'           => 'Não foi possível excluir o backup.',
-    'delete_cancel_title'            => 'Sem problema',
-    'delete_cancel_message'          => 'O backup não foi excluído.',
-    'create_confirmation_title'      => 'Backup completo',
-    'create_confirmation_message'    => 'A página será recarregada em 3 segundos.',
-    'create_error_title'             => 'Erro de backup',
-    'create_error_message'           => 'Não foi possível criar o Backup.',
-    'create_warning_title'           => 'Erro desconhecido',
-    'create_warning_message'         => 'O backup solicitado pode não ter sido criado. Por favor, verifique o arquivo de log para mais informações.',
-    'location'                       => 'Localização',
-    'no_disks_configured'            => 'Não existe configuração de local de backup no arquivo config/backup.php',
-    'backup_doesnt_exist'            => 'O arquivo de backup não existe.',
-    'only_local_downloads_supported' => 'Somente são suportados downloads do sistema de arquivos local.',
-];
+return [];
