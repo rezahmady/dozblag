@@ -1,40 +1,16 @@
 <?php
 
-return [
+// --------------------------------------------------------
+// This is only a pointer file, not an actual language file
+// --------------------------------------------------------
+//
+// If you've copied this file to your /resources/lang/vendor/backpack/
+// folder, please delete it, it's no use there. You need to copy/publish the
+// actual language file, from the package.
 
-    /*
-    |--------------------------------------------------------------------------
-    | Backup Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the backup system.
-    | You are free to change them to anything you want to customize your views to better match your application.
-    |
-    */
+// If a langfile with the same name exists in the package, load that one
+if (file_exists(__DIR__.'/../../../../../backupmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__))) {
+    return include __DIR__.'/../../../../../backupmanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__);
+}
 
-    'backup'                         => 'Copii de siguranță',
-    'create_a_new_backup'            => 'Creează o nouă copie de siguranță',
-    'existing_backups'               => 'Copii existente',
-    'date'                           => 'Data',
-    'file_size'                      => 'Mărimea fișierului',
-    'actions'                        => 'Acțiuni',
-    'download'                       => 'Descarcă',
-    'delete'                         => 'Șterge',
-    'delete_confirm'                 => 'Ești sigur că vrei să ștergi copia de siguranță?',
-    'delete_confirmation_title'      => 'Operațiune reușită',
-    'delete_confirmation_message'    => 'Copia de siguranță a fost ștearsă.',
-    'delete_error_title'             => 'Eroare',
-    'delete_error_message'           => 'Copia de siguranță NU a fost ștearsă.',
-    'delete_cancel_title'            => 'Este în regulă',
-    'delete_cancel_message'          => 'Copia de siguranță NU a fost ștearsă.',
-    'create_confirmation_title'      => 'Am început procesul de creare copie de siguranță',
-    'create_confirmation_message'    => 'Vă rugăm așteptați câteva minute, apoi reîncărcați pagina.',
-    'create_error_title'             => 'Eroare',
-    'create_error_message'           => 'Copia de siguranță NU a putut fi creată.',
-    'create_warning_title'           => 'Eroare necunoscută',
-    'create_warning_message'         => 'Copia de siguranță e posibil să NU fi fost creată. Verificați fișierele de log pentru detalii.',
-    'location'                       => 'Locație',
-    'no_disks_configured'            => 'Nu există niciun disc in config/backups.php',
-    'backup_doesnt_exist'            => 'Fișierul de backup nu există.',
-    'only_local_downloads_supported' => 'Doar descarcările din sistemul de fișiere local sunt suportate.',
-];
+return [];

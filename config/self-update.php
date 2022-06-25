@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'default' => env('SELF_UPDATER_SOURCE', 'github'),
+    'default' => env('SELF_UPDATER_SOURCE', 'gitlab'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', '0.1.1'),
+    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,6 +45,12 @@ return [
             'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
             'private_access_token' => env('SELF_UPDATER_GITHUB_PRIVATE_ACCESS_TOKEN', ''),
             'use_branch' => env('SELF_UPDATER_USE_BRANCH', ''),
+        ],
+        'gitlab' => [
+            'type'                 => 'gitlab',
+            'repository_id'        => env('SELF_UPDATER_REPO_URL', '31849646'),
+            'download_path'        => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
+            'private_access_token' => env('SELF_UPDATER_GITLAB_PRIVATE_ACCESS_TOKEN', ''),
         ],
         'http' => [
             'type' => 'http',
@@ -89,7 +95,7 @@ return [
     |
     */
 
-    'log_events' => env('SELF_UPDATER_LOG_EVENTS', false),
+    'log_events' => env('SELF_UPDATER_LOG_EVENTS', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -140,7 +146,10 @@ return [
             //]
         ],
         'post_update' => [
-
+            'updator:core' => [
+                'class' => \App\Console\Commands\CoreUpdate::class,
+                'params' => []
+            ]
         ],
     ],
 

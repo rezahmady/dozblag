@@ -1,0 +1,20 @@
+{
+    "name": "backpack/pro",
+    "autoload": {
+        "psr-4": {
+            "Backpack\\Pro\\": "src/"
+        }
+    },
+    "authors": [{
+        "name": "reza ahmadi sabzevar",
+        "email": "ahmadireza15@gmail.com"
+    }],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Backpack\\Pro\\BackpackServiceProvider"
+            ]
+        }
+    }
+}

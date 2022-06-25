@@ -2,7 +2,7 @@
 {{-- show error using sidebar layout if looged in AND on an admin page; otherwise use a blank page --}}
 
 @php
-  $title = 'خطا '.$error_number;
+  $title = 'Error '.$error_number;
 @endphp
 
 @section('after_styles')
@@ -40,7 +40,7 @@
 <div class="row">
   <div class="col-md-12 text-center">
     <div class="error_number">
-      <small>خطا</small><br>
+      <small>ERROR</small><br>
       {{ $error_number }}
       <hr>
     </div>

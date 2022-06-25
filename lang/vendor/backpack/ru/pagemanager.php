@@ -1,22 +1,16 @@
 <?php
 
-return [
-    'change_template_confirmation' => 'Внимание! Если вы только что вносили изменения в любые поля и не сохранили их, они будут утеряны при изменении шаблона. Продолжить?',
-    'content' => 'Содержание',
-    'content_placeholder' => 'Введите содержание здесь',
-    'meta_description' => 'Описание (Description)',
-    'meta_keywords' => 'Ключевые слова (Keywords)',
-    'meta_title' => 'Название страницы (Title)',
-    'metas' => 'Meta',
-    'name' => 'Название',
-    'open' => 'Перейти',
-    'page' => 'страница',
-    'page_name' => 'Название страницы (для администраторов)',
-    'page_slug' => 'ЧПУ (slug)',
-    'page_slug_hint' => 'Будет автоматически сгенерирован из вашего заголовка, если оставить его пустым',
-    'page_title' => 'Название страницы',
-    'pages' => 'страницы',
-    'slug' => 'ЧПУ (slug)',
-    'template' => 'Шаблон',
-    'template_not_found' => 'Не удалось найти шаблон. Возможно, он был удален после того, как страница была создана. Чтобы продолжить, попросите вашего веб-администратора или команду разработчиков исправить это',
-];
+// --------------------------------------------------------
+// This is only a pointer file, not an actual language file
+// --------------------------------------------------------
+//
+// If you've copied this file to your /resources/lang/vendor/backpack/
+// folder, please delete it, it's no use there. You need to copy/publish the
+// actual language file, from the package.
+
+// If a langfile with the same name exists in the package, load that one
+if (file_exists(__DIR__.'/../../../../../pagemanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__))) {
+    return include __DIR__.'/../../../../../pagemanager/src/resources/lang/'.basename(__DIR__).'/'.basename(__FILE__);
+}
+
+return [];

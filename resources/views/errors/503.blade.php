@@ -5,13 +5,12 @@
 @endphp
 
 @section('title')
-    سیستم در دسترس نمی باشد
+  It's not you, it's me.
 @endsection
 
 @section('description')
   @php
-    $default_error_message = "سیستم در دسترس نمی باشد .";
+    $default_error_message = "The server is overloaded or down for maintenance. Please try again later.";
   @endphp
-  لطفا بعدا مراجعه کنید
-{{--  {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}--}}
+  {!! isset($exception)? ($exception->getMessage()?e($exception->getMessage()):$default_error_message): $default_error_message !!}
 @endsection

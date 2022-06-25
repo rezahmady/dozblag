@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Modules\User\Models\Permission;
+use Kdabrow\SeederOnce\SeederOnce;
 
 class ThemeManagerDatabaseSeeder extends Seeder
 {
+    use SeederOnce;
+    
     /**
      * Run the database seeds.
      *
@@ -95,11 +98,10 @@ class ThemeManagerDatabaseSeeder extends Seeder
             ],
         ]);
 
-        // DB::table('role_has_permissions')->delete();
         $permissions = Permission::where('module', 'theme')->get();
 
         foreach ($permissions as $permission) {
-            DB::table('role_has_permissions')->insert([
+            DB::table('role_has_permissions')->insertOrIgnore([
                 'role_id'   => User::first()->id,
                 'permission_id' => $permission->id
             ]);
