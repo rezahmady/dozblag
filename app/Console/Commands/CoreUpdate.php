@@ -11,7 +11,7 @@ class CoreUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'updater:core';
+    protected $signature = 'updater:core {--u}';
 
     /**
      * The console command description.
@@ -37,8 +37,13 @@ class CoreUpdate extends Command
      */
     public function handle()
     {
-        // composer update
-        exec('cd '.base_path().' && composer update');
+        if($this->option('u') === null) {
+            // composer update
+            exec('cd '.base_path().' && composer update');
+
+            // publish backpack assets
+            $this->call('vendor:publish',['--provider' => "Backpack\CRUD\BackpackServiceProvider", '--tag' => 'public', '--force' => true]);
+        }
 
         chmod(base_path(),0755);
 
@@ -48,17 +53,18 @@ class CoreUpdate extends Command
         // migrations
         $this->call('migrate');
 
+
         // cache config
-        $this->call('cahe:config');
+        $this->call('config:cache');
 
         // cache routes
-        $this->call('cahe:route');
+        $this->call('route:cache');
 
         // cache views
-        $this->call('cahe:view');
+        $this->call('view:cache');
 
         // cache events
-        $this->call('cahe:event');
+        $this->call('event:cache');
 
         // seed core
         $this->call('db:seed');
@@ -66,5 +72,6 @@ class CoreUpdate extends Command
         // seed modules
         $this->call('module:seed');
 
+        $this->call('optimize');
     }
 }
