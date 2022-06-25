@@ -10,7 +10,6 @@
 /public/livewire
 /public/.well-known
 /storage/*.key
-/storage/
 .idea/
 /resources/views/raque
 /resources/views/default
