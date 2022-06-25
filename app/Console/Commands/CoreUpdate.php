@@ -42,7 +42,11 @@ class CoreUpdate extends Command
             exec('cd '.base_path().' && composer update');
 
             // publish backpack assets
-            $this->call('backpack:fix');
+            $this->call('vendor:publish', [
+                '--provider' => 'Backpack\CRUD\BackpackServiceProvider',
+                '--tag' => 'public',
+                '--force' => 'true',
+            ]);
         }
 
         chmod(base_path(),0755);
