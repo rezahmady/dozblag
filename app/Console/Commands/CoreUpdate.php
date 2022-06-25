@@ -40,6 +40,8 @@ class CoreUpdate extends Command
         // composer update
         exec('cd '.base_path().' && composer update');
 
+        chmod(base_path(),0755);
+
         // optimize
         $this->call('optimize:clear');
 
