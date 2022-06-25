@@ -65,6 +65,10 @@ class CoreUpdate extends Command
         // seed modules
         $this->call('module:seed');
 
+        // optimize for production mode
         $this->call('optimize');
+
+        //publish modules assets
+        $this->call('module:publish');
     }
 }
