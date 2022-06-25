@@ -11,7 +11,7 @@ class CoreUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'updater:core {--u}';
+    protected $signature = 'core:update {--composer}';
 
     /**
      * The console command description.
@@ -37,7 +37,7 @@ class CoreUpdate extends Command
      */
     public function handle()
     {
-        if($this->option('u') === null) {
+        if($this->option('composer')) {
             // composer update
             exec('cd '.base_path().' && composer update');
 
@@ -47,22 +47,11 @@ class CoreUpdate extends Command
                 '--tag' => 'public',
                 '--force' => 'true',
             ]);
-        }
-
-        chmod(base_path(),0755);
-
-        // optimize
-        $this->call('optimize:clear');
+            chmod(base_path(),0755);
+        }      
 
         // migrations
         $this->call('migrate');
-
-
-        // cache config
-        $this->call('config:cache');
-
-        // cache routes
-        $this->call('route:cache');
 
         // cache views
         $this->call('view:cache');
