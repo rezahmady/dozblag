@@ -27,7 +27,7 @@ return [
 
     'stubs' => [
         'enabled' => false,
-        'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'path' => base_path('Modules/DevTools/Console/src/Commands/stubs'),
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
@@ -127,7 +127,7 @@ return [
             'notifications' => ['path' => 'Notifications', 'generate' => false],
             'resource' => ['path' => 'Transformers', 'generate' => false],
             'component-view' => ['path' => 'Resources/views/components', 'generate' => false],
-            'component-class' => ['path' => 'View/Component', 'generate' => false],
+            'component-class' => ['path' => 'View/Components', 'generate' => false],
         ],
     ],
 
@@ -185,6 +185,8 @@ return [
         Commands\ResourceMakeCommand::class,
         Commands\TestMakeCommand::class,
         Commands\LaravelModulesV6Migrator::class,
+        Commands\ComponentClassMakeCommand::class,
+        Commands\ComponentViewMakeCommand::class,
     ],
 
     /*
@@ -213,14 +215,13 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'rezahmady',
+        'vendor' => 'nwidart',
         'author' => [
             'name' => 'Reza Ahmadi Sabzevar',
-            'email' => 'ahmadireza15@gmail.com',
+            'email' => 'ahmadirerza15@gmail.com',
         ],
+        'composer-output' => false,
     ],
-
-    'composer-output' => false,
 
     /*
     |--------------------------------------------------------------------------
