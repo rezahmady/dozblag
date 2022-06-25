@@ -167,7 +167,7 @@ class UserDatabaseSeeder extends Seeder
         
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insertOrIgnore([
-                'role_id'   => User::first()->id,
+                'role_id'   => Role::first()->id,
                 'permission_id' => $permission->id
             ]);
         }
