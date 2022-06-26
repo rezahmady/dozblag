@@ -38,8 +38,12 @@ class CoreUpdate extends Command
     public function handle()
     {
         if($this->option('composer')) {
+
+            $owner = get_current_user();
+
             // composer update
-            exec('cd '.base_path().' && composer update');
+            // fix permissions
+            exec('cd '.base_path().' && chown -R '.$owner.':www-data storage && chown -R '.$owner.':www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
 
             // publish backpack assets
             $this->call('vendor:publish', [
@@ -48,16 +52,10 @@ class CoreUpdate extends Command
                 '--force' => 'true',
             ]);
             chmod(base_path(),0755);
-        }      
+        }
 
         // migrations
         $this->call('migrate');
-
-        // cache views
-        $this->call('view:cache');
-
-        // cache events
-        $this->call('event:cache');
 
         // seed core
         $this->call('db:seed');
@@ -65,10 +63,18 @@ class CoreUpdate extends Command
         // seed modules
         $this->call('module:seed');
 
-        // optimize for production mode
-        $this->call('optimize');
-
         //publish modules assets
         $this->call('module:publish');
+
+        if(app()->isProduction()) {
+            // cache views
+            $this->call('view:cache');
+    
+            // cache events
+            $this->call('event:cache');
+    
+            // optimize for production mode
+            $this->call('optimize');
+        }
     }
 }
