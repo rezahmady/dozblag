@@ -25,7 +25,6 @@ class Home extends Component
 
     public function render()
     {
-        // dd(session()->get('alert_messages'));
         return view('theme::modules.pages.home')
         ->layout('theme::layouts.app-state');
     }

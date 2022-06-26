@@ -116,6 +116,8 @@ class ThemeCrudController extends CrudController
 
         $themes = $this->getThemesFromFolder();
 
+        // dd($themes);
+
         foreach($themes as $theme){
             $widgets = $theme->widgets ?? false;
             // $json_file_path = $this->themes_folder . '/' . $theme->folder . '/' . $theme->folder . '.json';
@@ -124,10 +126,8 @@ class ThemeCrudController extends CrudController
                 // If the theme does not exist in the database, then update it.
                 if(!isset($theme_exists->id)){
                     $version = isset($theme->version) ? $theme->version : '';
-                    $theme = $this->theme_model::create(['name' => $theme->name, 'folder' => $theme->folder, 'version' => $version]);
-                    if(config('thememanager.publish_assets', true)){
-                        $this->publishAssets($theme->folder);
-                    }
+                    $img = $this->publishAssets($theme->folder);
+                    $theme = $this->theme_model::create(['name' => $theme->name, 'folder' => $theme->folder, 'version' => $version, 'img'=> $img]);
                     if(isset($widgets)){
                         // $jsonString = file_get_contents($json_file_path);
                         // $data = json_decode($jsonString, true);
@@ -196,6 +196,10 @@ class ThemeCrudController extends CrudController
             return redirect()->back();
         }
 
+        if(config('themes.publish_assets')){
+            $this->publishAssets($theme->folder);
+        }
+
         try {
             $json_file = $this->themes_folder . '/' . $theme->folder . '/' . $theme->folder . '.json';
             if(file_exists($json_file)){
@@ -243,7 +247,7 @@ class ThemeCrudController extends CrudController
         $this->theme_model::query()->update(['active' => 0]);
     }
 
-    private function publishAssets($theme) {
+    private function publishAssets($theme) : string|null {
         $theme_path = public_path('themes/'.$theme);
 
         if(!file_exists($theme_path)){
@@ -253,8 +257,25 @@ class ThemeCrudController extends CrudController
             mkdir($theme_path);
         }
 
-        File::copyDirectory($this->themes_folder.'/'.$theme.'/assets', public_path(config('thememanager.assets_folder').$theme));
-        File::copy($this->themes_folder.'/'.$theme.'/'.$theme.'.jpg', public_path('themes/'.$theme.'/'.$theme.'.jpg'));
+        $assets_path = $this->themes_folder.'/'.$theme.'/assets';
+        if (file_exists($assets_path)) {
+            File::copyDirectory($assets_path, public_path(config('thememanager.assets_folder').$theme));
+        }
+
+        $img_svg_path = $this->themes_folder.'/'.$theme.'/'.$theme.'.svg';
+        $img_jpg_path = $this->themes_folder.'/'.$theme.'/'.$theme.'.jpg';
+        $img_png_path = $this->themes_folder.'/'.$theme.'/'.$theme.'.png';
+        if (file_exists($img_jpg_path)) {
+            File::copy($img_jpg_path, public_path('themes/'.$theme.'/'.$theme.'.jpg'));
+            return $theme.'/'.$theme.'.jpg';
+        } elseif(file_exists($img_svg_path)) {
+            File::copy($img_svg_path, public_path('themes/'.$theme.'/'.$theme.'.svg'));
+            return $theme.'/'.$theme.'.svg';
+        } elseif(file_exists($img_png_path)) {
+            File::copy($img_png_path, public_path('themes/'.$theme.'/'.$theme.'.png'));
+            return $theme.'/'.$theme.'.png';
+        }
+        return null;
     }
 
     /**
