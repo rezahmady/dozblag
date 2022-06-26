@@ -198,15 +198,15 @@ class UserCrudController extends CrudController
 
     protected function addUserFields($template = '')
     {
-//        $this->crud->addField([
-//            'name' => 'template',
-//            'label' => trans('user::permissionmanager.template'),
-//            'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
-//            'type' => 'select_crud_template',
-//            'options' => $this->getTemplatesArray(),
-//            'value' => $template,
-//            'allows_null' => false,
-//        ]);
+        //        $this->crud->addField([
+        //            'name' => 'template',
+        //            'label' => trans('user::permissionmanager.template'),
+        //            'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
+        //            'type' => 'select_crud_template',
+        //            'options' => $this->getTemplatesArray(),
+        //            'value' => $template,
+        //            'allows_null' => false,
+        //        ]);
 
         $this->crud->addFields([
             [
@@ -244,31 +244,30 @@ class UserCrudController extends CrudController
                 ],
             ],
         ]);
-        if(backpack_user()->can('admin create')) {
-            $this->crud->addFields([
-                [
-                    'name'  => 'password',
-                    'label' => trans('user::permissionmanager.password'),
-                    'type'  => 'password',
-                    'attributes' => [
-                        'autocomplete' => 'new-password',
-                    ],
-                    'wrapper'   => [
-                        'class'  => "form-group col-md-6"
-                    ],
-                    'tab' => 'دسترسی',
+
+        $this->crud->addFields([
+            [
+                'name'  => 'password',
+                'label' => trans('user::permissionmanager.password'),
+                'type'  => 'password',
+                'attributes' => [
+                    'autocomplete' => 'new-password',
                 ],
-                [
-                    'name'  => 'password_confirmation',
-                    'label' => trans('user::permissionmanager.password_confirmation'),
-                    'type'  => 'password',
-                    'wrapper'   => [
-                        'class'  => "form-group col-md-6"
-                    ],
-                    'tab' => 'دسترسی',
-                ]
-            ]);
-        }
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab' => 'دسترسی',
+            ],
+            [
+                'name'  => 'password_confirmation',
+                'label' => trans('user::permissionmanager.password_confirmation'),
+                'type'  => 'password',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+                'tab' => 'دسترسی',
+            ]
+        ]);
 
         $this->useTemplate($template);
     }
