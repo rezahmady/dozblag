@@ -37,6 +37,9 @@ class CoreUpdate extends Command
      */
     public function handle()
     {
+        // optimize for production mode
+        $this->call('optimize');
+        
         if($this->option('composer')) {
 
             $owner = get_current_user();
@@ -66,15 +69,10 @@ class CoreUpdate extends Command
         //publish modules assets
         $this->call('module:publish');
 
-        if(app()->isProduction()) {
-            // cache views
-            $this->call('view:cache');
-    
-            // cache events
-            $this->call('event:cache');
-    
-            // optimize for production mode
-            $this->call('optimize');
-        }
+        // cache views
+        $this->call('view:cache');
+
+        // cache events
+        $this->call('event:cache');
     }
 }
