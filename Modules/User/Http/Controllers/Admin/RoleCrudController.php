@@ -24,7 +24,7 @@ class RoleCrudController extends CrudController
         $this->permission_model = Permission::class;
 
         $this->crud->setModel($this->role_model);
-        $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.role'), trans('backpack::permissionmanager.roles'));
+        $this->crud->setEntityNameStrings(trans('user::permissionmanager.role'), trans('user::permissionmanager.roles'));
         $this->crud->setRoute(backpack_url('role'));
 
         // deny access according to configuration file
@@ -49,7 +49,7 @@ class RoleCrudController extends CrudController
          */
         $this->crud->addColumn([
             'name'  => 'name',
-            'label' => trans('backpack::permissionmanager.name'),
+            'label' => trans('user::permissionmanager.name'),
             'type'  => 'text',
         ]);
 
@@ -64,7 +64,7 @@ class RoleCrudController extends CrudController
          */
         $this->crud->query->withCount('users');
         $this->crud->addColumn([
-            'label'     => trans('backpack::permissionmanager.users'),
+            'label'     => trans('user::permissionmanager.users'),
             'type'      => 'text',
             'name'      => 'users_count',
             'wrapper'   => [
@@ -81,7 +81,7 @@ class RoleCrudController extends CrudController
         if (config('backpack.permissionmanager.multiple_guards')) {
             $this->crud->addColumn([
                 'name'  => 'guard_name',
-                'label' => trans('backpack::permissionmanager.guard_type'),
+                'label' => trans('user::permissionmanager.guard_type'),
                 'type'  => 'text',
             ]);
         }
@@ -91,7 +91,7 @@ class RoleCrudController extends CrudController
          */
         $this->crud->addColumn([
             // n-n relationship (with pivot table)
-            'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
+            'label'     => ucfirst(trans('user::permissionmanager.permission_plural')),
             'type'      => 'select_multiple',
             'name'      => 'permissions', // the method that defines the relationship in your Model
             'entity'    => 'permissions', // the method that defines the relationship in your Model
@@ -124,21 +124,21 @@ class RoleCrudController extends CrudController
     {
         $this->crud->addField([
             'name'  => 'name',
-            'label' => trans('backpack::permissionmanager.name'),
+            'label' => trans('user::permissionmanager.name'),
             'type'  => 'text',
         ]);
 
         if (config('backpack.permissionmanager.multiple_guards')) {
             $this->crud->addField([
                 'name'    => 'guard_name',
-                'label'   => trans('backpack::permissionmanager.guard_type'),
+                'label'   => trans('user::permissionmanager.guard_type'),
                 'type'    => 'select_from_array',
                 'options' => $this->getGuardTypes(),
             ]);
         }
 
         $this->crud->addField([
-            'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
+            'label'     => ucfirst(trans('user::permissionmanager.permission_plural')),
             'type'      => 'checklist_grouped',
             'name'      => 'permissions',
             'entity'    => 'permissions',
