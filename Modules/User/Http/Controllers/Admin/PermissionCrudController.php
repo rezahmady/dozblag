@@ -24,7 +24,7 @@ class PermissionCrudController extends CrudController
         $this->permission_model = Permission::class;
 
         $this->crud->setModel($this->permission_model);
-        $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.permission_singular'), trans('backpack::permissionmanager.permission_plural'));
+        $this->crud->setEntityNameStrings(trans('user::permissionmanager.permission_singular'), trans('user::permissionmanager.permission_plural'));
         $this->crud->setRoute(backpack_url('permission'));
 
         // deny access according to configuration file
@@ -46,20 +46,20 @@ class PermissionCrudController extends CrudController
     {
         $this->crud->addColumn([
             'name'  => 'display_name',
-            'label' => trans('backpack::permissionmanager.display_name'),
+            'label' => trans('user::permissionmanager.display_name'),
             'type'  => 'text',
         ]);
 
         $this->crud->addColumn([
             'name'  => 'name',
-            'label' => trans('backpack::permissionmanager.name'),
+            'label' => trans('user::permissionmanager.name'),
             'type'  => 'text',
         ]);
 
         if (config('backpack.permissionmanager.multiple_guards')) {
             $this->crud->addColumn([
                 'name'  => 'guard_name',
-                'label' => trans('backpack::permissionmanager.guard_type'),
+                'label' => trans('user::permissionmanager.guard_type'),
                 'type'  => 'text',
             ]);
         }
@@ -87,20 +87,20 @@ class PermissionCrudController extends CrudController
     {
         $this->crud->addField([
             'name'  => 'display_name',
-            'label' => trans('backpack::permissionmanager.display_name'),
+            'label' => trans('user::permissionmanager.display_name'),
             'type'  => 'text',
         ]);
 
         $this->crud->addField([
             'name'  => 'name',
-            'label' => trans('backpack::permissionmanager.name'),
+            'label' => trans('user::permissionmanager.name'),
             'type'  => 'text',
         ]);
 
         if (config('backpack.permissionmanager.multiple_guards')) {
             $this->crud->addField([
                 'name'    => 'guard_name',
-                'label'   => trans('backpack::permissionmanager.guard_type'),
+                'label'   => trans('user::permissionmanager.guard_type'),
                 'type'    => 'select_from_array',
                 'options' => $this->getGuardTypes(),
             ]);

@@ -27,14 +27,14 @@ trait UserTemplates
         if(backpack_user()->can('user assign role')) {
             $this->crud->addField([
                 // two interconnected entities
-                'label'             => trans('backpack::permissionmanager.user_role_permission'),
+                'label'             => trans('user::permissionmanager.user_role_permission'),
                 'field_unique_name' => 'user_role_permission',
                 'type'              => 'checklist_dependency',
                 'name'              => ['roles', 'permissions'],
                 'tab'               => 'دسترسی',
                 'subfields'         => [
                     'primary' => [
-                        'label'            => trans('backpack::permissionmanager.roles'),
+                        'label'            => trans('user::permissionmanager.roles'),
                         'name'             => 'roles', // the method that defines the relationship in your Model
                         'entity'           => 'roles', // the method that defines the relationship in your Model
                         'entity_secondary' => 'permissions', // the method that defines the relationship in your Model
@@ -44,7 +44,7 @@ trait UserTemplates
                         'number_columns'   => 3, //can be 1,2,3,4,6
                     ],
                     'secondary' => [
-                        'label'          => ucfirst(trans('backpack::permissionmanager.permission_singular')),
+                        'label'          => ucfirst(trans('user::permissionmanager.permission_singular')),
                         'name'           => 'permissions', // the method that defines the relationship in your Model
                         'entity'         => 'permissions', // the method that defines the relationship in your Model
                         'entity_primary' => 'roles', // the method that defines the relationship in your Model
