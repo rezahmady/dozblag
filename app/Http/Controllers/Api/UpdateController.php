@@ -37,6 +37,8 @@ class UpdateController extends Controller
             // Run the update process
             $updater->source()->update($release);
 
+            config(['self-update.version_installed' => $versionAvailable]);
+
             Alert::success('تبریک! سیستم شما با موفقیت از ورژن '.$versionActive.' به ورژن '.$versionAvailable.' ارتقاء یافت.')->flash();
             return redirect()->back();
         } else {

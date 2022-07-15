@@ -25,10 +25,10 @@ class UserDatabaseSeeder extends Seeder
         Model::unguard();
 
         DB::table('users')->insertOrIgnore([
-            'name'     => 'reza',
-            'email'    => 'ahmadireza15@gmail.com',
+            'name'     => 'sysadmin',
+            'email'    => 'admin@admin.com',
             'password' => Hash::make('password'),
-            'mobile'   => '09357000484',
+            'mobile'   => '0912000000',
         ]);
 
 
@@ -167,7 +167,7 @@ class UserDatabaseSeeder extends Seeder
         
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insertOrIgnore([
-                'role_id'   => User::first()->id,
+                'role_id'   => Role::first()->id,
                 'permission_id' => $permission->id
             ]);
         }

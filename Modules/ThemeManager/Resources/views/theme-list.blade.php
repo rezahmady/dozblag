@@ -54,7 +54,7 @@
         @if ($theme)
         <div class="row" >
             <div class="col-sm-4">
-                <img class="img-responsive" width="300px" src="{{ url(config('thememanager.assets_folder')) }}/{{ $theme->folder }}/{{ $theme->folder }}.jpg">
+                <img class="img-responsive" width="300px" src="{{ url(config('thememanager.assets_folder').$theme->img ?? '/')}}">
             </div>
             <div class="col-sm-8">
                 <h3 class="margin-top">
@@ -95,7 +95,7 @@
             @foreach ($crud->getEntries()->where('active',  0) as $entry)
             <div class="col-sm-6 col-lg-4">
                 <div class="brand-card">
-                  <div class="brand-card-header" style="height:200px;background-size: cover;background-image: url('{{ url(config('thememanager.assets_folder')) }}/{{ $entry->folder }}/{{ $entry->folder }}.jpg')"></div>
+                  <div class="brand-card-header" style="height:200px;background-size: cover;background-image: url('{{url(config('thememanager.assets_folder').$entry->img ?? '/')}}')"></div>
                   <div class="card-header" style="background: #f9f9f9;">{{ $entry->name }}<span class="badge badge-warning float-right">{{ $entry->version }}</span></div>
                 </div>
                 <div style="margin-top: -20px;">

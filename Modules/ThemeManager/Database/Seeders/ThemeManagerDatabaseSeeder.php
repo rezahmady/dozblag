@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Modules\User\Models\Permission;
 use Kdabrow\SeederOnce\SeederOnce;
+use Modules\User\Models\Role;
 
 class ThemeManagerDatabaseSeeder extends Seeder
 {
@@ -102,7 +103,7 @@ class ThemeManagerDatabaseSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insertOrIgnore([
-                'role_id'   => User::first()->id,
+                'role_id'   => Role::first()->id,
                 'permission_id' => $permission->id
             ]);
         }

@@ -14,7 +14,7 @@ class Theme extends Model
     use CrudTrait;
 
     protected $table = 'themes';
-    protected $fillable = ['name', 'folder', 'version', 'extras'];
+    protected $fillable = ['name', 'folder', 'version', 'img', 'extras'];
     protected $fakeColumns = ['extras'];
     protected $casts = [
         'extras' => 'array',

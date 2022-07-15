@@ -11,7 +11,7 @@ class CoreUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'updater:core {--u}';
+    protected $signature = 'core:update {--composer}';
 
     /**
      * The console command description.
@@ -37,34 +37,28 @@ class CoreUpdate extends Command
      */
     public function handle()
     {
-        if($this->option('u') === null) {
+        // optimize for production mode
+        $this->call('optimize');
+        
+        if($this->option('composer')) {
+
+            $owner = get_current_user();
+
             // composer update
-            exec('cd '.base_path().' && composer update');
+            // fix permissions
+            exec('cd '.base_path().' && chown -R '.$owner.':www-data storage && chown -R '.$owner.':www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
 
             // publish backpack assets
-            $this->call('vendor:publish',['--provider' => "Backpack\CRUD\BackpackServiceProvider", '--tag' => 'public', '--force' => true]);
+            $this->call('vendor:publish', [
+                '--provider' => 'Backpack\CRUD\BackpackServiceProvider',
+                '--tag' => 'public',
+                '--force' => 'true',
+            ]);
+            chmod(base_path(),0755);
         }
-
-        chmod(base_path(),0755);
-
-        // optimize
-        $this->call('optimize:clear');
 
         // migrations
         $this->call('migrate');
-
-
-        // cache config
-        $this->call('config:cache');
-
-        // cache routes
-        $this->call('route:cache');
-
-        // cache views
-        $this->call('view:cache');
-
-        // cache events
-        $this->call('event:cache');
 
         // seed core
         $this->call('db:seed');
@@ -72,6 +66,13 @@ class CoreUpdate extends Command
         // seed modules
         $this->call('module:seed');
 
-        $this->call('optimize');
+        //publish modules assets
+        $this->call('module:publish');
+
+        // cache views
+        $this->call('view:cache');
+
+        // cache events
+        $this->call('event:cache');
     }
 }
