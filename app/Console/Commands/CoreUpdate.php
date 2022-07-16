@@ -11,7 +11,7 @@ class CoreUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'core:update {--composer}';
+    protected $signature = 'core:update {--composer} {--dev}';
 
     /**
      * The console command description.
@@ -37,9 +37,6 @@ class CoreUpdate extends Command
      */
     public function handle()
     {
-        // optimize for production mode
-        $this->call('optimize');
-        
         if($this->option('composer')) {
 
             $owner = get_current_user();
@@ -75,10 +72,19 @@ class CoreUpdate extends Command
         //publish modules assets
         $this->call('module:publish');
 
-        // cache views
-        $this->call('view:cache');
+        if($this->option('dev')) {
+            $this->call('cache:clear');
+            $this->call('config:clear');
+            $this->call('view:clear');
+            $this->call('route:clear');
+        } else {
+            // optimize for production mode
+            $this->call('optimize');
+            // cache views
+            $this->call('view:cache');
+            // cache events
+            $this->call('event:cache');
+        }
 
-        // cache events
-        $this->call('event:cache');
     }
 }
