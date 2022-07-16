@@ -54,6 +54,12 @@ class CoreUpdate extends Command
                 '--tag' => 'public',
                 '--force' => 'true',
             ]);
+
+            //$this->call('backpack:filemanager:install');
+
+            $this->call('module:enable User');
+            $this->call('module:enable ThemeManager');
+
             chmod(base_path(),0755);
         }
 
