@@ -8,11 +8,15 @@ use App\Services\Menu;
 use TorMorten\Eventy\Facades\Events as Eventy;
 
 $menu = Menu::create(function($menu) {
-            Eventy::action('admin-menu-build', $menu);
-        })->render();
+    Eventy::action('admin-menu-build', $menu);
+})->render();
 ?>
 
 {!! $menu !!}
+
+@can('module manage')
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('module') }}'><i class='nav-icon la la-puzzle-piece'></i> افزونه‌ها</a></li>
+@endcan
 
 @can('admin filemanager')
 <li class="nav-item nav-dropdown">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ModuleCrudController;
 use Illuminate\Support\Facades\Route;
 
 // --------------------------
@@ -16,4 +17,7 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    Route::get('module/{module}/enable', [ ModuleCrudController::class, 'enable'])->name('enable');
+    Route::get('module/{module}/disable', [ ModuleCrudController::class, 'disable'])->name('disable');
+    Route::crud('module', 'ModuleCrudController');
 }); // this should be the absolute last line of this file
