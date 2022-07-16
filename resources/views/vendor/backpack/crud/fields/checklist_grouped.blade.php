@@ -53,7 +53,7 @@
         <div class=" checklist_grouped_box">
           <span class="checklist_grouped_title d-flex align-items-center">
             <i class="before-header"></i>
-          <div class="text">{{trans("backpack::permissionmanager.attribute.$gkey")}}</div></span>
+          <div class="text">{{trans("user::permissionmanager.attribute.$gkey")}}</div></span>
           @foreach ($group as $key => $option)
               <div class="">
                   <div class="checkbox">

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'User',
+
     /*
     |--------------------------------------------------------------------------
     | Models
@@ -12,9 +12,9 @@ return [
     */
 
     'models' => [
-        'user' => App\Models\User::class,
-        'permission' => Modules\User\Models\Permission::class,
-        'role' => Modules\User\Models\Role::class,
+        'user'       => App\Models\User::class,
+        'permission' => App\Models\Permission::class,
+        'role'       => App\Models\Role::class,
     ],
 
     /*
@@ -33,9 +33,9 @@ return [
     'allow_permission_create' => true,
     'allow_permission_update' => true,
     'allow_permission_delete' => true,
-    'allow_role_create' => true,
-    'allow_role_update' => true,
-    'allow_role_delete' => true,
+    'allow_role_create'       => true,
+    'allow_role_update'       => true,
+    'allow_role_delete'       => true,
 
     /*
     |--------------------------------------------------------------------------

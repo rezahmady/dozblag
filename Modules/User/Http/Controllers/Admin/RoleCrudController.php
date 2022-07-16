@@ -28,15 +28,15 @@ class RoleCrudController extends CrudController
         $this->crud->setRoute(backpack_url('role'));
 
         // deny access according to configuration file
-        if (config('backpack.permissionmanager.allow_role_create') == false) {
+        if (config('user.allow_role_create') == false) {
             $this->crud->denyAccess('create');
         } else {(backpack_user()->can(self::ENTITY.' create')) ? $this->crud->allowAccess('create') : $this->crud->denyAccess('create');}
 
-        if (config('backpack.permissionmanager.allow_role_update') == false) {
+        if (config('user.allow_role_update') == false) {
             $this->crud->denyAccess('update');
         } else {(backpack_user()->can(self::ENTITY.' update')) ? $this->crud->allowAccess('update') : $this->crud->denyAccess('update');}
 
-        if (config('backpack.permissionmanager.allow_role_delete') == false) {
+        if (config('user.allow_role_delete') == false) {
             $this->crud->denyAccess('delete');
         } else {(backpack_user()->can(self::ENTITY.' delete')) ? $this->crud->allowAccess('delete') : $this->crud->denyAccess('delete');}
 
@@ -78,7 +78,7 @@ class RoleCrudController extends CrudController
         /**
          * In case multiple guards are used, show a column for the guard.
          */
-        if (config('backpack.permissionmanager.multiple_guards')) {
+        if (config('user.multiple_guards')) {
             $this->crud->addColumn([
                 'name'  => 'guard_name',
                 'label' => trans('user::permissionmanager.guard_type'),
@@ -128,7 +128,7 @@ class RoleCrudController extends CrudController
             'type'  => 'text',
         ]);
 
-        if (config('backpack.permissionmanager.multiple_guards')) {
+        if (config('user.multiple_guards')) {
             $this->crud->addField([
                 'name'    => 'guard_name',
                 'label'   => trans('user::permissionmanager.guard_type'),
@@ -139,7 +139,7 @@ class RoleCrudController extends CrudController
 
         $this->crud->addField([
             'label'     => ucfirst(trans('user::permissionmanager.permission_plural')),
-            'type'      => 'checklist_grouped',
+            'type'      => 'checklist',
             'name'      => 'permissions',
             'entity'    => 'permissions',
             'attribute' => 'display_name',
