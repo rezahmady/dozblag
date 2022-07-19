@@ -45,6 +45,8 @@ class CoreUpdate extends Command
             // fix permissions
             exec('cd '.base_path().' && chown -R '.$owner.':www-data storage && chown -R '.$owner.':www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
 
+            $this->call('backpack:filemanager:install');
+            
             // publish backpack assets
             $this->call('vendor:publish', [
                 '--provider' => 'Backpack\CRUD\BackpackServiceProvider',
@@ -52,10 +54,8 @@ class CoreUpdate extends Command
                 '--force' => 'true',
             ]);
 
-            //$this->call('backpack:filemanager:install');
-
-            $this->call('module:enable User');
-            $this->call('module:enable ThemeManager');
+            $this->call('module:enable', ['module' => 'User']);
+            $this->call('module:enable', ['module' => 'ThemeManager']);
 
             chmod(base_path(),0755);
         }
