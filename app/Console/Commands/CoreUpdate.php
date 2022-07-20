@@ -61,13 +61,19 @@ class CoreUpdate extends Command
         }
 
         // migrations
-        $this->call('migrate');
+        $this->call('migrate', [
+            '--force' => true
+         ]);
 
         // seed core
-        $this->call('db:seed');
+        $this->call('db:seed', [
+            '--force' => true
+         ]);
 
         // seed modules
-        $this->call('module:seed');
+        $this->call('module:seed', [
+            '--force' => true
+         ]);
 
         //publish modules assets
         $this->call('module:publish');
