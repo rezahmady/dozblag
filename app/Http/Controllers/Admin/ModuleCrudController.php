@@ -167,7 +167,7 @@ class ModuleCrudController extends CrudController
                 // save
                 $response = $this->traitStore();
         
-                Artisan::call('module:enable ', ['module' => $module['name']]);
+                Artisan::call('module:enable', ['module' => $module['name']]);
                 Artisan::call('core:update');
                 
                 return $response;
