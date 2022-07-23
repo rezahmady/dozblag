@@ -45,7 +45,7 @@ class ModuleSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insertOrIgnore([
-                'role_id'   => Role::first()->id,
+                'role_id'   => 1,
                 'permission_id' => $permission->id
             ]);
         }
