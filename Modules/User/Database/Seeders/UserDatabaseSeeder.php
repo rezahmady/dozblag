@@ -101,6 +101,12 @@ class UserDatabaseSeeder extends Seeder
                 'module'    => 'user',
             ],
             [
+                'name'     => 'user setting',
+                'guard_name'    => 'web',
+                'display_name'   => 'تنظیمات کاربران',
+                'module'    => 'user',
+            ],
+            [
                 'name'     => 'user assign role',
                 'guard_name'    => 'web',
                 'display_name'   => 'الصاق نقش به کاربر',
