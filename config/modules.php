@@ -28,23 +28,29 @@ return [
 
     'stubs' => [
         'enabled' => true,
-        'path' => base_path('Modules/DevTools/Console/src/Commands/stubs'),
+        'path' => base_path('Modules/DevTools/Console/stubs'),
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
             // 'views/index' => 'Resources/views/index.blade.php',
             // 'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
+            'scaffold/hook-provider' => 'Providers/HookServiceProvider.php',
             'composer' => 'composer.json',
             // 'assets/js/app' => 'Resources/assets/js/app.js',
             // 'assets/sass/app' => 'Resources/assets/sass/app.scss',
             // 'webpack' => 'webpack.mix.js',
             // 'package' => 'package.json',
+            'lang/en' => 'Resources/lang/en/lang.php',
+            'lang/fa' => 'Resources/lang/fa/lang.php',
         ],
         'replacements' => [
             'routes/web' => ['LOWER_NAME', 'STUDLY_NAME'],
+            'lang/fa' => ['LOWER_NAME'],
+            'lang/en' => ['LOWER_NAME'],
             'routes/api' => ['LOWER_NAME'],
             'webpack' => ['LOWER_NAME'],
+            'scaffold/hook-provider' => ['STUDLY_NAME'],
             'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
             'views/index' => ['LOWER_NAME'],
             'views/master' => ['LOWER_NAME', 'STUDLY_NAME'],
@@ -216,7 +222,7 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'nwidart',
+        'vendor' => 'rezahmady',
         'author' => [
             'name' => 'Reza Ahmadi Sabzevar',
             'email' => 'ahmadirerza15@gmail.com',
