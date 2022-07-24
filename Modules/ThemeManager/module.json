@@ -1,6 +1,7 @@
 {
     "name": "ThemeManager",
     "alias": "thememanager",
+    "display_name": "مدیریت قالب",
     "description": "",
     "keywords": [],
     "priority": 100,

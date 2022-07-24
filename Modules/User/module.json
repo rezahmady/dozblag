@@ -1,6 +1,7 @@
 {
     "name": "User",
     "alias": "user",
+    "display_name": "مدیریت کاربران",
     "description": "",
     "keywords": [],
     "priority": 0,

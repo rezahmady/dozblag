@@ -45,6 +45,8 @@ class ModuleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
+        $this->checkNewModules();
         CRUD::addColumns([
             [
                 'name'  => 'display_name',
@@ -124,7 +126,7 @@ class ModuleCrudController extends CrudController
     {
         $module->update(['status' => true]);
         Artisan::call('module:enable '.$module->name);
-        Alert::error('افزونه '.$module->display_name.' فعال شد.')->flash();
+        Alert::success('افزونه '.$module->display_name.' فعال شد.')->flash();
         return redirect()->back();
     }
 
@@ -132,7 +134,7 @@ class ModuleCrudController extends CrudController
     {
         $module->update(['status' => false]);
         Artisan::call('module:disable '.$module->name);
-        Alert::error('افزونه '.$module->display_name.' غیرفعال شد.')->flash();
+        Alert::success('افزونه '.$module->display_name.' غیرفعال شد.')->flash();
         return redirect()->back();
     }
 
@@ -176,5 +178,48 @@ class ModuleCrudController extends CrudController
         } else {
             echo 'فرمت فایل درست نیست';
         }
+    }
+
+    public function checkNewModules()
+    {
+        $modules_path = config('modules.paths.modules');
+        $modules = $this->getModulesFromPath($modules_path);
+
+        foreach ($modules as $module_folder) {
+            $module = Module::where('name', $module_folder->name)->first();
+            if(!$module) {
+                Module::create([
+                    'name' => $module_folder->name,
+                    'status' => 0,
+                    'display_name' => $module_folder->display_name,
+                    'description' => $module_folder->description,
+                    'path' => $modules_path.'/'.$module_folder->name
+                ]);
+            }
+        }
+
+    }
+
+    public function getModulesFromPath($modules_path )
+    {
+        if(!file_exists($modules_path)){
+            mkdir($modules_path);
+        }
+
+        $scandirectory = scandir($modules_path);
+
+        $modules = collect();
+
+        if(isset($scandirectory)){
+            foreach($scandirectory as $folder) {
+                if(!in_array($folder, ['.', '..'])) {
+                    $json_file = $modules_path . '/' . $folder . '/module.json';
+                    if(file_exists($json_file)){
+                        $modules[$folder] = json_decode(file_get_contents($json_file), false);
+                    }
+                }
+            }
+        }
+        return (object)$modules;
     }
 }
