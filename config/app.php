@@ -177,8 +177,6 @@ return [
         /*
          * Package Service Providers...
          */
-        App\Providers\ThemeManagerProvider::class,
-        App\Providers\WidgetServiceProvider::class,
         App\Providers\WidgetServiceProvider::class,
         App\Providers\HookServiceProvider::class,
         /*

@@ -33,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
             \App\Charts\MonthlyChart::class
         ]);
 
+        // Load helpers
+        @include __DIR__.'/../Helpers/functions.php';
+
         Blade::component('core-widget-monthly-chart', MonthlyChart::class);
 
     }
