@@ -100,8 +100,6 @@
                 var selected_options = JSON.parse(hidden_input.val() || '[]');
                 var select_input = element.find('input[type=text]');
                 var source = @json($source_array);
-
-                console.log(selected_options, source);
                 
                 let combo = @json($field['combo']);
                 
@@ -141,7 +139,7 @@
                           });
                            // when a checkbox is clicked
                           // set the correct value on the hidden input
-                          checkboxes.click(function() {
+                          checkboxes.closest('.selectable').click(function() {
   
                               var newValue = [];
   
