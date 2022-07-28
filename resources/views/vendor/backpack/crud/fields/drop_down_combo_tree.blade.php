@@ -18,12 +18,18 @@
     $sources = $sources->{$field['scope']}();
   }
 
+  if(isset($field['where'])) {
+    $sources = $sources->where($field['where'][0],$field['where'][1],$field['where'][2]);
+  }
+
   $sources = $sources->with('childrenRecursive')->select('id','name')->get()->toArray();
 
   // calculate the value of the hidden input
   $field['value'] = old(square_brackets_to_dots($field['name'])) ?? $field['value'] ?? $field['default'] ?? [];
   
   if ($field['value'] instanceof Illuminate\Database\Eloquent\Collection) {
+    $field['value'] = $field['value']->pluck($key_attribute)->toArray();
+  }if ($field['value'] instanceof Illuminate\Support\Collection) {
     $field['value'] = $field['value']->pluck($key_attribute)->toArray();
   } elseif (is_string($field['value'])){
     $field['value'] = json_decode($field['value']);
@@ -82,18 +88,20 @@
     {{-- FIELD EXTRA CSS  --}}
     {{-- push things in the after_styles section --}}
     @push('crud_fields_styles')
-    <link rel="stylesheet" href="/packages/drop-down-combo-tree/style.css">
+    <link rel="stylesheet" href="/assets/admin/packages/drop-down-combo-tree/style.css">
     @endpush
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-    <script src="/packages/drop-down-combo-tree/comboTreePlugin.js"></script>
+    <script src="/assets/admin/packages/drop-down-combo-tree/comboTreePlugin.js"></script>
         <script>
             function bpFieldInitDropDownComboTree(element) {
                 var hidden_input = element.find('input[type=hidden]');
                 var selected_options = JSON.parse(hidden_input.val() || '[]');
                 var select_input = element.find('input[type=text]');
                 var source = @json($source_array);
+
+                console.log(selected_options, source);
                 
                 let combo = @json($field['combo']);
                 
