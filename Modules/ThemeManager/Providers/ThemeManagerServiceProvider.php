@@ -4,6 +4,7 @@ namespace Modules\ThemeManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use TorMorten\Eventy\Facades\Events as Hook;
 
@@ -30,7 +31,7 @@ class ThemeManagerServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-
+        $this->registerBladeDirectives();
         // Register Theme
         $this->register_theme();
 
@@ -210,5 +211,21 @@ class ThemeManagerServiceProvider extends ServiceProvider
             }
         }
         return $paths;
+    }
+
+    private function registerBladeDirectives()
+    {
+        Blade::directive('themeOption', function (string $url, $top = -10, $rgt = -15) {
+            $url = str_replace('"', "", $url);
+            $url = str_replace("'", "", $url);
+            $url = backpack_url("theme/".THEME_ID."/edit?iframe=true$url");
+            return <<<EOT
+                <?php
+                    if(backpack_user()->can('page update')) {
+                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"position: absolute;top:-10px;right:-15px\" href=\"$url\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
+                    }
+                ?>
+            EOT;
+        });
     }
 }

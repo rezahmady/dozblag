@@ -1,0 +1,2 @@
+@livewireScripts
+@stack('custom-script')
