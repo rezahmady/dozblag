@@ -257,5 +257,53 @@ class ThemeManagerServiceProvider extends ServiceProvider
                 ?>
             EOT;
         });
+
+        Blade::directive('widgetOption', function ($options) {
+            
+            return <<<EOT
+                <?php
+                \$top = -10;
+                \$rgt = -15;
+                \$fields = null;
+
+                \$options = [$options];
+
+                switch (sizeof(\$options)) {
+                    case 1:
+                        \$widget = \$options[0];
+                        break;
+                    case 2:
+                        \$widget = \$options[0];
+                        \$fields = \$options[1];
+                    case 3:
+                        \$widget = \$options[0];
+                        \$fields = \$options[1];
+                        \$top = \$options[2];
+                    case 4:
+                        \$widget = \$options[0];
+                        \$fields = \$options[1];
+                        \$top = \$options[2];
+                        \$rgt = \$options[3];
+                    default:
+                        # code...
+                        break;
+                }
+
+    
+                if(is_array(\$fields)) {
+                    \$fields = implode(",", \$fields);
+                }
+    
+                if(\$fields === null) {
+                    \$url = backpack_url("widget/".\$widget->id."/edit?iframe=true");
+                } else {
+                    \$url = backpack_url("widget/".\$widget->id."/edit?iframe=true&fields=\$fields");
+                }
+                    if(backpack_user()->can('page update')) {
+                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\"setwidget('".\$widget->name."')\"  style=\"position: absolute;top:".\$top."}px;right:".\$rgt."}px\" href=\"".\$url."\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
+                    }
+                ?>
+            EOT;
+        });
     }
 }

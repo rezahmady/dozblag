@@ -5,9 +5,30 @@ const urlParams = new URLSearchParams(queryString);
 if(urlParams.has('fields')) {
     const fields_str = urlParams.get('fields');
     const fields = fields_str.split(",");
+    let repeatable = [];
+    fields.forEach(field => {
+        console.log(field)
+        const sections = field.split(".");
+        if(sections.length > 1) {
+            $('body').css({minHeight: '500px'})
+            repeatable[sections[0]] = sections[1];
+            setTimeout(() => {
+                $('div[bp-field-name="'+sections[0]+'"]').removeClass('d-none');
+                $('.container-repeatable-elements div[data-repeatable-holder="'+sections[0]+'"]').find('.repeatable-element').addClass('d-none');
+                $('.container-repeatable-elements div[data-repeatable-holder="'+sections[0]+'"]').find('*[data-row-number="'+sections[1]+'"]').removeClass('d-none');
+                $('.container-repeatable-elements div[data-repeatable-holder="'+sections[0]+'"]').find('*[data-row-number="'+sections[1]+'"]').find('.form-group').removeClass('d-none');
+            }, 1000);
+        }
+    })
+
+    console.log(repeatable);
     $('.form-group').addClass('d-none');
     $('#saveActions').removeClass('d-none');
+    $('.repeatable-element').find('.form-group').removeClass('d-none');
     crud.fields(fields).forEach(field => {
+        if(field.type == 'repeatable') {
+            $('body').css({minHeight: '500px'})
+        }
         field.show();
     });
 

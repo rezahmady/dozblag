@@ -23,7 +23,6 @@ if (urlParams.has('iframe')) {
         var event = new CustomEvent('widgetmodalclose')
         window.parent.window.dispatchEvent(event);
         return true;
-        
     })
 } else {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
