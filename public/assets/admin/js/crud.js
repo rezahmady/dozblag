@@ -28,7 +28,9 @@ if(urlParams.has('fields')) {
     
         document.querySelector(".nav-tabs").classList.add("d-none");
 
-        $('.tab-content').css({ marginTop: '25px' });
+        $('.main').removeClass('pt-2');
+
+        $('.container-fluid').css({padding: '0'});
     }
 
 } else {
@@ -36,7 +38,7 @@ if(urlParams.has('fields')) {
         const tab = document.getElementsByClassName("nav-tabs");
         if (tab.length > 0) {
             $('.nav-tabs').addClass('tab-sticky');
-            $('#form_tabs').css({ position: 'absolute' });
+            $('.tab-pane').css({ marginTop: '50px' });
             $('#form_tabs').css({ top: '0' });
         }
     }

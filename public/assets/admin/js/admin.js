@@ -14901,14 +14901,19 @@ if (urlParams.has('iframe')) {
   });
   $('main > section.container-fluid h2').css({
     display: 'none'
-  });
-  $('#btnGroupDrop1').parent().remove();
-  $('.btn-success').html("\n    <span class=\"la la-save\" role=\"presentation\" aria-hidden=\"true\"></span> &nbsp;\n    <span data-value=\"save_and_edit\">\u0630\u062E\u06CC\u0631\u0647</span>\n    "); // $('#saveActions').css({ position: 'fixed', bottom: '0' });
-  // $('#saveActions').css({ background: '#fff' });
+  }); // remove paddings
 
+  $('.main').removeClass('pt-2');
+  $('.container-fluid').css({
+    padding: '0'
+  }); // clean save button
+
+  $('#btnGroupDrop1').parent().remove();
+  $('.btn-success').html("\n    <span class=\"la la-save\" role=\"presentation\" aria-hidden=\"true\"></span> &nbsp;\n    <span data-value=\"save_and_edit\">\u0630\u062E\u06CC\u0631\u0647</span>\n    ");
   document.querySelector("#saveActions").addEventListener('click', function () {
     var event = new CustomEvent('widgetmodalclose');
     window.parent.window.dispatchEvent(event);
+    return true;
   });
 } else {
   /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
@@ -14934,10 +14939,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $.when($("#overlayer").delay(1000).fadeOut("slow")).done(function () {
     $('body').delay(1000).removeClass('h-100vh');
   });
-}); // Echo.channel('private-consultation.added')
-//     .listen('ConsultationAdded', (e) => {
-//         console.log('ConsultationAdded');
-//     });
+});
 })();
 
 /******/ })()

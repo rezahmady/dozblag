@@ -36,7 +36,8 @@
 .modal-iframe {
   width: 100%;
   transition: height 0.5s ease-in;
-  border-radius: 20px;
+  border-radius: 10px;
+  max-height: 90vh;
 }
 
 .modal-button-close {
@@ -50,6 +51,9 @@
   font-weight: 900;
   background: none;
 }
+
+
+
 
 @keyframes rotation {
   from {
@@ -68,6 +72,6 @@
   background: #ffc107;
   border-radius: 0!important;
   padding: 4px 4px 0 4px!important;
-  color: black;
+  color: black !important;
 }
 </style>

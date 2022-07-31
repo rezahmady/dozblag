@@ -242,7 +242,12 @@ class ThemeManagerServiceProvider extends ServiceProvider
                 $fields = implode(",", $fields);
             }
 
-            $url = backpack_url("theme/".THEME_ID."/edit?iframe=true&fields=$fields");
+            if($fields === null) {
+                $url = backpack_url("theme/".THEME_ID."/edit?iframe=true");
+            } else {
+                $url = backpack_url("theme/".THEME_ID."/edit?iframe=true&fields=$fields");
+            }
+
             // dd($fields, $top, $rgt);
             return <<<EOT
                 <?php
