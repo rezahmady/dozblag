@@ -13,7 +13,6 @@
             widget: @entangle('widget'),
             url: '',
             close_modal() {
-                console.log('hellow Azadbakht! :)');
                 this.isModalOpen = false;
                 this.url = '';
                 Livewire.emit('update-widget');

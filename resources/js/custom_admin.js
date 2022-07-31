@@ -21,7 +21,9 @@ if (urlParams.has('iframe')) {
 
     document.querySelector("#saveActions").addEventListener('click', function() {
         var event = new CustomEvent('widgetmodalclose')
-        window.parent.window.dispatchEvent(event);
+        setTimeout(() => {
+            window.parent.window.dispatchEvent(event);
+        }, 700);
         return true;
     })
 } else {
