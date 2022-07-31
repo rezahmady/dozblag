@@ -7,6 +7,7 @@ use Modules\ThemeManager\Http\Requests\WidgetRequest;
 use Modules\ThemeManager\Models\Theme;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget as LibraryWidget;
 
 /**
  * Class WidgetCrudController
@@ -121,6 +122,7 @@ class WidgetCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
+        LibraryWidget::add()->type('script')->content('assets/admin/js/crud.js');
         $this->themeWidgets($this->crud->getCurrentEntry()->name );
         $this->addDefaultWidgetFields();
     }

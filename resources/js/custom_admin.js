@@ -1,12 +1,22 @@
-if (window.location.search === '?iframe=true') {
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+if (urlParams.has('iframe')) {
     $('.app-header').css({ display: 'none' });
     $('.sidebar.sidebar-pills').css({ display: 'none' });
     $('.breadcrumb').css({ display: 'none' });
     $('main > section.container-fluid h2').css({ display: 'none' });
+    $('#btnGroupDrop1').parent().remove();
+    $('.btn-success').html(`
+    <span class="la la-save" role="presentation" aria-hidden="true"></span> &nbsp;
+    <span data-value="save_and_edit">ذخیره</span>
+    `)
     // $('#saveActions').css({ position: 'fixed', bottom: '0' });
     // $('#saveActions').css({ background: '#fff' });
     document.querySelector("#saveActions").addEventListener('click', function() {
-        parent.$('[data-lity-close]').trigger('click');
+        var event = new CustomEvent('widgetmodalclose')
+        window.parent.window.dispatchEvent(event);
     })
 } else {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */

@@ -215,14 +215,39 @@ class ThemeManagerServiceProvider extends ServiceProvider
 
     private function registerBladeDirectives()
     {
-        Blade::directive('themeOption', function (string $url, $top = -10, $rgt = -15) {
-            $url = str_replace('"', "", $url);
-            $url = str_replace("'", "", $url);
-            $url = backpack_url("theme/".THEME_ID."/edit?iframe=true$url");
+        Blade::directive('themeOption', function ($options) {
+            $top = -10;
+            $rgt = -15;
+
+            //dd($fields);
+            eval("\$options = [$options];");
+
+            switch (sizeof($options)) {
+                case 1:
+                    $fields = $options;
+                    break;
+                case 2:
+                    $fields = $options[0];
+                    $top = $options[1];
+                case 3:
+                    $fields = $options[0];
+                    $top = $options[1];
+                    $rgt = $options[2];                
+                default:
+                    # code...
+                    break;
+            }
+
+            if(is_array($fields)) {
+                $fields = implode(",", $fields);
+            }
+
+            $url = backpack_url("theme/".THEME_ID."/edit?iframe=true&fields=$fields");
+            // dd($fields, $top, $rgt);
             return <<<EOT
                 <?php
                     if(backpack_user()->can('page update')) {
-                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"position: absolute;top:-10px;right:-15px\" href=\"$url\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
+                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"position: absolute;top:{$top}px;right:{$rgt}px\" href=\"$url\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
                     }
                 ?>
             EOT;

@@ -10,6 +10,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\File;
 use App\Traits\DefaultPermissions;
 use Alert;
+use Backpack\CRUD\app\Library\Widget as LibraryWidget;
 
 /**
  * Class ThemeCrudController
@@ -284,6 +285,7 @@ class ThemeCrudController extends CrudController
      */
     public function themeOptions()
     {
+        LibraryWidget::add()->type('script')->content('assets/admin/js/crud.js');
         $options = resolve("Themes\\".$this->crud->getCurrentEntry()->folder."\\ThemeOptions");
         return $options->fields();
     }

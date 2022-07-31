@@ -26,27 +26,48 @@
 
 .modal-iframe-holder {
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 600px;
   margin: auto;
-  background-color: #f1f4f8;
+  /* background-color: #f1f4f8; */
+  border-radius: 10px;
 }
 
 .modal-iframe {
   width: 100%;
-  height: 100%;
+  transition: height 0.5s ease-in;
   border-radius: 20px;
 }
 
 .modal-button-close {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
   font-size: 40px;
   padding: 0;
   border: 0;
   color: white;
   font-weight: 900;
-  background: inherit;
+  background: none;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.btn-setting i.loading {
+  animation: rotation 1s infinite linear;
+}
+
+.btn-setting {
+  background: #ffc107;
+  border-radius: 0!important;
+  padding: 4px 4px 0 4px!important;
+  color: black;
 }
 </style>

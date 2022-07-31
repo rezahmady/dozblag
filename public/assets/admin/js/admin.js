@@ -14886,7 +14886,10 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 /*!**************************************!*\
   !*** ./resources/js/custom_admin.js ***!
   \**************************************/
-if (window.location.search === '?iframe=true') {
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
+
+if (urlParams.has('iframe')) {
   $('.app-header').css({
     display: 'none'
   });
@@ -14898,11 +14901,14 @@ if (window.location.search === '?iframe=true') {
   });
   $('main > section.container-fluid h2').css({
     display: 'none'
-  }); // $('#saveActions').css({ position: 'fixed', bottom: '0' });
+  });
+  $('#btnGroupDrop1').parent().remove();
+  $('.btn-success').html("\n    <span class=\"la la-save\" role=\"presentation\" aria-hidden=\"true\"></span> &nbsp;\n    <span data-value=\"save_and_edit\">\u0630\u062E\u06CC\u0631\u0647</span>\n    "); // $('#saveActions').css({ position: 'fixed', bottom: '0' });
   // $('#saveActions').css({ background: '#fff' });
 
   document.querySelector("#saveActions").addEventListener('click', function () {
-    parent.$('[data-lity-close]').trigger('click');
+    var event = new CustomEvent('widgetmodalclose');
+    window.parent.window.dispatchEvent(event);
   });
 } else {
   /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */

@@ -706,3 +706,11 @@ table.dataTable thead>tr>th {
     text-align: center;
     z-index: 2000;
 }
+
+.tab-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #f1f4f8;
+    padding: 15px 0px 0;
+}
