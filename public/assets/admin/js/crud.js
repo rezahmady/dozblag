@@ -5,7 +5,6 @@ const urlParams = new URLSearchParams(queryString);
 if(urlParams.has('fields')) {
     const fields_str = urlParams.get('fields');
     const fields = fields_str.split(",");
-    console.log(fields);
     $('.form-group').addClass('d-none');
     $('#saveActions').removeClass('d-none');
     crud.fields(fields).forEach(field => {
@@ -25,8 +24,10 @@ if(urlParams.has('fields')) {
         content = content.concat("\n", '</div>');
     
         $(".tab-pane.active")[0].innerHTML = content;
+        $('.tab-pane').not(".active").remove();
     
         document.querySelector(".nav-tabs").classList.add("d-none");
+
 
         $('.main').removeClass('pt-2');
 

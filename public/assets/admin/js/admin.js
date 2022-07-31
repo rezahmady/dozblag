@@ -14912,9 +14912,7 @@ if (urlParams.has('iframe')) {
   $('.btn-success').html("\n    <span class=\"la la-save\" role=\"presentation\" aria-hidden=\"true\"></span> &nbsp;\n    <span data-value=\"save_and_edit\">\u0630\u062E\u06CC\u0631\u0647</span>\n    ");
   document.querySelector("#saveActions").addEventListener('click', function () {
     var event = new CustomEvent('widgetmodalclose');
-    setTimeout(function () {
-      window.parent.window.dispatchEvent(event);
-    }, 700);
+    window.parent.window.dispatchEvent(event);
     return true;
   });
 } else {

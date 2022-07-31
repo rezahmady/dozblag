@@ -21,10 +21,9 @@ if (urlParams.has('iframe')) {
 
     document.querySelector("#saveActions").addEventListener('click', function() {
         var event = new CustomEvent('widgetmodalclose')
-        setTimeout(() => {
-            window.parent.window.dispatchEvent(event);
-        }, 700);
+        window.parent.window.dispatchEvent(event);
         return true;
+        
     })
 } else {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */

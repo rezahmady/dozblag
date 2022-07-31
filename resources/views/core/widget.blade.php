@@ -14,8 +14,10 @@
             url: '',
             close_modal() {
                 this.isModalOpen = false;
-                this.url = '';
-                Livewire.emit('update-widget');
+                setTimeout(() => {
+                    Livewire.emit('update-widget');
+                    this.url = '';
+                }, 500);
             },
             setwidget(event) {
                 this.widget = event.detail;
