@@ -69,9 +69,20 @@
 }
 
 .btn-setting {
-  background: #ffc107;
-  border-radius: 0!important;
-  padding: 4px 4px 0 4px!important;
-  color: black !important;
+  background: #039be5;
+  border-radius: 5px !important;
+  padding: 7px!important;
+  color: white !important;
+  position: absolute;
+  margin: auto;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
 }
+
+.btn-setting span {
+  padding-right: 7px;
+}
+
 </style>

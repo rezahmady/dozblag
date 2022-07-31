@@ -216,8 +216,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
     private function registerBladeDirectives()
     {
         Blade::directive('themeOption', function ($options) {
-            $top = -10;
-            $rgt = -15;
+            $top = '-10px';
+            $rgt = '-15px';
+            $left = 'auto';
 
             //dd($fields);
             eval("\$options = [$options];");
@@ -229,10 +230,18 @@ class ThemeManagerServiceProvider extends ServiceProvider
                 case 2:
                     $fields = $options[0];
                     $top = $options[1];
+                    break;
                 case 3:
                     $fields = $options[0];
                     $top = $options[1];
-                    $rgt = $options[2];                
+                    $rgt = $options[2];
+                    break;
+                case 4:
+                    $fields = $options[0];
+                    $top = $options[1];
+                    $rgt = $options[2];
+                    $left = $options[3];
+                    break;
                 default:
                     # code...
                     break;
@@ -252,7 +261,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
             return <<<EOT
                 <?php
                     if(backpack_user()->can('page update')) {
-                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"position: absolute;top:{$top}px;right:{$rgt}px\" href=\"$url\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
+                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"top:{$top};right:{$rgt};left:{$left}\" href=\"$url\"><i class=\"fa fa-pencil-alt\" wire:loading.class=\"loading\"></i>
+                        <span>ویرایش</span>
+                        </a>";
                     }
                 ?>
             EOT;
@@ -262,8 +273,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
             
             return <<<EOT
                 <?php
-                \$top = -10;
-                \$rgt = -15;
+                \$top = '-10px';
+                \$rgt = '-15px';
+                \$left = 'auto';
                 \$fields = null;
 
                 \$options = [$options];
@@ -275,15 +287,25 @@ class ThemeManagerServiceProvider extends ServiceProvider
                     case 2:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
+                        break;
                     case 3:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
                         \$top = \$options[2];
+                        break;
                     case 4:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
                         \$top = \$options[2];
                         \$rgt = \$options[3];
+                        break;
+                    case 5:
+                        \$widget = \$options[0];
+                        \$fields = \$options[1];
+                        \$top = \$options[2];
+                        \$rgt = \$options[3];
+                        \$left = \$options[4];
+                        break;
                     default:
                         # code...
                         break;
@@ -300,7 +322,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
                     \$url = backpack_url("widget/".\$widget->id."/edit?iframe=true&fields=\$fields");
                 }
                     if(backpack_user()->can('page update')) {
-                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\"setwidget('".\$widget->name."')\"  style=\"position: absolute;top:".\$top."}px;right:".\$rgt."}px\" href=\"".\$url."\"><i class=\"fa fa-cog\" wire:loading.class=\"loading\"></i></a>";
+                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\"setwidget('".\$widget->name."')\"  style=\"top:".\$top.";right:".\$rgt.";left:".\$left."\" href=\"".\$url."\"><i class=\"fa fa-pencil-alt\" wire:loading.class=\"loading\"></i>
+                        <span>ویرایش</span>
+                        </a>";
                     }
                 ?>
             EOT;
