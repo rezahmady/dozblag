@@ -18,7 +18,7 @@ class Home extends Component
 
     public function mount()
     {
-        $this->editable = Setting::get('themes.editable');
+        $this->editable = Setting::get('themes.editable', true);
     }
 
     public function widgetUpdate()
