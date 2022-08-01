@@ -49,6 +49,8 @@
     </div>
     
 </div>
+
+@endcan
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('home_state', () => ({
@@ -95,4 +97,3 @@
         }))  
     })
 </script>
-@endcan

@@ -9,7 +9,7 @@
     </div>
     <div x-on:click="close_modal()" data-lity-close=""></div>
 </div>
-
+@endcan
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.store('theme', {
@@ -40,4 +40,3 @@
         })
     })
 </script>
-@endcan
