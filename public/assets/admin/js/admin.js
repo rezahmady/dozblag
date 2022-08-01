@@ -14910,7 +14910,8 @@ if (urlParams.has('iframe')) {
 
   $('#btnGroupDrop1').parent().remove();
   $('.btn-success').html("\n    <span class=\"la la-save\" role=\"presentation\" aria-hidden=\"true\"></span> &nbsp;\n    <span data-value=\"save_and_edit\">\u0630\u062E\u06CC\u0631\u0647</span>\n    ");
-  document.querySelector("#saveActions").addEventListener('click', function () {
+  var actions = document.querySelector("#saveActions");
+  actions.querySelector(".btn-default").addEventListener('click', function () {
     var event = new CustomEvent('widgetmodalclose');
     window.parent.window.dispatchEvent(event);
     return true;

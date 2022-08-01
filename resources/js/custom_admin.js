@@ -19,7 +19,8 @@ if (urlParams.has('iframe')) {
     <span data-value="save_and_edit">ذخیره</span>
     `)
 
-    document.querySelector("#saveActions").addEventListener('click', function() {
+    const actions = document.querySelector("#saveActions");
+    actions.querySelector(".btn-default").addEventListener('click', function() {
         var event = new CustomEvent('widgetmodalclose')
         window.parent.window.dispatchEvent(event);
         return true;

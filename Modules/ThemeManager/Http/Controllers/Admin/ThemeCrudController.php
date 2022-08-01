@@ -20,7 +20,7 @@ use Backpack\CRUD\app\Library\Widget as LibraryWidget;
 class ThemeCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Rezahmady\SettingOperation\SettingOperation;
     use DefaultPermissions;
     Const ENTITY = 'theme';
@@ -310,5 +310,15 @@ class ThemeCrudController extends CrudController
                 ],
             ],
         ]);
+    }
+
+    public function update()
+    {
+        $response = $this->traitUpdate();
+        // do something after save
+        if(str_contains(url()->previous(), 'iframe=true')) {
+            return view('core.return');
+        }
+        return $response;
     }
 }

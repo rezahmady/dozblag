@@ -17,7 +17,7 @@ use Backpack\CRUD\app\Library\Widget as LibraryWidget;
 class WidgetCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use DefaultPermissions;
@@ -157,6 +157,16 @@ class WidgetCrudController extends CrudController
         $data['widgets'][] = $request->except(['_token', 'http_referrer', 'save_action', 'extras', 'status']);
         file_put_contents($json_file_path, json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
 
+        return $response;
+    }
+
+    public function update()
+    {
+        $response = $this->traitUpdate();
+        // do something after save
+        if(str_contains(url()->previous(), 'iframe=true')) {
+            return view('core.return');
+        }
         return $response;
     }
 

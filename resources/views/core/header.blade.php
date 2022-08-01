@@ -38,6 +38,7 @@
   transition: height 0.5s ease-in;
   border-radius: 10px;
   max-height: 90vh;
+  background-color: #f1f4f8;
 }
 
 .modal-button-close {
