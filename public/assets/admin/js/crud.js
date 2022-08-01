@@ -7,7 +7,6 @@ if(urlParams.has('fields')) {
     const fields = fields_str.split(",");
     let repeatable = [];
     fields.forEach(field => {
-        console.log(field)
         const sections = field.split(".");
         if(sections.length > 1) {
             $('body').css({minHeight: '500px'})
@@ -20,8 +19,6 @@ if(urlParams.has('fields')) {
             }, 1000);
         }
     })
-
-    console.log(repeatable);
     $('.form-group').addClass('d-none');
     $('#saveActions').removeClass('d-none');
     $('.repeatable-element').find('.form-group').removeClass('d-none');

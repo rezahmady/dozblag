@@ -21,6 +21,7 @@ class ThemeCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Rezahmady\SettingOperation\SettingOperation;
     use DefaultPermissions;
     Const ENTITY = 'theme';
     private $themes_folder = '';
@@ -288,5 +289,26 @@ class ThemeCrudController extends CrudController
         LibraryWidget::add()->type('script')->content('assets/admin/js/crud.js');
         $options = resolve("Themes\\".$this->crud->getCurrentEntry()->folder."\\ThemeOptions");
         return $options->fields();
+    }
+
+        /**
+    * Define what happens when the Setting operation is loaded.
+    *
+    * @see https://github.com/rezahmady/setting-operation
+    * @return void
+    */
+    protected function setupSettingOperation()
+    {
+        // backpack fields
+       $this->crud->addFields([
+            [   // Browse
+                'name'  => "editable",
+                'label' => 'حالت ویرایش',
+                'type'  => 'toggle',
+                'wrapper'   => [
+                    'class'  => "form-group col-md-6"
+                ],
+            ],
+        ]);
     }
 }

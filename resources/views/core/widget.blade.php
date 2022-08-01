@@ -1,3 +1,4 @@
+@can('page update')
 <div class="modal-overlay" x-show="isModalOpen" @setwidget.window="setwidget_from_event">
     <div class="modal-iframe-holder">
         <button class="lity-close modal-button-close"  @widgetmodalclose.window="close_modal()" x-on:click="close_modal()" type="button" >×</button>
@@ -6,18 +7,73 @@
     <div x-on:click="close_modal()" data-lity-close=""></div>
 </div>
 
+<div class="core-admin-bottom-navigation">
+    <div>
+        <a class="button" @click="$wire.toggleEdite();$store.theme.set_edit(!editable)">
+            <div class="loader-holder" wire:loading.class="d-flex" wire:target="toggleEdite">
+                <div class="loader"></div>
+            </div>
+            <i class="fa fa-pencil-alt"></i><span x-text="editable_lable"></span>
+        </a>
+        {{-- <a class="button" @click="add_crud = true"><i class="fa fa-plus"></i>
+            <div class="options" 
+            x-show="add_crud" 
+            x-transition.500
+            @click.away="add_crud = false"
+            @click="add_crud = false">
+                <ul>
+                    <li>مجله</li>
+                    <li>آخرین مطالب</li>
+                    <li>تست</li>
+                </ul>
+            </div>
+        </a> --}}
+        {{-- <a class="button" @click="widget_hidden_option = true"><i class="fa fa-eye"></i>
+        
+            <div class="options" 
+            x-show="widget_hidden_option" 
+            x-transition.500
+            @click.away="widget_hidden_option = false"
+            @click="widget_hidden_option = false">
+                <ul>
+                    <li>مجله</li>
+                    <li>آخرین مطالب</li>
+                    <li>تست</li>
+                </ul>
+            </div>
+        </a> --}}
+    </div>
+    <div>
+        <a href="{{backpack_url()}}" class="button back-to-admin">بازگشت به مدیریت<i class="fa fa-arrow-left"></i> </a>
+        <a class="button" href="{{backpack_url('logout')}}" ><i class="fa fa-sign-out-alt"></i></a>
+    </div>
+    
+</div>
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('home_state', () => ({
             isModalOpen: false,
             widget: @entangle('widget'),
+            editable: @entangle('editable'),
             url: '',
+            editable_lable: '',
+            widget_hidden_option: false,
+            add_crud: false,
+            init() {
+                this.editable_lable = (this.editable) ? 'اتمام ویرایش' : 'شروع ویرایش';
+                this.$store.theme.set_edit(this.editable)
+                this.$watch('editable', value => {
+                    this.editable_lable = (value) ? 'اتمام ویرایش' : 'شروع ویرایش';
+                })
+            },
             close_modal() {
-                this.isModalOpen = false;
-                setTimeout(() => {
-                    Livewire.emit('update-widget');
-                    this.url = '';
-                }, 500);
+                if(this.isModalOpen) {
+                    this.isModalOpen = false;
+                    setTimeout(() => {
+                        Livewire.emit('update-widget');
+                        this.url = '';
+                    }, 500);
+                }
             },
             setwidget_from_event(event) {
                 this.widget = event.detail;
@@ -36,3 +92,4 @@
         }))  
     })
 </script>
+@endcan

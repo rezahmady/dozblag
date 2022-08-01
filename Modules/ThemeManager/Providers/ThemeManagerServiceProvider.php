@@ -216,9 +216,11 @@ class ThemeManagerServiceProvider extends ServiceProvider
     private function registerBladeDirectives()
     {
         Blade::directive('themeOption', function ($options) {
-            $top = '-10px';
-            $rgt = '-15px';
-            $left = 'auto';
+            $style = 'top:0;right:0';
+            $css = '';
+            $bottom = 'auto';
+            $label = 'ویرایش';
+            $icon = 'pencil-alt';
 
             //dd($fields);
             eval("\$options = [$options];");
@@ -229,18 +231,25 @@ class ThemeManagerServiceProvider extends ServiceProvider
                     break;
                 case 2:
                     $fields = $options[0];
-                    $top = $options[1];
+                    $style = $options[1];
                     break;
                 case 3:
                     $fields = $options[0];
-                    $top = $options[1];
-                    $rgt = $options[2];
+                    $style = $options[1];
+                    $css = $options[2];
                     break;
                 case 4:
                     $fields = $options[0];
-                    $top = $options[1];
-                    $rgt = $options[2];
-                    $left = $options[3];
+                    $style = $options[1];
+                    $css = $options[2];
+                    $label = $options[3];
+                    break;
+                case 5:
+                    $fields = $options[0];
+                    $style = $options[1];
+                    $css = $options[2];
+                    $label = $options[3];
+                    $icon = $options[4];
                     break;
                 default:
                     # code...
@@ -260,9 +269,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
             // dd($fields, $top, $rgt);
             return <<<EOT
                 <?php
-                    if(backpack_user()->can('page update')) {
-                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\""."\$"."dispatch('setwidget', 'ThemeSettings')\"  style=\"top:{$top};right:{$rgt};left:{$left}\" href=\"$url\"><i class=\"fa fa-pencil-alt\" wire:loading.class=\"loading\"></i>
-                        <span>ویرایش</span>
+                    if(!Auth::guest() and auth()->user()->can('page update')) {
+                        echo "<a class=\"btn btn-setting is-clickable {$css}\" x-show=\""."\$"."store.theme.editable\" x-on:click.prevent=\""."\$"."store.theme.openModal('{$url}')\"  style=\"{$style}\"><i class=\"fa fa-{$icon}\" wire:loading.class=\"loading\"></i>
+                        <span>{$label}</span>
                         </a>";
                     }
                 ?>
@@ -273,9 +282,10 @@ class ThemeManagerServiceProvider extends ServiceProvider
             
             return <<<EOT
                 <?php
-                \$top = '-10px';
-                \$rgt = '-15px';
-                \$left = 'auto';
+                \$style = 'top:0;right:0';
+                \$css = '';
+                \$label = 'ویرایش';
+                \$icon = 'pencil-alt';
                 \$fields = null;
 
                 \$options = [$options];
@@ -291,20 +301,28 @@ class ThemeManagerServiceProvider extends ServiceProvider
                     case 3:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
-                        \$top = \$options[2];
+                        \$style = \$options[2];
                         break;
                     case 4:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
-                        \$top = \$options[2];
-                        \$rgt = \$options[3];
+                        \$style = \$options[2];
+                        \$css = \$options[3];
                         break;
                     case 5:
                         \$widget = \$options[0];
                         \$fields = \$options[1];
-                        \$top = \$options[2];
-                        \$rgt = \$options[3];
-                        \$left = \$options[4];
+                        \$style = \$options[2];
+                        \$css = \$options[3];
+                        \$label = \$options[4];
+                        break;
+                    case 6:
+                        \$widget = \$options[0];
+                        \$fields = \$options[1];
+                        \$style = \$options[2];
+                        \$css = \$options[3];
+                        \$label = \$options[4];
+                        \$icon = \$options[5];
                         break;
                     default:
                         # code...
@@ -321,9 +339,9 @@ class ThemeManagerServiceProvider extends ServiceProvider
                 } else {
                     \$url = backpack_url("widget/".\$widget->id."/edit?iframe=true&fields=\$fields");
                 }
-                    if(backpack_user()->can('page update')) {
-                        echo "<a class=\"btn btn-setting is-clickable mb-5\" x-on:click.prevent=\"setwidget('".\$widget->name."')\"  style=\"top:".\$top.";right:".\$rgt.";left:".\$left."\" href=\"".\$url."\"><i class=\"fa fa-pencil-alt\" wire:loading.class=\"loading\"></i>
-                        <span>ویرایش</span>
+                    if(!Auth::guest() and auth()->user()->can('page update')) {
+                        echo "<a class=\"btn btn-setting is-clickable ".\$css."\" x-on:click.prevent=\"setwidget('".\$widget->name."')\" x-show=\"editable\"  style=\"".\$style."\" href=\"".\$url."\"><i class=\"fa fa-".\$icon."\" wire:loading.class=\"loading\"></i>
+                        <span>".\$label."</span>
                         </a>";
                     }
                 ?>

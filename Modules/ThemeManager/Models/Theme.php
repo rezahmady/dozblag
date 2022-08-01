@@ -94,10 +94,12 @@ class Theme extends Model
                 $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
                 $values[$attribute] = $public_destination_path.'/'.$filename;
             }
-            // elseif ($value == null) {
-            //     // delete the image from disk
-            //     Storage::disk($disk)->delete($this->{$attribute});
-            // }
+            elseif ($value == null and $this->{$attribute} != null) {
+                // delete the image from disk
+                if(Storage::disk($disk)->exists($this->{$attribute})) {
+                    Storage::disk($disk)->delete($this->{$attribute});
+                }
+            }
         }
 
         $this->attributes['extras'] = json_encode($values);
