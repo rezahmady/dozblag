@@ -2,7 +2,7 @@
 @stack('custom-script')
 
 @can('page update')
-<div class="modal-overlay" x-show="$store.theme.themeModal">
+<div class="modal-overlay" x-show="$store.theme.themeModal" x-transition>
     <div class="modal-iframe-holder">
         <button class="modal-button-close"  @widgetmodalclose.window="$store.theme.close_modal()" @widgetupdatemodalclose.window="$store.theme.update_widget()" x-on:click="$store.theme.close_modal()" type="button" >×</button>
         <iframe onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;" id="theme-setting-modal"  allowfullscreen allow="autoplay; fullscreen" x-bind:src="$store.theme.url" x-on:click.away="$store.theme.close_modal()" class="modal-iframe"></iframe>
@@ -28,6 +28,7 @@
             close_modal() {
                 if(this.themeModal) {
                     this.themeModal = false;
+                    this.url = '';
                 }
             },
             update_widget() {

@@ -66,7 +66,7 @@
 }
 
 .btn-setting i.loading {
-  animation: rotation 1s infinite linear;
+  animation: rotation .4s infinite linear;
 }
 
 .btn-setting {

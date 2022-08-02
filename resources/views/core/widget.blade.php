@@ -1,5 +1,5 @@
 @can('page update')
-<div class="modal-overlay" x-show="isModalOpen" @setwidget.window="setwidget_from_event">
+<div class="modal-overlay" x-show="isModalOpen" x-transition @setwidget.window="setwidget_from_event">
     <div class="modal-iframe-holder">
         <button class="lity-close modal-button-close"  @widgetmodalclose.window="close_modal()" @widgetupdatemodalclose.window="update_widget()" x-on:click="close_modal()" type="button" >×</button>
         <iframe onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;" x-ref="iframe" id="widget-setting-modal"  allowfullscreen allow="autoplay; fullscreen" x-bind:src="url" x-on:click.away="close_modal()" class="modal-iframe"></iframe>
@@ -71,6 +71,7 @@
             close_modal() {
                 if(this.isModalOpen) {
                     this.isModalOpen = false;
+                    this.url = '';
                 }
             },
             update_widget() {
