@@ -15,6 +15,10 @@ mix.styles([
     'resources/css/admin.css',
 ], 'public/assets/admin/css/admin.css').version();
 
+mix.styles([
+    'resources/css/app.css',
+], 'public/assets/css/app.css').version();
+
 mix.js([
     "resources/js/admin.js",
     "resources/js/custom_admin.js",
