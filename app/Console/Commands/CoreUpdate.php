@@ -54,6 +54,13 @@ class CoreUpdate extends Command
                 '--force' => 'true',
             ]);
 
+            // publish backpack assets
+            $this->call('vendor:publish', [
+                '--provider' => 'VanOns\Laraberg\LarabergServiceProvider',
+                '--tag' => 'public',
+                '--force' => 'true',
+            ]);
+
             $this->call('module:enable', ['module' => 'User']);
             $this->call('module:enable', ['module' => 'ThemeManager']);
 
