@@ -30,7 +30,7 @@ Route::get('/admin/generate-sitemap', function() {
 });
 
 // At the top of the file.
-Route::post('/upload/voice', [UploadController::class, 'voice']);
+Route::post('/admin/upload/file', [UploadController::class, 'file']);
 
 Route::get('/', function(){
     return redirect()->to('/admin');

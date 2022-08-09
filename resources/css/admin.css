@@ -741,3 +741,59 @@ body::-webkit-scrollbar-thumb
 	background-color: #6faf29;
 	border: 0;
 }
+
+.block-editor-container .block-editor__sidebar {
+    border-right: 1px solid #e0e0e0;
+    border-left: none;
+}
+
+.block-editor-default-block-appender .block-editor-inserter {
+    right: auto !important;
+    left: 0;
+}
+
+.block-editor-container .block-editor__header {
+    direction: ltr;
+}
+
+.components-button.has-icon.has-text svg {
+    margin-left: 8px;
+    margin-right: auto !important;
+}
+
+.components-placeholder__label .block-editor-block-icon, .components-placeholder__label .dashicon, .components-placeholder__label>svg {
+    fill: currentColor;
+    margin-left: 1ch;
+    margin-right: 0 !important;
+}
+
+
+.components-placeholder__fieldset.components-placeholder__fieldset .components-placeholder__instructions {
+    text-align: right;
+}
+
+.components-placeholder__fieldset .components-button {
+    margin-bottom: 12px;
+    margin-left: 12px;
+    margin-right: 0 !important;
+}
+
+.components-form-file-upload {
+    flex: auto !important;
+}
+
+
+.components-toggle-control .components-base-control__field .components-form-toggle {
+    margin-left: 12px;
+    margin-right: 0 !important;
+}
+
+.block-editor-block-card .block-editor-block-icon {
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+}
+
+.components-popover.block-editor-block-popover {
+    right: 15px !important;
+    left: auto !important;
+}

@@ -7,14 +7,21 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    public function voice(Request $request)
+    public function file(Request $request)
     {
-        $blobInput = $request->file('audio-blob');
 
-        $filename = md5(auth()->id().'_'.time()).'.wav';
-        //save the wav file to 'storage/app/audio' path with fileanme test.wav
-        Storage::disk('local')->put('/.tmb/voice/'.$filename, file_get_contents($blobInput));
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+            $prefix = $request->prefix;
+            $filename = $prefix.$file->getClientOriginalName();
+            Storage::disk('local')->put('/uploads/'.$filename, file_get_contents($file));
+            // $file->storeAs('/uploads/', $filename);
+        }
         
-        return response()->json(['filename'=> $filename]);
+        return response()->json([
+            'id' => $filename,
+            'name' => $filename,
+            'url' => asset('/uplouds/'.$filename)
+        ]);
     }
 }
