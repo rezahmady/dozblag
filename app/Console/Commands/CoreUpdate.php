@@ -65,6 +65,9 @@ class CoreUpdate extends Command
             $this->call('module:enable', ['module' => 'ThemeManager']);
 
             chmod(base_path(),0755);
+
+            // undo unstage changes
+            exec('cd '.base_path().' && git checkout .');
         }
 
         // migrations
