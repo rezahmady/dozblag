@@ -42,6 +42,8 @@ class CoreUpdate extends Command
             $owner = get_current_user();
 
             // composer update
+            exec('cd '.base_path().' && composer update');
+
             // fix permissions
             exec('cd '.base_path().' && chown -R '.$owner.':www-data storage && chown -R '.$owner.':www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
 
