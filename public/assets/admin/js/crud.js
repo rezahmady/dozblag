@@ -22,6 +22,7 @@ if(urlParams.has('fields')) {
     $('.form-group').addClass('d-none');
     $('#saveActions').removeClass('d-none');
     $('.repeatable-element').find('.form-group').removeClass('d-none');
+    $('[bp-field-type="table"]').find('.form-group').removeClass('d-none');
     crud.fields(fields).forEach(field => {
         if(field.type == 'repeatable') {
             $('body').css({minHeight: '500px'})
