@@ -45,7 +45,7 @@ class CoreUpdate extends Command
             exec('cd '.base_path().' && composer update');
 
             // fix permissions
-            exec('cd '.base_path().' && chown -R '.$owner.':www-data storage && chown -R '.$owner.':www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
+            exec('cd '.base_path().' && chown -R www-data:www-data storage && chown -R www-data:www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
 
             $this->call('backpack:filemanager:install');
             
@@ -104,5 +104,6 @@ class CoreUpdate extends Command
             $this->call('event:cache');
         }
 
+        exec('cd '.base_path().' && chown -R www-data:www-data storage && chown -R www-data:www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
     }
 }
