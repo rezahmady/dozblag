@@ -4,28 +4,11 @@ return [
 
     'backup' => [
 
-        /* --------------------------------------
-         * Backpack\BackupManager Command Flags
-         * --------------------------------------
-         * These flags will be attached every time a backup is triggered
-         * by Backpack\BackupManager. By default only notifications are disabled.
-         *
-         * https://docs.spatie.be/laravel-backup/v4/taking-backups/overview
-         * --only-to-disk=name-of-your-disk
-         * --only-db
-         * --only-files
-         * --disable-notifications
-         */
-        'backpack_flags' => [
-            '--disable-notifications'=> true,
-            '--only-db' => true,
-        ],
-
         /*
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'cms-backup'),
+        'name' => env('APP_NAME', 'laravel-backup'),
 
         'source' => [
 
@@ -46,12 +29,30 @@ return [
                 'exclude' => [
                     base_path('vendor'),
                     base_path('node_modules'),
+                    base_path('storage'),
+                    base_path('composer.json'),
+                    base_path('composer.lock'),
+                    base_path('modules_statuses.json'),
+                    base_path('package-lock.json'),
+                    base_path('.env'),
                 ],
 
                 /*
                  * Determines if symlinks should be followed.
                  */
                 'follow_links' => false,
+
+                /*
+                 * Determines if it should avoid unreadable folders.
+                 */
+                'ignore_unreadable_directories' => false,
+
+                /*
+                 * This path is used to make directories in resulting zip-file relative
+                 * Set to `null` to include complete absolute path
+                 * Example: base_path()
+                 */
+                'relative_path' => null,
             ],
 
             /*
@@ -102,6 +103,14 @@ return [
          */
         'database_dump_compressor' => null,
 
+        /*
+         * The file extension used for the database dump files.
+         *
+         * If not specified, the file extension will be .archive for MongoDB and .sql for all other databases
+         * The file extension should be specified without a leading .
+         */
+        'database_dump_file_extension' => '',
+
         'destination' => [
 
             /*
@@ -121,24 +130,39 @@ return [
          * The directory where the temporary files will be stored.
          */
         'temporary_directory' => storage_path('app/backup-temp'),
+
+        /*
+         * The password to be used for archive encryption.
+         * Set to `null` to disable encryption.
+         */
+        'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+
+        /*
+         * The encryption algorithm to be used for archive encryption.
+         * You can set it to `null` or `false` to disable encryption.
+         *
+         * When set to 'default', we'll use ZipArchive::EM_AES_256 if it is
+         * available on your system.
+         */
+        'encryption' => 'default',
     ],
 
     /*
      * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-     * For Slack you need to install guzzlehttp/guzzle and laravel/slack-notification-channel.
+     * For Slack you need to install laravel/slack-notification-channel.
      *
      * You can also use your own notification classes, just make sure the class is named after one of
-     * the `Spatie\Backup\Events` classes.
+     * the `Spatie\Backup\Notifications\Notifications` classes.
      */
     'notifications' => [
 
         'notifications' => [
-            \App\Notifications\Backup\BackupHasFailed::class         => [\App\Channels\DatabaseChannel::class,'mail'],
-            \App\Notifications\Backup\UnhealthyBackupWasFound::class => ['mail'],
-            \App\Notifications\Backup\CleanupHasFailed::class        => ['mail'],
-            \App\Notifications\Backup\BackupWasSuccessful::class     => [\App\Channels\DatabaseChannel::class,'mail'],
-            \App\Notifications\Backup\HealthyBackupWasFound::class   => ['mail'],
-            \App\Notifications\Backup\CleanupWasSuccessful::class    => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class => ['mail'],
         ],
 
         /*
@@ -148,7 +172,12 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'ahmadireza15@gmail.com',
+            'to' => 'your@example.com',
+
+            'from' => [
+                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                'name' => env('MAIL_FROM_NAME', 'Example'),
+            ],
         ],
 
         'slack' => [
@@ -164,6 +193,20 @@ return [
             'icon' => null,
 
         ],
+
+        'discord' => [
+            'webhook_url' => '',
+
+            /*
+             * If this is an empty string, the name field on the webhook will be used.
+             */
+            'username' => '',
+
+            /*
+             * If this is an empty string, the avatar on the webhook will be used.
+             */
+            'avatar_url' => '',
+        ],
     ],
 
     /*
@@ -173,10 +216,10 @@ return [
      */
     'monitor_backups' => [
         [
-            'name'          => env('APP_NAME', 'garrin-backup'),
-            'disks'         => ['local'],
+            'name' => env('APP_NAME', 'laravel-backup'),
+            'disks' => ['local'],
             'health_checks' => [
-                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class          => 1,
+                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
             ],
         ],
@@ -239,4 +282,5 @@ return [
             'delete_oldest_backups_when_using_more_megabytes_than' => 5000,
         ],
     ],
+
 ];
