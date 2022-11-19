@@ -105,6 +105,6 @@ class CoreUpdate extends Command
         }
 
         exec('cd '.base_path().' && chown -R www-data:www-data storage && chown -R www-data:www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
-        exec('sudo chmod -R ugo+rw storage');
+        exec('chmod -R ugo+rw storage');
     }
 }
