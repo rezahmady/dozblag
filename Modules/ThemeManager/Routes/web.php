@@ -22,6 +22,7 @@ Route::group([
     // Route::crud('category', 'CategoryCrudController');
     Route::crud('theme', 'ThemeCrudController');
     Route::get('theme/{theme_folder}/activate', 'ThemeCrudController@activate');
+    Route::get('theme/{theme_folder}/publish_assets', 'ThemeCrudController@publish_assets');
     Route::get('theme/{theme}/rebuild', 'ThemeCrudController@rebuild');
     Route::crud('widget', 'WidgetCrudController');
     Route::crud('menu', 'MenuCrudController');

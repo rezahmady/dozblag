@@ -280,6 +280,16 @@ class ThemeCrudController extends CrudController
         return null;
     }
 
+    public function publish_assets($theme_folder) {
+        $this->publishAssets($theme_folder);
+        return redirect()
+                ->back()
+                ->with([
+                        'message'    => "با موفقیت بروز شد.",
+                        'alert-type' => 'success',
+                    ]);
+    }
+
     /**
      * Add the fields defined for a specific theme.
      *

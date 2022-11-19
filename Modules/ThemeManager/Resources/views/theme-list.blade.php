@@ -75,7 +75,10 @@
                 <a href="{{ backpack_url("theme/$theme->id/edit") }}" class="btn btn-default btn-xs">تنظیمات</a>
                 <a href="{{ backpack_url('widget') }}" class="btn btn-default btn-xs">ابزارک‌ها</a>
                 <a href="{{ backpack_url('menu') }}" class="btn btn-default btn-xs">منو</a>
-                <a href="{{ url($crud->route.'/'.$theme->folder.'/activate') }} " class="btn btn-link btn-xs">
+                @if (app()->environment('local'))
+                <a href="{{ url($crud->route.'/'.$theme->folder.'/publish_assets') }}" class="btn btn-default btn-xs">تازه‌سازی استایل‌ها</a>
+                @endif
+                <a href="{{ url($crud->route.'/'.$theme->folder.'/activate') }}" class="btn btn-link btn-xs">
                     <span class="text-danger">
                         حذف
                     </span>
