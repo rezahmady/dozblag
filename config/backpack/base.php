@@ -76,7 +76,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => 'cms<b>Snack</b>',
+    'project_logo'   => env('ADMIN_TITLE', 'cms<b>Snack</b>'),
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
