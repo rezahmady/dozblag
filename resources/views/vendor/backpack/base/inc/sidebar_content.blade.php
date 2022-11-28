@@ -38,6 +38,6 @@ $menu = Menu::create(function($menu) {
 </li>
 @endcan
 
-@can('admin message')
+{{-- @can('admin message') --}}
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('message') }}'><i class='nav-icon la la-envelope-o'></i> صندوق پیام</a></li>
-@endcan
+{{-- @endcan --}}

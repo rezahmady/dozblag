@@ -20,4 +20,6 @@ Route::group([
     Route::get('module/{module}/enable', [ ModuleCrudController::class, 'enable'])->name('enable');
     Route::get('module/{module}/disable', [ ModuleCrudController::class, 'disable'])->name('disable');
     Route::crud('module', 'ModuleCrudController');
+    Route::crud('message', 'MessageCrudController');
+    Route::get('message/{message:id}/toggleSeen', 'MessageCrudController@toggleSeen');
 }); // this should be the absolute last line of this file
