@@ -36,28 +36,6 @@ Route::get('/', function(){
     return redirect()->to('/admin');
 });
 
-// Download Route
-Route::get('download', function(Request $request)
-{
-    $filename = $request->filename;
-
-    // Check if file exists in app/storage/file folder
-    $file_path = public_path($filename)  ;
-    // ddd($file_path);
-    if (file_exists($file_path))
-    {
-        // Send Download
-        return Response::download($file_path, basename($filename), [
-            'Content-Length: '. filesize($file_path)
-        ]);
-    }
-    else
-    {
-        // Error
-        exit('Requested file does not exist on our server!');
-    }
-});
-
 Route::post('/admin/api/widget', [ \App\Http\Controllers\Api\DashboardController::class, 'update_widget']);
 Route::get('/admin/self-update', [ \App\Http\Controllers\Api\UpdateController::class, 'update']);
 Route::post('/admin/api/self-update/check', [ \App\Http\Controllers\Api\UpdateController::class, 'check_update']);
