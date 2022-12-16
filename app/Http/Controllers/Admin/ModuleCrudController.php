@@ -126,6 +126,7 @@ class ModuleCrudController extends CrudController
     {
         $module->update(['status' => true]);
         Artisan::call('module:enable '.$module->name);
+        Artisan::call('core:update ');
         Alert::success('افزونه '.$module->display_name.' فعال شد.')->flash();
         return redirect()->back();
     }
@@ -134,6 +135,7 @@ class ModuleCrudController extends CrudController
     {
         $module->update(['status' => false]);
         Artisan::call('module:disable '.$module->name);
+        Artisan::call('core:update ');
         Alert::success('افزونه '.$module->display_name.' غیرفعال شد.')->flash();
         return redirect()->back();
     }
@@ -161,7 +163,7 @@ class ModuleCrudController extends CrudController
                 // set fields value
                 $this->crud->getRequest()->request->add(['name'=> $module['name']]);
                 $this->crud->getRequest()->request->add(['description'=> $module['description']]);
-                $this->crud->getRequest()->request->add(['display_name'=> $module['display_name']]);
+                $this->crud->getRequest()->request->add(['display_name'=> $module['display_name'] ?? $module['name']]);
 
                 // remove temporary file field
                 $this->crud->removeField('file');
