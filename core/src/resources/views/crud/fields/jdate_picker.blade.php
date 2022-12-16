@@ -26,6 +26,15 @@
             type="text"
             @include('crud::fields.inc.attributes')
             >
+            <span style="
+            position: absolute;
+            left: 43px;
+            color: red;
+            top: 8px;
+            cursor: pointer;
+        " class="jdate-calendar-clear">
+                <i class="nav-icon la la-close"></i>
+            </span>
         <div class="input-group-append">
             <span class="input-group-text">
                 <span class="la la-calendar"></span>
@@ -65,18 +74,42 @@
         }
 
         function bpFieldInitDatePickerElement(element) {
-            var $fake = element,
-            $field = $fake.closest('.input-group').parent().find('input[type="hidden"]'),
-            $customConfig = $.extend({
-                format: 'L',
-                initialValueType: 'gregorian',
-                onSelect: function(unix){
-                    setValue(unix)
-                }
-            }, $fake.data('bs-datepicker'));
+            var $fake = element
+            $field = $fake.closest('.input-group').parent().find('input[type="hidden"]')
+            var $existingVal = $field.val();
+            
+            if( $existingVal.length ) {
+                $customConfig = $.extend({
+                    format: 'L',
+                    autoClose: true,
+                    initialValueType: 'gregorian',
+                    onSelect: function(unix){
+                        setValue(unix)
+                    }
+                }, $fake.data('bs-datepicker'));
+                $fake.closest('.input-group').find('.jdate-calendar-clear').show();
+            } else {
+                $customConfig = $.extend({
+                    format: 'L',
+                    autoClose: true,
+                    initialValueType: 'gregorian',
+                    initialValue: false,
+                    onSelect: function(unix){
+                        setValue(unix)
+                    },
+                }, $fake.data('bs-datepicker'));
+                $fake.closest('.input-group').find('.jdate-calendar-clear').hide();
+            }
+
+            $fake.closest('.input-group').find('.jdate-calendar-clear').click(function (e) {
+                $fake.closest('.input-group').parent().find('input[type="hidden"]').val('')
+                element.val('')
+                $fake.closest('.input-group').find('.jdate-calendar-clear').hide();
+            })
+
+            
             $picker = element.bootstrapDP($customConfig);
 
-            var $existingVal = $field.val();
             if( !$existingVal.length ){
                 var d = new Date();
                 var curr_date = d.getDate();
@@ -93,6 +126,7 @@
                 var curr_year = d.getFullYear();
                 var sqlDate = curr_year + "-" + curr_month + "-" + curr_date
                 $field.val(sqlDate);
+                $fake.closest('.input-group').find('.jdate-calendar-clear').show();
             }
         }
     </script>
