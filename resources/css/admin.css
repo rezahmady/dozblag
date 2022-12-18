@@ -693,7 +693,7 @@ table.dataTable thead>tr>th {
 }
 
 .checkbox {
-    padding-top: 30px;
+    padding-top: 0px;
 }
 
 .alert-fixed-bottom {
