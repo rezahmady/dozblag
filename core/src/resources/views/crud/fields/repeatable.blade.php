@@ -38,7 +38,7 @@
 
     @push('before_scripts')
     <div class="col-md-12 well repeatable-element row m-1 p-2" data-repeatable-identifier="{{ $field['name'] }}">
-      @if (isset($field['fields']) && is_array($field['fields']) && count($field['fields']))
+      @if (isset($field['subfields']) && is_array($field['subfields']) && count($field['subfields']))
         <div class="controls">
             <button type="button" class="close delete-element"><span aria-hidden="true">×</span></button>
             <button type="button" class="close move-element-up">
@@ -48,11 +48,14 @@
                 <svg viewBox="0 0 64 80"><path d="M17.2,30.3c4.3,4.3,8.7,8.7,13,13c1,1,2.6,1,3.5,0c4.3-4.3,8.7-8.7,13-13c2.3-2.3-1.3-5.8-3.5-3.5c-4.3,4.3-8.7,8.7-13,13c1.2,0,2.4,0,3.5,0c-4.3-4.3-8.7-8.7-13-13C18.5,24.5,15,28,17.2,30.3L17.2,30.3z"/></svg>
             </button>
         </div>
-        @foreach($field['fields'] as $subfield)
+        @foreach($field['subfields'] as $subfield)
           @php
               $subfield = $crud->makeSureFieldHasNecessaryAttributes($subfield);
               $fieldViewNamespace = $subfield['view_namespace'] ?? 'crud::fields';
               $fieldViewPath = $fieldViewNamespace.'.'.$subfield['type'];
+              if($subfield['type'] == 'relationship' and isset($field['pivotSelect'])) {
+                $subfield = array_merge($subfield,$field['pivotSelect']);
+              }
           @endphp
 
           @include($fieldViewPath, ['field' => $subfield])
