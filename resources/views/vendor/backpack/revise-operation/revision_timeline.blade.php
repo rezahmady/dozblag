@@ -5,9 +5,14 @@
         {{-- {{ Carbon\Carbon::parse($revisionDate)->isoFormat(config('backpack.base.default_date_format')) }} --}}
         @php
             $v = new Verta($revisionDate);
-
-        $fields = Rezahmady\SettingOperation\Setting::get('users.custom_fields');
-        $fields = json_decode($fields, true);
+            $class = new \ReflectionClass($crud->model);
+            $namespace = $class->getNamespaceName();
+            $module_name = false;
+            if(Str::startsWith($namespace, 'Modules')) {
+              $module_name = explode("\\", $namespace)[1];
+              $module = Module::find($module_name);
+              $module_name = $module->getLowerName();
+            }
         @endphp
         {{ $v->format('Y/n/j') }}
       </h5>
@@ -52,7 +57,7 @@
       @else
         <div class="card-header">
           <strong class="time"><i class="la la-clock"></i>  {{ $v->format('H:i') }}</strong> -
-          {{ trans('revise-operation::revise.changed_the') }} {{ trans('backpack::revise.attributes.'.$history->fieldName()) }} {{ $history->userResponsible()?$history->userResponsible()->name:trans('revise-operation::revise.guest_user') }}
+          {{ trans('revise-operation::revise.changed_the') }} <b> @if($module_name) {{ trans("$module_name::$module_name.".$history->fieldName()) }} @else  {{ trans('backpack::revise.attributes.'.$history->fieldName()) }} @endif </b> توسط <a href="{{backpack_url("user/".$history->userResponsible()->id."/edit")}}">{{ $history->userResponsible()?$history->userResponsible()->name:trans('revise-operation::revise.guest_user') }}</a>
           <div class="card-header-actions">
             <form class="card-header-action" method="post" action="{{ url(\Request::url().'/'.$history->id.'/restore') }}">
               {!! csrf_field() !!}
@@ -111,6 +116,7 @@
         },
         success: function(revisionTimeline) {
           // Replace the revision list with the updated revision list
+          console.log(revisionTimeline);
           $('#timeline').replaceWith(revisionTimeline);
 
           // Animate the new revision in (by sliding)
