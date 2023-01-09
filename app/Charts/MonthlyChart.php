@@ -37,7 +37,7 @@ class MonthlyChart extends BaseChart
                 'اسفند'
             ]);
 
-        Hook::action('widget-core-monthly-chart::action', $chart);
+        // Hook::action('widget-core-monthly-chart::action', $chart);
 
         return $chart;
     }
