@@ -33,20 +33,22 @@ class HookServiceProvider extends ServiceProvider
         /**
          *  Admin widgets
          *
-         */
+        */
 
         Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
-            $widget = [
-                'id'  => 'user-customers-number',
-                'lg'  => 'col-lg-3',
-                'md'  => 'col-md-3',
-                'sm'  => 'col-sm-6',
-                'xsm' => 'col-12',
-                'view' => 'user-widget-customers-number',
-                'active' => true,
-            ];
-
-            array_push($widgets, $widget);
+            if(backpack_user()->can('user manage')) {
+                $widget = [
+                    'id'  => 'user-customers-number',
+                    'lg'  => 'col-lg-3',
+                    'md'  => 'col-md-3',
+                    'sm'  => 'col-sm-6',
+                    'xsm' => 'col-12',
+                    'view' => 'user-widget-customers-number',
+                    'active' => true,
+                ];
+    
+                array_push($widgets, $widget);
+            }
             return $widgets;
         }, 20, 1);
 
@@ -55,18 +57,19 @@ class HookServiceProvider extends ServiceProvider
          *  monthly chart
          */
         Hook::addAction('widget-core-monthly-chart::action', function($chart) {
-            $v = Verta();
-            $data = [];
-            for ($key=0 ; $key<12; $key++) {
+            if(backpack_user()->can('user manage')) {
                 $v = Verta();
-                $startMonth = (array) $v->month($key)->startMonth();
-                $endMonth = (array) $v->month($key)->endMonth();
-
-                $data['customers'][$key] = (int) User::where('template', 'customer')
-                    ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+                $data = [];
+                for ($key=0 ; $key<12; $key++) {
+                    $v = Verta();
+                    $startMonth = (array) $v->month($key)->startMonth();
+                    $endMonth = (array) $v->month($key)->endMonth();
+    
+                    $data['customers'][$key] = (int) User::where('template', 'customer')
+                        ->whereBetween('created_at', [$startMonth['date'] , $endMonth['date']])->count();
+                }
+                $chart->dataset('کاربران', $data['customers']);
             }
-            $chart
-                ->dataset('کاربران', $data['customers']);
         }, 20, 1);
     }
 
