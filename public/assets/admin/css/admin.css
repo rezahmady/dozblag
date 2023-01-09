@@ -797,3 +797,62 @@ body::-webkit-scrollbar-thumb
     right: 15px !important;
     left: auto !important;
 }
+
+.badge {
+    border-radius: 20px;
+    font-weight: 400;
+    padding: .6em .6em;
+    color: #4b4b4b;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 0;
+}
+
+.badge.badge-success {
+    background-color: #ecf7f0;
+}
+
+.badge.badge-danger {
+    background-color: #ffeeee;
+}
+
+.badge.badge-info {
+    background-color: #e9f3fc;
+}
+
+.badge.badge-warning {
+    background-color: #fff2be;
+}
+
+.badge span.circle {
+    width: 6px;
+    height: 6px;
+    display: block;
+    border-radius: 8px;
+    margin-left: .4rem;
+}
+
+.badge.badge-success .circle {
+    background-color: #1ab69b;
+    outline: 2px solid #1bb69b8f;
+}
+
+.badge.badge-danger .circle {
+    background-color: #f95352;
+    outline: 2px solid #f9545369;
+}
+
+.badge.badge-warning .circle {
+    background-color: #f0d619;
+    outline: 2px solid #f0d6198c;
+}
+
+.badge.badge-info .circle {
+    background-color: #228be6;
+    outline: 2px solid #228be675;
+}
+
+.datepicker-plot-area {
+    font-family: 'IRANSans' !important;
+}

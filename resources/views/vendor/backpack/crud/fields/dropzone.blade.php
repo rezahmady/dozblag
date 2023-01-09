@@ -32,7 +32,7 @@
 
     {{-- FIELD CSS - will be loaded in the after_styles section --}}
     @push('crud_fields_styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{asset('/assets/admin/packages/dropzone/dropzone.min.css')}}" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .dropzone-target {
             background: #f3f3f3;
@@ -78,8 +78,8 @@
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js" integrity="sha512-llCHNP2CQS+o3EUK2QFehPlOngm8Oa7vkvdUpEFN71dVOf3yAj9yMoPdS5aYRTy8AEdVtqUBIsVThzUSggT0LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js" integrity="sha512-5x7t0fTAVo9dpfbp3WtE2N6bfipUwk7siViWncdDoSz2KwOqVC1N9fDxEOzk0vTThOua/mglfF8NO7uVDLRC8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('/assets/admin/packages/dropzone/dropzone.min.js')}}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('/assets/admin/packages/sortable/Sortable.min.js')}}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         Dropzone.autoDiscover = false;
         $("div#{{ $field['name'] }}-dropzone").dropzone({

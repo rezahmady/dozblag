@@ -26,6 +26,15 @@
             type="text"
             @include('crud::fields.inc.attributes')
             >
+            <span style="
+            position: absolute;
+            left: 43px;
+            color: red;
+            top: 8px;
+            cursor: pointer;
+        " class="jdate-calendar-clear">
+                <i class="nav-icon la la-close"></i>
+            </span>
         <div class="input-group-append">
             <span class="input-group-text">
                 <span class="la la-calendar"></span>
@@ -49,13 +58,13 @@
 
     {{-- FIELD CSS - will be loaded in the after_styles section --}}
     @push('crud_fields_styles')
-    <link rel="stylesheet" href="{{ asset('packages/persian-datepicker/css/persian-datepicker.min.css') }}" >
+    <link rel="stylesheet" href="{{ asset('assets/admin/packages/persian-datepicker/css/persian-datepicker.min.css') }}" >
     @endpush
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-    <script src="{{ asset('packages/persian-datepicker/js/persian-date.min.js') }}"></script>
-    <script src="{{ asset('packages/persian-datepicker/js/persian-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/packages/persian-datepicker/js/persian-date.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/packages/persian-datepicker/js/persian-datepicker.min.js') }}"></script>
     <script>
         if (jQuery.ui) {
             var persianDatepicker = $.fn.datepicker.noConflict();
@@ -65,20 +74,43 @@
         }
 
         function bpFieldInitDatePickerElement(element) {
-            var $fake = element,
-            $field = $fake.closest('.input-group').parent().find('input[type="hidden"]'),
-            $customConfig = $.extend({
-                format: 'L',
-                autoClose: true,
-                initialValueType: 'gregorian',
-                onSelect: function(unix){
-                    setValue(unix)
-                }
-            }, $fake.data('bs-datepicker'));
+            var $fake = element
+            $field = $fake.closest('.input-group').parent().find('input[type="hidden"]')
+            var $existingVal = $field.val();
+
+            if( $existingVal.length ) {
+                $customConfig = $.extend({
+                    format: 'L',
+                    autoClose: true,
+                    initialValueType: 'gregorian',
+                    onSelect: function(unix){
+                        setValue(unix)
+                    }
+                }, $fake.data('bs-datepicker'));
+                $fake.closest('.input-group').find('.jdate-calendar-clear').show();
+            } else {
+                $customConfig = $.extend({
+                    format: 'L',
+                    autoClose: true,
+                    initialValueType: 'gregorian',
+                    initialValue: false,
+                    onSelect: function(unix){
+                        setValue(unix)
+                    },
+                }, $fake.data('bs-datepicker'));
+                $fake.closest('.input-group').find('.jdate-calendar-clear').hide();
+            }
+
+            $fake.closest('.input-group').find('.jdate-calendar-clear').click(function (e) {
+                $fake.closest('.input-group').parent().find('input[type="hidden"]').val('')
+                element.val('')
+                $fake.closest('.input-group').find('.jdate-calendar-clear').hide();
+            })
+
+            
             $picker = element.bootstrapDP($customConfig);
 
-            var $existingVal = $field.val();
-            if( !$existingVal.length ){
+            if( !$existingVal.length  && $picker.options.initialValue ){
                 var d = new Date();
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
@@ -94,6 +126,7 @@
                 var curr_year = d.getFullYear();
                 var sqlDate = curr_year + "-" + curr_month + "-" + curr_date
                 $field.val(sqlDate);
+                $fake.closest('.input-group').find('.jdate-calendar-clear').show();
             }
         }
     </script>

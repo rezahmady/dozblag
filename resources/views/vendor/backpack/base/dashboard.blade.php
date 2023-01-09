@@ -10,9 +10,9 @@
 
 @section('content')
     <!-- Charting library -->
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="{{asset('assets/admin/packags/chartisan/echarts.min')}}"></script>
     <!-- Chartisan -->
-    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <script src="{{asset('assets/admin/packags/chartisan/chartisan_echarts.js')}}"></script>
     <div class="alert bg-danger bg-shining justify-content-between mb-0 alert-fixed-bottom" x-data="update_alert" x-show="$store.update.has_update" role="alert">
         <span x-text="$store.update.version"></span>
         <a href="{{url('/admin/self-update')}}" ><span class="badge badge-pill bg-danger border-warning  p-2">لطفا بروزرسانی کنید</span></a>

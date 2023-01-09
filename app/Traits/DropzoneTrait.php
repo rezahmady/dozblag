@@ -4,10 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DropzoneRequest;
 use TorMorten\Eventy\Facades\Events as Hook;
 
