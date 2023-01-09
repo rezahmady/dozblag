@@ -27,18 +27,18 @@ if (urlParams.has('iframe')) {
     })
 } else {
     /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function() {
-        if (document.getElementById("saveActions")) {
-            var currentScrollPos = window.pageYOffset;
-            if (prevScrollpos > currentScrollPos) {
-                document.getElementById("saveActions").style.bottom = "0";
-            } else {
-                document.getElementById("saveActions").style.bottom = "-70px";
-            }
-            prevScrollpos = currentScrollPos;
-        }
-    }
+    // var prevScrollpos = window.pageYOffset;
+    // window.onscroll = function() {
+    //     if (document.getElementById("saveActions")) {
+    //         var currentScrollPos = window.pageYOffset;
+    //         if (prevScrollpos > currentScrollPos) {
+    //             document.getElementById("saveActions").style.bottom = "0";
+    //         } else {
+    //             document.getElementById("saveActions").style.bottom = "-70px";
+    //         }
+    //         prevScrollpos = currentScrollPos;
+    //     }
+    // }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
