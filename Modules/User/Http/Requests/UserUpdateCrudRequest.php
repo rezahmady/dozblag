@@ -2,6 +2,7 @@
 
 namespace Modules\User\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use TorMorten\Eventy\Facades\Events as Hook;
 
@@ -30,8 +31,7 @@ class UserUpdateCrudRequest extends FormRequest
      */
     public function rules()
     {
-        $userModel = config('backpack.permissionmanager.models.user');
-        $userModel = new $userModel();
+        $userModel = new User();
         $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
 
         $userId = $this->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
