@@ -18,6 +18,7 @@ return [
     'user'                   => 'کاربر',
     'logout'                 => 'خروج',
     'login'                  => 'ورود',
+    'email'                  => 'پست الکترونیک',
     'register'               => 'عضویت',
     'name'                   => 'نام',
     'email_address'          => 'آدرس ایمیل',

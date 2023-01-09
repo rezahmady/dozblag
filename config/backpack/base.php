@@ -24,7 +24,7 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => 'اسنک',
+    'project_name' => env('PROJECT_NAME', 'اسنک'),
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?
@@ -262,8 +262,8 @@ return [
     // Username column for authentication
     // The Backpack default is the same as the Laravel default (email)
     // If you need to switch to username, you also need to create that column in your db
-    'authentication_column'      => 'email',
-    'authentication_column_name' => 'Email',
+    'authentication_column'      => 'mobile',
+    'authentication_column_name' => 'شماره همراه',
 
     // The guard that protects the Backpack admin panel.
     // If null, the config.auth.defaults.guard value will be used.
