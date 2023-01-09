@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
-    return redirect()->to('/admin');
+    return redirect()->to(env('ADMIN_ROUTE_PREFIX', 'admin'));
 });
 
 Route::post('/admin/api/widget', [ \App\Http\Controllers\Api\DashboardController::class, 'update_widget']);
