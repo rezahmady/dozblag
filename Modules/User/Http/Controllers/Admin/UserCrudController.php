@@ -6,13 +6,9 @@ use App\Traits\DefaultPermissions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Modules\User\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use Modules\User\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
-use Modules\User\Traits\UserTemplates;
-use Modules\Resource\Models\Resource;
 use Illuminate\Support\Facades\Hash;
 use TorMorten\Eventy\Facades\Events as Hook;
-use Modules\Filter\Models\Filter;
 use App\Models\User;
-use Rezahmady\SettingOperation\Setting;
 
 class UserCrudController extends CrudController
 {
@@ -26,7 +22,6 @@ class UserCrudController extends CrudController
     use \App\Traits\ReviseOperation;
     use \App\Traits\DropzoneTrait;
     use DefaultPermissions;
-    use UserTemplates;
 
     Const ENTITY = 'user';
 
@@ -129,18 +124,17 @@ class UserCrudController extends CrudController
 
     public function setupCreateOperation()
     {
-        Hook::action('user-crud-create-operation-before-fields', $this->crud, \Request::input('template'));
-        $this->addUserFields(\Request::input('template'));
-        Hook::action('user-crud-create-operation-after-fields', $this->crud, \Request::input('template'));
+        Hook::action('user-crud-create-operation-before-fields', $this->crud);
+        $this->addUserFields();
+        Hook::action('user-crud-create-operation-after-fields', $this->crud);
         $this->crud->setValidation(StoreRequest::class);
     }
 
     public function setupUpdateOperation()
     {
-        $template = \Request::input('template') ?? $this->crud->getCurrentEntry()->template;
-        Hook::action('user-crud-update-operation-before-fields', $this->crud, $template);
-        $this->addUserFields($template);
-        Hook::action('user-crud-update-operation-after-fields', $this->crud, $template);
+        Hook::action('user-crud-update-operation-before-fields', $this->crud);
+        $this->addUserFields();
+        Hook::action('user-crud-update-operation-after-fields', $this->crud);
         $this->crud->setValidation(UpdateRequest::class);
     }
 
@@ -196,24 +190,9 @@ class UserCrudController extends CrudController
         return $request;
     }
 
-    protected function addUserFields($template = '')
+    protected function addUserFields()
     {
-        //        $this->crud->addField([
-        //            'name' => 'template',
-        //            'label' => trans('user::permissionmanager.template'),
-        //            'hint' => 'نوع کاربری را که می خواهید ایجاد کنید را در ابتدا مشخص کنید و سپس سایر اطلاعات کاربر را در زیر تکمیل کنید',
-        //            'type' => 'select_crud_template',
-        //            'options' => $this->getTemplatesArray(),
-        //            'value' => $template,
-        //            'allows_null' => false,
-        //        ]);
-
         $this->crud->addFields([
-            [
-                'name' => 'template',
-                'type' => 'hidden',
-                'value' => 'user',
-            ],
             [
                 'name'  => 'name',
                 'prefix'  => '<i class="la la-user"></i>',
@@ -269,69 +248,38 @@ class UserCrudController extends CrudController
             ]
         ]);
 
-        $this->useTemplate($template);
-    }
-
-    /**
-     * Add the fields defined for a specific template.
-     *
-     * @param  string $template_name The name of the template that should be used in the current form.
-     */
-    public function useTemplate($template_name = false)
-    {
-        $templates = $this->getTemplates();
-
-        // set the default template
-        if ($template_name == false) {
-            $template_name = $templates[0]->name;
+        if(backpack_user()->can('user assign role')) {
+            $this->crud->addField([
+                // two interconnected entities
+                'label'             => trans('user::permissionmanager.user_role_permission'),
+                'field_unique_name' => 'user_role_permission',
+                'type'              => 'checklist_dependency',
+                'name'              => ['roles', 'permissions'],
+                'tab'               => 'دسترسی',
+                'subfields'         => [
+                    'primary' => [
+                        'label'            => trans('user::permissionmanager.roles'),
+                        'name'             => 'roles', // the method that defines the relationship in your Model
+                        'entity'           => 'roles', // the method that defines the relationship in your Model
+                        'entity_secondary' => 'permissions', // the method that defines the relationship in your Model
+                        'attribute'        => 'name', // foreign key attribute that is shown to user
+                        'model'            => config('permission.models.role'), // foreign key model
+                        'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
+                        'number_columns'   => 3, //can be 1,2,3,4,6
+                    ],
+                    'secondary' => [
+                        'label'          => ucfirst(trans('user::permissionmanager.permission_singular')),
+                        'name'           => 'permissions', // the method that defines the relationship in your Model
+                        'entity'         => 'permissions', // the method that defines the relationship in your Model
+                        'entity_primary' => 'roles', // the method that defines the relationship in your Model
+                        'attribute'      => 'display_name', // foreign key attribute that is shown to user
+                        'model'          => config('permission.models.permission'), // foreign key model
+                        'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
+                        'number_columns' => 3, //can be 1,2,3,4,6
+                    ],
+                ],
+            ]);
         }
 
-        // actually use the template
-        if ($template_name) {
-            $this->{$template_name}();
-        }
-    }
-
-
-    /**
-     * Get all defined templates.
-     */
-    public function getTemplates($template_name = false)
-    {
-        $templates_array = [];
-
-        $templates_trait = new \ReflectionClass('Modules\User\Traits\UserTemplates');
-        $templates = $templates_trait->getMethods(\ReflectionMethod::IS_PRIVATE);
-
-        if (! count($templates)) {
-            abort(503, trans('user::permissionmanager.template_not_found'));
-        }
-
-        return $templates;
-    }
-
-    /**
-     * Get all defined template as an array.
-     *
-     * Used to populate the template dropdown in the create/update forms.
-     */
-    public function getTemplatesArray()
-    {
-        $templates = $this->getTemplates();
-
-        foreach ($templates as $template) {
-            $templates_array[$template->name] = trans('user::permissionmanager.function_name.'.$template->name);
-        }
-
-        return $templates_array;
-    }
-
-    protected function fetchResource()
-    {
-        return $this->fetch([
-            'model' => Resource::class, // required
-            'searchable_attributes' => ['name', 'caption'],
-            'paginate' => 10, // items to show per page
-        ]);
     }
 }
