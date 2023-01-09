@@ -26,20 +26,20 @@ class HookServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
+        // Hook::addFilter('admin-dashboard-widget::filter', function($widgets) {
 
-            $widget = [
-                'id'  => 'core-monthly-chart',
-                'lg'  => 'col-lg-3',
-                'md'  => 'col-md-3',
-                'sm'  => 'col-sm-6',
-                'xsm' => 'col-12',
-                'view' => 'core-widget-monthly-chart',
-                'active' => false,
-            ];
+        //     $widget = [
+        //         'id'  => 'core-monthly-chart',
+        //         'lg'  => 'col-lg-3',
+        //         'md'  => 'col-md-3',
+        //         'sm'  => 'col-sm-6',
+        //         'xsm' => 'col-12',
+        //         'view' => 'core-widget-monthly-chart',
+        //         'active' => false,
+        //     ];
 
-            array_push($widgets, $widget);
-            return $widgets;
-        }, 20, 1);
+        //     array_push($widgets, $widget);
+        //     return $widgets;
+        // }, 20, 1);
     }
 }
