@@ -875,3 +875,7 @@ body::-webkit-scrollbar-thumb
     margin-right: 0 !important;
     margin-left: .4rem;
 }
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: right !important;
+}
