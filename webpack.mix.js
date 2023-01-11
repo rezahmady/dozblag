@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.styles([
-    'resources/css/admin.css',
+    'resources/css/admin-v2.css',
 ], 'public/assets/admin/css/admin.css').version();
 
 mix.styles([
