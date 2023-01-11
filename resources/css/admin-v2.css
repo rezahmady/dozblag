@@ -266,16 +266,22 @@ ol.sortable ol {
     transition: right .25s, bottom 0.25s;
     right: 0;
     left: 0;
-    background: #f1f4f8;
+    background: #f5f9fc;
     padding: 15px;
     margin-bottom: 0;
     border-top: 1px solid #e4e4e4;
     z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-group, .btn-group-vertical {
+    margin-left: 10px;
 }
 
 @media (min-width: 992px) {
     .sidebar-lg-show #saveActions {
-        right: 225px;
+        right: 0;
         transition: right .25s, bottom 0.25s;
     }
 }
@@ -1006,4 +1012,8 @@ body {
     background-color: #d3ecff;
     border-radius: 20px;
     color: var(--main);
+}
+
+.dropzone-target {
+    background: #f5f9fc !important;
 }
