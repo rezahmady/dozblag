@@ -36,4 +36,14 @@ if (!function_exists('array_set')) {
 
         return $array;
     }
+
+    function sort_menu_items($items) { 
+        if(is_array($items)) usort($items, function($a, $b) {
+            if($a['lft'] == $b['lft']) {
+                return 0;
+            }
+            return ($a['lft'] < $b['lft'] ? -1 : 1);
+        });
+        return $items;
+    }
 }
