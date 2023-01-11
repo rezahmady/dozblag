@@ -994,6 +994,10 @@ body {
     border: 0;
 }
 
+.nav-tabs .nav-link, .nav-tabs {
+    border: 0;
+}
+
 .select2-container--bootstrap .select2-results__option {
     text-align: right !important;
 }
