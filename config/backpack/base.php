@@ -110,13 +110,13 @@ return [
     // change background color with bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan, bg-white
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Reza Ahmadi Sabzevar',
+    'developer_name' => env('DEVELOPER_NAME', ''),
 
     // Developer website. Link in footer. Type false if you want to hide it.
-    'developer_link' => '',
+    'developer_link' => env('DEVELOPER_LINK', ''),
 
     // Show powered by Laravel Backpack in the footer? true/false
-    'show_powered_by' => false,
+    'show_powered_by' => env('SHOW_POWERED_BY', false),
 
     // -------
     // SCRIPTS

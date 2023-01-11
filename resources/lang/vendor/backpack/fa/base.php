@@ -34,7 +34,7 @@ return [
     'change_password'        => 'تغییر گذرواژه',
     'unauthorized'           => 'غیرمجاز.',
     'dashboard'              => 'داشبورد',
-    'handcrafted_by'         => 'دستکاری شده توسط',
+    'handcrafted_by'         => 'تمامی حقوق محفوظ است.',
     'powered_by'             => 'قدرت گرفته با',
     'my_account'             => 'حساب کاربری من',
     'update_account_info'    => 'بروزرسانی اطلاعات حساب کاربری',
