@@ -194,7 +194,7 @@ border-color: #7eb73d !important;
     border-radius: 30px 0 0 30px;
     overflow: hidden;
     padding-top: 20px;
-    box-shadow: 0px 0px 2px 0px rgb(97 97 97 / 11%);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
     margin-bottom: 20px;
     margin-top: 10px;
     background: #ffffff !important;
@@ -985,7 +985,6 @@ body {
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus {
-    border-radius: 10px 10px 0 0;
     box-shadow: 0 -1px 2px 0 rgb(0 0 0 / 5%);
     border: 0;
 }
@@ -1016,4 +1015,14 @@ body {
 
 .dropzone-target {
     background: #f5f9fc !important;
+}
+
+.card {
+    border: 0;
+    border-radius: 10px;
+}
+
+.sticky-footer {
+    right: 0;
+    left: 0;
 }
