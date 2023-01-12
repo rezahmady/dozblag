@@ -9,6 +9,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Unity\Models\Unity;
 use Spatie\Permission\Traits\HasRoles;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -113,14 +114,6 @@ class User extends Authenticatable
         return '';
     }
 
-    public function hasTemplate($template)
-    {
-        if(is_array($template)) {
-            return in_array($this->template, $template);
-        }
-        return $this->template == $template;//or $this->hasRole(trans("user::permissionmanager.function_name.{$template}")
-    }
-
 
     public function getProfile()
     {
@@ -132,6 +125,11 @@ class User extends Authenticatable
     public function routeNotificationForTelegram()
     {
         return $this->telegram_user_id;
+    }
+
+    public function unity()
+    {
+        return $this->belongsTo(Unity::class, 'extras->unity_id');
     }
 
 
