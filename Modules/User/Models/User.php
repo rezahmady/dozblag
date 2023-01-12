@@ -127,12 +127,6 @@ class User extends Authenticatable
         return $this->telegram_user_id;
     }
 
-    public function unity()
-    {
-        return $this->belongsTo(Unity::class, 'extras->unity_id');
-    }
-
-
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
