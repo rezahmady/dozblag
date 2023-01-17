@@ -12,7 +12,7 @@
   <span class="loader">
     <span class="loader-inner"></span>
   </span>
-  <div class="graphic-header">
+  <div class="graphic-header d-print-none">
       <svg width="883px" height="584px" viewBox="0 0 883 584" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
