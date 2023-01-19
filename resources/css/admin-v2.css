@@ -17,7 +17,7 @@ span.bg-warning {
 }
 
 .help-block {
-    background: #f3f4fa;
+    background: #eaf2f9;
     margin-top: 15px !important;
     padding: 12px 15px;
     color: #7286a9;
@@ -942,7 +942,7 @@ body {
     max-width: 1000px;
     margin: auto;
     width: 100%;
-
+    margin-top: 50px;
     background-color: #FBAB7E;
     background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 
