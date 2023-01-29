@@ -96,8 +96,10 @@ class CoreUpdate extends Command
             $this->call('view:clear');
             $this->call('route:clear');
         } else {
-            // optimize for production mode
-            $this->call('optimize');
+            // cache configs
+            $this->call('config:cache');
+            // cache routes
+            $this->call('route:cache');
             // cache views
             $this->call('view:cache');
             // cache events
