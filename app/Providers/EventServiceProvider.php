@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\ConsultationAdded;
+use App\Listeners\AssignUserRole;
 use App\Notifications\Doctor\NewRoom as DoctorNewRoom;
 use App\Notifications\Operator\NewRoom;
 use Illuminate\Auth\Events\Registered;
@@ -18,9 +19,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        // Registered::class => [
-        //     SendEmailVerificationNotification::class,
-        // ],
+        Registered::class => [
+            AssignUserRole::class,
+        ],
 
         // DisplayAdminMenu::class => [
         //     ModuleMenuListener::class
