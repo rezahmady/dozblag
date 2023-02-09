@@ -42,7 +42,7 @@ class CoreUpdate extends Command
             $owner = get_current_user();
 
             // composer update
-            exec('cd '.base_path().' && composer update');
+            exec('cd '.base_path().' && composer update --prefer-dist --no-dev -o');
 
             // fix permissions
             exec('cd '.base_path().' && chown -R www-data:www-data storage && chown -R www-data:www-data bootstrap/cache  && chmod -R 775 storage && chmod -R 775 bootstrap/cache');
