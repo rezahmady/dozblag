@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use Backpack\CRUD\app\Http\Controllers\Auth\RegisterController as BackpackRegisterController;
 use Illuminate\Support\Facades\Validator;
+use TorMorten\Eventy\Facades\Events as Hook;
 
 class RegisterController extends BackpackRegisterController 
 {
@@ -48,6 +49,12 @@ class RegisterController extends BackpackRegisterController
 
     public function showRegistrationForm()
     {
+        Hook::action('core-auth-show-registeration-form', $this->data);
+
+        $url = Hook::filter('core-auth-registeration-url', false);
+
+        if($url) return redirect($url);
+
         // if registration is closed, deny access
         if (! config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
