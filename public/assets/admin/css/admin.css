@@ -903,6 +903,10 @@ body {
     padding-bottom: 9rem;
 }
 
+.app-body {
+    z-index: 10;
+}
+
 .btn-secondary {
     background-color: #d4ecff;
     border-color: #d4ecff;
