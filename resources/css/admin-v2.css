@@ -900,6 +900,7 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 
 body {
     background-color: #f5f9fc;
+    padding-bottom: 9rem;
 }
 
 .btn-secondary {

@@ -7,7 +7,7 @@
 
 </head>
 
-<body class="{{ config('backpack.base.body_class') }}">
+<body class="{{ config('backpack.base.body_class') }} position-relative">
   <div id="overlayer"></div>
   <span class="loader">
     <span class="loader-inner"></span>
