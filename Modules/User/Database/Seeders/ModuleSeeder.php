@@ -1,13 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Modules\User\Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Kdabrow\SeederOnce\SeederOnce;
 use Modules\User\Models\Permission;
-use Modules\User\Models\Role;
 
 class ModuleSeeder extends Seeder
 {
@@ -25,23 +23,23 @@ class ModuleSeeder extends Seeder
                 'name'     => 'module manage',
                 'guard_name'    => 'web',
                 'display_name'   => 'مدیریت افزونه‌ها',
-                'module'    => 'modules',
+                'module'    => '',
             ],
             [
                 'name'     => 'module create',
                 'guard_name'    => 'web',
                 'display_name'   => 'نصب افزونه',
-                'module'    => 'modules',
+                'module'    => '',
             ],
             [
                 'name'     => 'module delete',
                 'guard_name'    => 'web',
                 'display_name'   => 'حذف افزونه',
-                'module'    => 'modules',
+                'module'    => '',
             ],
         ]);
 
-        $permissions = Permission::where('module', 'modules')->get();
+        $permissions = Permission::where('module', '')->get();
 
         foreach ($permissions as $permission) {
             DB::table('role_has_permissions')->insertOrIgnore([

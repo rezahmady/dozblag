@@ -2,13 +2,11 @@
 
 namespace Modules\User\Database\Seeders;
 
-use Database\Seeders\ModuleSeeder;
 use Illuminate\Database\Seeder;
-use Kdabrow\SeederOnce\SeederOnce;
+use Illuminate\Database\Eloquent\Model;
 
 class UserDatabaseSeeder extends Seeder
 {
-    use SeederOnce;
     
     /**
      * Run the database seeds.
@@ -17,6 +15,8 @@ class UserDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $this->call(UserTableSeeder::class);
         $this->call(ModuleSeeder::class);
     }

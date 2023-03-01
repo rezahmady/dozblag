@@ -3,7 +3,6 @@
 namespace Modules\User\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\User\Models\Permission;
@@ -22,7 +21,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        
 
         DB::table('users')->insertOrIgnore([
             'name'     => 'sysadmin',
