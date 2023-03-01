@@ -1051,3 +1051,7 @@ body {
 #crudTable_wrapper #crudTable td, #crudTable_wrapper #crudTable th, #crudTable_wrapper table.dataTable td, #crudTable_wrapper table.dataTable th {
     /* border-left: 2px solid #f5f9fc; */
 }
+
+.swal-text {
+    text-align: center !important;
+}
