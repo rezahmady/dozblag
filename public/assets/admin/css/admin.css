@@ -1055,3 +1055,44 @@ body {
 .swal-text {
     text-align: center !important;
 }
+
+#crudTable_wrapper #crudTable tbody tr td:last-child {
+    padding: 0px;
+    justify-content: end;
+    display: flex;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link {
+    /* padding: 10px 15px;
+    font-size: 25px;
+    border-right: 3px solid #f5f9fc;
+    border-radius: 0; */
+    border-right: 2px solid #f5f9fc;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    flex-direction: column;
+    position: relative;
+}
+
+
+#crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link .label {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link:hover .label {
+    display: block;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link i {
+    font-size: 25px;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child > span {
+    padding: 10px;
+}
+
