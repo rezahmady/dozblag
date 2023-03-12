@@ -1,4 +1,5 @@
 {{-- Date Range Backpack CRUD filter --}}
+
 <li filter-name="{{ $filter->name }}"
     filter-type="{{ $filter->type }}"
     filter-key="{{ $filter->key }}"
@@ -11,6 +12,7 @@
 		          <span class="input-group-text"><i class="la la-calendar"></i></span>
 		        </div>
 		        <input class="form-control pull-right"
+						data-bs-datepicker="{{ isset($filter->options['date_picker_options']) ? json_encode($filter->options['date_picker_options']) : '{}'}}"
 		        		id="datepicker-{{ $filter->key }}"
 		        		type="text"
 						@if ($filter->currentValue)
@@ -54,12 +56,15 @@
 	@endif
   <script>
 		jQuery(document).ready(function($) {
-			var dateInput = $('#datepicker-{{ $filter->key }}').datepicker({
-				autoclose: true,
+
+			$field = $('#datepicker-{{ $filter->key }}'),
+            $customConfig = $.extend({
+                autoclose: true,
 				format: 'yyyy-mm-dd',
 				todayHighlight: true,
 				language: '{{ $language }}',
-			})
+            }, $field.data('bs-datepicker'));
+			var dateInput = $('#datepicker-{{ $filter->key }}').datepicker($customConfig)
 			.on('changeDate', function(e) {
 				var d = new Date(e.date);
 				// console.log(e);
