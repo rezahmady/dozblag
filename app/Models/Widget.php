@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Intervention\Image\ImageManagerStatic as Image;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,13 +14,17 @@ class Widget extends Model
 {
     use HasFactory;
     use CrudTrait;
+    use HasTranslations;
 
     protected $table = 'widgets';
-    protected $fillable = ['name', 'prefix', 'label', 'type', 'cat', 'description', 'theme_id', 'status', 'extras'];
-    protected $fakeColumns = ['extras'];
+    protected $fillable = ['name', 'prefix', 'label', 'type', 'cat', 'description', 'theme_id', 'status', 'extras', 'extras_translatable'];
+    protected $fakeColumns = ['extras', 'extras_translatable'];
+    protected $translatable = ['extras_translatable'];
+
     protected $casts = [
         'extras' => 'array',
     ];
+
 
     /*
     |--------------------------------------------------------------------------
