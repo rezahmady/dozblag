@@ -18,7 +18,7 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->insert([
+        DB::table('permissions')->insertOrIgnore([
             [
                 'name'     => 'module manage',
                 'guard_name'    => 'web',
