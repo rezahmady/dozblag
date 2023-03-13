@@ -1062,7 +1062,7 @@ body {
     display: flex;
 }
 
-#crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link {
+#crudTable_wrapper #crudTable tbody tr td:last-child > a.btn.btn-sm.btn-link {
     /* padding: 10px 15px;
     font-size: 25px;
     border-right: 3px solid #f5f9fc;
@@ -1075,12 +1075,41 @@ body {
     flex-direction: column;
     position: relative;
 }
+/* #crudTable_wrapper #crudTable tbody tr td:last-child .btn-group a.btn.btn-sm.btn-link:first-child {
+    border-right: 2px solid #f5f9fc;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    flex-direction: column;
+    position: relative;
+} */
+
+#crudTable_wrapper #crudTable tbody tr td:last-child .btn-group {
+    border-right: 2px solid #f5f9fc;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 0;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child .btn-group a.dropdown-toggle {
+    padding-bottom: 0;
+}
+
+#crudTable_wrapper #crudTable tbody tr td:last-child .btn-group a.btn.btn-sm.btn-link .label {
+    bottom: -8px;
+}
+
 
 
 #crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link .label {
     display: none;
     position: absolute;
-    bottom: 5px;
+    bottom: 19px;
     font-size: 12px;
 }
 
@@ -1094,5 +1123,9 @@ body {
 
 #crudTable_wrapper #crudTable tbody tr td:last-child > span {
     padding: 10px;
+}
+
+.dropdown-header {
+    text-align: right;
 }
 
