@@ -8,10 +8,10 @@ if (!function_exists('theme_option')) {
     {
         $theme_model = config('thememanager.models.theme');
 
-        $theme = $theme_model::where('active', '=', 1)->first();
+        $theme = $theme_model::where('active', '=', 1)->first()->withFakes();
 
-        if(isset($theme->extras[$key])){
-            return $theme->extras[$key];
+        if(isset($theme->$key)){
+            return $theme->$key;
         };
 
         return $default;

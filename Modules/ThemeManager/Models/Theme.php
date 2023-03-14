@@ -2,6 +2,7 @@
 
 namespace Modules\ThemeManager\Models;
 
+use App\Traits\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Hekmatinasser\Verta\Verta;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -12,10 +13,12 @@ use Illuminate\Support\Str;
 class Theme extends Model
 {
     use CrudTrait;
+    use HasTranslations;
 
     protected $table = 'themes';
-    protected $fillable = ['name', 'folder', 'version', 'img', 'extras'];
-    protected $fakeColumns = ['extras'];
+    protected $fillable = ['name', 'folder', 'version', 'img', 'extras', 'extras_translatable'];
+    protected $fakeColumns = ['extras', 'extras_translatable'];
+    protected $translatable = ['extras_translatable'];
     protected $casts = [
         'extras' => 'array',
     ];
