@@ -32,6 +32,7 @@
         "rezahmady/setting-operation": "^1.0",
         "spatie/laravel-permission": "^5.0",
         "spatie/laravel-sitemap": "^6.0",
+        "spatie/laravel-translatable": "^6.5",
         "staudenmeir/eloquent-json-relations": "^1.5",
         "tormjens/eventy": "^0.8.0"
     },
