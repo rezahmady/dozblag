@@ -1110,7 +1110,7 @@ body {
 #crudTable_wrapper #crudTable tbody tr td:last-child a.btn.btn-sm.btn-link .label {
     display: none;
     position: absolute;
-    bottom: 19px;
+    bottom: 5px;
     font-size: 12px;
 }
 
