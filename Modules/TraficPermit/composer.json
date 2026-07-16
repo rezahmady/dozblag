@@ -1,0 +1,23 @@
+{
+    "name": "rezahmady/traficpermit",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reza Ahmadi Sabzevar",
+            "email": "ahmadirerza15@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\TraficPermit\\": ""
+        }
+    }
+}

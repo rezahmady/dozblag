@@ -1,0 +1,14 @@
+{
+    "name": "Unity",
+    "alias": "unity",
+    "display_name": "مشتریان",
+    "description": "",
+    "keywords": [],
+    "priority": 9,
+    "providers": [
+        "Modules\\Unity\\Providers\\UnityServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

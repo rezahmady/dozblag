@@ -1,0 +1,14 @@
+{
+    "name": "DevTools",
+    "alias": "devtools",
+    "display_name": "ابزار توسعه",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DevTools\\Providers\\DevToolsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

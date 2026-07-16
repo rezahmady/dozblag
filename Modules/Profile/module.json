@@ -1,0 +1,14 @@
+{
+    "name": "Profile",
+    "alias": "profile",
+    "display_name": "حساب کاربری",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Profile\\Providers\\ProfileServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

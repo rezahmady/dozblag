@@ -1,0 +1,80 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Kdabrow\SeederOnce\SeederOnce;
+use Modules\User\Models\Permission;
+use Modules\User\Models\Role;
+
+class $NAME$ extends Seeder
+{
+    use SeederOnce;
+    
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Model::unguard();
+
+        DB::table('permissions')->insertOrIgnore([
+            [
+                'name'     => '$MODULE$ list',
+                'guard_name'    => 'web',
+                'display_name'   => 'لیست $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ create',
+                'guard_name'    => 'web',
+                'display_name'   => 'افزودن $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ update',
+                'guard_name'    => 'web',
+                'display_name'   => 'ویرایش $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ delete',
+                'guard_name'    => 'web',
+                'display_name'   => 'حذف $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ setting',
+                'guard_name'    => 'web',
+                'display_name'   => 'تنظیمات $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ clone',
+                'guard_name'    => 'web',
+                'display_name'   => 'کپی کردن $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+            [
+                'name'     => '$MODULE$ revise',
+                'guard_name'    => 'web',
+                'display_name'   => 'مدیریت نسخه‌های $MODULE$',
+                'module'    => '$MODULE$',
+            ],
+
+        ]);
+
+        $permissions = Permission::where('module', '$MODULE$')->get();
+
+        foreach ($permissions as $permission) {
+            DB::table('role_has_permissions')->insertOrIgnore([
+                'role_id'   => Role::first()->id,
+                'permission_id' => $permission->id
+            ]);
+        }
+    }
+}

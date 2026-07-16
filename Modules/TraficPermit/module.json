@@ -1,0 +1,15 @@
+{
+    "name": "TraficPermit",
+    "alias": "traficpermit",
+    "display_name": "مجوز تردد",
+    "description": "",
+    "keywords": [],
+    "priority": 20,
+    "providers": [
+        "Modules\\TraficPermit\\Providers\\TraficPermitServiceProvider",
+        "Modules\\TraficPermit\\Providers\\HookServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

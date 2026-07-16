@@ -1,0 +1,14 @@
+{
+    "name": "UserCustomField",
+    "alias": "user_custom_field",
+    "display_name": "فیلدهای سفارشی کاربر",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UserCustomField\\Providers\\CustomFieldServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

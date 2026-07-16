@@ -1,0 +1,25 @@
+<?php
+
+namespace Modules\$STUDLY_NAME$\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use TorMorten\Eventy\Facades\Events as Hook;
+
+class HookServiceProvider extends ServiceProvider
+{
+
+    /**
+     * Boot the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        /**
+         *  Admin menu
+         */
+        Hook::addAction('admin-menu-build', function($menu) {
+            // this should be the absolute last line of admin menu
+        }, 20, 1);
+    }
+}

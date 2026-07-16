@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('repositories', function (Blueprint $table) {
+            $table->index('country_id');
+        });
+
+        Schema::table('trafic_permits', function (Blueprint $table) {
+            $table->index('status');
+            $table->index('serial_number');
+        });
+
+        Schema::table('trafic_permit_types', function (Blueprint $table) {
+            $table->index('trafic_permit_type_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('repositories', function (Blueprint $table) {
+            $table->dropIndex('repositories_country_id');
+            $table->dropIndex('trafic_permits_status');
+            $table->dropIndex('trafic_permits_serial_number');
+            $table->dropIndex('trafic_permit_types_trafic_permit_type_id');
+        });
+    }
+};

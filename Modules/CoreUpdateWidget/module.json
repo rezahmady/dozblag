@@ -1,0 +1,15 @@
+{
+    "name": "CoreUpdateWidget",
+    "alias": "coreupdatewidget",
+    "display_name": "ابزارک تازه سازی کش‌ها",
+    "description": "",
+    "keywords": [],
+    "priority": 10,
+    "providers": [
+        "Modules\\CoreUpdateWidget\\Providers\\CoreUpdateWidgetServiceProvider",
+        "Modules\\CoreUpdateWidget\\Providers\\HookServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

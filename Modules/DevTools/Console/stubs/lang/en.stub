@@ -1,0 +1,6 @@
+<?php
+
+return [
+    "$LOWER_NAME$_plural" => "$LOWER_NAME$",
+    "$LOWER_NAME$_singular" => "$LOWER_NAME$"
+];
