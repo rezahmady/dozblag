@@ -28,33 +28,47 @@ trait DropzoneTrait
     public function dropzoneUpload(DropzoneRequest $request)
     {
         $file = $request->file('file');
+        $extension = \File::extension($file->getClientOriginalName());
 
         try {
-            $image = \Image::make($file);
-            $filename = $request->slug . '-' . Str::random(4) . '.' . \File::extension($file->getClientOriginalName());
-            $file_path =  $request->destination_path . '/' . $filename;
+            if ($extension === 'pdf') {
+                $filename = $request->slug . '-' . Str::random(4) . '.' . $extension;
+                $file_path = $request->destination_path . '/' . $filename;
 
-            $big_image = \Image::make($image)->fit($request->image_width, $request->image_height, function ($constraint) {
-                $constraint->upsize();
-            });
+                \Storage::disk($request->disk)->put($file_path, \File::get($file));
 
-            Hook::action('core-operation-revise', $big_image);
+                return response()->json([
+                    'success' => true,
+                    'filename' => $file_path
+                ]);
+            } else {
+                $image = \Image::make($file);
+                $filename = $request->slug . '-' . Str::random(4) . '.' . $extension;
+                $file_path = $request->destination_path . '/' . $filename;
 
-            $big_image->stream();
+                $big_image = \Image::make($image);
 
+                Hook::action('core-operation-revise', $big_image);
 
-            \Storage::disk($request->disk)->put($file_path, $big_image->__toString());
+                $big_image->stream();
 
-            return response()->json([
-                'success' => true,
-                'filename' => $file_path
-            ]);
+                \Storage::disk($request->disk)->put($file_path, $big_image->__toString());
+
+                return response()->json([
+                    'success' => true,
+                    'filename' => $file_path
+                ]);
+            }
         } catch (\Exception $e) {
+            $image = \Image::make($file);
             if (empty($image)) {
                 return response('Not a valid image type', 412);
             } else {
                 return $e->getMessage();
             }
+        } catch (\Throwable $th) {
+            report($th);
+            return response()->json(['error' => $th->getMessage()]);
         }
     }
 

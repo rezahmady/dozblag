@@ -25,6 +25,18 @@ Route::post('/admin/api/self-update/check', [ \App\Http\Controllers\Api\UpdateCo
 // Multilanguge : change language
 Route::get('lang/{locale}', [LangController::class, 'change'])->name('changeLang');
 
+// Route::get('/fix-trailer', function () {
+//     $trailers = \Modules\Unity\Models\Trailer::get();
+//     foreach ($trailers as $trailer) {
+//         if(isset($trailer->truck)) $trailer->update(['unity_id' => $trailer->truck->unity_id]);
+//     }
+
+//     $orders = \Modules\TraficPermit\Models\PermitOrder::get();
+//     foreach ($orders as $order) {
+//         $order->update(['trailer_id' => $order->truck->trailer->id]) ;
+//     }
+// });
+
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 
 
